@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
-import OTPModal from "../../shared/OTPModal";
+// import OTPModal from "../../shared/OTPModal";
 import { useState, useEffect } from "react";
 
 const FounderDashboard = () => {
   const { userdata } = useAuth();
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
-  const [showOTPModal, setShowOTPModal] = useState(false); // State to hold any error messages
+  // const [showOTPModal, setShowOTPModal] = useState(false); // State to hold any error messages
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:10000";
 
   useEffect(() => {
@@ -30,10 +30,10 @@ const FounderDashboard = () => {
 
     fetchUserPosts();
   }, [userdata]);
-  const handleOTPSuccess = () => {
-    toast.success("Phone number verified successfully!");
-    // Additional logic after successful OTP verification can be added here
-  };
+  // const handleOTPSuccess = () => {
+  //   toast.success("Phone number verified successfully!");
+  //   // Additional logic after successful OTP verification can be added here
+  // };
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -96,13 +96,13 @@ const FounderDashboard = () => {
                 />
               </Link>
             </div>
-            <button
+            {/* <button
               type="button"
               onClick={() => setShowOTPModal(true)}
               className="post-btn lg:h-[25%] lg:w-[100px] mt-4 sm:h-[60%] xs:h-[60%] xxs:h-[60%] sm:w-[30%] xs:w-[30%] xxs:w-[30%]"
             >
               Verify
-            </button>
+            </button> */}
           </div>
           <p className="lg:text-3xl font-bold sm:mx-auto xs:mx-auto xxs:mx-auto sm:text-lg xs:text-lg xxs:text-lg mb-12 mt-16">
             Invested Project List
@@ -201,7 +201,7 @@ const FounderDashboard = () => {
                 <a>Pending Posts</a>
               </li>
             </Link>
-            <Link to="/terms">
+            <Link to="/founderterms">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg mb-2 rounded-lg">
                 <a>Terms and Conditions</a>
               </li>
@@ -209,12 +209,12 @@ const FounderDashboard = () => {
           </ul>
         </div>
       </div>
-      <OTPModal
+      {/* <OTPModal
         isOpen={showOTPModal}
         onClose={() => setShowOTPModal(false)}
         onSuccess={handleOTPSuccess}
         phone={userdata?.phone || ""}
-      />
+      /> */}
     </div>
   );
 };

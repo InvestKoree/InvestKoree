@@ -187,7 +187,7 @@ const InvestorDashboard = () => {
             <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
               <a>Rewards</a>
             </li>
-            <Link to="/terms">
+            <Link to="/investorterms">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg mb-2 rounded-lg">
                 <a>Terms and Conditions</a>
               </li>
