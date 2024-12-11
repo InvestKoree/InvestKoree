@@ -26,7 +26,7 @@ const FixedReturnPost = ({ item }) => {
         transform transition-transform duration-300 ease-in-out delay-150 hover:scale-105"
         >
           <img
-            src={temp} // Fallback image
+            src={temp}
             alt="Fundraiser"
             className="w-full h-48 object-cover"
           />
