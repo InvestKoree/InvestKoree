@@ -181,7 +181,7 @@ const Navbar = () => {
                     }}
                     className="hover:bg-salmon mt-2 p-2 rounded hover:text-white"
                   >
-                    Login
+                    Logins
                   </summary>
                   {activeDropdown === "login" && (
                     <ul className="bg-base-100 rounded-t-none p-2">
