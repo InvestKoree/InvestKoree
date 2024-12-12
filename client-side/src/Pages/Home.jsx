@@ -22,6 +22,7 @@ const Home = () => {
   const [refWhy, inViewWhy] = useInView({ threshold: 0.2 });
 
   useEffect(() => {
+    console.log(import.meta.env.VITE_API_URL);
     if (inView) {
       controls.start("visible");
     } else {
