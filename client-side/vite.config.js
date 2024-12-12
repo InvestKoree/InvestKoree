@@ -23,7 +23,7 @@
 //     port: 3000,
 //     proxy: {
 //       '/api': {
-//         target: isProduction ? 'https://investkoree-server-side.vercel.app' : 'http://localhost:10000',
+//         target: isProduction ? 'https://investkoree-server-side.vercel.app' : 'https://api.investkoree.com',
 //         changeOrigin: true,
 //         secure: false,  // Optional, helps with some proxy issues
 //       },

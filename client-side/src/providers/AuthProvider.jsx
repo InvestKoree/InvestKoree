@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [selectedPost, setSelectedPost] = useState(null);
   const [loading, setLoading] = useState(false); // Add loading state
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:10000";
+  const API_URL = import.meta.env.VITE_API_URL || "https://api.investkoree.com";
   const navigate = useNavigate();
   const selectPost = (post) => {
     setSelectedPost(post); // Set the selected post

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const FounderPending = () => {
   const [posts, setPosts] = useState([]);
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:10000";
+  const API_URL = import.meta.env.VITE_API_URL || "https://api.investkoree.com";
   const { userdata } = useAuth();
   const navigate = useNavigate();
 
