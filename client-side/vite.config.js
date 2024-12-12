@@ -39,4 +39,8 @@ export default defineConfig({
   define: {
     'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL),
   },
+  server: {
+    proxy: {
+      '/api': 'https://api.investkoree.com',  // Ensure this is correct for production
+    },}
 });
