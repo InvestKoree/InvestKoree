@@ -16,7 +16,7 @@ const OTPModal = ({ phoneNumber, onClose, onSuccess, isOpen }) => {
 
   useEffect(() => {
     if (isOpen) {
-      sendOTP(); // Automatically send OTP when modal opens
+      sendOTP();
     }
   }, [isOpen]);
 
