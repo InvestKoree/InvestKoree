@@ -27,7 +27,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:3000', 'https://investkoree.onrender.com','http://localhost:5173','https://investkoree-c8l8.onrender.com'],
+    origin: ['http://localhost:3000', 'https://investkoree.onrender.com','http://localhost:5173','https://investkoree-c8l8.onrender.com','https://investkoree.com'],
     methods: ['GET', 'POST','PUT','DELETE'],
     credentials: true,
   },
@@ -49,7 +49,7 @@ const cspOptions = {
       "http://localhost:3000",
       "https://investkoree.onrender.com",
       "http://localhost:5173",
-      "https://investkoree-c8l8.onrender.com"
+      "https://investkoree.com"
     ], // Only allow resources from your origin
     scriptSrc: ["'self'"], // Block inline scripts and external scripts by default
     styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles if necessary
