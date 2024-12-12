@@ -1,11 +1,11 @@
 {
   "name": "server-side",
   "version": "1.0.0",
-  "main": "server-side/api/users/index.js",
+  "main": "server-side/index.js",
   "type": "module",
   "scripts": {
-    "start": "node server-side/api/users/index.js",
-    "server": "nodemon server-side/api/users/index.js",
+    "start": "node server-side/index.js",
+    "server": "nodemon server-side/index.js",
     "client": "npm run dev --prefix client-side",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
