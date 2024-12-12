@@ -54,7 +54,7 @@ const OTPModal = ({ phoneNumber, onClose, onSuccess, isOpen }) => {
         toast.error("Failed to send OTP. Try again later.");
       });
     if (process.env.NODE_ENV === "development") {
-      auth.settings.appVerificationDisabledForTesting = true; // Disable for testing
+      auth.settings.appVerificationDisabledForTesting = true;
       connectAuthEmulator(auth, "http://localhost:5173"); // Point to your emulator
     }
   };
