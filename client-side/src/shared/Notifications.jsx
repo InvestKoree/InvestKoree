@@ -66,8 +66,8 @@ const Notifications = ({ API_URL, userId }) => {
         `${API_URL}/adminpost/notifications/read/${userId}`
       );
       if (response.status === 200) {
-        setNotifications([]); // Clear notifications from state
-        setUnreadCount(0); // Reset unread count
+        setNotifications([]);
+        setUnreadCount(0);
       }
     } catch (error) {
       console.error("Error deleting notifications:", error);
