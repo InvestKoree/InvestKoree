@@ -38,7 +38,6 @@ const Home = () => {
     }
   }, [controls, inView2]);
 
-  // Handle responsive checks
   useEffect(() => {
     const checkScreenSize = () => {
       setIsSmallScreen(window.innerWidth <= 768); // Adjust breakpoint as needed
