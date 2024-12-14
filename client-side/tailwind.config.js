@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        salmon: '#FA8072', // Original color
+        salmon: '#FA8072', 
         salmonLight: '#FFB3A1', // Lighter version
       },
       screens: {
