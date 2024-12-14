@@ -58,7 +58,12 @@ const Home = () => {
       try {
         const response = await fetch(`${API_URL}/founderpost/latestposts`);
         const data = await response.json();
-        setLatestPosts(data);
+        if (Array.isArray(data)) {
+          setLatestPosts(data);
+        } else {
+          console.error("Expected an array but got:", data);
+          setLatestPosts([]); // Set to empty array if not an array
+        }
       } catch (error) {
         console.error("Error fetching latest posts:", error);
       }
