@@ -6,7 +6,7 @@ const ProjectDetail = () => {
   const { id } = useParams(); // Get the project ID from the URL
   const [project, setProject] = useState(null); // State to hold project data
   const [currentSlide, setCurrentSlide] = useState(0);
-  const API_URL = import.meta.env.VITE_API_URL || "https://api.investkoree.com";
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:10000";
   // const { userdata } = useAuth();
   const [viewMode, setViewMode] = useState("images");
 
@@ -48,16 +48,13 @@ const ProjectDetail = () => {
     // Check the selected post object
 
     try {
-      const response = await fetch(
-        "https://api.investkoree.com/investments/post",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(post),
-        }
-      );
+      const response = await fetch("http://localhost:10000/investments/post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to send investment data");

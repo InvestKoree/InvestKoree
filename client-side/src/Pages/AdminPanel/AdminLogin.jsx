@@ -18,7 +18,7 @@ const AdminLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState({ login: false, register: false });
   const navigate = useNavigate();
-  // const API_URL = import.meta.env.VITE_API_URL || "https://api.investkoree.com";
+  // const API_URL = import.meta.env.VITE_API_URL || "http://localhost:10000";
 
   const togglePasswordVisibility = (field) => {
     setShowPassword((prev) => ({ ...prev, [field]: !prev[field] }));

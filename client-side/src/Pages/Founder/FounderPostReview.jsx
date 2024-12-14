@@ -9,7 +9,7 @@ const FounderPostReview = () => {
   const [posts, setPosts] = useState([]);
   const { post } = location.state; // Get the post data
   const [formData, setFormData] = useState(post || null); // Initialize form data with post data
-  const API_URL = import.meta.env.VITE_API_URL || "https://api.investkoree.com";
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:10000";
   const navigate = useNavigate();
   const [otherOption, setOtherOption] = useState(false);
   const [otherDocumentation, setOtherDocumentation] = useState(false);
