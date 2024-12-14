@@ -29,7 +29,6 @@ const Navbar = () => {
   };
 
   const toggleDropdown = (dropdownName) => {
-    // Add a delay before toggling the dropdown
     setTimeout(() => {
       setActiveDropdown((prev) =>
         prev === dropdownName ? null : dropdownName
