@@ -55,7 +55,6 @@ const Navbar = () => {
           <img className="h-16 w-36" src={logo} alt="logo" />
         </div>
 
-        {/* Hamburger Icon for Small Screens */}
         <div className="lg:hidden block">
           <button
             onClick={toggleMenu}
