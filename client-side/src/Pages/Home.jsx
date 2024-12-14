@@ -142,10 +142,10 @@ const Home = () => {
               Currently Running Investments
             </h5>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:w-[1200px] lg:mx-auto sm:mx-auto lg:gap-6  xxs:gap-8 xs:gap-8 px-6 lg:px-20 cursor-pointer">
-            {Array.isArray(latestPosts) &&
-              {latestPosts.map((item) => (
-                <LatestPost key={item._id} item={item} />
-              ))}}
+              {Array.isArray(latestPosts) &&
+                latestPosts.map((item) => (
+                  <LatestPost key={item._id} item={item} />
+                ))}
             </div>
           </>
         ) : (
