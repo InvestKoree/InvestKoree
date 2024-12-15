@@ -7,6 +7,7 @@ import AuthProvider from "../providers/AuthProvider";
 import { Outlet, useLocation } from "react-router-dom";
 import ScrollProgressBar from "../shared/ScroolProgressBar";
 import GoToTopButton from "../shared/GoTopButton";
+import GoToBottomButton from "../shared/GoToBottomButton"; // Import new component
 import { useEffect, useState } from "react";
 
 const Main = () => {
@@ -66,11 +67,10 @@ const Main = () => {
             </motion.div>
           </AnimatePresence>
         </ReactLenis>
-        <GoToTopButton
-          showGoToTop={showGoToTop}
-          scrollToTop={scrollToTop}
-          showGoTodown={showGoToBottom}
-          scrollToDown={scrollToBottom}
+        <GoToTopButton showGoToTop={showGoToTop} scrollToTop={scrollToTop} />
+        <GoToBottomButton
+          showGoToBottom={showGoToBottom}
+          scrollToBottom={scrollToBottom}
         />
         <Footer />
       </AuthProvider>
