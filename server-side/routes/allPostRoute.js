@@ -13,6 +13,6 @@ router.get('/allposts', async (req, res) => {
   }
 });
 
-// Other existing routes...
+
 
 export default router;
