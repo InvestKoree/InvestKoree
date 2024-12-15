@@ -187,12 +187,12 @@ const Home = () => {
       >
         <div className="flex flex-col lg:flex-row gap-8 animate__bounceInLeft  animate__animated">
           <img
-            className="rounded-xl sm:w-[250px] lg:h-[550px] lg:w-[400px]"
+            className="rounded-xl sm:w-[200px]   xs:w-[200px] xxs:w-[200px] lg:h-[550px] lg:w-[350px]"
             src={mission2}
             alt=""
           />
           <img
-            className="rounded-xl sm:w-[250px] lg:w-[400px] lg:h-[550px] lg:mt-8"
+            className="rounded-xl sm:w-[200px]  xs:w-[200px] xxs:w-[200px] lg:w-[350px] lg:h-[550px] lg:mt-8"
             src={mission4}
             alt=""
           />
