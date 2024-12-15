@@ -364,7 +364,6 @@ app.get('/test', (req, res) => {
   res.json({ message: 'Test route works' });
 });
 
-const PORT = process.env.PORT || 10000;
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(10000, '0.0.0.0', () => {
+  console.log('Server running on port 10000');
 });
