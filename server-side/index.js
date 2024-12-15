@@ -360,6 +360,9 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Internal Server Error' });
 });
+app.get('/test', (req, res) => {
+  res.json({ message: 'Test route works' });
+});
 
 const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => {
