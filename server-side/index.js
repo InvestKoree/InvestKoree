@@ -54,7 +54,7 @@ const cspOptions = {
     scriptSrc: ["'self'"], // Block inline scripts and external scripts by default
     styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles if necessary
     imgSrc: ["'self'", "data:"], // Allow images from self or base64-encoded images
-    connectSrc: ["'self'", "https://api.investkoree.com"], // Allow API requests only to trusted domains
+    connectSrc: ["'self'", "https://api.investkoree.com","http://localhost:10000"], // Allow API requests only to trusted domains
     objectSrc: ["'none'"], // Block <object>, <embed>, and <applet>
     upgradeInsecureRequests: [], // Force all requests to HTTPS
   },
