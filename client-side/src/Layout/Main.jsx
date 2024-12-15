@@ -12,9 +12,15 @@ import { useEffect, useState } from "react";
 const Main = () => {
   const location = useLocation();
   const [showGoToTop, setShowGoToTop] = useState(false);
+  const [showGoToBottom, setShowGoToBottom] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
-      setShowGoToTop(window.scrollY > 300); // Show button after scrolling 300px
+      setShowGoToTop(window.scrollY > 300); // Show "Go to Top" button after scrolling 300px
+      setShowGoToBottom(
+        window.innerHeight + window.scrollY <
+          document.documentElement.scrollHeight - 100 // Show "Go to Bottom" button when not at bottom
+      );
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -28,8 +34,15 @@ const Main = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <div className="roboto-regular ">
+    <div className="roboto-regular">
       <AuthProvider>
         <Navbar />
         <ToastContainer />
@@ -53,7 +66,12 @@ const Main = () => {
             </motion.div>
           </AnimatePresence>
         </ReactLenis>
-        <GoToTopButton showGoToTop={showGoToTop} scrollToTop={scrollToTop} />
+        <GoToTopButton
+          showGoToTop={showGoToTop}
+          scrollToTop={scrollToTop}
+          showGoTodown={showGoToBottom}
+          scrollToDown={scrollToBottom}
+        />
         <Footer />
       </AuthProvider>
     </div>
