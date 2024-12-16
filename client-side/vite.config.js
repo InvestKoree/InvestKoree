@@ -23,7 +23,7 @@
 //     port: 3000,
 //     proxy: {
 //       '/api': {
-//         target: isProduction ? 'https://investkoree-server-side.vercel.app' : 'http://localhost:10000',
+//         target: isProduction ? 'https://investkoree-server-side.vercel.app' : 'http://localhost:4000',
 //         changeOrigin: true,
 //         secure: false,  // Optional, helps with some proxy issues
 //       },
@@ -39,8 +39,5 @@ export default defineConfig({
   define: {
     'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL),
   },
-  server: {
-    proxy: {
-      '/api': 'http://localhost:10000',  // Ensure this is correct for production
-    },}
+
 });
