@@ -50,16 +50,19 @@ const cspOptions = {
       "http://localhost:3000",
       "https://investkoree.onrender.com",
       "http://localhost:5173",
-      "https://investkoree.com"
-    ], // Only allow resources from your origin
-    scriptSrc: ["'self'"], // Block inline scripts and external scripts by default
-    styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles if necessary
-    imgSrc: ["'self'", "data:"], // Allow images from self or base64-encoded images
-    connectSrc: ["'self'", "https://api.investkoree.com","http://localhost:4000"], // Allow API requests only to trusted domains
-    objectSrc: ["'none'"], // Block <object>, <embed>, and <applet>
-    upgradeInsecureRequests: [], // Force all requests to HTTPS
+      "https://investkoree.com",
+      "https://www.investkoree.com",
+    ],
+    scriptSrc: ["'self'", "'unsafe-eval'"], // Temporarily allow 'unsafe-eval'
+    styleSrc: ["'self'", "'unsafe-inline'"],
+    imgSrc: ["'self'", "data:"],
+    objectSrc: ["'none'"],
+    upgradeInsecureRequests: [],
   },
 };
+
+app.use(helmet.contentSecurityPolicy(cspOptions));
+
 
 app.use(helmet.contentSecurityPolicy(cspOptions));
 
