@@ -55,7 +55,7 @@ const cspOptions = {
     scriptSrc: ["'self'"], // Block inline scripts and external scripts by default
     styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles if necessary
     imgSrc: ["'self'", "data:"], // Allow images from self or base64-encoded images
-    connectSrc: ["'self'", "https://api.investkoree.com","http://localhost:10000"], // Allow API requests only to trusted domains
+    connectSrc: ["'self'", "https://api.investkoree.com","http://localhost:4000"], // Allow API requests only to trusted domains
     objectSrc: ["'none'"], // Block <object>, <embed>, and <applet>
     upgradeInsecureRequests: [], // Force all requests to HTTPS
   },
@@ -365,6 +365,6 @@ app.get('/test', (req, res) => {
   res.json({ message: 'Test route works' });
 });
 
-app.listen(10000, '0.0.0.0', () => {
-  console.log('Server running on port 10000');
+app.listen(4000, '0.0.0.0', () => {
+  console.log('Server running on port 4000');
 });

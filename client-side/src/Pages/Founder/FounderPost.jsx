@@ -28,7 +28,7 @@ const FounderPost = () => {
   };
 
   const [formData, setFormData] = useState(initialFormData);
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:10000";
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const navigate = useNavigate();
   const [otherOption, setOtherOption] = useState(false);
   const [otherDocumentation, setOtherDocumentation] = useState(false);

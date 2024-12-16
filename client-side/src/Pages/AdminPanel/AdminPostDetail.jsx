@@ -5,7 +5,7 @@ const AdminPostDetail = () => {
   const { id } = useParams(); // Get the post ID from the URL
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:10000";
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
   useEffect(() => {
     const fetchPost = async () => {

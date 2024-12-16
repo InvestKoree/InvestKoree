@@ -15,7 +15,7 @@ const Home = () => {
   const [latestPosts, setLatestPosts] = useState([]);
 
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:10000";
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.2 });
   const [ref2, inView2] = useInView({ threshold: 0.2 });

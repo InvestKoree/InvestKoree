@@ -7,7 +7,7 @@ const FixedReturn = () => {
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [selectedSector, setSelectedSector] = useState(""); // State for selected sector
   const [selectedDuration, setSelectedDuration] = useState("");
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:10000"; // State for selected duration
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000"; // State for selected duration
   const [showRightCol, setShowRightCol] = useState(false);
   const [animateRightCol, setAnimateRightCol] = useState(false);
 

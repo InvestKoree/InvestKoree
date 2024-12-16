@@ -8,7 +8,7 @@ import Notifications from "./Notifications";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:10000";
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const navigate = useNavigate();
   const { userdata, logOut } = useAuth();
   const [activeDropdown, setActiveDropdown] = useState(null);

@@ -8,7 +8,7 @@ const FounderDashboard = () => {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   // const [showOTPModal, setShowOTPModal] = useState(false); // State to hold any error messages
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:10000";
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
   useEffect(() => {
     const fetchUserPosts = async () => {
