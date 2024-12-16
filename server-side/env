@@ -1,0 +1,7 @@
+NODE_ENV =production
+
+SESSION_SECRET =5dd5da5ac732adc3e89fb1d360b370b9aa0ffe3fc16dc4c207af39fab498b053
+
+IMGBB_API_KEY=350b474777b7bb1e3cd32dbc65fd8b63
+PORT =127.0.0.1
+MONGO_URI=mongodb://arnob1234:arnob1234@localhost:27017/investKoreeDB?authSource=investKoreeDB
