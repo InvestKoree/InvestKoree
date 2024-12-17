@@ -21,9 +21,13 @@ import FounderPost from './models/founderFormPostModels.js';
 import Notification from './models/notification.js';
 import FounderPending from './models/founderpending.js';
 import CheckDuplicate from './routes/checkDuplicate.js';
+import { fileURLToPath } from 'url'; // Import for getting __dirname
+import { dirname } from 'path';
 
 dotenv.config();
-
+// Create __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 // Initialize App
 const app = express();
 const server = http.createServer(app);
@@ -64,7 +68,7 @@ const cspOptions = {
 app.use(helmet.contentSecurityPolicy(cspOptions));
 
 // Multer Setup
-const uploadsPath = path.resolve('uploads'); // Resolve the uploads path
+const uploadsPath = path.resolve(__dirname, 'uploads'); // Use __dirname to resolve the uploads path
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -80,7 +84,7 @@ const upload = multer({
   storage,
   limits: { fileSize: 50 * 1024 * 1024 }, // Limit file size (e.g., 50 MB)
   fileFilter: (req, file, cb) => {
-    const filetypes = /jpeg|jpg|png|gif|pdf|doc|txt|ppt|mp4|mov|avi|wmv/;
+    const filetypes = /jpeg|jpg|png|gif|pdf|doc|txt|ppt |mp4|mov|avi|wmv/;
     if (filetypes.test(file.mimetype)) {
       cb(null, true);
     } else {
