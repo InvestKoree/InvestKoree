@@ -28,8 +28,8 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:3000', 'https://investkoree.onrender.com', 'http://localhost:5173', 'https://investkoree-c8l8.onrender.com', 'https://www.investkoree.com', 'https://investkoree.com'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: ['http://localhost:3000', 'https://investkoree.onrender.com','http://localhost:5173','https://investkoree-c8l8.onrender.com', "https://www.investkoree.com",'https://investkoree.com'],
+    methods: ['GET', 'POST','PUT','DELETE'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   },
@@ -39,18 +39,22 @@ const io = new Server(server, {
 connectDB();
 
 // Middleware
+
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors({
-  origin: ['https://investkoree.com', 'https://www.investkoree.com', 'http://localhost:3000', 'http://localhost:5173', 'https://investkoree.onrender.com', 'https://investkoree-c8l8.onrender.com','https://www.api.investkoree.com','https/api.investkoree.com'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  credentials: true,
-}));
+app.use(cors());
 const cspOptions = {
   directives: {
     defaultSrc: ["'self'"],
-    connectSrc: ["'self'", "http://localhost:3000", "https://investkoree.onrender.com", "http://localhost:5173", "https://investkoree.com", "https://www.investkoree.com","https://www.api.investkoree.com","https://api.investkoree.com"],
+    connectSrc: [
+      "'self'",
+      "http://localhost:3000",
+      "https://investkoree.onrender.com",
+      "http://localhost:5173",
+      "https://investkoree.com",
+      "https://www.investkoree.com",
+    ],
     scriptSrc: ["'self'", "'unsafe-eval'"], // Temporarily allow 'unsafe-eval'
     styleSrc: ["'self'", "'unsafe-inline'"],
     imgSrc: ["'self'", "data:"],
