@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { Server } from 'socket.io';
 import multer from 'multer';
+import path from 'path';
 import helmet from 'helmet'; // Import helmet
 import connectDB from './config/db.js';
 import signupRoute from '../server-side/routes/signup.js';
@@ -67,13 +68,26 @@ app.use(helmet.contentSecurityPolicy(cspOptions));
 app.use(helmet.contentSecurityPolicy(cspOptions));
 
 // Multer Setup
-const storage = multer.memoryStorage();
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // Path to the upload directory
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`);
+  },
+});
+
 const upload = multer({
   storage,
-  limits: { fileSize: 50 * 1024 * 1024 }, // Increase size limit for videos if necessary
+  limits: { fileSize: 50 * 1024 * 1024 }, // Limit file size (e.g., 50 MB)
   fileFilter: (req, file, cb) => {
-    const filetypes = /jpeg|jpg|png|gif|pdf|doc|txt|ppt|mp4|mov|avi|wmv/; // Add video formats
-    cb(null, filetypes.test(file.mimetype));
+    const filetypes = /jpeg|jpg|png|gif|pdf|doc|txt|ppt|mp4|mov|avi|wmv/;
+    if (filetypes.test(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Unsupported file type'), false);
+    }
   },
 });
 
@@ -86,7 +100,7 @@ app.use('/api', userSpecificRoute);
 app.use('/investments', investmentRoute);
 app.use('/api', userPostsRoute);
 app.use('/api', allPostsRoute);
-
+app.use('/uploads', express.static('uploads'));
 // Real-time Socket.IO Setup
 io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`);
