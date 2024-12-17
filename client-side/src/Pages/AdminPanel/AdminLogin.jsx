@@ -1,12 +1,16 @@
-import { useContext, useState, useEffect } from "react";
+import { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
+import OTPModal from "../../shared/OTPModal";
 import { toast } from "react-toastify";
 import Loader from "../../shared/Loader";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 const AdminLogin = () => {
+  const [phonenumber, setPhoneNumber] = useState("");
+  const [showOTPModal, setShowOTPModal] = useState(false);
   const [showPassword, setShowPassword] = useState({
     login: false,
     register: false,
@@ -14,26 +18,48 @@ const AdminLogin = () => {
   });
   const { createUser, adminsignIn } = useAuth();
   const [isSignUpMode, setIsSignUpMode] = useState(false);
-
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState({ login: false, register: false });
+  const [registrationSuccessful, setRegistrationSuccessful] = useState(false); // New state for registration success
   const navigate = useNavigate();
-  // const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
   const togglePasswordVisibility = (field) => {
     setShowPassword((prev) => ({ ...prev, [field]: !prev[field] }));
   };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading((prev) => ({ ...prev, login: true }));
     setError(null);
 
     const form = new FormData(e.currentTarget);
-    const email = form.get("u_signin_email");
+    const loginInput = form.get("u_signin_email_or_phone");
     const password = form.get("u_signin_pass");
 
+    if (!loginInput || !password) {
+      setError("Email/Phone and Password are required");
+      setIsLoading((prev) => ({ ...prev, login: false }));
+      return;
+    }
+
+    const isPhoneNumber = /^01\d{9}$/.test(loginInput); // Validate phone number format
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(loginInput); // Validate email format
+
+    if (!isPhoneNumber && !isEmail) {
+      setError(
+        "Please enter a valid email or phone number containing 11 numbers and starting with 01"
+      );
+      setIsLoading((prev) => ({ ...prev, login: false }));
+      return;
+    }
+
     try {
-      await adminsignIn(email, password);
+      if (isPhoneNumber) {
+        await adminsignIn(null, password, loginInput); // Pass phone as the third parameter
+      } else {
+        await adminsignIn(loginInput, password, null); // Pass email as the first parameter
+      }
 
       toast.success("Login successful");
     } catch (err) {
@@ -51,13 +77,41 @@ const AdminLogin = () => {
     const form = new FormData(e.currentTarget);
     const name = form.get("u_signup_name");
     const email = form.get("u_signup_email");
+    const phone = form.get("u_signup_number");
     const password = form.get("u_signup_password");
     const confirmPassword = form.get("u_signup_cpassword");
 
-    if (!name || !email || !password || !confirmPassword) {
+    if (!isTermsAccepted) {
+      setError("You must accept the terms and conditions to register.");
+      setIsLoading((prev) => ({ ...prev, register: false }));
+      return;
+    }
+
+    if (!name || !email || !password || !confirmPassword || !phone) {
       setError("All fields are required");
       setIsLoading((prev) => ({ ...prev, register: false }));
       return;
+    }
+
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!isEmail) {
+      setError("Please enter a valid email ");
+      setIsLoading((prev) => ({ ...prev, register: false }));
+      return;
+    }
+
+    const validatePhoneNumber = [
+      {
+        regex: /^01\d{9}$/, // Must start with 01 and have 11 digits
+        message: "Phone Number must contain 11 numbers and must start with 01",
+      },
+    ];
+    for (const validation of validatePhoneNumber) {
+      if (!validation.regex.test(phone)) {
+        setError(validation.message);
+        setIsLoading((prev) => ({ ...prev, register: false }));
+        return;
+      }
     }
 
     // Password validations
@@ -91,15 +145,31 @@ const AdminLogin = () => {
     }
 
     try {
-      await createUser(name, email, password, "admin"); // Use the createUser function from context
-      toast.success("Registration successful");
-      navigate("/admindashboard");
+      await createUser(name, email, password, "admin", phone);
+      setRegistrationSuccessful(true); // Set registration success state
+      setPhoneNumber(phone); // Store the phone number to be used in OTP verification
+      setShowOTPModal(true); // Show OTP modal
+      navigate("/Adminlogin"); // Notify user
     } catch (err) {
-      toast.error(err.message || "Registration error");
-      setError(err.message || "Registration error");
+      if (
+        err.message.includes("duplicate key error") &&
+        (err.message.includes("email") || err.message.includes("phone"))
+      ) {
+        toast.error("Email or phone number already used");
+      } else {
+        toast.error(
+          "Registration failed: Email or phone number already in use"
+        );
+        setError("Registration failed: Email or phone number already in use");
+      }
     } finally {
       setIsLoading((prev) => ({ ...prev, register: false }));
     }
+  };
+
+  const handleOTPSuccess = () => {
+    toast.success("Phone number verified successfully!");
+    // Proceed with registration
   };
 
   return (
@@ -118,9 +188,9 @@ const AdminLogin = () => {
             <div className="input-field">
               <i className="fas fa-envelope"></i>
               <input
-                type="email"
-                placeholder="Email Address"
-                name="u_signin_email"
+                type="text"
+                placeholder="Email Address or Phone Number"
+                name="u_signin_email_or_phone"
                 required
               />
             </div>
@@ -158,7 +228,7 @@ const AdminLogin = () => {
             onSubmit={handleRegister}
             className="sign-up-form xs:ml-4 sm:ml-4 xxs:ml-4"
           >
-            <h2 className="lg:text-4xl text-black mb-2 md:text-2xl sm:text-lg xxs:text-lg xs:text-lg">
+            <h2 className="lg:text-4xl text-black mb -2 md:text-2xl sm:text-lg xxs:text-lg xs:text-lg">
               Admin Sign up
             </h2>
             {error && <p className="error-message">{error}</p>}
@@ -177,6 +247,15 @@ const AdminLogin = () => {
                 type="email"
                 placeholder="Email Address"
                 name="u_signup_email"
+                required
+              />
+            </div>
+            <div className="input-field">
+              <i className="fas fa-phone"></i>
+              <input
+                type="text"
+                placeholder="Phone Number"
+                name="u_signup_number"
                 required
               />
             </div>
@@ -221,11 +300,28 @@ const AdminLogin = () => {
               </button>
               {isLoading.register && <Loader />}
             </div>
+            <div className="terms-container flex flex-row gap-2">
+              <input
+                type="checkbox"
+                id="terms"
+                checked={isTermsAccepted}
+                onChange={() => setIsTermsAccepted((prev) => !prev)}
+              />
+              <label htmlFor="terms" className="text-sm font-light">
+                I have read and agreed to{" "}
+                <Link to="/terms" className="text-blue-500 hover:underline">
+                  terms and conditions
+                </Link>
+              </label>
+            </div>
+
             <input
               type="submit"
               value={isLoading.register ? "Signing up..." : "Sign up"}
-              className="login-btn lg:w-96 sm:w-36 xxs:w-24 xs:w-32 md:lg:w-80 solid"
-              disabled={isLoading.register}
+              className={`login-btn lg:w-96 sm:w-36 xxs:w-24 xs:w-32 md:lg:w-80 solid ${
+                isLoading.register || !isTermsAccepted ? "btn-disabled" : ""
+              }`}
+              disabled={isLoading.register || !isTermsAccepted}
             />
           </form>
         </div>
@@ -243,8 +339,10 @@ const AdminLogin = () => {
               Sign up
             </button>
           </div>
+
           <img src="img/log.svg" className="image" alt="" />
         </div>
+
         <div className="panel right-panel sm:ml-6 xs:ml-6 xxs:ml-6">
           <div className="content">
             <h3>One of us?</h3>
@@ -255,10 +353,26 @@ const AdminLogin = () => {
             >
               Log in
             </button>
+            {registrationSuccessful && ( // Show button if registration was successful
+              <button
+                type="button"
+                onClick={() => setShowOTPModal(true)}
+                className="otp-btn mt-4"
+              >
+                Open OTP Modal
+              </button>
+            )}
           </div>
           <img src="img/register.svg" className="image" alt="" />
         </div>
       </div>
+      {showOTPModal && (
+        <OTPModal
+          phonenumber={phone} // Pass phone number for OTP verification
+          onSuccess={handleOTPSuccess} // OTP success callback
+          onClose={() => setShowOTPModal(false)} // Close modal
+        />
+      )}
     </div>
   );
 };

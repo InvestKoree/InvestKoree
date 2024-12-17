@@ -61,7 +61,7 @@ const cspOptions = {
   },
 };
 
-
+app.use(helmet.contentSecurityPolicy(cspOptions));
 
 
 app.use(helmet.contentSecurityPolicy(cspOptions));
