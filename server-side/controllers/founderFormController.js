@@ -1,6 +1,27 @@
+import fs from 'fs';
+import path from 'path';
 import PendingPost from '../models/pendingPost.js';
 import FounderPending from '../models/founderpending.js';
 import { sanitizeFilename } from '../utils/sanitize.js';
+
+const UPLOAD_DIR = path.join(__dirname, '../../uploads'); // Assuming 'uploads' folder is in the root
+
+// Ensure the user directory exists with the name of the userId
+const ensureUserDirectoryExists = (userId) => {
+  const userDir = path.join(UPLOAD_DIR, userId); // Use userId as the folder name
+  if (!fs.existsSync(userDir)) {
+    fs.mkdirSync(userDir, { recursive: true });
+  }
+  return userDir;
+};
+
+// Helper function to sanitize and rename the file
+const getSanitizedFilePath = (userId, field, file) => {
+  const userDir = ensureUserDirectoryExists(userId);
+  const sanitizedFilename = sanitizeFilename(file.originalname);
+  const filePath = path.join(userDir, sanitizedFilename); // Path with userId-based folder
+  return filePath; // Path that will be saved in DB
+};
 
 export const createFounderPost = async (req, res) => {
   console.log("Request Body:", req.body);
@@ -22,23 +43,6 @@ export const createFounderPost = async (req, res) => {
       fundingAmount = "", fundingHelp = "", returndate = "", projectedROI = "",
       returnPlan = "", businessSafety = "", additionalComments = "", description = "",
     } = req.body;
-
-    // Helper function to sanitize file paths
-    const getSanitizedFilePath = (field) => {
-      if (req.files?.[field]?.[0]) {
-        const sanitizedFilename = sanitizeFilename(req.files[field][0].originalname);
-        return `/uploads/${sanitizedFilename}`;
-      }
-      return null;
-    };
-
-    // Retrieve multiple file paths for business pictures with sanitization
-    const businessPictures = req.files?.businessPicture
-      ? req.files.businessPicture.map(file => {
-          const sanitizedFilename = sanitizeFilename(file.originalname);
-          return `/uploads/${sanitizedFilename}`;
-        })
-      : [];
 
     // Prepare the new post
     const newPost = new PendingPost({
@@ -64,30 +68,49 @@ export const createFounderPost = async (req, res) => {
       returndate,
       projectedROI,
       description,
-      businessPictures, // Save sanitized file paths for multiple images
-      nidFile: getSanitizedFilePath('nidCopy'),
-      tinFile: getSanitizedFilePath('tinCopy'),
-      taxFile: getSanitizedFilePath('taxCopy'),
-      tradeLicenseFile: getSanitizedFilePath('tradeLicense'),
-      bankStatementFile: getSanitizedFilePath('bankStatement'),
-      securityFile: getSanitizedFilePath('securityFile'),
-      financialFile: getSanitizedFilePath('financialFile'),
-      videoFile: getSanitizedFilePath('video'),
+      // Handle multiple business pictures and sanitize paths
+      businessPictures: req.files?.businessPicture
+        ? req.files.businessPicture.map(file => getSanitizedFilePath(userId, 'businessPicture', file))
+        : [],
+      nidFile: req.files?.nidCopy?.[0] 
+        ? getSanitizedFilePath(userId, 'nidCopy', req.files.nidCopy[0])
+        : null,
+      tinFile: req.files?.tinCopy?.[0] 
+        ? getSanitizedFilePath(userId, 'tinCopy', req.files.tinCopy[0])
+        : null,
+      taxFile: req.files?.taxCopy?.[0]
+        ? getSanitizedFilePath(userId, 'taxCopy', req.files.taxCopy[0])
+        : null,
+      tradeLicenseFile: req.files?.tradeLicense?.[0]
+        ? getSanitizedFilePath(userId, 'tradeLicense', req.files.tradeLicense[0])
+        : null,
+      bankStatementFile: req.files?.bankStatement?.[0]
+        ? getSanitizedFilePath(userId, 'bankStatement', req.files.bankStatement[0])
+        : null,
+      securityFile: req.files?.securityFile?.[0]
+        ? getSanitizedFilePath(userId, 'securityFile', req.files.securityFile[0])
+        : null,
+      financialFile: req.files?.financialFile?.[0]
+        ? getSanitizedFilePath(userId, 'financialFile', req.files.financialFile[0])
+        : null,
+      videoFile: req.files?.video?.[0]
+        ? getSanitizedFilePath(userId, 'video', req.files.video[0])
+        : null,
     });
 
     // Save the new post to the PendingPost collection
     const savedPost = await newPost.save();
 
-    // Save the same document to FounderPending collection
+    // Create a new document in FounderPending collection
     const founderPendingPost = new FounderPending({
-      ...savedPost._doc, // Use the saved document data
+      ...savedPost._doc, // Use the saved data from PendingPost
     });
 
     await founderPendingPost.save();
 
     // Respond to the client
-    res.status(201).json({ 
-      message: "Founder post created successfully and saved to pending approval!", 
+    res.status(201).json({
+      message: "Founder post created successfully and saved to pending approval!",
       data: savedPost,
     });
   } catch (error) {
