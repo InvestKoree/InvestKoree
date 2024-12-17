@@ -42,15 +42,11 @@ connectDB();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors({
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'], // Allow specific headers
-  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
-  origin: (origin, callback) => {
-    // Allow any origin to access
-    callback(null, true);
-  },
+  origin: ['https://investkoree.com', 'https://www.investkoree.com', 'http://localhost:3000', 'http://localhost:5173', 'https://investkoree.onrender.com', 'https://investkoree-c8l8.onrender.com','https://www.api.investkoree.com','https/api.investkoree.com'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true,
 }));
-
 const cspOptions = {
   directives: {
     defaultSrc: ["'self'"],
