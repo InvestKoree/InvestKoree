@@ -20,7 +20,8 @@ import PendingPost from './models/pendingPost.js';
 import FounderPost from './models/founderFormPostModels.js';
 import Notification from './models/notification.js';
 import FounderPending from './models/founderpending.js';
-import CheckDuplicate from './routes/checkDuplicate.js'
+import CheckDuplicate from './routes/checkDuplicate.js';
+
 dotenv.config();
 
 // Initialize App
@@ -28,8 +29,8 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:3000', 'https://investkoree.onrender.com','http://localhost:5173','https://investkoree-c8l8.onrender.com','https://investkoree.com'],
-    methods: ['GET', 'POST','PUT','DELETE'],
+    origin: ['http://localhost:3000', 'https://investkoree.onrender.com', 'http://localhost:5173', 'https://investkoree-c8l8.onrender.com', 'https://investkoree.com'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   },
 });
@@ -38,8 +39,6 @@ const io = new Server(server, {
 connectDB();
 
 // Middleware
-
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
@@ -64,13 +63,12 @@ const cspOptions = {
 
 app.use(helmet.contentSecurityPolicy(cspOptions));
 
-
-app.use(helmet.contentSecurityPolicy(cspOptions));
-
 // Multer Setup
+const uploadsPath = path.resolve('uploads'); // Resolve the uploads path
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // Path to the upload directory
+    cb(null, uploadsPath); // Use the resolved uploads path
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -90,6 +88,7 @@ const upload = multer({
     }
   },
 });
+
 
 // Routes
 app.use('/users', signupRoute);
