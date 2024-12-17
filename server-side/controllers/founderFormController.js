@@ -103,7 +103,7 @@ export const createFounderPost = async (req, res) => {
 
     // Create a new document in FounderPending collection
     const founderPendingPost = new FounderPending({
-      ...savedPost._doc, // Use the saved data from PendingPost
+      ...savedPost._doc, 
     });
 
     await founderPendingPost.save();
