@@ -3,7 +3,14 @@ import path from 'path';
 import PendingPost from '../models/pendingPost.js';
 import FounderPending from '../models/founderpending.js';
 import { sanitizeFilename } from '../utils/sanitize.js';
+import { fileURLToPath } from 'url'; // Import for getting __dirname
+import { dirname } from 'path'; // Import for path manipulation
 
+// Create __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Define the upload directory
 const UPLOAD_DIR = path.join(__dirname, '../../uploads'); // Assuming 'uploads' folder is in the root
 
 // Ensure the user directory exists with the name of the userId
