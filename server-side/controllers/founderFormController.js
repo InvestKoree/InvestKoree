@@ -4,7 +4,7 @@ import PendingPost from '../models/pendingPost.js';
 import FounderPending from '../models/founderpending.js';
 import { sanitizeFilename } from '../utils/sanitize.js';
 import { fileURLToPath } from 'url'; // Import for getting __dirname
-import { dirname } from 'path'; // Import for path manipulation
+import { dirname } from 'path';
 
 // Create __dirname equivalent
 const __filename = fileURLToPath(import.meta.url);
