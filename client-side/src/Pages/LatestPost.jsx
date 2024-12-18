@@ -14,7 +14,7 @@ const LatestPost = ({ item }) => {
     fundingAmount: fundingAmountString,
     // additionalComments,
     businessName,
-    businessPic,
+    businessPictures,
   } = item;
 
   // Calculate funding percentage for progress bar
@@ -30,7 +30,7 @@ const LatestPost = ({ item }) => {
         transform transition-transform duration-300 ease-in-out delay-150 hover:scale-105"
         >
           <img
-            src={businessPic}
+            src={businessPictures[0]}
             alt="Fundraiser"
             className="w-full h-48 object-cover"
           />
