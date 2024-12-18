@@ -23,6 +23,7 @@ import FounderPending from './models/founderpending.js';
 import CheckDuplicate from './routes/checkDuplicate.js';
 import { fileURLToPath } from 'url'; // Import for getting __dirname
 import { dirname } from 'path';
+import { sanitizeFilename } from './utils/sanitize.js';
 import fs from 'fs';
 
 dotenv.config();
@@ -86,8 +87,14 @@ const storage = multer.diskStorage({
     cb(null, subfolder);
   },
   filename: function (req, file, cb) {
+    // Sanitize the filename using the sanitizeFilename function
+    const sanitizedFilename = sanitizeFilename(file.originalname);
+
+    // Create a unique suffix for the file to avoid filename conflicts
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`);
+
+    // Save the sanitized filename with a unique suffix
+    cb(null, `${sanitizedFilename}-${uniqueSuffix}${path.extname(file.originalname)}`);
   },
 });
 
@@ -103,7 +110,6 @@ const upload = multer({
     }
   },
 });
-
 
 
 // Routes
