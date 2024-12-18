@@ -1,7 +1,7 @@
 // export default LatestPost;
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-// import temp from "../assets/s2.jpg";
+import temp from "../assets/s2.jpg";
 
 const LatestPost = ({ item }) => {
   const {
@@ -14,7 +14,7 @@ const LatestPost = ({ item }) => {
     fundingAmount: fundingAmountString,
     // additionalComments,
     businessName,
-    businessPictures,
+    // businessPictures,
   } = item;
 
   // Calculate funding percentage for progress bar
@@ -30,7 +30,7 @@ const LatestPost = ({ item }) => {
         transform transition-transform duration-300 ease-in-out delay-150 hover:scale-105"
         >
           <img
-            src={businessPictures[0]}
+            src={temp}
             alt="Fundraiser"
             className="w-full h-48 object-cover"
           />
