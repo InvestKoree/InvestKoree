@@ -608,3 +608,24 @@ iframe.goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate {
   display: none !important;
 }
+@media (max-width: 640px) {
+  #tawkchat {
+    width: 250px;
+    height: auto;
+  }
+}
+
+/* Extra small screens (xxs) */
+@media (max-width: 400px) {
+  #tawkchat {
+    width: 200px;
+    height: auto;
+  }
+}
+
+/* Optionally hide chat on very small screens (xxs) */
+@media (max-width: 320px) {
+  #tawkchat {
+    display: 100px;
+  }
+}
