@@ -612,6 +612,9 @@ iframe.goog-te-banner-frame,
   width: 300px;
   height: 200px;
 }
+#tawk-max-container {
+  height: 400px;
+}
 
 @media (max-width: 640px) {
   #tawkchat {
