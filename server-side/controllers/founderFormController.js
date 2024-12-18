@@ -23,12 +23,21 @@ const ensureUserDirectoryExists = (userId) => {
 };
 
 // Helper function to sanitize and rename the file
+// Helper function to sanitize and rename the file with a unique suffix
 const getSanitizedFilePath = (userId, field, file) => {
   const userDir = ensureUserDirectoryExists(userId);
   const sanitizedFilename = sanitizeFilename(file.originalname);
-  const filePath = path.join(userDir, sanitizedFilename); // Path with userId-based folder
+
+  // Add a unique suffix to the filename
+  const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+  const filenameWithSuffix = `${uniqueSuffix}-${sanitizedFilename}`;
+
+  // Path with userId-based folder and unique filename
+  const filePath = path.join(userDir, filenameWithSuffix);
+
   return filePath; // Path that will be saved in DB
 };
+
 
 export const createFounderPost = async (req, res) => {
   console.log("Request Body:", req.body);
