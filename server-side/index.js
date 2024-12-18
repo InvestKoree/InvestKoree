@@ -23,6 +23,7 @@ import FounderPending from './models/founderpending.js';
 import CheckDuplicate from './routes/checkDuplicate.js';
 import { fileURLToPath } from 'url'; // Import for getting __dirname
 import { dirname } from 'path';
+import fs from 'fs';
 
 dotenv.config();
 // Create __dirname equivalent
@@ -72,13 +73,22 @@ const uploadsPath = path.resolve(__dirname, 'uploads'); // Use __dirname to reso
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadsPath); // Use the resolved uploads path
+    // Get the current date for the subfolder (e.g., 'uploads/2024-12-18/')
+    const today = new Date();
+    const subfolder = path.join(uploadsPath, today.toISOString().split('T')[0]); // Format as YYYY-MM-DD
+
+    // Create the subfolder if it doesn't exist
+    fs.mkdirSync(subfolder, { recursive: true });
+
+    // Set the destination to the subfolder
+    cb(null, subfolder);
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     cb(null, `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`);
   },
 });
+
 
 const upload = multer({
   storage,
