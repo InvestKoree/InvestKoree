@@ -73,9 +73,11 @@ const uploadsPath = path.resolve(__dirname, 'uploads'); // Use __dirname to reso
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    // Get the current date for the subfolder (e.g., 'uploads/2024-12-18/')
-    const today = new Date();
-    const subfolder = path.join(uploadsPath, today.toISOString().split('T')[0]); // Format as YYYY-MM-DD
+    // Ensure userId is available (from authToken middleware)
+    const userId = req.user ? req.user.id : 'default_user'; // Fallback to 'default_user' if userId is unavailable
+
+    // Create the subfolder path using the userId
+    const subfolder = path.join(uploadsPath, userId); // Use userId as the folder name
 
     // Create the subfolder if it doesn't exist
     fs.mkdirSync(subfolder, { recursive: true });
@@ -89,12 +91,11 @@ const storage = multer.diskStorage({
   },
 });
 
-
 const upload = multer({
   storage,
   limits: { fileSize: 50 * 1024 * 1024 }, // Limit file size (e.g., 50 MB)
   fileFilter: (req, file, cb) => {
-    const filetypes = /jpeg|jpg|png|gif|pdf|doc|txt|ppt |mp4|mov|avi|wmv/;
+    const filetypes = /jpeg|jpg|png|gif|pdf|doc|txt|ppt|mp4|mov|avi|wmv/;
     if (filetypes.test(file.mimetype)) {
       cb(null, true);
     } else {
@@ -102,6 +103,7 @@ const upload = multer({
     }
   },
 });
+
 
 
 // Routes
