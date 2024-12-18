@@ -6,7 +6,7 @@ import { sanitizeFilename } from '../utils/sanitize.js';
 import { fileURLToPath } from 'url'; // Import for getting __dirname
 import { dirname } from 'path';
 
-// Create __dirname equivalent
+// Create __dirname equivalent for ES module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
