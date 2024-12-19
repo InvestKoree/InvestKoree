@@ -615,7 +615,10 @@ iframe.goog-te-banner-frame,
 #tawk-max-container {
   height: 400px;
 }
-
+.bg-img {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 @media (max-width: 640px) {
   #tawkchat {
     width: 250px;

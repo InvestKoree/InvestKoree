@@ -118,7 +118,7 @@ const Home = () => {
       <div>
         <Parallax
           bgImage={isSmallScreen ? bannerpic2 : bannerpic}
-          className=" lg:h-full animate__fadeIn animate__animated  "
+          className=" lg:h-full animate__fadeIn animate__animated bg-img  "
           strength={300}
         >
           <div className="hero h-[400px] lg:h-[600px] flex lg:items-center  text-slate-700">
