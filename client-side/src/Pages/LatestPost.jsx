@@ -14,6 +14,7 @@ const LatestPost = ({ item }) => {
     fundingAmount: fundingAmountString,
     // additionalComments,
     businessName,
+    // businessPictures,
   } = item;
 
   // Calculate funding percentage for progress bar
@@ -28,8 +29,21 @@ const LatestPost = ({ item }) => {
           className="bg-white h-[450px] lg:mt-24  lg:w-[320px] sm:w-[290px] xs:w-[290px] xxs:w-[290px]  rounded-2xl shadow-md overflow-hidden
         transform transition-transform duration-300 ease-in-out delay-150 hover:scale-105"
         >
+          {/* {businessPictures && businessPictures.length > 0 ? (
+            <img
+              src={businessPictures[0]} // Display the first image
+              alt="Fundraiser"
+              className="w-full h-48 object-cover"
+            />
+          ) : (
+            <img
+              src={temp} // Default image if no pictures available
+              alt="Fundraiser"
+              className="w-full h-48 object-cover"
+            />
+          )} */}
           <img
-            src={temp}
+            src={temp} // Default image if no pictures available
             alt="Fundraiser"
             className="w-full h-48 object-cover"
           />

@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { Server } from 'socket.io';
 import multer from 'multer';
+import path from 'path';
 import helmet from 'helmet'; // Import helmet
 import connectDB from './config/db.js';
 import signupRoute from '../server-side/routes/signup.js';
@@ -19,16 +20,23 @@ import PendingPost from './models/pendingPost.js';
 import FounderPost from './models/founderFormPostModels.js';
 import Notification from './models/notification.js';
 import FounderPending from './models/founderpending.js';
-import CheckDuplicate from './routes/checkDuplicate.js'
-dotenv.config();
+import CheckDuplicate from './routes/checkDuplicate.js';
+import { fileURLToPath } from 'url'; // Import for getting __dirname
+import { dirname } from 'path';
+import { sanitizeFilename } from './utils/sanitize.js';
+import fs from 'fs';
 
+dotenv.config();
+// Create __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 // Initialize App
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:3000', 'https://investkoree.onrender.com','http://localhost:5173','https://investkoree-c8l8.onrender.com','https://investkoree.com'],
-    methods: ['GET', 'POST','PUT','DELETE'],
+    origin: ['http://localhost:3000', 'https://investkoree.onrender.com', 'http://localhost:5173', 'https://investkoree-c8l8.onrender.com', 'https://investkoree.com'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   },
 });
@@ -37,8 +45,6 @@ const io = new Server(server, {
 connectDB();
 
 // Middleware
-
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
@@ -61,21 +67,50 @@ const cspOptions = {
   },
 };
 
-
-
-
 app.use(helmet.contentSecurityPolicy(cspOptions));
 
 // Multer Setup
-const storage = multer.memoryStorage();
-const upload = multer({
-  storage,
-  limits: { fileSize: 50 * 1024 * 1024 }, // Increase size limit for videos if necessary
-  fileFilter: (req, file, cb) => {
-    const filetypes = /jpeg|jpg|png|gif|pdf|doc|txt|ppt|mp4|mov|avi|wmv/; // Add video formats
-    cb(null, filetypes.test(file.mimetype));
+const uploadsPath = path.resolve(__dirname, 'uploads'); // Use __dirname to resolve the uploads path
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    // Ensure userId is available (from authToken middleware)
+    const userId = req.user ? req.user.id : 'default_user'; // Fallback to 'default_user' if userId is unavailable
+
+    // Create the subfolder path using the userId
+    const subfolder = path.join(uploadsPath, userId); // Use userId as the folder name
+
+    // Create the subfolder if it doesn't exist
+    fs.mkdirSync(subfolder, { recursive: true });
+
+    // Set the destination to the subfolder
+    cb(null, subfolder);
+  },
+  filename: function (req, file, cb) {
+    // Sanitize the filename using the sanitizeFilename function
+    const sanitizedFilename = sanitizeFilename(file.originalname);
+
+    // Create a unique suffix for the file to avoid filename conflicts
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+
+    // Save the sanitized filename with a unique suffix
+    cb(null, `${sanitizedFilename}-${uniqueSuffix}${path.extname(file.originalname)}`);
   },
 });
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 50 * 1024 * 1024 }, // Limit file size (e.g., 50 MB)
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png|gif|pdf|doc|txt|ppt|mp4|mov|avi|wmv/;
+    if (filetypes.test(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Unsupported file type'), false);
+    }
+  },
+});
+
 
 // Routes
 app.use('/users', signupRoute);
@@ -86,7 +121,7 @@ app.use('/api', userSpecificRoute);
 app.use('/investments', investmentRoute);
 app.use('/api', userPostsRoute);
 app.use('/api', allPostsRoute);
-
+app.use('/uploads', express.static('uploads'));
 // Real-time Socket.IO Setup
 io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`);

@@ -24,10 +24,7 @@ businessSector: {
     type: String,
     required: true
   },
-  businessPic: {
-    type: String,
-    required: true
-  },
+  businessPictures: [{ type: String }], 
 //   funded: {
 //     type: Number,
 //     required: true
