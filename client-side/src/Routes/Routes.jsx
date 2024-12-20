@@ -24,6 +24,7 @@ import FounderPending from "../Pages/Founder/FounderPending";
 import FounderPostReview from "../Pages/Founder/FounderPostReview";
 import InvestorTerms from "../Pages/Investor/InvestorTerms";
 import FounderTerms from "../Pages/Founder/FounderTerms";
+import Blogs from "../Pages/Blogs";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: "/founderlogin",
         element: <FounderLogin></FounderLogin>,
+      },
+      {
+        path: "/blogs",
+        element: <Blogs></Blogs>,
       },
       {
         path: "/founderpending",
