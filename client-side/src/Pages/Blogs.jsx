@@ -6,7 +6,7 @@ const Blogs = () => {
       <img
         src={temp} // Replace with your desired image URL
         alt="Investors"
-        className="w-full h-auto mb-8"
+        className="w-[80%] h-72 rounded-lg mb-8"
       />
 
       {/* Main content */}
