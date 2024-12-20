@@ -88,6 +88,15 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
+              <NavLink
+                to="/blogs"
+                className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
+                activeclassname="active"
+              >
+                Blogs
+              </NavLink>
+            </li>
+            <li>
               <details
                 open={activeDropdown === "category"}
                 onClick={(e) => e.preventDefault()}
@@ -237,6 +246,15 @@ const Navbar = () => {
                   className="hover:bg-salmon transition p-2 rounded"
                 >
                   Get Funded
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/blogs"
+                  className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
+                  activeclassname="active"
+                >
+                  Blogs
                 </NavLink>
               </li>
               <li>
