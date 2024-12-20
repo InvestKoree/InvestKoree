@@ -603,7 +603,7 @@ iframe.goog-te-banner-frame,
   display: none !important;
 }
 .goog-te-menu-frame {
-  border: none; /* Remove border */
+  border: none;
 }
 .goog-te-banner-frame.skiptranslate {
   display: none !important;
@@ -612,4 +612,7 @@ iframe.goog-te-banner-frame,
 .bg-img {
   background-repeat: no-repeat;
   background-size: cover;
+}
+.tawk-chat-view .tawk-chat-panel-inner {
+  height: 50% !important;
 }
