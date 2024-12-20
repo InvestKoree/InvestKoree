@@ -608,10 +608,6 @@ iframe.goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate {
   display: none !important;
 }
-#tawkchat {
-  width: 300px;
-  height: 200px;
-}
 
 .bg-img {
   background-repeat: no-repeat;
