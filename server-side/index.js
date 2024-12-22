@@ -73,29 +73,38 @@ app.use(helmet.contentSecurityPolicy(cspOptions));
 const uploadsPath = path.resolve(__dirname, 'uploads'); // Use __dirname to resolve the uploads path
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    // Ensure userId is available (from authToken middleware)
-    const userId = req.user ? req.user.id : 'default_user'; // Fallback to 'default_user' if userId is unavailable
+  destination: async (req, file, cb) => {
+    const userId = req.user._id; // Assuming req.user._id contains the logged-in user's ID.
+    const uploadPath = path.join(__dirname, `uploads/${userId}`);
 
-    // Create the subfolder path using the userId
-    const subfolder = path.join(uploadsPath, userId); // Use userId as the folder name
+    // Create the directory if it doesn't exist
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
 
-    // Create the subfolder if it doesn't exist
-    fs.mkdirSync(subfolder, { recursive: true });
-
-    // Set the destination to the subfolder
-    cb(null, subfolder);
+    cb(null, uploadPath); // Set the destination folder
   },
-  filename: function (req, file, cb) {
-    // Sanitize the filename using the sanitizeFilename function
-    const sanitizedFilename = sanitizeFilename(file.originalname);
+  filename: async (req, file, cb) => {
+    const userId = req.user._id;
+    const uploadPath = path.join(__dirname, `uploads/${userId}`);
 
-    // Create a unique suffix for the file to avoid filename conflicts
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    // Get all files in the directory
+    const files = fs.readdirSync(uploadPath);
 
-    // Save the sanitized filename with a unique suffix
-    cb(null, `${sanitizedFilename}-${uniqueSuffix}${path.extname(file.originalname)}`);
-  },
+    // Extract numeric indices from filenames
+    let indices = files
+      .map(f => parseInt(f.match(/_(\d+)\./)?.[1] || 0)) // Extract number after '_'
+      .filter(num => !isNaN(num)); // Filter valid numbers
+
+    let nextIndex = indices.length > 0 ? Math.max(...indices) + 1 : 1; // Calculate next index
+
+    // Create new filename
+    const ext = path.extname(file.originalname); // Get file extension
+    const baseName = path.basename(file.originalname, ext); // Get filename without extension
+    const newFileName = `${baseName}_${nextIndex}${ext}`;
+
+    cb(null, newFileName); // Set the new filename
+  }
 });
 
 const upload = multer({

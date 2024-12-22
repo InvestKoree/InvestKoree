@@ -22,22 +22,23 @@ const ensureUserDirectoryExists = (userId) => {
   return userDir;
 };
 
-// Helper function to sanitize and rename the file
-// Helper function to sanitize and rename the file with a unique suffix
-const getSanitizedFilePath = (userId, field, file) => {
+// Helper function to generate indexed filenames
+const getIndexedFilePath = (userId, field, file) => {
   const userDir = ensureUserDirectoryExists(userId);
   const sanitizedFilename = sanitizeFilename(file.originalname);
+  const fieldDir = path.join(userDir, field);
 
-  // Add a unique suffix to the filename
-  const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-  const filenameWithSuffix = `${uniqueSuffix}-${sanitizedFilename}`;
+  if (!fs.existsSync(fieldDir)) {
+    fs.mkdirSync(fieldDir, { recursive: true });
+  }
 
-  // Path with userId-based folder and unique filename
-  const filePath = path.join(userDir, filenameWithSuffix);
+  const existingFiles = fs.readdirSync(fieldDir);
+  const fileIndex = existingFiles.length + 1;
+  const indexedFilename = `${fileIndex}-${sanitizedFilename}`;
+  const filePath = path.join(fieldDir, indexedFilename);
 
-  return filePath; // Path that will be saved in DB
+  return filePath;
 };
-
 
 export const createFounderPost = async (req, res) => {
   console.log("Request Body:", req.body);
@@ -86,31 +87,31 @@ export const createFounderPost = async (req, res) => {
       description,
       // Handle multiple business pictures and sanitize paths
       businessPictures: req.files?.businessPicture
-        ? req.files.businessPicture.map(file => getSanitizedFilePath(userId, 'businessPicture', file))
+        ? req.files.businessPicture.map(file => getIndexedFilePath(userId, 'businessPicture', file))
         : [],
       nidFile: req.files?.nidCopy?.[0] 
-        ? getSanitizedFilePath(userId, 'nidCopy', req.files.nidCopy[0])
+        ? getIndexedFilePath(userId, 'nidCopy', req.files.nidCopy[0])
         : null,
       tinFile: req.files?.tinCopy?.[0] 
-        ? getSanitizedFilePath(userId, 'tinCopy', req.files.tinCopy[0])
+        ? getIndexedFilePath(userId, 'tinCopy', req.files.tinCopy[0])
         : null,
       taxFile: req.files?.taxCopy?.[0]
-        ? getSanitizedFilePath(userId, 'taxCopy', req.files.taxCopy[0])
+        ? getIndexedFilePath(userId, 'taxCopy', req.files.taxCopy[0])
         : null,
       tradeLicenseFile: req.files?.tradeLicense?.[0]
-        ? getSanitizedFilePath(userId, 'tradeLicense', req.files.tradeLicense[0])
+        ? getIndexedFilePath(userId, 'tradeLicense', req.files.tradeLicense[0])
         : null,
       bankStatementFile: req.files?.bankStatement?.[0]
-        ? getSanitizedFilePath(userId, 'bankStatement', req.files.bankStatement[0])
+        ? getIndexedFilePath(userId, 'bankStatement', req.files.bankStatement[0])
         : null,
       securityFile: req.files?.securityFile?.[0]
-        ? getSanitizedFilePath(userId, 'securityFile', req.files.securityFile[0])
+        ? getIndexedFilePath(userId, 'securityFile', req.files.securityFile[0])
         : null,
       financialFile: req.files?.financialFile?.[0]
-        ? getSanitizedFilePath(userId, 'financialFile', req.files.financialFile[0])
+        ? getIndexedFilePath(userId, 'financialFile', req.files.financialFile[0])
         : null,
       videoFile: req.files?.video?.[0]
-        ? getSanitizedFilePath(userId, 'video', req.files.video[0])
+        ? getIndexedFilePath(userId, 'video', req.files.video[0])
         : null,
     });
 
