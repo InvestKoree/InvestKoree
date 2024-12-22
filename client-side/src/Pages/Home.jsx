@@ -180,7 +180,7 @@ const Home = () => {
       {/* Mission Section */}
       <motion.div
         ref={refWhy}
-        className="mission-section my-20 flex flex-col lg:flex-row gap-10 justify-center lg:h-full items-center"
+        className="mission-section my-20 flex flex-col lg:flex-col gap-10 justify-center lg:h-full items-center"
         variants={whySectionVariants}
         initial="hidden"
         animate={inViewWhy ? "visible" : "hidden"}
@@ -197,18 +197,53 @@ const Home = () => {
             alt=""
           />
         </div>
-        <div className="flex flex-col text-center lg:text-left">
+        <div className="flex flex-col text-center  lg:w-[1200px]">
           <h2 className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl">
             Why we are here
           </h2>
-          <p className="mt-4 lg:text-xl mb-10">Our Mission</p>
+          <p className="mt-4 lg:text-2xl mb-10">Our Mission</p>
+          <p className="lg:text-left lg:text-lg">
+            At Invest Koree, our mission is to bridge the gap between ambitious
+            businesses and visionary investors. We aim to create a dynamic
+            platform where innovative ideas meet financial backing, fostering
+            sustainable growth and impactful change. By connecting businesses
+            with the right investors, we empower companies to achieve their full
+            potential while offering investors the opportunity to support
+            ventures that align with their strategic goals and values.
+          </p>
           <p className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl mb-6">
             Our services
           </p>
-          <ul className="lg:text-xl">
-            <li>Easy to Invest</li>
-            <li>Fastest Transaction</li>
-            <li>High Return on Investment</li>
+          <ul className="lg:text-lg lg:flex lg:flex-col lg:gap-2 lg:text-left">
+            <li>
+              1.Business-Investor Matchmaking: We connect businesses with
+              investors who align with their industry, growth stage, and
+              investment needs.
+            </li>
+            <li>
+              2.Business Analysis & Profiling: Our team analyzes business
+              models, strengths, and market potential to present compelling
+              cases to potential investors.
+            </li>
+            <li>
+              3.Investor Outreach & Engagement: We facilitate direct
+              communication and engagement between businesses and investors to
+              ensure seamless collaboration.
+            </li>
+            <li>
+              4.Market Insights & Trends: We provide in-depth research on market
+              trends, industry forecasts, and investment opportunities.
+            </li>
+            <li>
+              5.Consulting & Advisory: Our expert advisors offer guidance on
+              refining business strategies, enhancing investor appeal, and
+              improving the likelihood of successful investment deals.
+            </li>
+            <li>
+              6.Resource Center & Knowledge Sharing: We offer resources,
+              articles, and tools to help businesses prepare for investor
+              pitches and understand market dynamics.
+            </li>
           </ul>
         </div>
       </motion.div>
