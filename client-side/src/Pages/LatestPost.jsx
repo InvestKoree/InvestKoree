@@ -21,6 +21,7 @@ const LatestPost = ({ item }) => {
   const fundingAmount = parseFloat(fundingAmountString);
   const fundingPercentage = (50000 / fundingAmount) * 100;
   const leftForFund = fundingAmount - 50000;
+  console.log(businessPictures);
 
   return (
     <div className="mx-auto">
