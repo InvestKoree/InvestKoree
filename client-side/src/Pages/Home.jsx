@@ -197,12 +197,12 @@ const Home = () => {
             alt=""
           />
         </div>
-        <div className="flex flex-col text-center  lg:w-[1200px]">
+        <div className="flex flex-col text-center  lg:w-[1200px] sm:p-4  xs:p-4 xxs:p-4">
           <h2 className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl">
             Why we are here
           </h2>
           <p className="mt-4 lg:text-2xl mb-10">Our Mission</p>
-          <p className="lg:text-left lg:text-lg">
+          <p className="lg:text-left  sm:text-left xs:text-left xxs:text-left lg:text-lg">
             At Invest Koree, our mission is to bridge the gap between ambitious
             businesses and visionary investors. We aim to create a dynamic
             platform where innovative ideas meet financial backing, fostering
@@ -214,7 +214,7 @@ const Home = () => {
           <p className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl mb-6">
             Our services
           </p>
-          <ul className="lg:text-lg lg:flex lg:flex-col lg:gap-2 lg:text-left">
+          <ul className="lg:text-lg  sm:text-left xs:text-left xxs:text-left lg:flex lg:flex-col lg:gap-2 lg:text-left">
             <li>
               1.Business-Investor Matchmaking: We connect businesses with
               investors who align with their industry, growth stage, and
