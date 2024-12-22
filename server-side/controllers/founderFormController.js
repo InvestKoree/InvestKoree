@@ -33,8 +33,17 @@ const getIndexedFilePath = (userId, field, file) => {
   }
 
   const existingFiles = fs.readdirSync(fieldDir);
-  const fileIndex = existingFiles.length + 1;
-  const indexedFilename = `${fileIndex}-${sanitizedFilename}`;
+  
+  // Extract numeric indices from filenames
+  let indices = existingFiles
+    .map(f => parseInt(f.match(/_(\d+)\./)?.[1] || 0)) // Extract number after '_'
+    .filter(num => !isNaN(num)); // Filter valid numbers
+
+  // Calculate the next index
+  let nextIndex = indices.length > 0 ? Math.max(...indices) + 1 : 1; // Start from 1 if no files exist
+
+  // Save the sanitized filename with the next index
+  const indexedFilename = `${sanitizedFilename}_${nextIndex}${path.extname(file.originalname)}`;
   const filePath = path.join(fieldDir, indexedFilename);
 
   return filePath;

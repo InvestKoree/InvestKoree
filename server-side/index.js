@@ -84,10 +84,10 @@ const storage = multer.diskStorage({
     const subfolder = path.join(uploadsPath, userId); // Use userId as the folder name
 
     // Get all files in the directory
-    const files = fs.readdirSync(subfolder);
-
+    const existingFiles = fs.readdirSync(subfolder);
+    
     // Extract numeric indices from filenames
-    let indices = files
+    let indices = existingFiles
       .map(f => parseInt(f.match(/_(\d+)\./)?.[1] || 0)) // Extract number after '_'
       .filter(num => !isNaN(num)); // Filter valid numbers
 
@@ -98,10 +98,10 @@ const storage = multer.diskStorage({
     const sanitizedFilename = sanitizeFilename(file.originalname);
 
     // Save the sanitized filename with the next index
-    cb(null, `${sanitizedFilename}_${nextIndex}${path.extname(file.originalname)}`);
+    const indexedFilename = `${sanitizedFilename}_${nextIndex}${path.extname(file.originalname)}`;
+    cb(null, indexedFilename);
   },
 });
-
 
 
 const upload = multer({
