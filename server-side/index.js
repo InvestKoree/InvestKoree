@@ -74,29 +74,35 @@ const uploadsPath = path.resolve(__dirname, 'uploads'); // Use __dirname to reso
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    // Ensure userId is available (from authToken middleware)
     const userId = req.user ? req.user.id : 'default_user'; // Fallback to 'default_user' if userId is unavailable
-
-    // Create the subfolder path using the userId
     const subfolder = path.join(uploadsPath, userId); // Use userId as the folder name
-
-    // Create the subfolder if it doesn't exist
     fs.mkdirSync(subfolder, { recursive: true });
-
-    // Set the destination to the subfolder
     cb(null, subfolder);
   },
   filename: function (req, file, cb) {
+    const userId = req.user ? req.user.id : 'default_user'; // Fallback to 'default_user' if userId is unavailable
+    const subfolder = path.join(uploadsPath, userId); // Use userId as the folder name
+
+    // Get all files in the directory
+    const files = fs.readdirSync(subfolder);
+
+    // Extract numeric indices from filenames
+    let indices = files
+      .map(f => parseInt(f.match(/_(\d+)\./)?.[1] || 0)) // Extract number after '_'
+      .filter(num => !isNaN(num)); // Filter valid numbers
+
+    // Calculate the next index
+    let nextIndex = indices.length > 0 ? Math.max(...indices) + 1 : 1; // Start from 1 if no files exist
+
     // Sanitize the filename using the sanitizeFilename function
     const sanitizedFilename = sanitizeFilename(file.originalname);
 
-    // Create a unique suffix for the file to avoid filename conflicts
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-
-    // Save the sanitized filename with a unique suffix
-    cb(null, `${sanitizedFilename}-${uniqueSuffix}${path.extname(file.originalname)}`);
+    // Save the sanitized filename with the next index
+    cb(null, `${sanitizedFilename}_${nextIndex}${path.extname(file.originalname)}`);
   },
 });
+
+
 
 const upload = multer({
   storage,
