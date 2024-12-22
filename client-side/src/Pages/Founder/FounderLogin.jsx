@@ -309,7 +309,10 @@ const FounderLogin = () => {
               />
               <label htmlFor="terms" className="text-sm font-light">
                 I have read and agreed to{" "}
-                <Link to="/terms" className="text-blue-500 hover:underline">
+                <Link
+                  to="/founderterms"
+                  className="text-blue-500 hover:underline"
+                >
                   terms and conditions
                 </Link>
               </label>

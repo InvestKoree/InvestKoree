@@ -48,7 +48,7 @@ const ProjectDetail = () => {
     // Check the selected post object
 
     try {
-      const response = await fetch("http://localhost:4000/investments/post", {
+      const response = await fetch(`${API_URL}/investments/post`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
