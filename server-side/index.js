@@ -70,13 +70,15 @@ const cspOptions = {
 app.use(helmet.contentSecurityPolicy(cspOptions));
 
 // Multer Setup
-// Multer Setup
 const uploadsPath = path.resolve(__dirname, 'uploads'); // Use __dirname to resolve the uploads path
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const userId = req.user._id; // Assuming req.user._id contains the logged-in user's ID.
-    const userUploadPath = path.join(uploadsPath, userId.toString()); // Ensure userId is a string
+    if (!req.user || !req.user._id) {
+      return cb(new Error('User  not authenticated'), null); // Handle the error
+    }
+
+    const userId = req.user._id.toString(); // Ensure userId is a string
+    const userUploadPath = path.join(uploadsPath, userId); // Ensure userId is a string
 
     // Create the directory if it doesn't exist
     fs.mkdirSync(userUploadPath, { recursive: true });
@@ -84,8 +86,12 @@ const storage = multer.diskStorage({
     cb(null, userUploadPath); // Set the destination folder
   },
   filename: (req, file, cb) => {
-    const userId = req.user._id;
-    const userUploadPath = path.join(uploadsPath, userId.toString());
+    if (!req.user || !req.user._id) {
+      return cb(new Error('User  not authenticated'), null); // Handle the error
+    }
+
+    const userId = req.user._id.toString();
+    const userUploadPath = path.join(uploadsPath, userId);
 
     // Get all files in the directory
     const files = fs.readdirSync(userUploadPath);
@@ -118,7 +124,6 @@ const upload = multer({
     }
   },
 });
-
 
 
 // Routes
