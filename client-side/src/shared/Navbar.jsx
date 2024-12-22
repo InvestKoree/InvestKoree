@@ -87,15 +87,7 @@ const Navbar = () => {
                 Get Funded
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/blogs"
-                className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
-                activeclassname="active"
-              >
-                Blogs
-              </NavLink>
-            </li>
+
             <li>
               <details
                 open={activeDropdown === "category"}
@@ -220,6 +212,15 @@ const Navbar = () => {
                 <Notifications API_URL={API_URL} userId={userdata._id} />
               )}
             </li>
+            <li>
+              <NavLink
+                to="/blogs"
+                className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
+                activeclassname="active"
+              >
+                Blogs
+              </NavLink>
+            </li>
           </ul>
         </div>
 
@@ -248,15 +249,7 @@ const Navbar = () => {
                   Get Funded
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to="/blogs"
-                  className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
-                  activeclassname="active"
-                >
-                  Blogs
-                </NavLink>
-              </li>
+
               <li>
                 <details
                   open={activeDropdown === "category"}
@@ -344,6 +337,15 @@ const Navbar = () => {
                     userId={userdata._id}
                   />
                 )}
+              </li>
+              <li>
+                <NavLink
+                  to="/blogs"
+                  className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
+                  activeclassname="active"
+                >
+                  Blogs
+                </NavLink>
               </li>
             </ul>
           </div>
