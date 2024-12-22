@@ -70,26 +70,25 @@ const cspOptions = {
 app.use(helmet.contentSecurityPolicy(cspOptions));
 
 // Multer Setup
+// Multer Setup
 const uploadsPath = path.resolve(__dirname, 'uploads'); // Use __dirname to resolve the uploads path
 
 const storage = multer.diskStorage({
-  destination: async (req, file, cb) => {
+  destination: (req, file, cb) => {
     const userId = req.user._id; // Assuming req.user._id contains the logged-in user's ID.
-    const uploadPath = path.join(__dirname, `uploads/${userId}`);
+    const userUploadPath = path.join(uploadsPath, userId.toString()); // Ensure userId is a string
 
     // Create the directory if it doesn't exist
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath, { recursive: true });
-    }
+    fs.mkdirSync(userUploadPath, { recursive: true });
 
-    cb(null, uploadPath); // Set the destination folder
+    cb(null, userUploadPath); // Set the destination folder
   },
-  filename: async (req, file, cb) => {
+  filename: (req, file, cb) => {
     const userId = req.user._id;
-    const uploadPath = path.join(__dirname, `uploads/${userId}`);
+    const userUploadPath = path.join(uploadsPath, userId.toString());
 
     // Get all files in the directory
-    const files = fs.readdirSync(uploadPath);
+    const files = fs.readdirSync(userUploadPath);
 
     // Extract numeric indices from filenames
     let indices = files
@@ -119,6 +118,7 @@ const upload = multer({
     }
   },
 });
+
 
 
 // Routes
