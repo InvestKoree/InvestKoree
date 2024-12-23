@@ -49,38 +49,30 @@ function Footer() {
           <nav className="xxs:mx-auto xs:mx-auto sm-mx-auto lg:mx-0">
             <h6 className="footer-title opacity-100">Social</h6>
             <div className="flex flex-row gap-2">
-              <a
-                href="https://www.facebook.com/share/19XU41Z73E/?mibextid=LQQJ4d"
+              <SocialIcon
+                url="https://www.facebook.com/share/19XU41Z73E/?mibextid=LQQJ4d"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit our Facebook page"
-              >
-                <SocialIcon url="https://www.facebook.com" />
-              </a>
-              <a
-                href="https://www.linkedin.com/company/investkoree/"
+              />
+              <SocialIcon
+                url="https://www.linkedin.com/company/investkoree/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit our LinkedIn page"
-              >
-                <SocialIcon url="https://www.linkedin.com" />
-              </a>
-              <a
-                href="https://www.instagram.com/investkoree/"
+              />
+              <SocialIcon
+                url="https://www.instagram.com/investkoree/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit our Instagram page"
-              >
-                <SocialIcon url="https://www.instagram.com" />
-              </a>
-              <a
-                href="https://www.youtube.com/@InvestKoree"
+              />
+              <SocialIcon
+                url="https://www.youtube.com/@InvestKoree"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit our YouTube channel"
-              >
-                <SocialIcon url="https://www.youtube.com" />
-              </a>
+              />
             </div>
           </nav>
         </div>
