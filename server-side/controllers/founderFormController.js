@@ -11,7 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Define the upload directory
-const UPLOAD_DIR = path.join(__dirname, '../../uploads'); // Assuming 'uploads' folder is in the root
+const UPLOAD_DIR = path.join(__dirname, '../uploads'); // Assuming 'uploads' folder is in the root
 
 // Ensure the user directory exists with the name of the userId
 const ensureUserDirectoryExists = (userId) => {
