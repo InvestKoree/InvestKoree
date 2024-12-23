@@ -52,13 +52,13 @@ function Footer() {
               <a href="https://www.facebook.com/share/19XU41Z73E/?mibextid=LQQJ4d">
                 <SocialIcon url="https://www.facebook.com" />
               </a>
-              <a href="https://www.linkedin.com">
+              <a href="https://www.linkedin.com/company/investkoree/">
                 <SocialIcon url="https://www.linkedin.com" />
               </a>
-              <a href="https://www.instagram.com">
+              <a href="https://www.instagram.com/investkoree/">
                 <SocialIcon url="https://www.instagram.com" />
               </a>
-              <a href="https://www.youtube.com">
+              <a href="https://www.youtube.com/@InvestKoree">
                 <SocialIcon url="https://www.youtube.com" />
               </a>
             </div>
