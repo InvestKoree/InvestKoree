@@ -51,7 +51,9 @@ const Navbar = () => {
     <div className="sticky top-0 z-50 bg-white shadow-lg">
       <div className="navbar px-6 py-3 flex justify-between items-center">
         <div className="flex items-center">
-          <img className="h-16 w-36" src={logo} alt="logo" />
+          <Link to="/">
+            <img className="h-16 w-36 logo-css" src={logo} alt="logo" />
+          </Link>
         </div>
 
         <div className="lg:hidden block">
@@ -69,15 +71,6 @@ const Navbar = () => {
             ref={dropdownRef}
             className="lg:font-bold lg:text-lg sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium menu menu-horizontal gap-8 px-1 flex"
           >
-            <li>
-              <NavLink
-                to="/"
-                className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
-                activeclassname="active"
-              >
-                Home
-              </NavLink>
-            </li>
             <li>
               <NavLink
                 to="/founderlogin"
@@ -231,15 +224,6 @@ const Navbar = () => {
               ref={dropdownRef}
               className="flex sm:flex-col xs:flex-col xxs:flex-col sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium lg:text-lg sm:gap-2 xs:gap-2 xxs:gap-2"
             >
-              <li>
-                <NavLink
-                  to="/"
-                  onClick={toggleMenu}
-                  className="hover:bg-salmon transition p-2 rounded"
-                >
-                  Home
-                </NavLink>
-              </li>
               <li>
                 <NavLink
                   to="/founderlogin"

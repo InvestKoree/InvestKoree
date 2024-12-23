@@ -613,6 +613,6 @@ iframe.goog-te-banner-frame,
   background-repeat: no-repeat;
   background-size: cover;
 }
-.tawk-chat-view .tawk-chat-panel-inner {
-  height: 50% !important;
+.logo-css:hover {
+  background-color: white;
 }
