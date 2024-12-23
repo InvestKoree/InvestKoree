@@ -6,7 +6,7 @@ const GoToBottomButton = ({ showGoToBottom, scrollToBottom }) => {
   return (
     <button
       onClick={scrollToBottom}
-      className="fixed bottom-4 left-[950px]   hover:bg-neutral-800 text-salmonLight p-3 rounded-full shadow-lg"
+      className="fixed bottom-4 left-2   hover:bg-neutral-800 text-salmonLight p-3 rounded-full shadow-lg"
       aria-label="Scroll to bottom"
     >
       <FaArrowDown size={24} />
