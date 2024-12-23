@@ -57,13 +57,28 @@ function Footer() {
               >
                 <SocialIcon url="https://www.facebook.com" />
               </a>
-              <a href="https://www.linkedin.com/company/investkoree/">
+              <a
+                href="https://www.linkedin.com/company/investkoree/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit our LinkedIn page"
+              >
                 <SocialIcon url="https://www.linkedin.com" />
               </a>
-              <a href="https://www.instagram.com/investkoree/">
+              <a
+                href="https://www.instagram.com/investkoree/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit our Instagram page"
+              >
                 <SocialIcon url="https://www.instagram.com" />
               </a>
-              <a href="https://www.youtube.com/@InvestKoree">
+              <a
+                href="https://www.youtube.com/@InvestKoree"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit our YouTube channel"
+              >
                 <SocialIcon url="https://www.youtube.com" />
               </a>
             </div>
