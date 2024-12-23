@@ -87,18 +87,12 @@ const storage = multer.diskStorage({
     const files = fs.readdirSync(subfolder);
 
     // Extract numeric indices from filenames
-    let indices = files
-      .map(f => parseInt(f.match(/_(\d+)\./)?.[1] || 0)) // Extract number after '_'
-      .filter(num => !isNaN(num)); // Filter valid numbers
-
-    // Calculate the next index
-    let nextIndex = indices.length > 0 ? Math.max(...indices) + 1 : 1; // Start from 1 if no files exist
-
+  
     // Sanitize the filename using the sanitizeFilename function
     const sanitizedFilename = sanitizeFilename(file.originalname);
 
     // Save the sanitized filename with the next index
-    cb(null, `${sanitizedFilename}_${nextIndex}${path.extname(file.originalname)}`);
+    cb(null, `${sanitizedFilename}${path.extname(file.originalname)}`);
   },
 });
 
@@ -106,10 +100,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
-  limits: { fileSize: 50 * 1024 * 1024 }, // Limit file size (e.g., 50 MB)
+  limits: { fileSize: 50 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    const filetypes = /jpeg|jpg|png|gif|pdf|doc|txt|ppt|mp4|mov|avi|wmv/;
-    if (filetypes.test(file.mimetype)) {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf', 'video/mp4', 'video/quicktime'];
+    if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
       cb(new Error('Unsupported file type'), false);

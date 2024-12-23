@@ -22,26 +22,11 @@ const ensureUserDirectoryExists = (userId) => {
   return userDir;
 };
 
-// Helper function to generate indexed filenames
-const getIndexedFilePath = (userId, file) => {
+// Helper function to generate file paths
+const getFilePath = (userId, file) => {
   const userDir = ensureUserDirectoryExists(userId);
   const sanitizedFilename = sanitizeFilename(file.originalname);
-
-  // No need for fieldDir, just use userDir
-  const existingFiles = fs.readdirSync(userDir);
-  
-  // Extract numeric indices from filenames
-  let indices = existingFiles
-    .map(f => parseInt(f.match(/_(\d+)\./)?.[1] || 0)) // Extract number after '_'
-    .filter(num => !isNaN(num)); // Filter valid numbers
-
-  // Calculate the next index
-  let nextIndex = indices.length > 0 ? Math.max(...indices) + 1 : 1; // Start from 1 if no files exist
-
-  // Save the sanitized filename with the next index
-  const indexedFilename = `${sanitizedFilename}_${nextIndex}${path.extname(file.originalname)}`;
-  const filePath = path.join(userDir, indexedFilename); // Store directly in userDir
-
+  const filePath = path.join(userDir, sanitizedFilename);
   return filePath;
 };
 
@@ -66,59 +51,59 @@ export const createFounderPost = async (req, res) => {
       returnPlan = "", businessSafety = "", additionalComments = "", description = "",
     } = req.body;
 
- // Prepare the new post
-const newPost = new PendingPost({
-  userId,
-  businessName,
-  email,
-  address,
-  phone,
-  businessCategory,
-  businessSector,
-  investmentDuration,
-  securityOption,
-  otherSecurityOption,
-  documentationOption,
-  otherDocumentationOption,
-  assets,
-  revenue,
-  fundingAmount,
-  fundingHelp,
-  returnPlan,
-  businessSafety,
-  additionalComments,
-  returndate,
-  projectedROI,
-  description,
-  // Handle multiple business pictures and sanitize paths
-  businessPictures: req.files?.businessPicture
-    ? req.files.businessPicture.map(file => getIndexedFilePath(userId, file)) // No field parameter
-    : [],
-  nidFile: req.files?.nidCopy?.[0] 
-    ? getIndexedFilePath(userId, req.files.nidCopy[0]) // No field parameter
-    : null,
-  tinFile: req.files?.tinCopy?.[0] 
-    ? getIndexedFilePath(userId, req.files.tinCopy[0]) // No field parameter
-    : null,
-  taxFile: req.files?.taxCopy?.[0]
-    ? getIndexedFilePath(userId, req.files.taxCopy[0]) // No field parameter
-    : null,
-  tradeLicenseFile: req.files?.tradeLicense?.[0]
-    ? getIndexedFilePath(userId, req.files.tradeLicense[0]) // No field parameter
-    : null,
-  bankStatementFile: req.files?.bankStatement?.[0]
-    ? getIndexedFilePath(userId, req.files.bankStatement[0]) // No field parameter
-    : null,
-  securityFile: req.files?.securityFile?.[0]
-    ? getIndexedFilePath(userId, req.files.securityFile[0]) // No field parameter
-    : null,
-  financialFile: req.files?.financialFile?.[0]
-    ? getIndexedFilePath(userId, req.files.financialFile[0]) // No field parameter
-    : null,
-  videoFile: req.files?.video?.[0]
-    ? getIndexedFilePath(userId, req.files.video[0]) // No field parameter
-    : null,
-});
+    // Prepare the new post
+    const newPost = new PendingPost({
+      userId,
+      businessName,
+      email,
+      address,
+      phone,
+      businessCategory,
+      businessSector,
+      investmentDuration,
+      securityOption,
+      otherSecurityOption,
+      documentationOption,
+      otherDocumentationOption,
+      assets,
+      revenue,
+      fundingAmount,
+      fundingHelp,
+      returnPlan,
+      businessSafety,
+      additionalComments,
+      returndate,
+      projectedROI,
+      description,
+      // Handle multiple business pictures and sanitize paths
+      businessPictures: req.files?.businessPicture
+        ? req.files.businessPicture.map(file => getFilePath(userId, file))
+        : [],
+      nidFile: req.files?.nidCopy?.[0]
+        ? getFilePath(userId, req.files.nidCopy[0])
+        : null,
+      tinFile: req.files?.tinCopy?.[0]
+        ? getFilePath(userId, req.files.tinCopy[0])
+        : null,
+      taxFile: req.files?.taxCopy?.[0]
+        ? getFilePath(userId, req.files.taxCopy[0])
+        : null,
+      tradeLicenseFile: req.files?.tradeLicense?.[0]
+        ? getFilePath(userId, req.files.tradeLicense[0])
+        : null,
+      bankStatementFile: req.files?.bankStatement?.[0]
+        ? getFilePath(userId, req.files.bankStatement[0])
+        : null,
+      securityFile: req.files?.securityFile?.[0]
+        ? getFilePath(userId, req.files.securityFile[0])
+        : null,
+      financialFile: req.files?.financialFile?.[0]
+        ? getFilePath(userId, req.files.financialFile[0])
+        : null,
+      videoFile: req.files?.video?.[0]
+        ? getFilePath(userId, req.files.video[0])
+        : null,
+    });
     // Save the new post to the PendingPost collection
     const savedPost = await newPost.save();
 
