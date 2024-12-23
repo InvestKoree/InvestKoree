@@ -1,6 +1,5 @@
 import React from "react";
 import { SocialIcon } from "react-social-icons";
-import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -50,9 +49,14 @@ function Footer() {
           <nav className="xxs:mx-auto xs:mx-auto sm-mx-auto lg:mx-0">
             <h6 className="footer-title opacity-100">Social</h6>
             <div className="flex flex-row gap-2">
-              <Link to="https://www.facebook.com/share/19XU41Z73E/?mibextid=LQQJ4d">
+              <a
+                href="https://www.facebook.com/share/19XU41Z73E/?mibextid=LQQJ4d"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit our Facebook page"
+              >
                 <SocialIcon url="https://www.facebook.com" />
-              </Link>
+              </a>
               <a href="https://www.linkedin.com/company/investkoree/">
                 <SocialIcon url="https://www.linkedin.com" />
               </a>
