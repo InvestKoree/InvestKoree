@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 
 const FounderTerms = () => {
   return (
-    <div className="h-[500px] mt-20 flex">
+    <div className="lg:h-[full] mt-20 flex lg:flex-row sm:flex-col  xs:flex-col  xxs:flex-col  sm:px-4  xs:px-4  xxs:px-4 sm:mb-4  xs:mb-4  xxs:mb-4 sm:h-full  xs:h-full  xxs:h-full   ">
       <Link to="/founderdashboard">
         <input
           type="submit"
-          className="post-btn lg:h-[10%] lg:w-[100px] sm:h-[60%] xs:h-[60%] xxs:h-[60%] sm:w-[30%] xs:w-[30%] xxs:w-[30%] relative left-56 bottom-9"
+          className="post-btn lg:h-[7%] lg:w-[100px] sm:h-[70%] xs:h-[70%] xxs:h-[70%] sm:w-[20%] xs:w-[20%] xxs:w-[20%] sm:px-4 xs:px-4 xxs:px-4  relative lg:left-56 lg:bottom-9"
           name="founder-post"
           value="Back"
         />
@@ -40,7 +40,7 @@ const FounderTerms = () => {
         <p>8) Projects can't fundraise for charity.</p>
         <p>
           9) There will be full funding you will get or not and no inbetween so
-          make you investment very calculative or low. 10)
+          make you investment very calculative or low.
         </p>
       </div>
     </div>
