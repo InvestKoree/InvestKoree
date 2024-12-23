@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 
 const InvestorTerms = () => {
   return (
-    <div className="h-[500px] mt-20 flex">
+    <div className="h-[500px] mt-20 flex lg:flex-row sm:flex-col xs:flex-col xxs:flex-col sm:px-4 xs:px-4 xxs:px-4 ">
       <Link to="/investordashboard">
         <input
           type="submit"
-          className="post-btn lg:h-[10%] lg:w-[100px] sm:h-[60%] xs:h-[60%] xxs:h-[60%] sm:w-[30%] xs:w-[30%] xxs:w-[30%] relative left-56 bottom-9"
+          className="post-btn   lg:h-[10%] lg:w-[100px]  sm:w-[20%] xs:w-[20%] xxs:w-[20%] sm:px-4 xs:px-4 xxs:px-4 relative lg:left-56 lg:bottom-9"
           name="founder-post"
           value="Back"
         />
