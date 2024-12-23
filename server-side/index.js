@@ -92,7 +92,7 @@ const storage = multer.diskStorage({
     const sanitizedFilename = sanitizeFilename(file.originalname);
 
     // Save the sanitized filename with the next index
-    cb(null, `${sanitizedFilename}${path.extname(file.originalname)}`);
+    cb(null, `${sanitizedFilename}`);
   },
 });
 
