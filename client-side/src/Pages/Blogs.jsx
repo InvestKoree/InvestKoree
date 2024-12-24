@@ -10,11 +10,15 @@ const Blogs = () => {
 
   return (
     <div className="flex lg:flex-row gap-6 justify-center">
-      <div className="card bg-base-100 w-96 shadow-xl my-6">
+      <div className="card  blog-card bg-base-100 w-96 shadow-xl my-6">
         <figure className="px-10 pt-10">
           <img src={temp} className="rounded-xl" />
         </figure>
-        <div className="card-body items-center text-center">
+        <div
+          className={`card-body items-center text-center ${
+            expandedPost === 0 ? "expanded" : ""
+          }`}
+        >
           <h1 className="lg:text-4xl sm:text-2xl xxs:text-2xl xs:text-2xl font-bold mb-4">
             How to Find the Right Investor for Your Business
           </h1>
@@ -149,7 +153,11 @@ const Blogs = () => {
         <figure className="px-10 pt-10">
           <img src={temp} className="rounded-xl" />
         </figure>
-        <div className="card-body items-center text-center">
+        <div
+          className={`card-body items-center text-center ${
+            expandedPost === 1 ? "expanded" : ""
+          }`}
+        >
           <h1 className="lg:text-4xl sm:text-2xl xxs:text-2xl xs:text-2xl font-bold mb-4">
             How to Find the Right Investor for Your Business
           </h1>
@@ -284,7 +292,11 @@ const Blogs = () => {
         <figure className="px-10 pt-10">
           <img src={temp} className="rounded-xl" />
         </figure>
-        <div className="card-body items-center text-center">
+        <div
+          className={`card-body items-center text-center ${
+            expandedPost === 2 ? "expanded" : ""
+          }`}
+        >
           <h1 className="lg:text-4xl sm:text-2xl xxs:text-2xl xs:text-2xl font-bold mb-4">
             How to Find the Right Investor for Your Business
           </h1>

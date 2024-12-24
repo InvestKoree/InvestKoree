@@ -616,3 +616,19 @@ iframe.goog-te-banner-frame,
 .logo-css:hover {
   background-color: white;
 }
+.blog-card {
+  min-height: 600px; /* Set a fixed height */
+  overflow: hidden; /* Hide overflow to prevent content from affecting height */
+}
+.card {
+  transition: height 0.3s ease; /* Smooth transition for height changes */
+}
+
+.card-body {
+  overflow: hidden !important; /* Prevent overflow from affecting layout */
+  max-height: 500px; /* Set a max height for collapsed state */
+}
+
+.card-body.expanded {
+  max-height: 3200px; /* Set a larger max height for expanded state */
+}
