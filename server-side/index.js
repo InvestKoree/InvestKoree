@@ -207,7 +207,7 @@ app.get('/files/:id', (req, res) => {
     return res.status(400).json({ error: 'Invalid file ID format' });
   }
 
-  const objectId = new mongoose.Types.ObjectId(id);
+  const objectId = mongoose.Types.ObjectId(id);  // Correct way to instantiate ObjectId
 
   gfs.files.findOne({ _id: objectId }, (err, file) => {
     if (err) {
@@ -227,6 +227,7 @@ app.get('/files/:id', (req, res) => {
     }
   });
 });
+
 
 // Pending Posts Routes
 app.get('/adminpost/pending', async (req, res) => {
