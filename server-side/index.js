@@ -112,8 +112,8 @@ app.post(
     { name: 'video', maxCount: 1 },
   ]),
   async (req, res) => {
+    console.log('Files received:', req.files); // Log the received files
     try {
-      console.log('Files received:', req.files);
       await createFounderPost(req, res);
     } catch (error) {
       res.status(500).json({ message: 'Error creating post: ' + error.message });
