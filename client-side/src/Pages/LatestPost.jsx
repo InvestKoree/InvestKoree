@@ -1,4 +1,4 @@
-// export default LatestPost;
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import temp from "../assets/s2.jpg";
@@ -7,33 +7,59 @@ const LatestPost = ({ item }) => {
   const {
     address,
     _id,
-    // funded,
-    // left_for_fund,
-    // raised,
     businessSector,
     fundingAmount: fundingAmountString,
-    // additionalComments,
     businessName,
     businessPictures,
     nidFile,
   } = item;
 
+  const [imageUrls, setImageUrls] = useState([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const urls = await Promise.all(
+        businessPictures.map(async (id) => {
+          try {
+            const response = await fetch(`/files/${id}`);
+            if (response.ok) {
+              const blob = await response.blob();
+              return URL.createObjectURL(blob); // Create a URL for the blob
+            } else {
+              console.error(`Failed to fetch image with ID ${id}`);
+              return null; // Handle error case
+            }
+          } catch (error) {
+            console.error(`Error fetching image with ID ${id}:`, error);
+            return null; // Handle error case
+          }
+        })
+      );
+      setImageUrls(urls.filter((url) => url)); // Filter out any null values
+    };
+
+    if (businessPictures.length > 0) {
+      fetchImages();
+    }
+
+    // Cleanup function to revoke object URLs
+    return () => {
+      imageUrls.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, [businessPictures]);
+
   // Calculate funding percentage for progress bar
   const fundingAmount = parseFloat(fundingAmountString);
   const fundingPercentage = (50000 / fundingAmount) * 100;
   const leftForFund = fundingAmount - 50000;
-  console.log(businessPictures);
 
   return (
     <div className="mx-auto">
       <Link to={`/projectdetail/${_id}`}>
-        <div
-          className="bg-white h-[450px] lg:mt-24  lg:w-[320px] sm:w-[290px] xs:w-[290px] xxs:w-[290px]  rounded-2xl shadow-md overflow-hidden
-        transform transition-transform duration-300 ease-in-out delay-150 hover:scale-105"
-        >
-          {/* {businessPictures && businessPictures.length > 0 ? (
+        <div className="bg-white h-[450px] lg:mt-24 lg:w-[320px] sm:w-[290px] xs:w-[290px] xxs:w-[290px] rounded-2xl shadow-md overflow-hidden transform transition-transform duration-300 ease-in-out delay-150 hover:scale-105">
+          {imageUrls.length > 0 ? (
             <img
-              src={businessPictures[0]} // Display the first image
+              src={imageUrls[0]} // Display the first image
               alt="Fundraiser"
               className="w-full h-48 object-cover"
             />
@@ -43,12 +69,7 @@ const LatestPost = ({ item }) => {
               alt="Fundraiser"
               className="w-full h-48 object-cover"
             />
-          )} */}
-          <img
-            src={nidFile} // Default image if no pictures available
-            alt="Fundraiser"
-            className="w-full h-48 object-cover"
-          />
+          )}
           <div className="p-4">
             <div className="text-xs font-medium text-gray-500 mb-2">
               <span className="inline-block bg-salmon text-white rounded-full px-3 py-1 text-sm font-semibold mr-2">
@@ -60,7 +81,7 @@ const LatestPost = ({ item }) => {
             </div>
             <h3 className="text-lg font-semibold mb-2">{businessName}</h3>
             <div className="flex flex-row my-4 justify-between">
-              <p className="">Funded: 50000</p>
+              <p className=""> Funded: 50000</p>
               <p className="">Left for fund: {leftForFund}</p>
             </div>
             <div className="mb-4">
@@ -73,12 +94,11 @@ const LatestPost = ({ item }) => {
               <div className="flex justify-between text-sm">
                 <div>
                   <i className="fas fa-box lg:mr-1 xxs:text-xs xs:text-xs sm-text-xs"></i>
-                  Raised: 50000taka
+                  Raised: 50000 taka
                 </div>
                 <div>
                   <i className="fas fa-bullseye lg:mr-1 xxs:text-xs xs:text-xs sm-text-xs"></i>
-                  Goal:
-                  {fundingAmount} taka
+                  Goal: {fundingAmount} taka
                 </div>
               </div>
             </div>
@@ -93,14 +113,11 @@ LatestPost.propTypes = {
   item: PropTypes.shape({
     address: PropTypes.string.isRequired,
     _id: PropTypes.string.isRequired,
-    // funded: PropTypes.string.isRequired,
-    // left_for_fund: PropTypes.string.isRequired,
-    // raised: PropTypes.number.isRequired,
     businessSector: PropTypes.string.isRequired,
-
     fundingAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
       .isRequired,
     businessName: PropTypes.string.isRequired,
+    businessPictures: PropTypes.arrayOf(PropTypes.string).isRequired, // Ensure this is an array of strings (IDs)
   }).isRequired,
 };
 

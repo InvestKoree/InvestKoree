@@ -1,45 +1,18 @@
-import fs from 'fs';
-import path from 'path';
+
 import PendingPost from '../models/pendingPost.js';
 import FounderPending from '../models/founderpending.js';
-import { sanitizeFilename } from '../utils/sanitize.js';
-import { fileURLToPath } from 'url'; // Import for getting __dirname
-import { dirname } from 'path';
+
 
 // Create __dirname equivalent for ES module
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-// Define the upload directory
-const UPLOAD_DIR = path.join(__dirname, '../uploads'); // Assuming 'uploads' folder is in the root
-
-// Ensure the user directory exists with the name of the userId
-const ensureUserDirectoryExists = (userId) => {
-  const userDir = path.join(UPLOAD_DIR, userId); // Use userId as the folder name
-  if (!fs.existsSync(userDir)) {
-    fs.mkdirSync(userDir, { recursive: true });
-  }
-  return userDir;
-};
-
-// Helper function to generate file paths
-const getFilePath = (userId, file) => {
-  const userDir = ensureUserDirectoryExists(userId);
-  const sanitizedFilename = sanitizeFilename(file.originalname);
-  const filePath = path.join(userDir, sanitizedFilename);
-  return filePath;
-};
-
 export const createFounderPost = async (req, res) => {
   console.log("Request Body:", req.body);
   console.log("Request Files:", req.files);
-  console.log("User ID:", req.user?.id);
+  console.log("User  ID:", req.user?.id);
 
   try {
-    // Retrieve the user ID from middleware
     const userId = req.user?.id;
     if (!userId) {
-      return res.status(400).json({ error: "User ID is required." });
+      return res.status(400).json({ error: "User  ID is required." });
     }
 
     // Destructure fields with fallback values
@@ -75,35 +48,36 @@ export const createFounderPost = async (req, res) => {
       returndate,
       projectedROI,
       description,
-      // Handle multiple business pictures and sanitize paths
+      // Handle multiple business pictures and store GridFS file IDs
       businessPictures: req.files?.businessPicture
-        ? req.files.businessPicture.map(file => getFilePath(userId, file))
+        ? req.files.businessPicture.map(file => file.id) // Store GridFS file IDs
         : [],
       nidFile: req.files?.nidCopy?.[0]
-        ? getFilePath(userId, req.files.nidCopy[0])
+        ? req.files.nidCopy[0].id // Store GridFS file ID
         : null,
       tinFile: req.files?.tinCopy?.[0]
-        ? getFilePath(userId, req.files.tinCopy[0])
+        ? req.files.tinCopy[0].id // Store GridFS file ID
         : null,
       taxFile: req.files?.taxCopy?.[0]
-        ? getFilePath(userId, req.files.taxCopy[0])
+        ? req.files.taxCopy[0].id // Store GridFS file ID
         : null,
       tradeLicenseFile: req.files?.tradeLicense?.[0]
-        ? getFilePath(userId, req.files.tradeLicense[0])
+        ? req.files.tradeLicense[0].id // Store GridFS file ID
         : null,
       bankStatementFile: req.files?.bankStatement?.[0]
-        ? getFilePath(userId, req.files.bankStatement[0])
+        ? req.files.bankStatement[0].id // Store GridFS file ID
         : null,
       securityFile: req.files?.securityFile?.[0]
-        ? getFilePath(userId, req.files.securityFile[0])
+        ? req.files.securityFile[0].id // Store GridFS file ID
         : null,
       financialFile: req.files?.financialFile?.[0]
-        ? getFilePath(userId, req.files.financialFile[0])
+        ? req.files.financialFile[0].id // Store GridFS file ID
         : null,
       videoFile: req.files?.video?.[0]
-        ? getFilePath(userId, req.files.video[0])
+        ? req.files.video[0].id // Store GridFS file ID
         : null,
     });
+
     // Save the new post to the PendingPost collection
     const savedPost = await newPost.save();
 
