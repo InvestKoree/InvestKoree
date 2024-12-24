@@ -1,25 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import temp from "../assets/s2.jpg";
 
 const Blogs = () => {
-  const [showFullPost, setShowFullPost] = useState(false);
-  const [showFullPost1, setShowFullPost1] = useState(false);
-  const [showFullPost2, setShowFullPost2] = useState(false);
+  const [expandedPost, setExpandedPost] = useState(null); // Track which post is expanded
 
-  const togglePost = () => {
-    setShowFullPost(!showFullPost);
-  };
-  const togglePost1 = () => {
-    setShowFullPost1(!showFullPost1);
-  };
-
-  const togglePost2 = () => {
-    setShowFullPost2(!showFullPost2);
+  const togglePost = (postIndex) => {
+    setExpandedPost(expandedPost === postIndex ? null : postIndex); // Toggle the clicked post
   };
 
   return (
     <div className="flex lg:flex-row gap-6 justify-center">
-      <div className="card bg-base-100 w-96 shadow-xl  my-6">
+      <div className="card bg-base-100 w-96 shadow-xl my-6">
         <figure className="px-10 pt-10">
           <img src={temp} className="rounded-xl" />
         </figure>
@@ -36,8 +27,9 @@ const Blogs = () => {
             can help take your business to the next level.
           </p>
 
-          {showFullPost && (
+          {expandedPost === 0 && ( // Check if this post is expanded
             <>
+              {/* Expanded content for the first post */}
               <h2 className="text-2xl font-bold mt-8">
                 Why the Right Investor Matters
               </h2>
@@ -50,7 +42,6 @@ const Blogs = () => {
                 vision, supporting you through challenges and celebrating
                 milestones along the way.
               </p>
-
               <h2 className="text-2xl font-bold mt-8">
                 Key Traits to Look for in an Investor
               </h2>
@@ -145,15 +136,16 @@ const Blogs = () => {
           )}
           <div className="card-actions">
             <button
-              onClick={togglePost}
+              onClick={() => togglePost(0)} // Pass the index of the post
               className="bg-salmon text-white px-6 py-2 rounded-md"
             >
-              {showFullPost ? "Show Less" : "Show More"}
+              {expandedPost === 0 ? "Show Less" : "Show More"}
             </button>
           </div>
         </div>
       </div>
-      <div className="card bg-base-100 w-96 shadow-xl  my-6">
+
+      <div className="card bg-base-100 w-96 shadow-xl my-6">
         <figure className="px-10 pt-10">
           <img src={temp} className="rounded-xl" />
         </figure>
@@ -170,8 +162,9 @@ const Blogs = () => {
             can help take your business to the next level.
           </p>
 
-          {showFullPost1 && (
+          {expandedPost === 1 && ( // Check if this post is expanded
             <>
+              {/* Expanded content for the second post */}
               <h2 className="text-2xl font-bold mt-8">
                 Why the Right Investor Matters
               </h2>
@@ -184,7 +177,6 @@ const Blogs = () => {
                 vision, supporting you through challenges and celebrating
                 milestones along the way.
               </p>
-
               <h2 className="text-2xl font-bold mt-8">
                 Key Traits to Look for in an Investor
               </h2>
@@ -279,15 +271,16 @@ const Blogs = () => {
           )}
           <div className="card-actions">
             <button
-              onClick={togglePost1}
+              onClick={() => togglePost(1)} // Pass the index of the post
               className="bg-salmon text-white px-6 py-2 rounded-md"
             >
-              {showFullPost1 ? "Show Less" : "Show More"}
+              {expandedPost === 1 ? "Show Less" : "Show More"}
             </button>
           </div>
         </div>
       </div>
-      <div className="card bg-base-100 w-96 shadow-xl  my-6">
+
+      <div className="card bg-base-100 w-96 shadow-xl my-6">
         <figure className="px-10 pt-10">
           <img src={temp} className="rounded-xl" />
         </figure>
@@ -304,8 +297,9 @@ const Blogs = () => {
             can help take your business to the next level.
           </p>
 
-          {showFullPost2 && (
+          {expandedPost === 2 && ( // Check if this post is expanded
             <>
+              {/* Expanded content for the third post */}
               <h2 className="text-2xl font-bold mt-8">
                 Why the Right Investor Matters
               </h2>
@@ -318,7 +312,6 @@ const Blogs = () => {
                 vision, supporting you through challenges and celebrating
                 milestones along the way.
               </p>
-
               <h2 className="text-2xl font-bold mt-8">
                 Key Traits to Look for in an Investor
               </h2>
@@ -413,10 +406,10 @@ const Blogs = () => {
           )}
           <div className="card-actions">
             <button
-              onClick={togglePost2}
+              onClick={() => togglePost(2)} // Pass the index of the post
               className="bg-salmon text-white px-6 py-2 rounded-md"
             >
-              {showFullPost2 ? "Show Less" : "Show More"}
+              {expandedPost === 2 ? "Show Less" : "Show More"}
             </button>
           </div>
         </div>
