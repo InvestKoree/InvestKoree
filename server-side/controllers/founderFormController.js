@@ -1,7 +1,5 @@
-
 import PendingPost from '../models/pendingPost.js';
 import FounderPending from '../models/founderpending.js';
-
 
 // Create __dirname equivalent for ES module
 export const createFounderPost = async (req, res) => {
@@ -23,6 +21,11 @@ export const createFounderPost = async (req, res) => {
       fundingAmount = "", fundingHelp = "", returndate = "", projectedROI = "",
       returnPlan = "", businessSafety = "", additionalComments = "", description = "",
     } = req.body;
+
+    // Check if files are uploaded
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).json({ error: "No files were uploaded." });
+    }
 
     // Prepare the new post
     const newPost = new PendingPost({
@@ -49,33 +52,17 @@ export const createFounderPost = async (req, res) => {
       projectedROI,
       description,
       // Handle multiple business pictures and store GridFS file IDs
-      businessPictures: req.files?.businessPicture
+      businessPictures: req.files.businessPicture
         ? req.files.businessPicture.map(file => file.id) // Store GridFS file IDs
         : [],
-      nidFile: req.files?.nidCopy?.[0]
-        ? req.files.nidCopy[0].id // Store GridFS file ID
-        : null,
-      tinFile: req.files?.tinCopy?.[0]
-        ? req.files.tinCopy[0].id // Store GridFS file ID
-        : null,
-      taxFile: req.files?.taxCopy?.[0]
-        ? req.files.taxCopy[0].id // Store GridFS file ID
-        : null,
-      tradeLicenseFile: req.files?.tradeLicense?.[0]
-        ? req.files.tradeLicense[0].id // Store GridFS file ID
-        : null,
-      bankStatementFile: req.files?.bankStatement?.[0]
-        ? req.files.bankStatement[0].id // Store GridFS file ID
-        : null,
-      securityFile: req.files?.securityFile?.[0]
-        ? req.files.securityFile[0].id // Store GridFS file ID
-        : null,
-      financialFile: req.files?.financialFile?.[0]
-        ? req.files.financialFile[0].id // Store GridFS file ID
-        : null,
-      videoFile: req.files?.video?.[0]
-        ? req.files.video[0].id // Store GridFS file ID
-        : null,
+      nidFile: req.files.nidCopy?.[0]?.id || null,
+      tinFile: req.files.tinCopy?.[0]?.id || null,
+      taxFile: req.files.taxCopy?.[0]?.id || null,
+      tradeLicenseFile: req.files.tradeLicense?.[0]?.id || null,
+      bankStatementFile: req.files.bankStatement?.[0]?.id || null,
+      securityFile: req.files.securityFile?.[0]?.id || null,
+      financialFile: req.files.financialFile?.[0]?.id || null,
+      videoFile: req.files.video?.[0]?.id || null,
     });
 
     // Save the new post to the PendingPost collection
