@@ -22,17 +22,17 @@ const LatestPost = ({ item }) => {
       const urls = await Promise.all(
         businessPictures.map(async (_id) => {
           try {
-            const response = await fetch(`${API_URL}/files/${id}`); // Ensure API_URL is defined
-            console.log(`Fetching image with ID ${id}:`, response); // Log the response
+            const response = await fetch(`${API_URL}/files/${_id}`); // Ensure API_URL is defined
+            console.log(`Fetching image with ID ${_id}:`, response); // Log the response
             if (response.ok) {
               const blob = await response.blob();
               return URL.createObjectURL(blob); // Create a URL for the blob
             } else {
-              console.error(`Failed to fetch image with ID ${id}`);
+              console.error(`Failed to fetch image with ID ${_id}`);
               return null; // Handle error case
             }
           } catch (error) {
-            console.error(`Error fetching image with ID ${id}:`, error);
+            console.error(`Error fetching image with ID ${_id}:`, error);
             return null; // Handle error case
           }
         })
