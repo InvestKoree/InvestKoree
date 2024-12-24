@@ -201,7 +201,10 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
 });
 // Endpoint to retrieve a file by ID
 app.get('/files/:id', (req, res) => {
-  gfs.files.findOne({ _id: mongoose.Types.ObjectId(req.params.id) }, (err, file) => {
+  // Correctly instantiate ObjectId
+  const objectId = new mongoose.Types.ObjectId(req.params.id);
+
+  gfs.files.findOne({ _id: objectId }, (err, file) => {
     if (err) {
       return res.status(500).json({ err: 'Error fetching file' });
     }
@@ -212,8 +215,7 @@ app.get('/files/:id', (req, res) => {
 
     // Check if the file is an image or video
     if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'video/mp4' || file.contentType === 'image/jpg') {
-      // Create a read stream
-      const readstream = gfs.createReadStream({ _id: file._id }); // Use file._id to read the file
+      const readstream = gfs.createReadStream({ _id: file._id });
       readstream.pipe(res);
     } else {
       res.status(400).json({ err: 'Not an image or video file' });
