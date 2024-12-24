@@ -20,7 +20,7 @@ const LatestPost = ({ item }) => {
     const fetchImages = async () => {
       console.log("Fetching images for IDs:", businessPictures); // Log the IDs
       const urls = await Promise.all(
-        businessPictures.map(async (id) => {
+        businessPictures.map(async (_id) => {
           try {
             const response = await fetch(`${API_URL}/files/${id}`); // Ensure API_URL is defined
             console.log(`Fetching image with ID ${id}:`, response); // Log the response
