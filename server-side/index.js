@@ -202,14 +202,18 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
 // Endpoint to retrieve a file by ID
 app.get('/files/:id', (req, res) => {
   gfs.files.findOne({ _id: mongoose.Types.ObjectId(req.params.id) }, (err, file) => {
-    if (!file || file.length === 0) {
+    if (err) {
+      return res.status(500).json({ err: 'Error fetching file' });
+    }
+
+    if (!file) {
       return res.status(404).json({ err: 'No file exists' });
     }
 
     // Check if the file is an image or video
-    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'video/mp4'||file.contentType === 'image/jpg') {
+    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'video/mp4' || file.contentType === 'image/jpg') {
       // Create a read stream
-      const readstream = gfs.createReadStream(file.filename);
+      const readstream = gfs.createReadStream({ _id: file._id }); // Use file._id to read the file
       readstream.pipe(res);
     } else {
       res.status(400).json({ err: 'Not an image or video file' });
