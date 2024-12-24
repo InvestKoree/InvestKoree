@@ -5,9 +5,7 @@ import { verifyToken } from '../utils/authMiddleware.js';
 
 // User login function allowing login with either email or phone
 async function login(email, password, phone) {
-    console.log("Received email:", email); // Log email to verify value
-    console.log("Received password:", password); // Log password to verify value
-    console.log("Received phone:", phone); // Log phone to verify value
+
     
     try {
         // Find the user with the provided email or phone
