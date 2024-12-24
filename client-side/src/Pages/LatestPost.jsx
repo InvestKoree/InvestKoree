@@ -15,13 +15,15 @@ const LatestPost = ({ item }) => {
   } = item;
 
   const [imageUrls, setImageUrls] = useState([]);
-
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   useEffect(() => {
     const fetchImages = async () => {
+      console.log("Fetching images for IDs:", businessPictures); // Log the IDs
       const urls = await Promise.all(
         businessPictures.map(async (id) => {
           try {
-            const response = await fetch(`${API_URL}/files/${id}`);
+            const response = await fetch(`${API_URL}/files/${id}`); // Ensure API_URL is defined
+            console.log(`Fetching image with ID ${id}:`, response); // Log the response
             if (response.ok) {
               const blob = await response.blob();
               return URL.createObjectURL(blob); // Create a URL for the blob
@@ -47,7 +49,6 @@ const LatestPost = ({ item }) => {
       imageUrls.forEach((url) => URL.revokeObjectURL(url));
     };
   }, [businessPictures]);
-
   // Calculate funding percentage for progress bar
   const fundingAmount = parseFloat(fundingAmountString);
   const fundingPercentage = (50000 / fundingAmount) * 100;
