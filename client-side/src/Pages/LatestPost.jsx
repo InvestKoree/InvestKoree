@@ -21,7 +21,7 @@ const LatestPost = ({ item }) => {
       const urls = await Promise.all(
         businessPictures.map(async (id) => {
           try {
-            const response = await fetch(`/files/${id}`);
+            const response = await fetch(`${API_URL}/files/${id}`);
             if (response.ok) {
               const blob = await response.blob();
               return URL.createObjectURL(blob); // Create a URL for the blob
