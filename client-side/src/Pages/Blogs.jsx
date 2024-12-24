@@ -3,9 +3,18 @@ import temp from "../assets/s2.jpg";
 
 const Blogs = () => {
   const [showFullPost, setShowFullPost] = useState(false);
+  const [showFullPost1, setShowFullPost1] = useState(false);
+  const [showFullPost2, setShowFullPost2] = useState(false);
 
   const togglePost = () => {
     setShowFullPost(!showFullPost);
+  };
+  const togglePost1 = () => {
+    setShowFullPost1(!showFullPost1);
+  };
+
+  const togglePost2 = () => {
+    setShowFullPost2(!showFullPost2);
   };
 
   return (
@@ -161,7 +170,7 @@ const Blogs = () => {
             can help take your business to the next level.
           </p>
 
-          {showFullPost && (
+          {showFullPost1 && (
             <>
               <h2 className="text-2xl font-bold mt-8">
                 Why the Right Investor Matters
@@ -270,7 +279,7 @@ const Blogs = () => {
           )}
           <div className="card-actions">
             <button
-              onClick={togglePost}
+              onClick={togglePost1}
               className="bg-salmon text-white px-6 py-2 rounded-md"
             >
               {showFullPost ? "Show Less" : "Show More"}
@@ -295,7 +304,7 @@ const Blogs = () => {
             can help take your business to the next level.
           </p>
 
-          {showFullPost && (
+          {showFullPost2 && (
             <>
               <h2 className="text-2xl font-bold mt-8">
                 Why the Right Investor Matters
@@ -404,7 +413,7 @@ const Blogs = () => {
           )}
           <div className="card-actions">
             <button
-              onClick={togglePost}
+              onClick={togglePost2}
               className="bg-salmon text-white px-6 py-2 rounded-md"
             >
               {showFullPost ? "Show Less" : "Show More"}
