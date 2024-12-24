@@ -21,7 +21,7 @@ import FounderPost from './models/founderFormPostModels.js';
 import Notification from './models/notification.js';
 import FounderPending from './models/founderpending.js';
 import CheckDuplicate from './routes/checkDuplicate.js';
-
+import mongoose from 'mongoose';
 
 
 dotenv.config();
