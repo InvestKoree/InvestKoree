@@ -4,7 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { Server } from 'socket.io';
 import multer from 'multer';
-import path from 'path';
+import { storage, gfs } from './gridfs.js'; 
 import helmet from 'helmet'; // Import helmet
 import connectDB from './config/db.js';
 import signupRoute from '../server-side/routes/signup.js';
@@ -21,15 +21,12 @@ import FounderPost from './models/founderFormPostModels.js';
 import Notification from './models/notification.js';
 import FounderPending from './models/founderpending.js';
 import CheckDuplicate from './routes/checkDuplicate.js';
-import { fileURLToPath } from 'url'; // Import for getting __dirname
-import { dirname } from 'path';
-import { sanitizeFilename } from './utils/sanitize.js';
-import fs from 'fs';
+
+
 
 dotenv.config();
 // Create __dirname equivalent
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+
 // Initialize App
 const app = express();
 const server = http.createServer(app);
@@ -70,46 +67,9 @@ const cspOptions = {
 app.use(helmet.contentSecurityPolicy(cspOptions));
 
 // Multer Setup
-const uploadsPath = path.resolve(__dirname, 'uploads'); // Use __dirname to resolve the uploads path
+const upload = multer({ storage });
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const userId = req.user ? req.user.id : 'default_user'; // Fallback to 'default_user' if userId is unavailable
-    const subfolder = path.join(uploadsPath, userId); // Use userId as the folder name
-    fs.mkdirSync(subfolder, { recursive: true });
-    cb(null, subfolder);
-  },
-  filename: function (req, file, cb) {
-    const userId = req.user ? req.user.id : 'default_user'; // Fallback to 'default_user' if userId is unavailable
-    const subfolder = path.join(uploadsPath, userId); // Use userId as the folder name
-
-    // Get all files in the directory
-    const files = fs.readdirSync(subfolder);
-
-    // Extract numeric indices from filenames
-  
-    // Sanitize the filename using the sanitizeFilename function
-    const sanitizedFilename = sanitizeFilename(file.originalname);
-
-    // Save the sanitized filename with the next index
-    cb(null, `${sanitizedFilename}`);
-  },
-});
-
-
-
-const upload = multer({
-  storage,
-  limits: { fileSize: 50 * 1024 * 1024 },
-  fileFilter: (req, file, cb) => {
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf', 'video/mp4', 'video/quicktime'];
-    if (allowedTypes.includes(file.mimetype)) {
-      cb(null, true);
-    } else {
-      cb(new Error('Unsupported file type'), false);
-    }
-  },
-});
+// Create Founder Post with Pending Approval
 
 
 // Routes
@@ -238,6 +198,23 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Error deleting post: ' + error.message });
   }
+});
+// Endpoint to retrieve a file by ID
+app.get('/files/:id', (req, res) => {
+  gfs.files.findOne({ _id: mongoose.Types.ObjectId(req.params.id) }, (err, file) => {
+    if (!file || file.length === 0) {
+      return res.status(404).json({ err: 'No file exists' });
+    }
+
+    // Check if the file is an image or video
+    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'video/mp4') {
+      // Create a read stream
+      const readstream = gfs.createReadStream(file.filename);
+      readstream.pipe(res);
+    } else {
+      res.status(400).json({ err: 'Not an image or video file' });
+    }
+  });
 });
 // Pending Posts Routes
 app.get('/adminpost/pending', async (req, res) => {
