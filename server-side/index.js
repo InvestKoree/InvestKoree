@@ -201,27 +201,33 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
 });
 // Endpoint to retrieve a file by ID
 app.get('/files/:id', (req, res) => {
-  // Correctly instantiate ObjectId
-  const objectId = new mongoose.Types.ObjectId(req.params.id);
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: 'Invalid file ID format' });
+  }
+
+  const objectId = new mongoose.Types.ObjectId(id);
 
   gfs.files.findOne({ _id: objectId }, (err, file) => {
     if (err) {
-      return res.status(500).json({ err: 'Error fetching file' });
+      return res.status(500).json({ error: 'Error fetching file' });
     }
 
     if (!file) {
-      return res.status(404).json({ err: 'No file exists' });
+      return res.status(404).json({ error: 'File not found' });
     }
 
-    // Check if the file is an image or video
-    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'video/mp4' || file.contentType === 'image/jpg') {
-      const readstream = gfs.createReadStream({ _id: file._id });
-      readstream.pipe(res);
+    // Check if file type is supported
+    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+      const readStream = gfs.createReadStream({ _id: file._id });
+      readStream.pipe(res);
     } else {
-      res.status(400).json({ err: 'Not an image or video file' });
+      res.status(400).json({ error: 'Not an image file' });
     }
   });
 });
+
 // Pending Posts Routes
 app.get('/adminpost/pending', async (req, res) => {
   try {
