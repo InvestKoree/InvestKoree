@@ -33,6 +33,7 @@ additionalComments: {
     type: String,
     required: true
   },
+  nidFile: { type: String },
   createdAt: {
     type: Date,
     default: Date.now

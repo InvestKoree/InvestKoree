@@ -215,7 +215,7 @@ const FounderPost = () => {
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
             <span className="label-text">
-              Upload Your Business's Picture Here
+              Upload Your Business's Picture Here(Min 5)
             </span>
           </div>
           <input

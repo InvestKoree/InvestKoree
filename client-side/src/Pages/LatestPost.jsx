@@ -15,6 +15,7 @@ const LatestPost = ({ item }) => {
     // additionalComments,
     businessName,
     businessPictures,
+    nidFile,
   } = item;
 
   // Calculate funding percentage for progress bar
@@ -44,7 +45,7 @@ const LatestPost = ({ item }) => {
             />
           )} */}
           <img
-            src={temp} // Default image if no pictures available
+            src={nidFile} // Default image if no pictures available
             alt="Fundraiser"
             className="w-full h-48 object-cover"
           />
