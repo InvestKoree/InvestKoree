@@ -11,7 +11,7 @@ const LatestPost = ({ item }) => {
     fundingAmount: fundingAmountString,
     businessName,
     businessPictures,
-    nidFile,
+    // nidFile,
   } = item;
 
   const [imageUrls, setImageUrls] = useState([]);
