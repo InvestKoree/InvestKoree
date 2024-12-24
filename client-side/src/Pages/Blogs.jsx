@@ -282,7 +282,7 @@ const Blogs = () => {
               onClick={togglePost1}
               className="bg-salmon text-white px-6 py-2 rounded-md"
             >
-              {showFullPost ? "Show Less" : "Show More"}
+              {showFullPost1 ? "Show Less" : "Show More"}
             </button>
           </div>
         </div>
@@ -416,7 +416,7 @@ const Blogs = () => {
               onClick={togglePost2}
               className="bg-salmon text-white px-6 py-2 rounded-md"
             >
-              {showFullPost ? "Show Less" : "Show More"}
+              {showFullPost2 ? "Show Less" : "Show More"}
             </button>
           </div>
         </div>
