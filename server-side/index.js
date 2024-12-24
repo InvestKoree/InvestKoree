@@ -207,7 +207,7 @@ app.get('/files/:id', (req, res) => {
     }
 
     // Check if the file is an image or video
-    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'video/mp4') {
+    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'video/mp4'||file.contentType === 'image/jpg') {
       // Create a read stream
       const readstream = gfs.createReadStream(file.filename);
       readstream.pipe(res);
