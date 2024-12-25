@@ -200,9 +200,10 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
   }
 });
 // Endpoint to retrieve a file by ID
-app.get('/files/:id', (req, res) => {
-  const { id } = req.params;
+app.get('/images/:id', (req, res) => {
+  console.log(`Fetching image with ID: ${req.params.id}`);
 
+  const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: 'Invalid file ID format' });
   }
