@@ -20,9 +20,13 @@ conn.once('open', () => {
 const storage = new GridFsStorage({
   url: 'mongodb://admin:Saifinvestkoree2024@194.238.16.43:27017/investKoreeDB?authSource=admin', // Use your MongoDB URI
   file: (req, file) => {
+    const fileTypes = ['image/jpeg', 'image/png', 'video/mp4','image/jpg']; // Allowed file types
+    if (!fileTypes.includes(file.mimetype)) {
+      return null; // Reject the file
+    }
     return {
       filename: file.originalname,
-      bucketName: 'uploads', // Set the name of the bucket
+      bucketName: 'uploads',
     };
   },
 });
