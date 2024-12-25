@@ -202,23 +202,26 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
 // Endpoint to retrieve a file by ID
 
 app.get('/images/:id', (req, res) => {
-  console.log(`Fetching image with ID: ${req.params.id}`);
-
   const { id } = req.params;
+  console.log(`Fetching image with ID: "${id}"`); // Log the ID
 
   // Validate ObjectId format
   if (!mongoose.Types.ObjectId.isValid(id)) {
+    console.log(`Invalid ObjectId format: "${id}"`); // Log invalid format
     return res.status(400).json({ error: 'Invalid file ID format' });
   }
 
-  const objectId = new mongoose.Types.ObjectId(id); // Fixed line
+  const objectId = new mongoose.Types.ObjectId(id);
+  console.log(`Converted ObjectId: ${objectId}`); // Log the converted ObjectId
 
   gfs.files.findOne({ _id: objectId }, (err, file) => {
     if (err) {
+      console.error('Error fetching file:', err); // Log the error
       return res.status(500).json({ error: 'Error fetching file' });
     }
 
     if (!file) {
+      console.log(`File not found for ID: "${id}"`); // Log if file not found
       return res.status(404).json({ error: 'File not found' });
     }
 
