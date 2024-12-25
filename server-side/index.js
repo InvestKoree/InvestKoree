@@ -200,15 +200,18 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
   }
 });
 // Endpoint to retrieve a file by ID
+
 app.get('/images/:id', (req, res) => {
   console.log(`Fetching image with ID: ${req.params.id}`);
 
   const { id } = req.params;
+
+  // Validate ObjectId format
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: 'Invalid file ID format' });
   }
 
-  const objectId = mongoose.Types.ObjectId(id);  // Correct way to instantiate ObjectId
+  const objectId = new mongoose.Types.ObjectId(id); // Fixed line
 
   gfs.files.findOne({ _id: objectId }, (err, file) => {
     if (err) {
@@ -228,7 +231,6 @@ app.get('/images/:id', (req, res) => {
     }
   });
 });
-
 
 // Pending Posts Routes
 app.get('/adminpost/pending', async (req, res) => {
