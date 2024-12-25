@@ -51,18 +51,18 @@ export const createFounderPost = async (req, res) => {
       returndate,
       projectedROI,
       description,
-      // Handle multiple business pictures and store GridFS file IDs
+      // Handle multiple business pictures and store filenames instead of GridFS file IDs
       businessPictures: req.files.businessPicture
-        ? req.files.businessPicture.map(file => file.id) // Store GridFS file IDs
+        ? req.files.businessPicture.map(file => file.originalname) // Store filenames
         : [],
-      nidFile: req.files.nidCopy?.[0]?.id || null,
-      tinFile: req.files.tinCopy?.[0]?.id || null,
-      taxFile: req.files.taxCopy?.[0]?.id || null,
-      tradeLicenseFile: req.files.tradeLicense?.[0]?.id || null,
-      bankStatementFile: req.files.bankStatement?.[0]?.id || null,
-      securityFile: req.files.securityFile?.[0]?.id || null,
-      financialFile: req.files.financialFile?.[0]?.id || null,
-      videoFile: req.files.video?.[0]?.id || null,
+      nidFile: req.files.nidCopy?.[0]?.originalname || null,
+      tinFile: req.files.tinCopy?.[0]?.originalname || null,
+      taxFile: req.files.taxCopy?.[0]?.originalname || null,
+      tradeLicenseFile: req.files.tradeLicense?.[0]?.originalname || null,
+      bankStatementFile: req.files.bankStatement?.[0]?.originalname || null,
+      securityFile: req.files.securityFile?.[0]?.originalname || null,
+      financialFile: req.files.financialFile?.[0]?.originalname || null,
+      videoFile: req.files.video?.[0]?.originalname || null,
     });
 
     // Save the new post to the PendingPost collection
