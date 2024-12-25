@@ -200,46 +200,41 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
   }
 });
 // Endpoint to retrieve a file by ID
+
 app.get('/images/:id', (req, res) => {
-  console.log(`Fetching image with ID: ${req.params.id}`);
-
   const { id } = req.params;
+  console.log('Fetching image with ID:', id, typeof id);
 
-  // Validate ObjectId format
-  const cleanId = id.trim(); // Trim any spaces
-  console.log('Cleaned ID:', cleanId); // Log the cleaned ID
+  const cleanId = id.trim(); // Trim spaces
+  console.log('Cleaned ID:', cleanId);
 
-  // Check if the ID is a valid ObjectId
   if (!mongoose.Types.ObjectId.isValid(cleanId)) {
+    console.log('Invalid ID format:', cleanId);
     return res.status(400).json({ error: 'Invalid file ID format' });
   }
 
-  // Use the cleanId to create ObjectId
   const objectId = new mongoose.Types.ObjectId(cleanId);
 
-  // Find the file in GridFS
   gfs.files.findOne({ _id: objectId }, (err, file) => {
     if (err) {
-      console.error('MongoDB Error:', err); // Log the error
+      console.error('MongoDB Error:', err);
       return res.status(500).json({ error: 'Error fetching file' });
     }
 
     if (!file) {
-      console.log('File not found for ID:', cleanId); // Log missing file
+      console.log('File not found for ID:', cleanId);
       return res.status(404).json({ error: 'File not found' });
     }
 
-    // Check if the file is an image
-    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png'|| file.contentType === 'image/jpg') {
+    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'image/jpg') {
       const readStream = gfs.createReadStream({ _id: file._id });
-      readStream.pipe(res); // Pipe image to response
+      readStream.pipe(res);
     } else {
-      console.log('Unsupported file type:', file.contentType); // Log file type issue
+      console.log('Unsupported file type:', file.contentType);
       res.status(400).json({ error: 'Not an image file' });
     }
   });
 });
-
 
 // Pending Posts Routes
 app.get('/adminpost/pending', async (req, res) => {
