@@ -21,17 +21,22 @@ const LatestPost = ({ item }) => {
       console.log("Fetching images for filenames:", businessPictures); // Log the filenames
       const urls = await Promise.all(
         businessPictures.map(async (filename) => {
-          // Use filename instead of ID
           try {
+            const trimmedFilename = filename.trim(); // Trim whitespace/newline
             const response = await fetch(
-              `${API_URL}/images/filename/${filename}`
+              `${API_URL}/images/filename/${trimmedFilename}`
             ); // Update the API call
-            console.log(`Fetching image with filename ${filename}:`, response); // Log the response
+            console.log(
+              `Fetching image with filename ${trimmedFilename}:`,
+              response
+            ); // Log the response
             if (response.ok) {
               const blob = await response.blob();
               return URL.createObjectURL(blob); // Create a URL for the blob
             } else {
-              console.error(`Failed to fetch image with filename ${filename}`);
+              console.error(
+                `Failed to fetch image with filename ${trimmedFilename}`
+              );
               return null; // Handle error case
             }
           } catch (error) {

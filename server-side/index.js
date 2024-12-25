@@ -215,7 +215,7 @@ app.get('/images/filename/:filename', (req, res) => {
     }
 
     // Check if file type is supported
-    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png'||file.contentType === 'image/jpg') {
+    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'image/jpg') {
       const readStream = gfs.createReadStream({ filename: file.filename });
       readStream.pipe(res);
     } else {
@@ -223,7 +223,6 @@ app.get('/images/filename/:filename', (req, res) => {
     }
   });
 });
-
 // Pending Posts Routes
 app.get('/adminpost/pending', async (req, res) => {
   try {
