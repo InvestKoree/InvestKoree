@@ -202,35 +202,31 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
 // Endpoint to retrieve a file by ID
 
 app.get('/images/:id', (req, res) => {
+  console.log(`Fetching image with ID: ${req.params.id}`);
+
   const { id } = req.params;
-  console.log('Fetching image with ID:', id, typeof id);
 
-  const cleanId = id.trim(); // Trim spaces
-  console.log('Cleaned ID:', cleanId);
-
-  if (!mongoose.Types.ObjectId.isValid(cleanId)) {
-    console.log('Invalid ID format:', cleanId);
+  // Validate ObjectId format
+  if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: 'Invalid file ID format' });
   }
 
-  const objectId = new mongoose.Types.ObjectId(cleanId);
+  const objectId = new mongoose.Types.ObjectId(id); // Fixed line
 
   gfs.files.findOne({ _id: objectId }, (err, file) => {
     if (err) {
-      console.error('MongoDB Error:', err);
       return res.status(500).json({ error: 'Error fetching file' });
     }
 
     if (!file) {
-      console.log('File not found for ID:', cleanId);
       return res.status(404).json({ error: 'File not found' });
     }
 
-    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'image/jpg') {
+    // Check if file type is supported
+    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
       const readStream = gfs.createReadStream({ _id: file._id });
       readStream.pipe(res);
     } else {
-      console.log('Unsupported file type:', file.contentType);
       res.status(400).json({ error: 'Not an image file' });
     }
   });
