@@ -20,32 +20,24 @@ const LatestPost = ({ item }) => {
 
   useEffect(() => {
     const fetchImages = async () => {
-      console.log("Fetching images for filenames:", businessPictures); // Log the filenames
+      console.log("Fetching images for IDs:", businessPictures); // Log the IDs
       const urls = await Promise.all(
-        businessPictures.map(async (filename) => {
+        businessPictures.map(async (id) => {
           try {
-            const trimmedFilename = filename.trim(); // Trim whitespace/newline
+            const trimmedId = id.trim(); // Trim whitespace/newline
             const response = await fetch(
-              `${API_URL}/images/filename/${trimmedFilename}`
-            ); // Update the API call
-            console.log(
-              `Fetching image with filename ${trimmedFilename}:`,
-              response
-            ); // Log the response
+              `${API_URL}/images/id/${trimmedId}` // Use the ID in the API call
+            );
+            console.log(`Fetching image with ID ${trimmedId}:`, response); // Log the response
             if (response.ok) {
               const blob = await response.blob();
               return URL.createObjectURL(blob); // Create a URL for the blob
             } else {
-              console.error(
-                `Failed to fetch image with filename ${trimmedFilename}`
-              );
+              console.error(`Failed to fetch image with ID ${trimmedId}`);
               return null; // Handle error case
             }
           } catch (error) {
-            console.error(
-              `Error fetching image with filename ${filename}:`,
-              error
-            );
+            console.error(`Error fetching image with ID ${id}:`, error);
             return null; // Handle error case
           }
         })

@@ -200,26 +200,26 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
   }
 });
 // Endpoint to retrieve a file by ID
-app.get('/images/filename/:filename', (req, res) => {
-  const { filename } = req.params;
-  console.log(`Fetching image with filename: "${filename}"`);
-  console.log(`Request parameters:`, req.params); // Log all request parameters
+// Assuming you have a GridFS setup
+app.get('/images/id/:id', (req, res) => {
+  const { id } = req.params;
+  console.log(`Fetching image with ID: "${id}"`);
 
-  // Your existing logic to fetch the image
-  gfs.files.findOne({ filename: filename }, (err, file) => {
+  // Query the uploads.files collection by ObjectId
+  gfs.files.findOne({ _id: mongoose.Types.ObjectId(id) }, (err, file) => {
       if (err) {
           console.error('Error fetching file:', err);
           return res.status(500).json({ error: 'Error fetching file' });
       }
 
       if (!file) {
-          console.log(`File not found for filename: "${filename}"`);
+          console.log(`File not found for ID: "${id}"`);
           return res.status(404).json({ error: 'File not found' });
       }
 
-      // Check if file type is supported
+      // Check if the file is an image
       if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'image/jpg') {
-          const readStream = gfs.createReadStream({ filename: file.filename });
+          const readStream = gfs.createReadStream({ _id: file._id });
           readStream.pipe(res);
       } else {
           res.status(400).json({ error: 'Not an image file' });
