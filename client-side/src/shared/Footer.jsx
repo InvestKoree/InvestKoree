@@ -30,17 +30,17 @@ function Footer() {
             <h6 className="footer-title opacity-100">About Us</h6>
             <ul className="list-none">
               <li className="hover:text-white transition-colors duration-200">
-                <a className="link link-hover opacity-90" href="#">
+                <a className="link link-hover opacity-90" href="/overview">
                   Overview
                 </a>
               </li>
               <li className="hover:text-white transition-colors duration-200">
-                <a className="link link-hover opacity-90" href="#">
+                <a className="link link-hover opacity-90" href="whoweare">
                   Who we are
                 </a>
               </li>
               <li className="hover:text-white transition-colors duration-200">
-                <a className="link link-hover opacity-90" href="#">
+                <a className="link link-hover opacity-90" href="whatwedo">
                   What we do
                 </a>
               </li>

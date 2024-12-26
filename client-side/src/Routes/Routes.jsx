@@ -25,6 +25,10 @@ import FounderPostReview from "../Pages/Founder/FounderPostReview";
 import InvestorTerms from "../Pages/Investor/InvestorTerms";
 import FounderTerms from "../Pages/Founder/FounderTerms";
 import Blogs from "../Pages/Blogs";
+import BlogOne from "../Pages/BlogOne";
+import Overview from "../Pages/Overview";
+import WhatWeDo from "../Pages/WhatWeDo";
+import WhoWeAre from "../Pages/WhoWeAre";
 
 export const router = createBrowserRouter([
   {
@@ -99,6 +103,26 @@ export const router = createBrowserRouter([
       {
         path: "/fixedreturn",
         element: <FixedReturn></FixedReturn>,
+      },
+      {
+        path: "/stocks",
+        element: <Stocks></Stocks>,
+      },
+      {
+        path: "/blogone",
+        element: <BlogOne></BlogOne>,
+      },
+      {
+        path: "/overview",
+        element: <Overview></Overview>,
+      },
+      {
+        path: "/whatwedo",
+        element: <WhatWeDo></WhatWeDo>,
+      },
+      {
+        path: "/whoweare",
+        element: <WhoWeAre></WhoWeAre>,
       },
       {
         path: "/stocks",
