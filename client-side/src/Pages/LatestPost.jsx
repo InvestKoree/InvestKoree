@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import temp from "../assets/s2.jpg";
 
 const LatestPost = ({ item }) => {
+  console.log("Item data:", item);
+
   const {
     address,
     _id,
