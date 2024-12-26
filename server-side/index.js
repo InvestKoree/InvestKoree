@@ -21,7 +21,7 @@ import FounderPost from './models/founderFormPostModels.js';
 import Notification from './models/notification.js';
 import FounderPending from './models/founderpending.js';
 import CheckDuplicate from './routes/checkDuplicate.js';
-import mongoose from 'mongoose';
+
 
 
 dotenv.config();
@@ -200,27 +200,30 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
   }
 });
 // Endpoint to retrieve a file by ID
-
 app.get('/images/filename/:filename', (req, res) => {
   const { filename } = req.params;
   console.log(`Fetching image with filename: "${filename}"`);
+  console.log(`Request parameters:`, req.params); // Log all request parameters
 
+  // Your existing logic to fetch the image
   gfs.files.findOne({ filename: filename }, (err, file) => {
-    if (err) {
-      return res.status(500).json({ error: 'Error fetching file' });
-    }
+      if (err) {
+          console.error('Error fetching file:', err);
+          return res.status(500).json({ error: 'Error fetching file' });
+      }
 
-    if (!file) {
-      return res.status(404).json({ error: 'File not found' });
-    }
+      if (!file) {
+          console.log(`File not found for filename: "${filename}"`);
+          return res.status(404).json({ error: 'File not found' });
+      }
 
-    // Check if file type is supported
-    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'image/jpg') {
-      const readStream = gfs.createReadStream({ filename: file.filename });
-      readStream.pipe(res);
-    } else {
-      res.status(400).json({ error: 'Not an image file' });
-    }
+      // Check if file type is supported
+      if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'image/jpg') {
+          const readStream = gfs.createReadStream({ filename: file.filename });
+          readStream.pipe(res);
+      } else {
+          res.status(400).json({ error: 'Not an image file' });
+      }
   });
 });
 // Pending Posts Routes
