@@ -203,6 +203,7 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
 app.get('/images/filename/:filename', (req, res) => {
   const { filename } = req.params;
   console.log(`Fetching image with filename: "${filename}"`);
+  console.log(`Request parameters:`, req.params); // Log all request parameters
 
   // Your existing logic to fetch the image
   gfs.files.findOne({ filename: filename }, (err, file) => {
