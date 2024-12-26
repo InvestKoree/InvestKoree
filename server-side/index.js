@@ -207,7 +207,7 @@ app.get('/images/id/:id', (req, res) => {
   console.log(`Fetching image with ID: "${id}"`);
 
   // Query the uploads.files collection by ObjectId
-  gfs.files.findOne({ _id: mongoose.Types.ObjectId(id) }, (err, file) => {
+  gfs.files.findOne({ _id: new mongoose.Types.ObjectId(id) }, (err, file) => {
       if (err) {
           console.error('Error fetching file:', err);
           return res.status(500).json({ error: 'Error fetching file' });
