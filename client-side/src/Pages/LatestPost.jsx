@@ -25,15 +25,18 @@ const LatestPost = ({ item }) => {
         businessPictures.map(async (id) => {
           try {
             const trimmedId = id.trim(); // Trim whitespace/newline
-            const response = await fetch(
-              `${API_URL}/images/id/${trimmedId}` // Use the ID in the API call
-            );
+            const response = await fetch(`${API_URL}/images/id/${trimmedId}`); // Use the ID in the API call
             console.log(`Fetching image with ID ${trimmedId}:`, response); // Log the response
             if (response.ok) {
               const blob = await response.blob();
               return URL.createObjectURL(blob); // Create a URL for the blob
             } else {
-              console.error(`Failed to fetch image with ID ${trimmedId}`);
+              const errorText = await response.text();
+              console.error(
+                `Failed to fetch image with ID ${trimmedId}:`,
+                response.status,
+                errorText
+              );
               return null; // Handle error case
             }
           } catch (error) {
