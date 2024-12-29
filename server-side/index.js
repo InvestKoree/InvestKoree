@@ -203,9 +203,14 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
 });
 // Endpoint to retrieve a file by ID
 // Assuming you have a GridFS setup
-app.get('/images/file/:filename', async (req, res) => {
+app.get('/images/id/:id', async (req, res) => {
   try {
-    const file = await gfs.files.findOne({ filename: req.params.filename }); // Match by filename
+    // Validate if ID is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ error: 'Invalid ObjectId format' });
+    }
+
+    const file = await gfs.files.findOne({ _id: mongoose.Types.ObjectId(req.params.id) });
     if (!file) {
       return res.status(404).json({ error: 'File not found' });
     }
@@ -215,6 +220,7 @@ app.get('/images/file/:filename', async (req, res) => {
     res.status(500).json({ error: 'Error fetching image' });
   }
 });
+
 
 
 // Pending Posts Routes
