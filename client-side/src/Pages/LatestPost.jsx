@@ -20,31 +20,34 @@ const LatestPost = ({ item }) => {
 
   useEffect(() => {
     const fetchImages = async () => {
-      console.log("Fetching images for filenames:", businessPictures); // Log filenames
+      console.log("Fetching images for IDs:", businessPictures); // Log IDs
       const urls = await Promise.all(
-        businessPictures.map(async (filename) => {
+        businessPictures.map(async (id) => {
           try {
-            const trimmedFilename = filename.trim(); // Trim whitespace/newline
-            const response = await fetch(
-              `${API_URL}/images/file/${trimmedFilename}`
-            ); // Use filename
+            const trimmedId = id.trim(); // Trim whitespace/newline
+
+            // Validate ObjectId before making request
+            const isValidObjectId = /^[0-9a-fA-F]{24}$/.test(trimmedId);
+            if (!isValidObjectId) {
+              console.error(`Invalid ObjectId: ${trimmedId}`);
+              return null;
+            }
+
+            const response = await fetch(`${API_URL}/images/id/${trimmedId}`);
             if (response.ok) {
-              return response.url; // Use direct URL instead of blobs
+              return response.url;
             } else {
               const errorText = await response.text();
               console.error(
-                `Failed to fetch image with filename ${trimmedFilename}:`,
+                `Failed to fetch image with ID ${trimmedId}:`,
                 response.status,
                 errorText
               );
-              return null; // Handle error case
+              return null;
             }
           } catch (error) {
-            console.error(
-              `Error fetching image with filename ${filename}:`,
-              error
-            );
-            return null; // Handle error case
+            console.error(`Error fetching image with ID ${id}:`, error);
+            return null;
           }
         })
       );
