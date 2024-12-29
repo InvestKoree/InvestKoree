@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-// import { useAuth } from "../providers/AuthProvider";
-// import useFormatDate from "../hooks/useFormatDate";
+
 const ProjectDetail = () => {
   const { id } = useParams(); // Get the project ID from the URL
   const [project, setProject] = useState(null); // State to hold project data
   const [currentSlide, setCurrentSlide] = useState(0);
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
-  // const { userdata } = useAuth();
-  const [viewMode, setViewMode] = useState("images");
-
   const navigate = useNavigate();
-
-  // State for the current slide
+  const [viewMode, setViewMode] = useState("images");
+  const [imageUrls, setImageUrls] = useState([]);
+  const [videoUrl, setVideoUrl] = useState(null); // State to hold video URL
 
   useEffect(() => {
     // Fetch project details from the backend
@@ -20,32 +17,58 @@ const ProjectDetail = () => {
       try {
         const response = await fetch(
           `${API_URL}/founderpost/projectdetail/${id}`
-        ); // Replace with your API URL
+        );
         const data = await response.json();
         setProject(data); // Set the project data in state
+
+        // Fetch images based on businessPictures
+        const urls = await Promise.all(
+          data.businessPictures.map(async (filename) => {
+            const response = await fetch(
+              `${API_URL}/images/filename/${filename}`
+            );
+            if (response.ok) {
+              const blob = await response.blob();
+              return URL.createObjectURL(blob); // Create a URL for the blob
+            } else {
+              console.error(`Failed to fetch image: ${filename}`);
+              return null;
+            }
+          })
+        );
+        setImageUrls(urls.filter((url) => url)); // Filter out any null values
+
+        // Set the video URL from the project data
+        if (data.videoFile) {
+          const videoResponse = await fetch(
+            `${API_URL}/images/filename/${data.videoFile}`
+          );
+          if (videoResponse.ok) {
+            const videoBlob = await videoResponse.blob();
+            setVideoUrl(URL.createObjectURL(videoBlob)); // Create a URL for the video blob
+          } else {
+            console.error(`Failed to fetch video: ${data.videoFile}`);
+          }
+        }
       } catch (error) {
         console.error("Error fetching project details:", error);
       }
     };
 
     fetchProjectDetails();
-  }, [id]);
+  }, [id, API_URL]);
 
   if (!project) {
     return <div>Loading...</div>;
   }
-  console.log(project);
-  const handleInvestClick = async () => {
-    console.log("Button clicked");
 
+  const handleInvestClick = async () => {
     const post = {
       _id: id,
       businessName: project.businessName,
       returndate: project.returndate,
       startDate: project.startDate,
-      // userId: userdata._id,
     };
-    // Check the selected post object
 
     try {
       const response = await fetch(`${API_URL}/investments/post`, {
@@ -62,26 +85,11 @@ const ProjectDetail = () => {
 
       const result = await response.json();
       console.log("Investment data sent successfully:", result);
-
       navigate("/payment");
     } catch (error) {
       console.error("Error sending investment data:", error);
     }
   };
-
-  // Image sources from the project data
-  // const images = project.images || [];
-  const images = [
-    "https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp",
-    "https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp",
-    "https://img.daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.webp",
-    "https://img.daisyui.com/images/stock/photo-1494253109108-2e30c049369b.webp",
-    "https://img.daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.webp",
-    "https://img.daisyui.com/images/stock/photo-1559181567-c3190ca9959b.webp",
-    "https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp",
-  ];
-
-  const videoSrc = "https://samplelib.com/lib/preview/mp4/sample-5s.mp4";
 
   const handleDotClick = (index) => {
     setCurrentSlide(index);
@@ -90,7 +98,6 @@ const ProjectDetail = () => {
   const handleViewModeChange = (mode) => {
     setViewMode(mode);
   };
-  const formattedStartDate = new Date(project.startDate).toLocaleDateString();
 
   return (
     <div>
@@ -102,10 +109,10 @@ const ProjectDetail = () => {
               <div className="relative w-[full] max-w-md mx-auto">
                 {viewMode === "images" ? (
                   <div className="carousel carousel-vertical rounded-box transform transition-transform duration-300 ease-in-out delay-150 hover:scale-125 h-96">
-                    {images.map((src, index) => (
+                    {imageUrls.map((src, index) => (
                       <div
                         key={index}
-                        className={`carousel-item  h-full ${
+                        className={`carousel-item h-full ${
                           currentSlide === index ? "block" : "hidden"
                         }`}
                       >
@@ -119,18 +126,22 @@ const ProjectDetail = () => {
                   </div>
                 ) : (
                   <div className="video-container rounded-md h-96">
-                    <video
-                      src={videoSrc}
-                      controls
-                      className="object-cover w-full h-full rounded-md"
-                    />
+                    {videoUrl ? (
+                      <video
+                        src={videoUrl}
+                        controls
+                        className="object-cover w-full h-full rounded-md"
+                      />
+                    ) : (
+                      <div>No video available</div>
+                    )}
                   </div>
                 )}
 
                 {/* Dot Navigation for Images */}
                 {viewMode === "images" && (
                   <div className="flex justify-center mt-4">
-                    {images.map((_, index) => (
+                    {imageUrls.map((_, index) => (
                       <button
                         key={index}
                         className={`dot ${
@@ -203,7 +214,7 @@ const ProjectDetail = () => {
                 </div>
                 <div className="flex xs:ml-2 xxs:ml-2 sm:ml-2 lg:justify-between xs:justify-between xxs:justify-between sm:justify-between text-sm">
                   <div>Raised :</div>
-                  <div className="xs:mr-2 xxs:mr-2 sm:mr-2">
+                  <div className="xs:mr-2 xxs:mr-2 sm:mr- 2">
                     {((70000 / project.fundingAmount) * 100).toFixed(0)}%
                   </div>
                 </div>
@@ -241,7 +252,7 @@ const ProjectDetail = () => {
             <div>
               <span className="font-bold">Investment Startdate:</span>
               <span className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm">
-                {formattedStartDate}
+                {new Date(project.startDate).toLocaleDateString()}
               </span>
             </div>
             <div>
@@ -271,7 +282,6 @@ const ProjectDetail = () => {
             </div>
             <div className="collapse-content peer-checked:block">
               <p>{project.returnPlan}</p>
-              {/* Assuming project has a returnPlan field */}
             </div>
           </div>
 
@@ -282,7 +292,6 @@ const ProjectDetail = () => {
             </div>
             <div className="collapse-content peer-checked:block">
               <p>{project.businessSafety}</p>
-              {/* Assuming project has a safetyAssessment field */}
             </div>
           </div>
         </div>
