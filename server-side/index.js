@@ -205,23 +205,29 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
 // Assuming you have a GridFS setup
 app.get('/images/id/:id', async (req, res) => {
   try {
-    // Validate if ID is a valid ObjectId
-    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ error: 'Invalid ObjectId format' });
-    }
+    const fileId = new mongoose.Types.ObjectId(req.params.id);
 
-    const file = await gfs.files.findOne({ _id: mongoose.Types.ObjectId(req.params.id) });
-    if (!file) {
+    // Find the file metadata
+    const files = await mongoose.connection.db
+      .collection('uploads.files')
+      .findOne({ _id: fileId });
+
+    if (!files) {
       return res.status(404).json({ error: 'File not found' });
     }
-    const readStream = gfs.createReadStream(file.filename);
-    readStream.pipe(res);
+
+    // Set headers
+    res.set('Content-Type', files.contentType);
+    res.set('Content-Disposition', 'inline');
+
+    // Stream file data
+    const downloadStream = gfsBucket.openDownloadStream(fileId);
+    downloadStream.pipe(res);
   } catch (err) {
-    res.status(500).json({ error: 'Error fetching image' });
+    console.error('Error fetching image:', err.message);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-
 
 // Pending Posts Routes
 app.get('/adminpost/pending', async (req, res) => {

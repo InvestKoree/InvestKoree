@@ -20,22 +20,16 @@ const LatestPost = ({ item }) => {
 
   useEffect(() => {
     const fetchImages = async () => {
-      console.log("Fetching images for IDs:", businessPictures); // Log IDs
+      console.log("Fetching images for IDs:", businessPictures); // Log the IDs
       const urls = await Promise.all(
-        businessPictures.map(async (id) => {
+        businessPictures.map(async (_id) => {
           try {
-            const trimmedId = id.trim(); // Trim whitespace/newline
-
-            // Validate ObjectId before making request
-            const isValidObjectId = /^[0-9a-fA-F]{24}$/.test(trimmedId);
-            if (!isValidObjectId) {
-              console.error(`Invalid ObjectId: ${trimmedId}`);
-              return null;
-            }
-
-            const response = await fetch(`${API_URL}/images/id/${trimmedId}`);
+            const trimmedId = _id.trim(); // Trim whitespace/newline
+            const response = await fetch(`${API_URL}/images/id/${trimmedId}`); // Use the ID in the API call
+            console.log(`Fetching image with ID ${trimmedId}:`, response); // Log the response
             if (response.ok) {
-              return response.url;
+              const blob = await response.blob();
+              return URL.createObjectURL(blob); // Create a URL for the blob
             } else {
               const errorText = await response.text();
               console.error(
@@ -43,15 +37,15 @@ const LatestPost = ({ item }) => {
                 response.status,
                 errorText
               );
-              return null;
+              return null; // Handle error case
             }
           } catch (error) {
             console.error(`Error fetching image with ID ${id}:`, error);
-            return null;
+            return null; // Handle error case
           }
         })
       );
-      setImageUrls(urls.filter((url) => url)); // Filter out null values
+      setImageUrls(urls.filter((url) => url)); // Filter out any null values
     };
 
     if (businessPictures.length > 0) {
