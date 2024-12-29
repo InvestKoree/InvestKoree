@@ -116,8 +116,24 @@ app.post(
   async (req, res) => {
     console.log('Files received:', req.files); // Log the received files
     try {
-      await createFounderPost(req, res);
+      // Initialize an array to hold ObjectIds
+      const fileIds = {};
+
+      // Loop through the uploaded files and extract ObjectIds
+      for (const field in req.files) {
+        if (req.files[field]) {
+          fileIds[field] = req.files[field].map(file => file.id); // Capture ObjectIds
+        }
+      }
+
+      // Now you can use fileIds to save to your database or process further
+      console.log('Uploaded file IDs:', fileIds);
+
+      // Call your function to create the post, passing the fileIds
+      await createFounderPost(req, res, fileIds); // Pass fileIds to your function
+
     } catch (error) {
+      console.error('Error creating post:', error);
       res.status(500).json({ message: 'Error creating post: ' + error.message });
     }
   }

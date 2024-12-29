@@ -31,8 +31,8 @@ const storage = new GridFsStorage({
       return null; // Reject the file
     }
     return {
-      filename: file.originalname,
-      bucketName: 'uploads', // Collection name
+      bucketName: 'uploads', // GridFS bucket name
+      metadata: { originalname: file.originalname }, // Optional metadata
     };
   },
 });
