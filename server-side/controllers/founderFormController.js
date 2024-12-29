@@ -2,7 +2,7 @@ import PendingPost from '../models/pendingPost.js';
 import FounderPending from '../models/founderpending.js';
 
 // Create __dirname equivalent for ES module
-export const createFounderPost = async (req, res) => {
+export const createFounderPost = async (req, res ,fileIds) => {
   console.log("Request Body:", req.body);
   console.log("Request Files:", req.files);
   console.log("User  ID:", req.user?.id);
@@ -70,6 +70,7 @@ export const createFounderPost = async (req, res) => {
 
     // Create a new document in FounderPending collection
     const founderPendingPost = new FounderPending({
+      fileIds: fileIds,
       ...savedPost._doc, // Use the saved data from PendingPost
     });
 
