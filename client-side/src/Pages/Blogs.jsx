@@ -13,14 +13,16 @@ const Blogs = () => {
   };
   return (
     <div>
-      <h1 className="text-center text-4xl mt-20">Blogs</h1>
-      <div className="h-[600px] flex items-center justify-center">
-        <div className="flex flex-col w-full md:w-1/3 p-4 ">
+      <h1 className="text-center text-4xl sm:text-2xl xxs:text-2xl xs:text-2xl mt-20">
+        Blogs
+      </h1>
+      <div className="lg:h-[600px] flex items-center justify-center lg:flex-row sm:flex-col xxs:flex-col xs:flex-col">
+        <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[300px] ">
           <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
             {/* Image and Text Container */}
             <div className="flex flex-col md:flex-row h-full p-4">
               {/* Image */}
-              <div className="w-full md:w-1/2 h-64 md:h-auto">
+              <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[60%] xxs:w-[60%] xs:w-[60%] sm:mb-2 xxs:mb-2 xs:mb-2  sm:h-[60%] xxs:h-[60%] xs:h-[60%]">
                 <img
                   src={temp}
                   className="object-cover w-full h-full rounded-md"
@@ -28,7 +30,7 @@ const Blogs = () => {
               </div>
 
               {/* Text */}
-              <div className="p-4 flex flex-col justify-between w-full md:w-1/2">
+              <div className="lg:p-4 flex flex-col justify-between w-full md:w-1/2">
                 <h2 className="text-lg font-bold mb-2">
                   How to Find the Right Investor for Your Business
                 </h2>
@@ -60,12 +62,12 @@ const Blogs = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col w-full md:w-1/3 p-4 ">
+        <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[300px] ">
           <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
             {/* Image and Text Container */}
             <div className="flex flex-col md:flex-row h-full p-4">
               {/* Image */}
-              <div className="w-full md:w-1/2 h-64 md:h-auto">
+              <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[60%] xxs:w-[60%] xs:w-[60%]  sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[60%] xxs:h-[60%] xs:h-[60%]">
                 <img
                   src={temp}
                   className="object-cover w-full h-full rounded-md"
@@ -73,7 +75,7 @@ const Blogs = () => {
               </div>
 
               {/* Text */}
-              <div className="p-4 flex flex-col justify-between w-full md:w-1/2">
+              <div className="lg:p-4 flex flex-col justify-between w-full md:w-1/2">
                 <h2 className="text-lg font-bold mb-2">
                   How to Find the Right Investor for Your Business
                 </h2>
@@ -105,12 +107,12 @@ const Blogs = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col w-full md:w-1/3 p-4 ">
+        <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[300px] ">
           <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
             {/* Image and Text Container */}
             <div className="flex flex-col md:flex-row h-full p-4">
               {/* Image */}
-              <div className="w-full md:w-1/2 h-64 md:h-auto">
+              <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[60%] xxs:w-[60%] xs:w-[60%]  sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[60%] xxs:h-[60%] xs:h-[60%]">
                 <img
                   src={temp}
                   className="object-cover w-full h-full rounded-md"
@@ -118,7 +120,7 @@ const Blogs = () => {
               </div>
 
               {/* Text */}
-              <div className="p-4 flex flex-col justify-between w-full md:w-1/2">
+              <div className="lg:p-4 flex flex-col justify-between w-full md:w-1/2 ">
                 <h2 className="text-lg font-bold mb-2">
                   Why Invest Locally: Unlock Opportunities for Bangladeshi
                   Investors and Business Owners
