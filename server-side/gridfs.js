@@ -1,34 +1,41 @@
 import mongoose from 'mongoose';
-import Grid from 'gridfs-stream';
 import { GridFsStorage } from 'multer-gridfs-storage';
+import { GridFSBucket } from 'mongodb';
 import connectDB from './config/db.js'; // Import the connectDB function
 
 // Connect to MongoDB
-connectDB(); // Ensure the database connection is established
+connectDB();
 
-// Create a MongoDB connection
-const conn = mongoose.connection; // Use the existing connection
+// MongoDB connection instance
+const conn = mongoose.connection;
 
-// Initialize GridFS
-let gfs;
+// Initialize GridFSBucket
+let gfsBucket;
+
+// Wait until MongoDB connection is ready
 conn.once('open', () => {
-  gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection('uploads'); // Set the collection name
+  // Use GridFSBucket for streaming files
+  gfsBucket = new GridFSBucket(conn.db, {
+    bucketName: 'uploads', // Match the collection name
+  });
+
+  console.log('GridFSBucket initialized!');
 });
 
-// Create storage engine
+// Create storage engine for multer-gridfs-storage
 const storage = new GridFsStorage({
-  url: 'mongodb://admin:Saifinvestkoree2024@194.238.16.43:27017/investKoreeDB?authSource=admin', // Use your MongoDB URI
+  url: 'mongodb://admin:Saifinvestkoree2024@194.238.16.43:27017/investKoreeDB?authSource=admin',
   file: (req, file) => {
-    const fileTypes = ['image/jpeg', 'image/png', 'video/mp4','image/jpg']; // Allowed file types
+    const fileTypes = ['image/jpeg', 'image/png', 'video/mp4', 'image/jpg']; // Allowed types
     if (!fileTypes.includes(file.mimetype)) {
       return null; // Reject the file
     }
     return {
       filename: file.originalname,
-      bucketName: 'uploads',
+      bucketName: 'uploads', // Collection name
     };
   },
 });
 
-export { storage, gfs };
+// Export storage and gfsBucket
+export { storage, gfsBucket };

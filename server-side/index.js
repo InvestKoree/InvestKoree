@@ -204,24 +204,28 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
 // Endpoint to retrieve a file by ID
 // Assuming you have a GridFS setup
 app.get('/images/id/:id', async (req, res) => {
-  const { id } = req.params;
-
   try {
-      const file = await gfs.find({ _id: new mongoose.Types.ObjectId(id) }).toArray();
+    const fileId = new mongoose.Types.ObjectId(req.params.id);
 
-      if (!file || file.length === 0) {
-          return res.status(404).json({ error: 'File not found' });
-      }
+    // Find the file metadata
+    const files = await mongoose.connection.db
+      .collection('uploads.files')
+      .findOne({ _id: fileId });
 
-      // Set headers for image streaming
-      res.set('Content-Type', file[0].contentType);
-      res.set('Content-Disposition', 'inline'); // Force inline display
+    if (!files) {
+      return res.status(404).json({ error: 'File not found' });
+    }
 
-      const readStream = gfs.openDownloadStream(file[0]._id);
-      readStream.pipe(res);
+    // Set headers
+    res.set('Content-Type', files.contentType);
+    res.set('Content-Disposition', 'inline');
+
+    // Stream file data
+    const downloadStream = gfsBucket.openDownloadStream(fileId);
+    downloadStream.pipe(res);
   } catch (err) {
-      console.error('Error fetching image:', err.message);
-      res.status(500).json({ error: 'Internal server error' });
+    console.error('Error fetching image:', err.message);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
