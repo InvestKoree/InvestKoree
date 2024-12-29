@@ -62,7 +62,7 @@ const Blogs = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[400px] ">
+        <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[350px] ">
           <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
             {/* Image and Text Container */}
             <div className="flex flex-col md:flex-row h-full p-4">
@@ -107,7 +107,7 @@ const Blogs = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[400px] ">
+        <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[350px] ">
           <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
             {/* Image and Text Container */}
             <div className="flex flex-col md:flex-row h-full p-4">
