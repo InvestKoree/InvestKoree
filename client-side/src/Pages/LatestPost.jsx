@@ -22,9 +22,9 @@ const LatestPost = ({ item }) => {
     const fetchImages = async () => {
       console.log("Fetching images for IDs:", businessPictures); // Log the IDs
       const urls = await Promise.all(
-        businessPictures.map(async (id) => {
+        businessPictures.map(async (_id) => {
           try {
-            const trimmedId = id.trim(); // Trim whitespace/newline
+            const trimmedId = _id.trim(); // Trim whitespace/newline
             const response = await fetch(`${API_URL}/images/id/${trimmedId}`); // Use the ID in the API call
             console.log(`Fetching image with ID ${trimmedId}:`, response); // Log the response
             if (response.ok) {
