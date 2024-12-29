@@ -20,34 +20,41 @@ const LatestPost = ({ item }) => {
 
   useEffect(() => {
     const fetchImages = async () => {
-      console.log("Fetching images for IDs:", businessPictures); // Log the IDs
+      console.log("Fetching images for filenames:", businessPictures); // Log the filenames
       const urls = await Promise.all(
-        businessPictures.map(async (_id) => {
+        businessPictures.map(async (filename) => {
           try {
-            const trimmedId = _id.trim(); // Trim whitespace/newline
-            const response = await fetch(`${API_URL}/images/id/${trimmedId}`); // Use the ID in the API call
-            console.log(`Fetching image with ID ${trimmedId}:`, response); // Log the response
+            const trimmedFilename = filename.trim(); // Trim whitespace/newline
+            const response = await fetch(
+              `${API_URL}/images/filename/${trimmedFilename}`
+            ); // Use the filename in the API call
+            console.log(
+              `Fetching image with filename ${trimmedFilename}:`,
+              response
+            ); // Log the response
             if (response.ok) {
               const blob = await response.blob();
               return URL.createObjectURL(blob); // Create a URL for the blob
             } else {
               const errorText = await response.text();
               console.error(
-                `Failed to fetch image with ID ${trimmedId}:`,
+                `Failed to fetch image with filename ${trimmedFilename}:`,
                 response.status,
                 errorText
               );
               return null; // Handle error case
             }
           } catch (error) {
-            console.error(`Error fetching image with ID ${id}:`, error);
+            console.error(
+              `Error fetching image with filename ${filename}:`,
+              error
+            );
             return null; // Handle error case
           }
         })
       );
       setImageUrls(urls.filter((url) => url)); // Filter out any null values
     };
-
     if (businessPictures.length > 0) {
       fetchImages();
     }
