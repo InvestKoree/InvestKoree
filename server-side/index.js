@@ -203,7 +203,7 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
 });
 // Endpoint to retrieve a file by ID
 // Assuming you have a GridFS setup
-router.get('/images/file/:filename', async (req, res) => {
+app.get('/images/file/:filename', async (req, res) => {
   try {
     const file = await gfs.files.findOne({ filename: req.params.filename }); // Match by filename
     if (!file) {
