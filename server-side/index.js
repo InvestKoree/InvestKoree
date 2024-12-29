@@ -4,7 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { Server } from 'socket.io';
 import multer from 'multer';
-import { storage, gfs } from './gridfs.js'; 
+import { storage,gfsBucket } from './gridfs.js'; 
 import helmet from 'helmet'; // Import helmet
 import connectDB from './config/db.js';
 import signupRoute from '../server-side/routes/signup.js';
