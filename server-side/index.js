@@ -35,6 +35,7 @@ const io = new Server(server, {
   cors: {
     origin: ['http://localhost:3000', 'https://investkoree.onrender.com', 'http://localhost:5173', 'https://investkoree-c8l8.onrender.com', 'https://investkoree.com'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
   },
 });
@@ -202,31 +203,28 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
 });
 // Endpoint to retrieve a file by ID
 // Assuming you have a GridFS setup
-app.get('/images/id/:id', (req, res) => {
+app.get('/images/id/:id', async (req, res) => {
   const { id } = req.params;
-  console.log(`Fetching image with ID: "${id}"`);
 
-  // Query the uploads.files collection by ObjectId
-  gfs.files.findOne({ _id: new mongoose.Types.ObjectId(id) }, (err, file) => {
-      if (err) {
-          console.error('Error fetching file:', err);
-          return res.status(500).json({ error: 'Error fetching file' });
-      }
+  try {
+      const file = await gfs.find({ _id: new mongoose.Types.ObjectId(id) }).toArray();
 
-      if (!file) {
-          console.log(`File not found for ID: "${id}"`);
+      if (!file || file.length === 0) {
           return res.status(404).json({ error: 'File not found' });
       }
 
-      // Check if the file is an image
-      if (file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'image/jpg') {
-          const readStream = gfs.createReadStream({ _id: file._id });
-          readStream.pipe(res);
-      } else {
-          res.status(400).json({ error: 'Not an image file' });
-      }
-  });
+      // Set headers for image streaming
+      res.set('Content-Type', file[0].contentType);
+      res.set('Content-Disposition', 'inline'); // Force inline display
+
+      const readStream = gfs.openDownloadStream(file[0]._id);
+      readStream.pipe(res);
+  } catch (err) {
+      console.error('Error fetching image:', err.message);
+      res.status(500).json({ error: 'Internal server error' });
+  }
 });
+
 // Pending Posts Routes
 app.get('/adminpost/pending', async (req, res) => {
   try {
