@@ -72,10 +72,15 @@ const WhatWeDo = () => {
           step of the way. Join us in driving innovation, creating partnerships,
           and shaping the future of business in Bangladesh.
         </p>
-        <p className="text-center text-gray-800 font-semibold mt-8">
-          Contact Us Today to explore how InvestKoree can help you achieve your
-          goals.
-        </p>
+        <a
+          href="mailto:investkoree@gmail.com"
+          className="text-blue-500 underline"
+        >
+          <p className="text-center text-gray-800 font-semibold mt-8">
+            Contact Us Today to explore how InvestKoree can help you achieve
+            your goals.
+          </p>
+        </a>
       </div>
     </div>
   );
