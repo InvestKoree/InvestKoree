@@ -2,15 +2,17 @@ import { Link } from "react-router-dom";
 
 const InvestorTerms = () => {
   return (
-    <div className="h-[500px] mt-20 flex lg:flex-row sm:flex-col xs:flex-col xxs:flex-col sm:px-4 xs:px-4 xxs:px-4 ">
-      <Link to="/investordashboard">
-        <input
-          type="submit"
-          className="post-btn   lg:h-[10%] lg:w-[100px]  sm:w-[20%] xs:w-[20%] xxs:w-[20%] sm:px-4 xs:px-4 xxs:px-4 relative lg:left-56 lg:bottom-9"
-          name="founder-post"
-          value="Back"
-        />
-      </Link>
+    <div className="lg:h-[full] lg:w-[1200px] mt-20 flex lg:flex-row sm:flex-col  xs:flex-col lg:mx-auto lg:gap-12  xxs:flex-col  sm:px-4  xs:px-4  xxs:px-4 sm:mb-4  xs:mb-4  xxs:mb-4 sm:h-full  xs:h-full  xxs:h-full ">
+      <div>
+        <Link to="/investordashboard">
+          <input
+            type="submit"
+            className="post-btn lg:h-[15%] lg:w-[100px] sm:h-[80%] xs:h-[80%] xxs:h-[80%] sm:w-[20%]  xs:w-[20%] xxs:w-[20%] sm:px-4 xs:px-4 xxs:px-4  sm:py-2 xs:py-2 xxs:py-2"
+            name="founder-post"
+            value="Back"
+          />
+        </Link>
+      </div>
       <div className="mx-auto flex flex-col gap-8">
         <h1 className="font-extrabold text-xl">
           For investor terms and conditons: T&C

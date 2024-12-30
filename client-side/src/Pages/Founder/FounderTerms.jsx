@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const FounderTerms = () => {
   return (
-    <div className="lg:h-[full] mt-20 flex lg:flex-row sm:flex-col  xs:flex-col lg:justify-center  xxs:flex-col  sm:px-4  xs:px-4  xxs:px-4 sm:mb-4  xs:mb-4  xxs:mb-4 sm:h-full  xs:h-full  xxs:h-full   ">
+    <div className="lg:h-[full] lg:w-[1200px] mt-20 flex lg:flex-row sm:flex-col  xs:flex-col lg:mx-auto lg:gap-12  xxs:flex-col  sm:px-4  xs:px-4  xxs:px-4 sm:mb-4  xs:mb-4  xxs:mb-4 sm:h-full  xs:h-full  xxs:h-full   ">
       <div>
         <Link to="/founderdashboard">
           <input
