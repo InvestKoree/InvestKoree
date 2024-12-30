@@ -86,16 +86,7 @@ const FounderDashboard = () => {
                 </div>
               </div>
             </div>
-            <div>
-              <Link to="/founderpost">
-                <input
-                  type="submit"
-                  className="post-btn lg:h-[25%] lg:w-[100px] sm:h-[60%] xs:h-[60%] xxs:h-[60%] sm:w-[30%] xs:w-[30%] xxs:w-[30%]"
-                  name="founder-post"
-                  value="Post"
-                />
-              </Link>
-            </div>
+
             {/* <button
               type="button"
               onClick={() => setShowOTPModal(true)}
@@ -103,6 +94,16 @@ const FounderDashboard = () => {
             >
               Verify
             </button> */}
+          </div>
+          <div>
+            <Link to="/founderpost">
+              <input
+                type="submit"
+                className="post-btn lg:h-[25%] lg:w-[100px] sm:h-[60%] xs:h-[60%] xxs:h-[60%] sm:w-[30%] xs:w-[30%] xxs:w-[30%]"
+                name="founder-post"
+                value="Post"
+              />
+            </Link>
           </div>
           <p className="lg:text-3xl font-bold sm:mx-auto xs:mx-auto xxs:mx-auto sm:text-lg xs:text-lg xxs:text-lg mb-12 mt-16">
             Invested Project List
