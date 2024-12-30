@@ -33,6 +33,7 @@ const FounderPost = () => {
   const [otherOption, setOtherOption] = useState(false);
   const [otherDocumentation, setOtherDocumentation] = useState(false);
   const [nidFile, setNidFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [businessPictures, setBusinessPictures] = useState([]);
   const [tinFile, setTinFile] = useState(null);
   const [taxFile, setTaxFile] = useState(null);
@@ -76,6 +77,7 @@ const FounderPost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const postData = new FormData();
@@ -634,10 +636,17 @@ const FounderPost = () => {
         </label>
         {/* Submit Button */}
         <div className="form-control my-3">
-          <button type="submit" className="btn btn-warning w-full max-w-xs">
-            Submit
+          <button
+            type="submit"
+            className="btn btn-warning w-full max-w-xs"
+            disabled={isLoading} // Disable button if loading
+          >
+            {isLoading ? "Submitting..." : "Submit"} {/* Change button text */}
           </button>
         </div>
+        {isLoading && (
+          <p className="text-center text-gray-500">Submitting your post...</p>
+        )}
       </form>
     </div>
   );
