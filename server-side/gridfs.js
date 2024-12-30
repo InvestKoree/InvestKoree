@@ -26,10 +26,29 @@ conn.once('open', () => {
 const storage = new GridFsStorage({
   url: 'mongodb://admin:Saifinvestkoree2024@194.238.16.43:27017/investKoreeDB?authSource=admin',
   file: (req, file) => {
-    const fileTypes = ['image/jpeg', 'image/png', 'video/mp4', 'image/jpg']; // Allowed types
+    // Accept all file types
+    const fileTypes = [
+      'image/jpeg',
+      'image/png',
+      'video/mp4',
+      'image/jpg',
+      'application/pdf', // PDF files
+      'application/msword', // .doc files
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx files
+      'application/vnd.ms-excel', // .xls files
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx files
+      'application/vnd.ms-powerpoint', // .ppt files
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx files
+      'text/plain', // .txt files
+      'application/zip', // .zip files
+      'application/x-rar-compressed', // .rar files
+      // Add more MIME types as needed
+    ];
+
     if (!fileTypes.includes(file.mimetype)) {
-      return null; // Reject the file
+      return null; // Reject the file if the type is not allowed
     }
+
     return {
       bucketName: 'uploads', // GridFS bucket name
       metadata: { originalname: file.originalname }, // Optional metadata
