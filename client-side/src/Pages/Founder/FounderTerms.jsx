@@ -3,14 +3,16 @@ import { Link } from "react-router-dom";
 const FounderTerms = () => {
   return (
     <div className="lg:h-[full] mt-20 flex lg:flex-row sm:flex-col  xs:flex-col  xxs:flex-col  sm:px-4  xs:px-4  xxs:px-4 sm:mb-4  xs:mb-4  xxs:mb-4 sm:h-full  xs:h-full  xxs:h-full   ">
-      <Link to="/founderdashboard">
-        <input
-          type="submit"
-          className="post-btn lg:h-[7%] lg:w-[100px] sm:h-[70%] xs:h-[70%] xxs:h-[70%] sm:w-[20%] xs:w-[20%] xxs:w-[20%] sm:px-4 xs:px-4 xxs:px-4  relative lg:left-56 lg:bottom-9 md:left-56"
-          name="founder-post"
-          value="Back"
-        />
-      </Link>
+      <div>
+        <Link to="/founderdashboard">
+          <input
+            type="submit"
+            className="post-btn lg:h-[7%] lg:w-[100px] sm:h-[70%] xs:h-[70%] xxs:h-[70%] sm:w-[20%] xs:w-[20%] xxs:w-[20%] sm:px-4 xs:px-4 xxs:px-4  relative "
+            name="founder-post"
+            value="Back"
+          />
+        </Link>
+      </div>
       <div className="mx-auto flex flex-col gap-8">
         <h1 className="font-extrabold text-xl">
           For Founder terms and conditons: T&C
