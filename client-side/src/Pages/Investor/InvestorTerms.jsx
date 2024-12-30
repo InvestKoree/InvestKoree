@@ -7,7 +7,7 @@ const InvestorTerms = () => {
         <Link to="/investordashboard">
           <input
             type="submit"
-            className="post-btn lg:h-[15%] lg:w-[100px] sm:h-[80%] xs:h-[80%] xxs:h-[80%] sm:w-[20%]  xs:w-[20%] xxs:w-[20%] sm:px-4 xs:px-4 xxs:px-4  sm:py-2 xs:py-2 xxs:py-2"
+            className="post-btn lg:h-[7%] lg:w-[100px] sm:h-[80%] xs:h-[80%] xxs:h-[80%] sm:w-[20%]  xs:w-[20%] xxs:w-[20%] sm:px-4 xs:px-4 xxs:px-4  sm:py-2 xs:py-2 xxs:py-2"
             name="founder-post"
             value="Back"
           />
