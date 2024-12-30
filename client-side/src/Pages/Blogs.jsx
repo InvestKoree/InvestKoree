@@ -14,7 +14,7 @@ const Blogs = () => {
   return (
     <div>
       <h1 className="text-center lg:text-4xl sm:text-2xl xxs:text-2xl xs:text-2xl mt-20">
-        Blogs
+        Blog
       </h1>
       <div className="lg:h-[600px] flex items-center justify-center lg:flex-row sm:flex-col xxs:flex-col xs:flex-col">
         <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[350px] ">
