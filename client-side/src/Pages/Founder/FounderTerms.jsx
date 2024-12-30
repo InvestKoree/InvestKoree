@@ -6,7 +6,7 @@ const FounderTerms = () => {
       <Link to="/founderdashboard">
         <input
           type="submit"
-          className="post-btn lg:h-[7%] lg:w-[100px] sm:h-[70%] xs:h-[70%] xxs:h-[70%] sm:w-[20%] xs:w-[20%] xxs:w-[20%] sm:px-4 xs:px-4 xxs:px-4  relative lg:left-56 lg:bottom-9"
+          className="post-btn lg:h-[7%] lg:w-[100px] sm:h-[70%] xs:h-[70%] xxs:h-[70%] sm:w-[20%] xs:w-[20%] xxs:w-[20%] sm:px-4 xs:px-4 xxs:px-4  relative lg:left-56 lg:bottom-9 md:left-56"
           name="founder-post"
           value="Back"
         />

@@ -20,7 +20,10 @@ function Footer() {
                 </a>
               </li>
               <li className="hover:text-white transition-colors duration-200">
-                <a className="link link-hover opacity-90" href="#">
+                <a
+                  className="link link-hover opacity-90"
+                  href="mailto:investkoree@gmail.com"
+                >
                   investkoree@gmail.com
                 </a>
               </li>
