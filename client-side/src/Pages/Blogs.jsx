@@ -14,7 +14,7 @@ const Blogs = () => {
   return (
     <div>
       <h1 className="text-center lg:text-4xl sm:text-2xl xxs:text-2xl xs:text-2xl mt-20">
-        Blogs
+        Blog
       </h1>
       <div className="lg:h-[600px] flex items-center justify-center lg:flex-row sm:flex-col xxs:flex-col xs:flex-col">
         <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[350px] ">
@@ -22,7 +22,7 @@ const Blogs = () => {
             {/* Image and Text Container */}
             <div className="flex flex-col md:flex-row h-full p-4">
               {/* Image */}
-              <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[60%] xxs:w-[60%] xs:w-[60%] sm:mb-2 xxs:mb-2 xs:mb-2  sm:h-[60%] xxs:h-[60%] xs:h-[60%]">
+              <div className="lg:w-full md:w-1/2 h-64 md:h-auto  sm:mb-2 xxs:mb-2 xs:mb-2  sm:h-[60%] xxs:h-[60%] xs:h-[60%]">
                 <img
                   src={temp}
                   className="object-cover w-full h-full rounded-md"
@@ -67,7 +67,7 @@ const Blogs = () => {
             {/* Image and Text Container */}
             <div className="flex flex-col md:flex-row h-full p-4">
               {/* Image */}
-              <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[60%] xxs:w-[60%] xs:w-[60%]  sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[60%] xxs:h-[60%] xs:h-[60%]">
+              <div className="lg:w-full md:w-1/2 h-64 md:h-auto   sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[60%] xxs:h-[60%] xs:h-[60%]">
                 <img
                   src={temp}
                   className="object-cover w-full h-full rounded-md"
@@ -112,7 +112,7 @@ const Blogs = () => {
             {/* Image and Text Container */}
             <div className="flex flex-col md:flex-row h-full p-4">
               {/* Image */}
-              <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[60%] xxs:w-[60%] xs:w-[60%]  sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[60%] xxs:h-[60%] xs:h-[60%]">
+              <div className="lg:w-full md:w-1/2 h-64 md:h-auto   sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[60%] xxs:h-[60%] xs:h-[60%]">
                 <img
                   src={temp}
                   className="object-cover w-full h-full rounded-md"
