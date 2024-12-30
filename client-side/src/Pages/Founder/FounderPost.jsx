@@ -125,6 +125,8 @@ const FounderPost = () => {
       }
     } catch (error) {
       toast.error(`Error submitting form: ${error.message}`);
+    } finally {
+      setIsLoading(false); // Set loading state back to false
     }
   };
 
