@@ -30,6 +30,7 @@ import Overview from "../Pages/Overview";
 import WhatWeDo from "../Pages/WhatWeDo";
 import WhoWeAre from "../Pages/WhoWeAre";
 import BlogTwo from "../Pages/BlogTwo";
+import BlogThree from "../Pages/BlogThree";
 
 export const router = createBrowserRouter([
   {
@@ -116,6 +117,10 @@ export const router = createBrowserRouter([
       {
         path: "/blogtwo",
         element: <BlogTwo></BlogTwo>,
+      },
+      {
+        path: "/blogthree",
+        element: <BlogThree></BlogThree>,
       },
       {
         path: "/overview",
