@@ -28,7 +28,7 @@ const Blogs = () => {
               {/* Image */}
               <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[full] xxs:w-[full] xs:w-[full] sm:mb-2 xxs:mb-2 xs:mb-2  sm:h-[30%] xxs:h-[30%] xs:h-[30%]">
                 <img
-                  src={temp}
+                  src={blog1}
                   className="object-cover w-full h-full rounded-md"
                 />
               </div>
@@ -73,7 +73,7 @@ const Blogs = () => {
               {/* Image */}
               <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[full] xxs:w-[full] xs:w-[full]  sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[30%] xxs:h-[30%] xs:h-[30%]">
                 <img
-                  src={blog1}
+                  src={temp}
                   className="object-cover w-full h-full rounded-md"
                 />
               </div>
