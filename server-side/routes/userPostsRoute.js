@@ -4,7 +4,7 @@ import { getUserPosts } from '../controllers/userPostsController.js'; // Import 
 import FounderPost from '../models/founderFormPostModels.js';
 const router = express.Router();
 
-// Route to get posts by user ID
+
 router.get('/:userId/posts', getUserPosts);
 router.get('/founderposts/:postId', async (req, res) => {
     try {
