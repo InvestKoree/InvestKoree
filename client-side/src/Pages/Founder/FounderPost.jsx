@@ -103,11 +103,15 @@ const FounderPost = () => {
       if (financialFile) postData.append("financialFile", financialFile);
       if (videoFile) postData.append("video", videoFile);
 
+      const token = localStorage.getItem("token");
+
       const response = await fetch(`${API_URL}/adminpost/pendingpost`, {
         method: "POST",
         body: postData,
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token here
+        },
       });
-
       if (response.ok) {
         toast.success("Your post has been submitted for review!");
         navigate("/founderdashboard");
