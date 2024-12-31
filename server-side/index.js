@@ -22,7 +22,7 @@ import Notification from './models/notification.js';
 import FounderPending from './models/founderpending.js';
 import CheckDuplicate from './routes/checkDuplicate.js';
 import mongoose from 'mongoose';
-import cookieParser from 'cookie-parser';
+
 
 
 dotenv.config();
@@ -43,7 +43,7 @@ const io = new Server(server, {
 // Connect to Database
 connectDB();
 
-app.use(cookieParser());
+// Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
@@ -97,10 +97,7 @@ io.on('connection', (socket) => {
     console.log(`User disconnected: ${socket.id}`);
   });
 });
-app.post('/logout', (req, res) => {
-  res.clearCookie('token'); // Clear the cookie
-  res.status(200).json({ message: 'Logged out successfully' });
-});
+
 // Create Founder Post with Pending Approval
 app.post(
   '/adminpost/pendingpost',
