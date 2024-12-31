@@ -340,7 +340,7 @@ const Navbar = () => {
                         <li>
                           <NavLink
                             to="/investorlogin"
-                            className="hover:bg-salmon transition hover:text-white p-2 lg:mb-2 sm:mb-2 xs:mb-2 xxs:mb-2 rounded"
+                            className="hover:bg-salmon transition hover:text-white p-2 lg:mb-2 sm:mb-4 xs:mb-4 xxs:mb-4 rounded"
                             activeclassname="active"
                           >
                             Investor
