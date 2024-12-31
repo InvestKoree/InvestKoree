@@ -50,8 +50,9 @@ const storage = new GridFsStorage({
     }
 
     return {
-      bucketName: 'uploads', // GridFS bucket name
-      metadata: { originalname: file.originalname }, // Optional metadata
+      bucketName: 'uploads',
+      filename: file.originalname, // GridFS bucket name
+      // metadata: { originalname: file.originalname }, // Optional metadata
     };
   },
 });
