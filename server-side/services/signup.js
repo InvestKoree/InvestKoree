@@ -1,21 +1,24 @@
 import User from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 
+async function createUser (userData) {
+    const { name, email, password, role, phone } = userData;
 
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-async function  createUser(userData) {
-    const{name,email,password} =userData;
-    const hashedPassword =bcrypt.hash(password,10);
-    const createUser = new User({
+    // Create a new user
+    const newUser  = new User({
         name,
         email,
-        password :hashedPassword,
-        role ,phone
+        password: hashedPassword,
+        role,
+        phone
     });
 
-    const savedUser = await createUser.save();
-    return savedUser;
-
+    // Save the user to the database
+    const savedUser  = await newUser .save();
+    return savedUser ;
 }
 
-export default createUser;
+export default createUser ;

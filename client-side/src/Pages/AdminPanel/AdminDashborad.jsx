@@ -15,7 +15,9 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchAllPosts = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/allposts`);
+        const response = await fetch(`${API_URL}/api/allposts`, {
+          credentials: "include", // Include cookies in the request
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch posts");
         }

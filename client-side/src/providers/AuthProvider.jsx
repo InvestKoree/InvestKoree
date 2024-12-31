@@ -7,30 +7,28 @@ import "react-toastify/dist/ReactToastify.css";
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem("token"));
   const [userdata, setUserData] = useState(null);
   const [user, setUser] = useState(null);
   const [selectedPost, setSelectedPost] = useState(null);
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const navigate = useNavigate();
+
   const selectPost = (post) => {
-    setSelectedPost(post); // Set the selected post
+    setSelectedPost(post);
   };
 
   const clearSelectedPost = () => {
-    setSelectedPost(null); // Clear the selected post
+    setSelectedPost(null);
   };
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (!token) return;
-      setLoading(true); // Set loading to true when fetching starts
-
+      setLoading(true);
       try {
         const response = await fetch(`${API_URL}/api/profile`, {
+          credentials: "include", // Include cookies in the request
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         });
@@ -42,21 +40,30 @@ export const AuthProvider = ({ children }) => {
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
-        setLoading(false); // Set loading to false when fetching completes
+        setLoading(false);
       }
     };
 
     fetchUser();
-  }, [token, API_URL]);
+  }, [API_URL]);
 
-  const logOut = () => {
-    localStorage.removeItem("token");
-    setToken(null);
-    setUserData(null);
+  const logOut = async () => {
+    // Call your logout endpoint to clear the cookie on the server
+    try {
+      await fetch(`${API_URL}/logout`, {
+        method: "POST",
+        credentials: "include", // Include cookies in the request
+      });
+      setUser(null);
+      setUserData(null);
+      navigate("/"); // Redirect to login page after logout
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
   };
 
   const createUser = async (name, email, password, role, phone) => {
-    setLoading(true); // Set loading to true when registration starts
+    setLoading(true);
     try {
       const response = await fetch(`${API_URL}/users/register`, {
         method: "POST",
@@ -70,32 +77,22 @@ export const AuthProvider = ({ children }) => {
       if (response.ok) {
         const userData = { email, role };
         setUser(userData);
-        localStorage.setItem("token", result.token);
-        setToken(result.token);
-        toast.success("Registration successful :You can Signin now");
+        toast.success("Registration successful: You can Sign in now");
       } else {
         throw new Error(
-          "Registration failed :Email or phone number already in used"
+          "Registration failed: Email or phone number already in use"
         );
       }
     } catch (error) {
-      if (
-        error.message.includes("duplicate key error") &&
-        (error.message.includes("email") || error.message.includes("phone"))
-      ) {
-        // Check if the error message contains 'duplicate key error' and either 'email' or 'phone'
-        toast.error("Email or phone number already used");
-      } else {
-        console.error("Error creating user:", error);
-        toast.error(error.message || "Something went wrong");
-      }
+      console.error("Error creating user:", error);
+      toast.error(error.message || "Something went wrong");
     } finally {
-      setLoading(false); // Set loading to false when registration completes
+      setLoading(false);
     }
   };
 
   const foundersignIn = async (email, password, phone) => {
-    setLoading(true); // Set loading to true when sign-in starts
+    setLoading(true);
     try {
       const response = await fetch(`${API_URL}/users/auth/login`, {
         method: "POST",
@@ -103,6 +100,7 @@ export const AuthProvider = ({ children }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password, phone }),
+        credentials: "include", // Include cookies in the request
       });
 
       const result = await response.json();
@@ -111,29 +109,27 @@ export const AuthProvider = ({ children }) => {
 
         if (role !== "founder") {
           const errorMessage = `Access denied: Only ${role}s can log in here.`;
-          toast.error(errorMessage); // Show the toast with the error message
-          throw new Error(errorMessage); // Throw an error to stop further execution
+          toast.error(errorMessage);
+          throw new Error(errorMessage);
         }
 
         const userData = { email, userId, phone, role };
         setUser(userData);
-        localStorage.setItem("token", result.token);
-        setToken(result.token);
         navigate("/founderdashboard");
         toast.success("Login successful");
       } else {
         throw new Error(result.message || "Login failed");
       }
     } catch (error) {
-      console.error("Error signing in:", error);
-      throw error;
+      console.error("Error signing in as founder:", error);
+      toast.error(error.message || "Something went wrong");
     } finally {
-      setLoading(false); // Set loading to false when sign-in completes
+      setLoading(false);
     }
   };
 
   const investorsignIn = async (email, password, phone) => {
-    setLoading(true); // Set loading to true when sign-in starts
+    setLoading(true);
     try {
       const response = await fetch(`${API_URL}/users/auth/login`, {
         method: "POST",
@@ -141,6 +137,7 @@ export const AuthProvider = ({ children }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password, phone }),
+        credentials: "include", // Include cookies in the request
       });
 
       const result = await response.json();
@@ -149,29 +146,27 @@ export const AuthProvider = ({ children }) => {
 
         if (role !== "investor") {
           const errorMessage = `Access denied: Only ${role}s can log in here.`;
-          toast.error(errorMessage); // Show the toast with the error message
-          throw new Error(errorMessage); // Throw an error to stop further execution
+          toast.error(errorMessage);
+          throw new Error(errorMessage);
         }
 
         const userData = { email, userId, phone, role };
         setUser(userData);
-        localStorage.setItem("token", result.token);
-        setToken(result.token);
         navigate("/investordashboard");
         toast.success("Login successful");
       } else {
         throw new Error(result.message || "Login failed");
       }
     } catch (error) {
-      console.error("Error signing in:", error);
-      throw error;
+      console.error("Error signing in as investor:", error);
+      toast.error(error.message || "Something went wrong");
     } finally {
-      setLoading(false); // Set loading to false when sign-in completes
+      setLoading(false);
     }
   };
 
   const adminsignIn = async (email, password, phone) => {
-    setLoading(true); // Set loading to true when sign-in starts
+    setLoading(true);
     try {
       const response = await fetch(`${API_URL}/users/auth/login`, {
         method: "POST",
@@ -179,6 +174,7 @@ export const AuthProvider = ({ children }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password, phone }),
+        credentials: "include", // Include cookies in the request
       });
 
       const result = await response.json();
@@ -187,35 +183,32 @@ export const AuthProvider = ({ children }) => {
 
         if (role !== "admin") {
           const errorMessage = `Access denied: Only ${role}s can log in here.`;
-          toast.error(errorMessage); // Show the toast with the error message
-          throw new Error(errorMessage); // Throw an error to stop further execution
+          toast.error(errorMessage);
+          throw new Error(errorMessage);
         }
 
         const userData = { email, userId, phone, role };
         setUser(userData);
-        localStorage.setItem("token", result.token);
-        setToken(result.token);
         navigate("/admindashboard");
         toast.success("Login successful");
       } else {
         throw new Error(result.message || "Login failed");
       }
     } catch (error) {
-      console.error("Error signing in:", error);
-      throw error;
+      console.error("Error signing in as admin:", error);
+      toast.error(error.message || "Something went wrong");
     } finally {
-      setLoading(false); // Set loading to false when sign-in completes
+      setLoading(false);
     }
   };
 
   const authInfo = {
     user,
-    token,
     logOut,
     createUser,
     foundersignIn,
-    adminsignIn,
     investorsignIn,
+    adminsignIn,
     userdata,
     loading,
     selectedPost,
