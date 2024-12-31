@@ -1,11 +1,11 @@
 import React from "react";
-import blog3 from "../assets/blog3.jpg";
+import blog2 from "../assets/blog2.jpg";
 
 const BlogThree = () => {
   return (
     <div className="max-w-4xl mx-auto p-6">
       {/* Header Image */}
-      <img src={blog3} className="w-full h-64 object-cover rounded-lg mb-6" />
+      <img src={blog2} className="w-full h-64 object-cover rounded-lg mb-6" />
 
       {/* Blog Content */}
       <h1 className="text-3xl font-bold mb-4">
