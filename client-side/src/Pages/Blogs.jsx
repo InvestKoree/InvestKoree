@@ -1,5 +1,6 @@
 // import { useState } from "react";
 import blog1 from "../assets/blog1.jpg";
+import temp from "../assets/s2.jpg";
 import { useNavigate } from "react-router-dom";
 const Blogs = () => {
   // Track which post is expanded
