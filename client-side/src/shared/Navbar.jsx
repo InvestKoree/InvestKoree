@@ -327,18 +327,21 @@ const Navbar = () => {
                 ) : (
                   <details open={activeDropdown === "login"}>
                     <summary
-                      onClick={() => toggleMobileDropdown("login")}
-                      className="hover:bg-salmon hover:text-white transition p-2 rounded cursor-pointer"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleDropdown("login");
+                      }}
+                      className="hover:bg-salmon mt-2 p-2 rounded hover:text-white"
                     >
                       Login
                     </summary>
                     {activeDropdown === "login" && (
-                      <ul className="bg-base-100 sm:p-2 xs:p-2 xxs:p-2 flex flex-col gap-2">
+                      <ul className="bg-base-100 rounded-t-none p-2">
                         <li>
                           <NavLink
                             to="/investorlogin"
-                            onClick={toggleMenu}
-                            className="hover:bg-salmon transition p-2 rounded"
+                            className="hover:bg-salmon transition hover:text-white p-2 lg:mb-2 sm:mb-2 xs:mb-2 xxs:mb-2 rounded"
+                            activeclassname="active"
                           >
                             Investor
                           </NavLink>
@@ -346,8 +349,8 @@ const Navbar = () => {
                         <li>
                           <NavLink
                             to="/founderlogin"
-                            onClick={toggleMenu}
-                            className="hover:bg-salmon transition p-2 rounded"
+                            className="hover:bg-salmon transition hover:text-white p-2 rounded"
+                            activeclassname="active"
                           >
                             Founder
                           </NavLink>
