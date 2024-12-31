@@ -101,6 +101,7 @@ io.on('connection', (socket) => {
 // Create Founder Post with Pending Approval
 app.post(
   '/adminpost/pendingpost',
+  authToken,
   upload.fields([
     { name: 'businessPicture', maxCount: 10 },
     { name: 'nidCopy', maxCount: 1 },
