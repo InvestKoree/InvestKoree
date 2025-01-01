@@ -67,7 +67,8 @@ const LatestPost = ({ item }) => {
 
   // Calculate funding percentage for progress bar
   const fundingAmount = parseFloat(fundingAmountString);
-  const fundingPercentage = (50000 / fundingAmount) * 100;
+  // const fundingPercentage = (50000 / fundingAmount) * 100;
+  const fundingPercentage = 100;
   const leftForFund = fundingAmount - 50000;
 
   return (
