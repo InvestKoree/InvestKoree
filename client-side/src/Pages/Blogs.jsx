@@ -22,7 +22,7 @@ const Blogs = () => {
         Blog
       </h1>
       <div className="lg:h-[600px] flex items-center justify-center lg:flex-row sm:flex-col xxs:flex-col xs:flex-col">
-        <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[350px] ">
+        <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[400px] ">
           <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
             {/* Image and Text Container */}
             <div className="flex flex-col md:flex-row h-full p-4">
@@ -59,7 +59,7 @@ const Blogs = () => {
                 {/* Button */}
                 <button
                   onClick={handleShowMore1}
-                  className="mt-auto bg-salmon text-white py-2 px-4 rounded hover:bg-blue-600"
+                  className="mt-auto bg-salmon text-white py-2 px-2 h-10 rounded hover:bg-blue-600"
                 >
                   Show More
                 </button>
@@ -67,7 +67,7 @@ const Blogs = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[350px] ">
+        <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[400px] ">
           <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
             {/* Image and Text Container */}
             <div className="flex flex-col md:flex-row h-full p-4">
@@ -98,7 +98,7 @@ const Blogs = () => {
                 {/* Button */}
                 <button
                   onClick={handleShowMore3}
-                  className="mt-auto bg-salmon text-white py-2 px-4 rounded hover:bg-blue-600"
+                  className="mt-auto bg-salmon text-white px-2 py-2 rounded hover:bg-blue-600"
                 >
                   Show More
                 </button>
@@ -106,7 +106,7 @@ const Blogs = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[350px] ">
+        <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[400px] ">
           <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
             {/* Image and Text Container */}
             <div className="flex flex-col md:flex-row h-full p-4">
@@ -135,7 +135,7 @@ const Blogs = () => {
                 {/* Button */}
                 <button
                   onClick={handleShowMore2}
-                  className="mt-auto bg-salmon text-white py-2 px-4 rounded hover:bg-blue-600"
+                  className="mt-auto bg-salmon text-white px-2 py-2 rounded hover:bg-blue-600"
                 >
                   Show More
                 </button>

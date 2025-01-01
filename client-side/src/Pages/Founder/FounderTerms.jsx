@@ -15,34 +15,39 @@ const FounderTerms = () => {
       </div>
       <div className="mx-auto flex flex-col gap-8">
         <h1 className="font-extrabold text-xl">
-          For Founder terms and conditons: T&C
+          Terms and Conditions (T&C) for Founders
         </h1>
-        <p>1) Yor cant rise mor then 20thousend for the first time .</p>
-        <p>2) You have to sahre your rising money every weekly.</p>
         <p>
-          3) Suppose you rise 10thousend for one month priod so you have to give
-          back every week amout of 2.5 thousend.
+          1) You cannot raise more than $20,000 for the first round of funding.
+        </p>
+        <p>2) You must share updates on your raised funds on a weekly basis.</p>
+        <p>
+          3) If you raise $10,000 for a one-month period, you are required to
+          repay $2,500 every week.
         </p>
         <p>
-          4) You have to share your p&l(profit and loses) balance shit every
-          weekly in cease your don’t do that there will be planty for one
-          thousend for every week.
+          4) You must share your Profit and Loss (P&L) balance sheet every week.
+          Failure to do so will result in a $1,000 penalty per week.
         </p>
         <p>
-          5) 10 parcesent of your rising amount will be deduct as our charging
-          fee. <br /> Suppose you rises 100 thousend you will be get 90 thousend
-          rest of the 10 thousend will be deduct for our charge fee. <br />
-          But you have to give back 100 thouensd or 100 % to the investors.
+          5) 10% of your raised amount will be deducted as a service fee. <br />
+          For example, if you raise $100,000, you will receive $90,000 after
+          deducting the $10,000 service fee. <br />
+          However, you are still required to repay the full $100,000 (100%) to
+          your investors.
         </p>
-        <p>6) You have to give atleast 5% or more profit sharing.</p>
         <p>
-          7) After funding is completed, projects and uploaded media cannot be
+          6) You must offer at least 5% profit-sharing or more to investors.
+        </p>
+        <p>
+          7) Once funding is completed, projects and uploaded media cannot be
           edited or removed from the site.
         </p>
-        <p>8) Projects can't fundraise for charity.</p>
+        <p>8) Projects cannot raise funds for charitable purposes.</p>
         <p>
-          9) There will be full funding you will get or not and no inbetween so
-          make you investment very calculative or low.
+          9) Funding is all-or-nothing—you will either receive the full amount
+          or nothing at all. Make sure to calculate your investment requirements
+          carefully.
         </p>
       </div>
     </div>
