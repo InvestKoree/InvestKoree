@@ -41,7 +41,9 @@ const SearchResults = () => {
         <ul>
           {projects.map((project) => (
             <li key={project._id}>
-              <a href={`/projectdetail/${_id}`}>{project.businessName}</a>
+              <a href={`/projectdetail/${project._id}`}>
+                {project.businessName}
+              </a>
             </li>
           ))}
         </ul>
