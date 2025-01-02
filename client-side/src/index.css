@@ -632,3 +632,16 @@ iframe.goog-te-banner-frame,
 .card-body.expanded {
   max-height: 3200px; /* Set a larger max height for expanded state */
 }
+.service-list-item {
+  position: relative; /* Position relative to allow absolute positioning of the dot */
+  padding-left: 20px; /* Add padding to the left to make space for the dot */
+}
+
+.service-list-item::before {
+  content: "•"; /* This is the dot character */
+  position: absolute; /* Position the dot absolutely */
+  left: 0; /* Align it to the left */
+  color: black; /* Change the color of the dot as needed */
+  font-size: 1.2em; /* Adjust the size of the dot */
+  line-height: 1.5; /* Adjust line height to center the dot vertically */
+}
