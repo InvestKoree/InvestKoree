@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import logo from "../assets/ll.png";
 import { useNavigate, NavLink, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 import { useAuth } from "../providers/AuthProvider";
 import Notifications from "./Notifications";
 
