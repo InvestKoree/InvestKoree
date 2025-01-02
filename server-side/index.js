@@ -22,7 +22,7 @@ import Notification from './models/notification.js';
 import FounderPending from './models/founderpending.js';
 import CheckDuplicate from './routes/checkDuplicate.js';
 import mongoose from 'mongoose';
-
+import search from './routes/search.js';
 
 
 dotenv.config();
@@ -75,6 +75,7 @@ const upload = multer({ storage });
 
 
 // Routes
+app.use('/searchpost', search);
 app.use('/users', signupRoute);
 app.use('/api',CheckDuplicate)
 app.use('/founderpost', founderPostRoute);
