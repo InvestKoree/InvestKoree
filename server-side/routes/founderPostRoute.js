@@ -11,7 +11,7 @@ router.get('/latestposts', async (req, res) => {
     res.status(500).json({ message: "Error fetching latest posts", error });
   }
 });
-router.get('/projectdetail/:id', async (req, res) => {
+router.get('/projectdetail/:id',authToken('investor'),async (req, res) => {
   try {
     const { id } = req.params;
     const project = await founderPost.findById(id);
