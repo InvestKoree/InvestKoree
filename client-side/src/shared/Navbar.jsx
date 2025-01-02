@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import logo from "../assets/ll.png";
 import { useNavigate, NavLink, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AiOutlineMenu, AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useAuth } from "../providers/AuthProvider";
 import Notifications from "./Notifications";
 
@@ -13,7 +13,6 @@ const Navbar = () => {
   const { userdata, logOut } = useAuth();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
-  const [searchTerm, setSearchTerm] = useState("");
 
   const handleSignOut = () => {
     logOut();
@@ -25,18 +24,22 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
+  const toggleMobileDropdown = (dropdownName) => {
+    setActiveDropdown((prev) => (prev === dropdownName ? null : dropdownName));
+  };
+
   const toggleDropdown = (dropdownName) => {
     setTimeout(() => {
       setActiveDropdown((prev) =>
         prev === dropdownName ? null : dropdownName
       );
-    }, 250);
+    }, 250); // Adjust the delay time as needed (in milliseconds)
   };
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setActiveDropdown(null);
+        setActiveDropdown(null); // Close dropdowns when clicking outside
       }
     };
 
@@ -44,37 +47,14 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    // Implement search functionality here
-    console.log("Searching for:", searchTerm);
-  };
-
   return (
     <div className="sticky top-0 z-50 bg-white shadow-lg">
       <div className="navbar px-6 py-3 flex justify-between items-center">
-        <div className="flex items-center">
+        <div className="flex items-center navbar-start">
           <Link to="/">
             <img className="h-16 w-36 logo-css" src={logo} alt="logo" />
           </Link>
         </div>
-
-        {/* Search Bar */}
-        <form onSubmit={handleSearch} className="flex items-center mx-4">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="border rounded-l-md p-2 lg:w-64 sm:w-48 xs:w-32 xxs:w-24"
-          />
-          <button
-            type="submit"
-            className="bg-salmon text-white rounded-r-md p-2"
-          >
-            <AiOutlineSearch />
-          </button>
-        </form>
 
         <div className="lg:hidden block">
           <button
@@ -84,13 +64,90 @@ const Navbar = () => {
             {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
           </button>
         </div>
-
+        <div className="flex-none gap-2 navbar-center">
+          <div className="form-control">
+            <input
+              type="text"
+              placeholder="Search"
+              className="input input-bordered w-24 md:w-auto"
+            />
+          </div>
+        </div>
         {/* Full Navbar for Larger Screens */}
-        <div className={`hidden lg:flex flex-1 justify-center items-center`}>
+        <div
+          className={`hidden lg:flex flex-1 justify-center items-center navbar-end`}
+        >
           <ul
             ref={dropdownRef}
             className="lg:font-bold lg:text-lg sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium menu menu-horizontal gap-8 px-1 flex"
           >
+            <li>
+              <NavLink
+                to="/founderlogin"
+                className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
+                activeclassname="active"
+              >
+                Get Funded
+              </NavLink>
+            </li>
+
+            <li>
+              <details
+                open={activeDropdown === "category"}
+                onClick={(e) => e.preventDefault()}
+              >
+                <summary
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toggleDropdown("category");
+                  }}
+                  className="hover:bg-salmon mt-2 p-2 rounded hover:text-white"
+                >
+                  Category
+                </summary>
+                {activeDropdown === "category" && (
+                  <ul className="bg-base-100 rounded-t-none p-2">
+                    <li>
+                      <NavLink
+                        to="/shariah"
+                        className="hover:bg-salmon transition sm:mb-2 xs:mb-2 xxs:mb-2 hover:text-white p-2 rounded"
+                        active
+                        classname="active"
+                      >
+                        Shariah
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/stocks"
+                        className="hover:bg-salmon transition sm:mb-2 xs:mb-2 xxs:mb-2 hover:text-white p-2 rounded"
+                        activeclassname="active"
+                      >
+                        Stocks
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/fixedreturn"
+                        className="hover:bg-salmon transition hover:text-white p-2 rounded"
+                        activeclassname="active"
+                      >
+                        Fixed Return
+                      </NavLink>
+                    </li>
+                  </ul>
+                )}
+              </details>
+            </li>
+            <li>
+              <NavLink
+                to="/blogs"
+                className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
+                activeclassname="active"
+              >
+                Blog
+              </NavLink>
+            </li>
             <li>
               {userdata ? (
                 <div className="flex items-center logout-container">
@@ -163,15 +220,6 @@ const Navbar = () => {
               )}
             </li>
             <li>
-              <NavLink
-                to="/blogs"
-                className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
-                activeclassname="active"
-              >
-                Blog
-              </NavLink>
-            </li>
-            <li>
               {userdata && (
                 <Notifications API_URL={API_URL} userId={userdata._id} />
               )}
@@ -187,26 +235,6 @@ const Navbar = () => {
               className="flex sm:flex-col xs:flex-col xxs:flex-col sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium lg:text-lg sm:gap-2 xs:gap-2 xxs:gap-2"
             >
               <li>
-                <form
-                  onSubmit={handleSearch}
-                  className="flex items-center mx-4"
-                >
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border rounded-l-md p-2 w-32"
-                  />
-                  <button
-                    type="submit"
-                    className="bg-salmon text-white rounded-r-md p-2"
-                  >
-                    <AiOutlineSearch />
-                  </button>
-                </form>
-              </li>
-              <li>
                 <NavLink
                   to="/founderlogin"
                   onClick={toggleMenu}
@@ -215,6 +243,7 @@ const Navbar = () => {
                   Get Funded
                 </NavLink>
               </li>
+
               <li>
                 <details
                   open={activeDropdown === "category"}
