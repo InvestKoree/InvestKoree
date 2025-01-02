@@ -1,6 +1,7 @@
 // server-side/routes/founderRoutes.js
 import express from 'express';
 import founderPost from '../models/founderPostModel.js';
+import { authToken } from '../utils/authMiddleware.js';
 const router = express.Router();
 // Route to get all latest posts
 router.get('/latestposts', async (req, res) => {
