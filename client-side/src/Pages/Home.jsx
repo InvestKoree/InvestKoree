@@ -201,48 +201,62 @@ const Home = () => {
           <h2 className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl">
             Why we are here
           </h2>
-          <p className="mt-4 lg:text-2xl mb-10">Our Mission</p>
+          <p className="mt-4 lg:text-xl mb-10">Our Mission</p>
           <p className="lg:text-left  sm:text-left xs:text-left xxs:text-left lg:text-lg">
             At Invest Koree, our mission is to bridge the gap between ambitious
-            businesses and visionary investors. We aim to create a dynamic
+            businesses and visionary investors. We strive to create a dynamic
             platform where innovative ideas meet financial backing, fostering
             sustainable growth and impactful change. By connecting businesses
-            with the right investors, we empower companies to achieve their full
-            potential while offering investors the opportunity to support
-            ventures that align with their strategic goals and values.
+            with the right investors, we empower companies to reach their full
+            potential while offering investors opportunities to support ventures
+            that align with their strategic goals and values.
           </p>
           <p className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl mb-6">
-            Our services
+            Our Services
           </p>
-          <ul className="lg:text-lg  sm:text-left xs:text-left xxs:text-left lg:flex lg:flex-col lg:gap-2 lg:text-left">
-            <li>
-              1.Business-Investor Matchmaking: We connect businesses with
-              investors who align with their industry, growth stage, and
-              investment needs.
+          <ul className="lg:text-lg sm:text-left xs:text-left xxs:text-left lg:flex lg:flex-col lg:gap-2 lg:text-left">
+            <li className="font-bold">
+              1. Business-Investor Matchmaking
+              <p>
+                We connect businesses with investors who align with their
+                industry, growth stage, and investment needs.
+              </p>
             </li>
-            <li>
-              2.Business Analysis & Profiling: Our team analyzes business
-              models, strengths, and market potential to present compelling
-              cases to potential investors.
+            <li className="font-bold">
+              2. Business Analysis & Profiling
+              <p>
+                Our team analyzes business models, strengths, and market
+                potential to present compelling cases to potential investors.
+              </p>
             </li>
-            <li>
-              3.Investor Outreach & Engagement: We facilitate direct
-              communication and engagement between businesses and investors to
-              ensure seamless collaboration.
+            <li className="font-bold">
+              3. Investor Outreach & Engagement
+              <p>
+                We facilitate direct communication and engagement between
+                businesses and investors to ensure seamless collaboration.
+              </p>
             </li>
-            <li>
-              4.Market Insights & Trends: We provide in-depth research on market
-              trends, industry forecasts, and investment opportunities.
+            <li className="font-bold">
+              4. Market Insights & Trends
+              <p>
+                We provide in-depth research on market trends, industry
+                forecasts, and investment opportunities.
+              </p>
             </li>
-            <li>
-              5.Consulting & Advisory: Our expert advisors offer guidance on
-              refining business strategies, enhancing investor appeal, and
-              improving the likelihood of successful investment deals.
+            <li className="font-bold">
+              5. Consulting & Advisory
+              <p>
+                Our expert advisors offer guidance on refining business
+                strategies, enhancing investor appeal, and improving the
+                likelihood of successful investment deals.
+              </p>
             </li>
-            <li>
-              6.Resource Center & Knowledge Sharing: We offer resources,
-              articles, and tools to help businesses prepare for investor
-              pitches and understand market dynamics.
+            <li className="font-bold">
+              6. Resource Center & Knowledge Sharing
+              <p>
+                We offer resources, articles, and tools to help businesses
+                prepare for investor pitches and understand market dynamics.
+              </p>
             </li>
           </ul>
         </div>
