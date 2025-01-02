@@ -217,35 +217,35 @@ const Home = () => {
           <ul className="lg:text-lg sm:text-left xs:text-left xxs:text-left lg:flex lg:flex-col lg:gap-2 lg:text-left">
             <li className="font-bold">
               1. Business-Investor Matchmaking
-              <li className="font-normal list-item">
+              <li className="font-normal service-list-item">
                 We connect businesses with investors who align with their
                 industry, growth stage, and investment needs.
               </li>
             </li>
             <li className="font-bold">
               2. Business Analysis & Profiling
-              <li className="font-normal list-item">
+              <li className="font-normal service-list-item">
                 Our team analyzes business models, strengths, and market
                 potential to present compelling cases to potential investors.
               </li>
             </li>
             <li className="font-bold">
               3. Investor Outreach & Engagement
-              <li className="font-normal list-item">
+              <li className="font-normal service-list-item">
                 We facilitate direct communication and engagement between
                 businesses and investors to ensure seamless collaboration.
               </li>
             </li>
             <li className="font-bold">
               4. Market Insights & Trends
-              <li className="font-normal list-item">
+              <li className="font-normal service-list-item">
                 We provide in-depth research on market trends, industry
                 forecasts, and investment opportunities.
               </li>
             </li>
             <li className="font-bold">
               5. Consulting & Advisory
-              <li className="font-normal list-item">
+              <li className="font-normal service-list-item">
                 Our expert advisors offer guidance on refining business
                 strategies, enhancing investor appeal, and improving the
                 likelihood of successful investment deals.
@@ -253,7 +253,7 @@ const Home = () => {
             </li>
             <li className="font-bold">
               6. Resource Center & Knowledge Sharing
-              <li className="font-normal list-item">
+              <li className="font-normal service-list-item">
                 We offer resources, articles, and tools to help businesses
                 prepare for investor pitches and understand market dynamics.
               </li>
