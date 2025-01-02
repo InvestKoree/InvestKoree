@@ -81,7 +81,7 @@ const Navbar = () => {
               placeholder="Search"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="border rounded-l-md p-2 lg:w-64 sm:w-48 xs:w-32 xxs:w-24"
+              className="border border-salmon rounded-l-md p-2 lg:w-64 sm:w-48 xs:w-32 xxs:w-24"
             />
             <button
               type="submit"
