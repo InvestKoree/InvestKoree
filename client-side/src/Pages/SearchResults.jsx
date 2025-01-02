@@ -36,9 +36,9 @@ const SearchResults = () => {
 
   return (
     <div className="text-center my-20 h-[600px]">
-      <h1>Search Results</h1>
+      <h1 className="mb-8">Search Results</h1>
       {projects.length > 0 ? (
-        <ul>
+        <ul className="text-salmon">
           {projects.map((project) => (
             <li key={project._id}>
               <a href={`/projectdetail/${project._id}`}>
