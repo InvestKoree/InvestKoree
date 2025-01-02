@@ -50,8 +50,8 @@ const Navbar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
-      // Redirect to a search results page or filter your data
-      navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+      // Redirect to a search results page with a specific search query
+      navigate(`/search?query=${encodeURIComponent(searchTerm)}&filter=all`);
     } else {
       toast.error("Please enter a search term.");
     }
