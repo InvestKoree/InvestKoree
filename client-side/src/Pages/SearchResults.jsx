@@ -35,7 +35,7 @@ const SearchResults = () => {
   }
 
   return (
-    <div className="mx-auto my-20">
+    <div className="text-center my-20 h-[600px]">
       <h1>Search Results</h1>
       {projects.length > 0 ? (
         <ul>
