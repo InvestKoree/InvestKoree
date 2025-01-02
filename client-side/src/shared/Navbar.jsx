@@ -13,6 +13,7 @@ const Navbar = () => {
   const { userdata, logOut } = useAuth();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleSignOut = () => {
     logOut();
@@ -46,6 +47,15 @@ const Navbar = () => {
     document.addEventListener("mousedown", handleOutsideClick);
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      // Redirect to a search results page or filter your data
+      navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+    } else {
+      toast.error("Please enter a search term.");
+    }
+  };
 
   return (
     <div className="sticky top-0 z-50 bg-white shadow-lg">
@@ -65,13 +75,21 @@ const Navbar = () => {
           </button>
         </div>
         <div className="flex-none gap-2 navbar-center">
-          <div className="form-control">
+          <form onSubmit={handleSearch} className="flex items-center mx-4">
             <input
               type="text"
               placeholder="Search"
-              className="input input-bordered w-24 md:w-auto"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="border rounded-l-md p-2 lg:w-64 sm:w-48 xs:w-32 xxs:w-24"
             />
-          </div>
+            <button
+              type="submit"
+              className="bg-salmon text-white rounded-r-md p-2"
+            >
+              <AiOutlineSearch />
+            </button>
+          </form>
         </div>
         {/* Full Navbar for Larger Screens */}
         <div
