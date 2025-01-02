@@ -217,46 +217,46 @@ const Home = () => {
           <ul className="lg:text-lg sm:text-left xs:text-left xxs:text-left lg:flex lg:flex-col lg:gap-2 lg:text-left">
             <li className="font-bold">
               1. Business-Investor Matchmaking
-              <p className="font-normal list-item">
+              <li className="font-normal list-item">
                 We connect businesses with investors who align with their
                 industry, growth stage, and investment needs.
-              </p>
+              </li>
             </li>
             <li className="font-bold">
               2. Business Analysis & Profiling
-              <p className="font-normal list-item">
+              <li className="font-normal list-item">
                 Our team analyzes business models, strengths, and market
                 potential to present compelling cases to potential investors.
-              </p>
+              </li>
             </li>
             <li className="font-bold">
               3. Investor Outreach & Engagement
-              <p className="font-normal list-item">
+              <li className="font-normal list-item">
                 We facilitate direct communication and engagement between
                 businesses and investors to ensure seamless collaboration.
-              </p>
+              </li>
             </li>
             <li className="font-bold">
               4. Market Insights & Trends
-              <p className="font-normal list-item">
+              <li className="font-normal list-item">
                 We provide in-depth research on market trends, industry
                 forecasts, and investment opportunities.
-              </p>
+              </li>
             </li>
             <li className="font-bold">
               5. Consulting & Advisory
-              <p className="font-normal list-item">
+              <li className="font-normal list-item">
                 Our expert advisors offer guidance on refining business
                 strategies, enhancing investor appeal, and improving the
                 likelihood of successful investment deals.
-              </p>
+              </li>
             </li>
             <li className="font-bold">
               6. Resource Center & Knowledge Sharing
-              <p className="font-normal list-item">
+              <li className="font-normal list-item">
                 We offer resources, articles, and tools to help businesses
                 prepare for investor pitches and understand market dynamics.
-              </p>
+              </li>
             </li>
           </ul>
         </div>
