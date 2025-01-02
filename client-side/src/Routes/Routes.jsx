@@ -31,6 +31,7 @@ import WhatWeDo from "../Pages/WhatWeDo";
 import WhoWeAre from "../Pages/WhoWeAre";
 import BlogTwo from "../Pages/BlogTwo";
 import BlogThree from "../Pages/BlogThree";
+import SearchResults from "../Pages/SearchResults";
 
 export const router = createBrowserRouter([
   {
@@ -101,6 +102,10 @@ export const router = createBrowserRouter([
       {
         path: "/shariah",
         element: <Shariah></Shariah>,
+      },
+      {
+        path: "/search",
+        element: <SearchResults></SearchResults>,
       },
       {
         path: "/fixedreturn",

@@ -50,13 +50,12 @@ const Navbar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
-      // Redirect to a search results page with a specific search query
-      navigate(`/search?query=${encodeURIComponent(searchTerm)}&filter=all`);
+      // Redirect to the search results page with the search term
+      navigate(`/search?businessName=${encodeURIComponent(searchTerm)}`);
     } else {
       toast.error("Please enter a search term.");
     }
   };
-
   return (
     <div className="sticky top-0 z-50 bg-white shadow-lg">
       <div className="navbar px-6 py-3 flex justify-between items-center">
