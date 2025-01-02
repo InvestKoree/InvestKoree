@@ -1,7 +1,6 @@
 // server-side/routes/founderRoutes.js
 import express from 'express';
 import founderPost from '../models/founderPostModel.js';
-import { authToken } from '../utils/authMiddleware.js';
 const router = express.Router();
 // Route to get all latest posts
 router.get('/latestposts', async (req, res) => {
@@ -12,7 +11,7 @@ router.get('/latestposts', async (req, res) => {
     res.status(500).json({ message: "Error fetching latest posts", error });
   }
 });
-router.get('/projectdetail/:id',authToken('investor'),async (req, res) => {
+router.get('/projectdetail/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const project = await founderPost.findById(id);
