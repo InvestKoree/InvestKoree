@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { AiOutlineMenu, AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 import { useAuth } from "../providers/AuthProvider";
 import Notifications from "./Notifications";
-import axios from "axios"; // Import axios
+import axios from "axios";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,8 +15,8 @@ const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]); // New state for search results
-  const [loadingResults, setLoadingResults] = useState(false); // Loading state for search results
+  const [searchResults, setSearchResults] = useState([]);
+  const [loadingResults, setLoadingResults] = useState(false);
 
   const handleSignOut = () => {
     logOut();
@@ -35,7 +35,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setActiveDropdown(null); // Close dropdowns when clicking outside
+        setActiveDropdown(null);
       }
     };
 
@@ -46,14 +46,16 @@ const Navbar = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
-      setLoadingResults(true); // Set loading state
+      setLoadingResults(true);
       try {
-        const response = await axios.get(`${API_URL}/searchpost/search?businessName=${searchTerm}`);
-        setSearchResults(response.data); // Set search results
+        const response = await axios.get(
+          `${API_URL}/searchpost/search?businessName=${searchTerm}`
+        );
+        setSearchResults(response.data);
       } catch (error) {
         toast.error("Error fetching search results");
       } finally {
-        setLoadingResults(false); // Reset loading state
+        setLoadingResults(false);
       }
     } else {
       toast.error("Please enter a search term.");
@@ -70,10 +72,7 @@ const Navbar = () => {
         </div>
 
         <div className="lg:hidden block">
-          <button
-            onClick={toggleMenu}
-            className="sm:text-base xs:text-base xxs:text-base sm:font-medium xs:font-medium xxs:font-medium lg:text-2xl"
-          >
+          <button onClick={toggleMenu} className="text-xl">
             {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
           </button>
         </div>
@@ -84,26 +83,26 @@ const Navbar = () => {
               placeholder="Search By Business Name"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="border border-salmon rounded-l-md p-2 lg:w-64 sm:w-48 xs:w-32 xxs:w-24"
+              className="border border-salmon rounded-l-md p-2 lg:w-64"
             />
             <button
               type="submit"
-              className="bg-salmon text-white rounded-r-md p-2 absolute right-6"
+              className="bg-salmon text-white rounded-r-md p-2"
             >
               <AiOutlineSearch />
             </button>
           </form>
-          {/* Dropdown for search results */}
           {searchResults.length > 0 && (
             <div className="absolute bg-white border border-salmon rounded-md shadow-lg mt-2 w-64 z-10">
               {loadingResults ? (
                 <div>Loading...</div>
-              ) : searchResults.map((result) => (
+              ) : (
+                searchResults.map((result) => (
                   <NavLink
                     key={result._id}
                     to={`/projectdetail/${result._id}`}
                     className="block p-2 hover:bg-salmon hover:text-white"
-                    onClick={() => setSearchResults([])} // Clear results on click
+                    onClick={() => setSearchResults([])}
                   >
                     {result.businessName}
                   </NavLink>
@@ -112,33 +111,52 @@ const Navbar = () => {
             </div>
           )}
         </div>
-        {/* Full Navbar for Larger Screens */}
-        <div className={`hidden lg:flex flex-1 justify-center items-center navbar-end`}>
-          <ul ref={dropdownRef} className="lg:font-bold lg:text-lg sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium menu menu-horizontal gap-8 px-1 flex">
+        <div
+          className={`hidden lg:flex flex-1 justify-center items-center navbar-end`}
+        >
+          <ul
+            ref={dropdownRef}
+            className="menu menu-horizontal gap-8 px-1 flex"
+          >
             <li>
-              <NavLink to="/founderlogin" className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded" activeclassname="active">
+              <NavLink
+                to="/founderlogin"
+                className="hover:bg-salmon p-2 rounded"
+              >
                 Get Funded
               </NavLink>
             </li>
             <li>
-              <details open={activeDropdown === "category"} onClick={(e) => e.preventDefault()}>
-                <summary onClick={(e) => { e.preventDefault(); toggleDropdown("category"); }} className="hover:bg-salmon mt-2 p-2 rounded hover:text-white">
+              <details open={activeDropdown === "category"}>
+                <summary
+                  onClick={() => toggleDropdown("category")}
+                  className="hover:bg-salmon p-2 rounded"
+                >
                   Category
                 </summary>
                 {activeDropdown === "category" && (
                   <ul className="bg-base-100 rounded-t-none p-2">
                     <li>
-                      <NavLink to="/shariah" className="hover:bg-salmon transition sm:mb-2 xs:mb-2 xxs:mb-2 hover:text-white p-2 rounded" activeclassname="active">
+                      <NavLink
+                        to="/shariah"
+                        className="hover:bg-salmon p-2 rounded"
+                      >
                         Shariah
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/stocks" className="hover:bg-salmon transition sm:mb-2 xs:mb-2 xxs:mb-2 hover:text-white p-2 rounded" activeclassname="active">
+                      <NavLink
+                        to="/stocks"
+                        className="hover:bg-salmon p-2 rounded"
+                      >
                         Stocks
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/fixedreturn" className="hover:bg-salmon transition hover:text-white p-2 rounded" activeclassname="active">
+                      <NavLink
+                        to="/fixedreturn"
+                        className="hover:bg-salmon p-2 rounded"
+                      >
                         Fixed Return
                       </NavLink>
                     </li>
@@ -147,52 +165,25 @@ const Navbar = () => {
               </details>
             </li>
             <li>
-              <NavLink to="/blogs" className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded" activeclassname="active">
-                Blog
-              </NavLink>
-            </li>
-            <li>
               {userdata ? (
-                <div className="flex items-center logout-container">
-                  {userdata.role === "investor" && (
-                    <Link to="/investordashboard" className="hover:bg-salmon transition hover:text-white p-2 rounded">
-                      MyProfile
-                    </Link>
-                  )}
-                  {userdata.role === "founder" && (
-                    <Link to="/founderdashboard" className="hover:bg-salmon transition hover:text-white p-2 rounded">
-                      MyProfile
-                    </Link>
-                  )}
-                  {userdata.role === "admin" && (
-                    <NavLink to="/admindashboard" onClick={toggleMenu} className="hover:bg-salmon hover:text-white transition p-2 rounded">
-                      MyProfile
-                    </NavLink>
-                  )}
-                  <div onClick={handleSignOut} className="hover:bg-salmon transition lg:ml-8 hover:text-white p-2 rounded cursor-pointer">
+                <div className="flex items-center">
+                  <Link
+                    to={`/${userdata.role}dashboard`}
+                    className="hover:bg-salmon p-2 rounded"
+                  >
+                    MyProfile
+                  </Link>
+                  <div
+                    onClick={handleSignOut}
+                    className="hover:bg-salmon p-2 rounded cursor-pointer"
+                  >
                     Logout
                   </div>
                 </div>
               ) : (
-                <details open={activeDropdown === "login"}>
-                  <summary onClick={(e) => { e.preventDefault(); toggleDropdown("login"); }} className="hover:bg-salmon mt-2 p-2 rounded hover:text-white">
-                    Login
-                  </summary>
-                  {activeDropdown === "login" && (
-                    <ul className="bg-base-100 rounded-t-none p-2">
-                      <li>
-                        <NavLink to="/investorlogin" className="hover:bg-salmon transition hover:text-white p-2 lg:mb-2 sm:mb-2 xs:mb-2 xxs:mb-2 rounded" activeclassname="active">
-                          Investor
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to="/founderlogin" className="hover:bg-salmon transition hover:text-white p-2 rounded" activeclassname="active">
-                          Founder
-                        </NavLink>
-                      </li>
-                    </ul>
-                  )}
-                </details>
+                <NavLink to="/login" className="hover:bg-salmon p-2 rounded">
+                  Login
+                </NavLink>
               )}
             </li>
             <li>
@@ -202,100 +193,6 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="lg:hidden flex flex-col items-start p-4 bg-white shadow-lg">
-            <ul ref={dropdownRef} className="flex sm:flex-col xs:flex-col xxs:flex-col sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium lg:text-lg sm:gap-2 xs:gap-2 xxs:gap-2">
-              <li>
-                <NavLink to="/founderlogin" onClick={toggleMenu} className="hover:bg-salmon transition p-2 rounded">
-                  Get Funded
-                </NavLink>
-              </li>
-
-              <li>
-                <details open={activeDropdown === "category"} onClick={(e) => e.preventDefault()}>
-                  <summary onClick={() => toggleMobileDropdown("category")} className="hover:bg-salmon hover:text-white transition p-2 rounded cursor-pointer">
-                    Category
-                  </summary>
-                  {activeDropdown === "category" && (
-                    <ul className="bg-base-100 sm:p-2 xs:p-2 xxs:p-2 flex flex-col gap-2">
-                      <li>
-                        <NavLink to="/shariah" onClick={toggleMenu} className="hover:bg-salmon transition sm:p-2 xs:p-2 xxs:p-2 rounded">
-                          Shariah
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to="/stocks" onClick={toggleMenu} className="hover:bg-salmon transition p-2 rounded">
-                          Stocks
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to="/fixedreturn" onClick={toggleMenu} className="hover:bg-salmon transition p-2 rounded">
-                          Fixed Return
-                        </NavLink>
-                      </li>
-                    </ul>
-                  )}
-                </details>
-              </li>
-              <li>
-                <NavLink to="/blogs" className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded" activeclassname="active">
-                  Blog
-                </NavLink>
-              </li>
-              <li>
-                {userdata ? (
-                  <div className="flex flex-col">
-                    {userdata.role === "investor" && (
-                      <Link to="/investordashboard" onClick={toggleMenu} className="hover:bg-salmon transition hover:text-white p-2 rounded">
-                        MyProfile
-                      </Link>
-                    )}
-                    {userdata.role === "founder" && (
-                      <Link to="/founderdashboard" onClick={toggleMenu} className="hover:bg-salmon transition hover:text-white p-2 rounded">
-                        MyProfile
-                      </Link>
-                    )}
-                    {userdata.role === "admin" && (
-                      <NavLink to="/admindashboard" onClick={toggleMenu} className="hover:bg-salmon hover:text-white transition p-2 rounded">
-                        MyProfile
-                      </NavLink>
-                    )}
-                    <div onClick={handleSignOut} className="hover:bg-salmon transition hover:text-white p-2 rounded cursor-pointer">
-                      Logout
-                    </div>
-                  </div>
-                ) : (
-                  <details open={activeDropdown === "login"}>
-                    <summary onClick={(e) => { e.preventDefault(); toggleDropdown("login"); }} className="hover:bg-salmon mt-2 p-2 rounded hover:text-white">
-                      Login
-                    </summary>
-                    {activeDropdown === "login" && (
-                      <ul className="bg-base-100 rounded-t-none p-2">
-                        <li>
-                          <NavLink to="/investorlogin" className="hover:bg-salmon transition hover:text-white p-2 lg:mb-2 sm:mb-4 xs:mb-4 xxs:mb-4 rounded" activeclassname="active">
-                            Investor
-                          </NavLink>
-                        </li>
-                        <li>
-                          <NavLink to="/founderlogin" className="hover:bg-salmon transition hover:text-white p-2 rounded" activeclassname="active">
-                            Founder
-                          </NavLink>
-                        </li>
-                      </ul>
-                    )}
-                  </details>
-                )}
-              </li>
-              <li>
-                {userdata && (
-                  <Notifications API_URL={API_URL} userId={userdata._id} />
-                )}
-              </li>
-            </ul>
-          </div>
-        )}
       </div>
     </div>
   );
