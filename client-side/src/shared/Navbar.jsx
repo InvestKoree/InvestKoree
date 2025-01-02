@@ -56,7 +56,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="lg:hidden block navbar-end">
+        <div className="lg:hidden block">
           <button
             onClick={toggleMenu}
             className="sm:text-base xs:text-base xxs:text-base sm:font-medium xs:font-medium xxs:font-medium lg:text-2xl"
@@ -64,7 +64,7 @@ const Navbar = () => {
             {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
           </button>
         </div>
-        <div className="flex-none gap-2 navbar-center hidden">
+        <div className="flex-none gap-2 navbar-center">
           <div className="form-control">
             <input
               type="text"
@@ -230,15 +230,6 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="lg:hidden flex flex-col items-start p-4 bg-white shadow-lg">
-            <div className="flex-none gap-2 navbar-center hidden">
-              <div className="form-control">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="input input-bordered w-24 md:w-auto"
-                />
-              </div>
-            </div>
             <ul
               ref={dropdownRef}
               className="flex sm:flex-col xs:flex-col xxs:flex-col sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium lg:text-lg sm:gap-2 xs:gap-2 xxs:gap-2"
