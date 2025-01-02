@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import logo from "../assets/ll.png";
 import { useNavigate, NavLink, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AiOutlineMenu, AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { useAuth } from "../providers/AuthProvider";
 import Notifications from "./Notifications";
 
@@ -13,7 +13,6 @@ const Navbar = () => {
   const { userdata, logOut } = useAuth();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
-  const [searchTerm, setSearchTerm] = useState("");
 
   const handleSignOut = () => {
     logOut();
@@ -34,25 +33,19 @@ const Navbar = () => {
       setActiveDropdown((prev) =>
         prev === dropdownName ? null : dropdownName
       );
-    }, 250);
+    }, 250); // Adjust the delay time as needed (in milliseconds)
   };
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setActiveDropdown(null);
+        setActiveDropdown(null); // Close dropdowns when clicking outside
       }
     };
 
     document.addEventListener("mousedown", handleOutsideClick);
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    // Implement search functionality here
-    console.log("Searching for:", searchTerm);
-  };
 
   return (
     <div className="sticky top-0 z-50 bg-white shadow-lg">
@@ -71,26 +64,15 @@ const Navbar = () => {
             {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
           </button>
         </div>
-
-        {/* Search Bar for Larger Screens */}
-        <div className="hidden lg:flex flex-1 justify-center items-center">
-          <form onSubmit={handleSearch} className="flex items-center mx-4">
+        <div className="flex-none gap-2 navbar-center hidden">
+          <div className="form-control">
             <input
               type="text"
               placeholder="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="border rounded-l-md p-2 lg:w-64 sm:w-48 xs:w-32 xxs:w-24"
+              className="input input-bordered w-24 md:w-auto"
             />
-            <button
-              type="submit"
-              className="bg-salmon text-white rounded-r-md p-2"
-            >
-              <AiOutlineSearch />
-            </button>
-          </form>
+          </div>
         </div>
-
         {/* Full Navbar for Larger Screens */}
         <div
           className={`hidden lg:flex flex-1 justify-center items-center navbar-end`}
@@ -121,7 +103,7 @@ const Navbar = () => {
                   }}
                   className="hover:bg-salmon mt-2 p-2 rounded hover:text-white"
                 >
-                  Category{" "}
+                  Category
                 </summary>
                 {activeDropdown === "category" && (
                   <ul className="bg-base-100 rounded-t-none p-2">
@@ -129,7 +111,8 @@ const Navbar = () => {
                       <NavLink
                         to="/shariah"
                         className="hover:bg-salmon transition sm:mb-2 xs:mb-2 xxs:mb-2 hover:text-white p-2 rounded"
-                        activeclassname="active"
+                        active
+                        classname="active"
                       >
                         Shariah
                       </NavLink>
@@ -247,21 +230,15 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="lg:hidden flex flex-col items-start p-4 bg-white shadow-lg">
-            <form onSubmit={handleSearch} className="flex items-center mb-4">
-              <input
-                type="text"
-                placeholder="Search"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="border rounded-l-md p-2 w-32"
-              />
-              <button
-                type="submit"
-                className="bg-salmon text-white rounded-r-md p-2"
-              >
-                <AiOutlineSearch />
-              </button>
-            </form>
+            <div className="flex-none gap-2 navbar-center hidden">
+              <div className="form-control">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="input input-bordered w-24 md:w-auto"
+                />
+              </div>
+            </div>
             <ul
               ref={dropdownRef}
               className="flex sm:flex-col xs:flex-col xxs:flex-col sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium lg:text-lg sm:gap-2 xs:gap-2 xxs:gap-2"
