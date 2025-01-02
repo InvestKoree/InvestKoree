@@ -74,7 +74,7 @@ const Navbar = () => {
             {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
           </button>
         </div>
-        <div className="flex-none gap-2 navbar-center">
+        <div className=" flex relative gap-2 navbar-center">
           <form onSubmit={handleSearch} className="flex items-center mx-4">
             <input
               type="text"
@@ -85,7 +85,7 @@ const Navbar = () => {
             />
             <button
               type="submit"
-              className="bg-salmon text-white rounded-r-md p-2"
+              className="bg-salmon text-white rounded-r-md p-2 absolute right-6"
             >
               <AiOutlineSearch />
             </button>
