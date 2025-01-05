@@ -252,13 +252,161 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu */}
+        {/* Mobile Menu */}
         {isOpen && (
           <div className="lg:hidden flex flex-col items-start p-4 bg-white shadow-lg">
             <ul
               ref={dropdownRef}
               className="flex sm:flex-col xs:flex-col xxs:flex-col sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium lg:text-lg sm:gap-2 xs:gap-2 xxs:gap-2"
             >
-              {/* Same items as before */}
+              <li>
+                <NavLink
+                  to="/founderlogin"
+                  onClick={toggleMenu}
+                  className="hover:bg-salmon transition p-2 rounded"
+                >
+                  Get Funded
+                </NavLink>
+              </li>
+
+              <li>
+                <details
+                  open={activeDropdown === "category"}
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <summary
+                    onClick={() => toggleMobileDropdown("category")}
+                    className="hover:bg-salmon hover:text-white transition p-2 rounded cursor-pointer"
+                  >
+                    Category
+                  </summary>
+                  {activeDropdown === "category" && (
+                    <ul className="bg-base-100 sm:p-2 xs:p-2 xxs:p-2 flex flex-col gap-2">
+                      <li>
+                        <NavLink
+                          to="/shariah"
+                          onClick={toggleMenu}
+                          className="hover:bg-salmon transition sm:p-2 xs:p-2 xxs:p-2 rounded"
+                        >
+                          Shariah
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          to="/stocks"
+                          onClick={toggleMenu}
+                          className="hover:bg-salmon transition p-2 rounded"
+                        >
+                          Stocks
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          to="/fixedreturn"
+                          onClick={toggleMenu}
+                          className="hover:bg-salmon transition p-2 rounded"
+                        >
+                          Fixed Return
+                        </NavLink>
+                      </li>
+                    </ul>
+                  )}
+                </details>
+              </li>
+              <li>
+                <NavLink
+                  to="/blogs"
+                  onClick={toggleMenu}
+                  className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
+                  activeclassname="active"
+                >
+                  Blog
+                </NavLink>
+              </li>
+              <li>
+                {userdata ? (
+                  <div className="flex flex-col">
+                    {userdata.role === "investor" && (
+                      <Link
+                        to="/investordashboard"
+                        onClick={toggleMenu}
+                        className="hover:bg-salmon transition hover:text-white p-2 rounded"
+                      >
+                        MyProfile
+                      </Link>
+                    )}
+                    {userdata.role === "founder" && (
+                      <Link
+                        to="/founderdashboard"
+                        onClick={toggleMenu}
+                        className="hover:bg-salmon transition hover:text-white p-2 rounded"
+                      >
+                        MyProfile
+                      </Link>
+                    )}
+                    {userdata.role === "admin" && (
+                      <NavLink
+                        to="/admindashboard"
+                        onClick={toggleMenu}
+                        className="hover:bg-salmon hover:text-white transition p-2 rounded"
+                      >
+                        MyProfile
+                      </NavLink>
+                    )}
+                    <div
+                      onClick={handleSignOut}
+                      className="hover:bg-salmon transition hover:text-white p-2 rounded cursor-pointer"
+                    >
+                      Logout
+                    </div>
+                  </div>
+                ) : (
+                  <details open={activeDropdown === "login"}>
+                    <summary
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleDropdown("login");
+                      }}
+                      className="hover:bg-salmon mt-2 p-2 rounded hover:text-white"
+                    >
+                      Login
+                    </summary>
+                    {activeDropdown === "login" && (
+                      <ul className="bg-base-100 rounded-t-none p-2">
+                        <li>
+                          <NavLink
+                            to="/investorlogin"
+                            onClick={toggleMenu}
+                            className="hover:bg-salmon transition hover:text-white p-2 lg:mb-2 sm:mb-2 xs:mb-2 xxs:mb-2 rounded"
+                            activeclassname="active"
+                          >
+                            Investor
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/founderlogin"
+                            onClick={toggleMenu}
+                            className="hover:bg-salmon transition hover:text-white p-2 rounded"
+                            activeclassname="active"
+                          >
+                            Founder
+                          </NavLink>
+                        </li>
+                      </ul>
+                    )}
+                  </details>
+                )}
+              </li>
+              <li>
+                {userdata && (
+                  <Notifications
+                    className="h-5 w-5"
+                    API_URL={API_URL}
+                    userId={userdata._id}
+                  />
+                )}
+              </li>
             </ul>
           </div>
         )}
