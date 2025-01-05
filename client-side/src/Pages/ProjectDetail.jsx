@@ -208,7 +208,8 @@ const ProjectDetail = () => {
                   <div
                     className="bg-salmon h-2.5 rounded-full"
                     style={{
-                      width: `${(70000 / project.fundingAmount) * 100}%`,
+                      // width: `${(70000 / project.fundingAmount) * 100}%`,
+                      width: `${80}%`,
                     }} // Calculate percentage
                   ></div>
                 </div>
