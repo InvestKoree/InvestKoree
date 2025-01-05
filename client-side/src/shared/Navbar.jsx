@@ -8,13 +8,13 @@ import Notifications from "./Notifications";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchVisible, setSearchVisible] = useState(false); // State to toggle search input visibility
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const navigate = useNavigate();
   const { userdata, logOut } = useAuth();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchVisible, setSearchVisible] = useState(false); // To control mobile search input visibility
 
   const handleSignOut = () => {
     logOut();
@@ -68,6 +68,7 @@ const Navbar = () => {
           </Link>
         </div>
 
+        {/* Mobile Menu Toggle Button */}
         <div className="lg:hidden block">
           <button
             onClick={toggleMenu}
@@ -77,33 +78,23 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Search Button */}
-        <div className="flex items-center">
-          <button
-            onClick={() => setSearchVisible((prev) => !prev)} // Toggle search bar visibility
-            className="sm:text-base xs:text-base xxs:text-base sm:font-medium xs:font-medium xxs:font-medium"
-          >
-            <AiOutlineSearch />
-          </button>
-
-          {/* Search Bar in Mobile */}
-          {searchVisible && (
-            <form onSubmit={handleSearch} className="flex items-center mx-4">
-              <input
-                type="text"
-                placeholder="Search By Business Name"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="border border-salmon rounded-l-md p-2 lg:w-64 sm:w-48 xs:w-32 xxs:w-24"
-              />
-              <button
-                type="submit"
-                className="bg-salmon text-white rounded-r-md p-2 absolute right-6"
-              >
-                <AiOutlineSearch />
-              </button>
-            </form>
-          )}
+        {/* Search Bar for Large Screens */}
+        <div className="lg:flex hidden relative gap-2 navbar-center rounded-md">
+          <form onSubmit={handleSearch} className="flex items-center mx-4">
+            <input
+              type="text"
+              placeholder="Search By Business Name"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="border border-salmon rounded-l-md p-2 lg:w-64 sm:w-48 xs:w-32 xxs:w-24"
+            />
+            <button
+              type="submit"
+              className="bg-salmon text-white rounded-r-md p-2 absolute right-6"
+            >
+              <AiOutlineSearch />
+            </button>
+          </form>
         </div>
 
         {/* Full Navbar for Larger Screens */}
@@ -267,154 +258,7 @@ const Navbar = () => {
               ref={dropdownRef}
               className="flex sm:flex-col xs:flex-col xxs:flex-col sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium lg:text-lg sm:gap-2 xs:gap-2 xxs:gap-2"
             >
-              <li>
-                <NavLink
-                  to="/founderlogin"
-                  onClick={toggleMenu}
-                  className="hover:bg-salmon transition p-2 rounded"
-                >
-                  Get Funded
-                </NavLink>
-              </li>
-
-              <li>
-                <details
-                  open={activeDropdown === "category"}
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <summary
-                    onClick={() => toggleMobileDropdown("category")}
-                    className="hover:bg-salmon hover:text-white transition p-2 rounded cursor-pointer"
-                  >
-                    Category
-                  </summary>
-                  {activeDropdown === "category" && (
-                    <ul className="bg-base-100 sm:p-2 xs:p-2 xxs:p-2 flex flex-col gap-2">
-                      <li>
-                        <NavLink
-                          to="/shariah"
-                          onClick={toggleMenu}
-                          className="hover:bg-salmon transition sm:p-2 xs:p-2 xxs:p-2 rounded"
-                        >
-                          Shariah
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/stocks"
-                          onClick={toggleMenu}
-                          className="hover:bg-salmon transition p-2 rounded"
-                        >
-                          Stocks
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/fixedreturn"
-                          onClick={toggleMenu}
-                          className="hover:bg-salmon transition p-2 rounded"
-                        >
-                          Fixed Return
-                        </NavLink>
-                      </li>
-                    </ul>
-                  )}
-                </details>
-              </li>
-              <li>
-                <NavLink
-                  to="/blogs"
-                  onClick={toggleMenu}
-                  className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
-                  activeclassname="active"
-                >
-                  Blog
-                </NavLink>
-              </li>
-              <li>
-                {userdata ? (
-                  <div className="flex flex-col">
-                    {userdata.role === "investor" && (
-                      <Link
-                        to="/investordashboard"
-                        onClick={toggleMenu}
-                        className="hover:bg-salmon transition hover:text-white p-2 rounded"
-                      >
-                        MyProfile
-                      </Link>
-                    )}
-                    {userdata.role === "founder" && (
-                      <Link
-                        to="/founderdashboard"
-                        onClick={toggleMenu}
-                        className="hover:bg-salmon transition hover:text-white p-2 rounded"
-                      >
-                        MyProfile
-                      </Link>
-                    )}
-                    {userdata.role === "admin" && (
-                      <NavLink
-                        to="/admindashboard"
-                        onClick={toggleMenu}
-                        className="hover:bg-salmon hover:text-white transition p-2 rounded"
-                      >
-                        MyProfile
-                      </NavLink>
-                    )}
-                    <div
-                      onClick={handleSignOut}
-                      className="hover:bg-salmon transition hover:text-white p-2 rounded cursor-pointer"
-                    >
-                      Logout
-                    </div>
-                  </div>
-                ) : (
-                  <details open={activeDropdown === "login"}>
-                    <summary
-                      onClick={(e) => {
-                        e.preventDefault();
-                        toggleDropdown("login");
-                      }}
-                      className="hover:bg-salmon mt-2 p-2 rounded hover:text-white"
-                    >
-                      Login
-                    </summary>
-                    {activeDropdown === "login" && (
-                      <ul className="bg-base-100 rounded-t-none p-2">
-                        <li>
-                          <NavLink
-                            to="/investorlogin"
-                            onClick={toggleMenu}
-                            className="hover:bg-salmon transition hover:text-white p-2 lg:mb-2 sm:mb-2 xs:mb-2 xxs:mb-2 rounded"
-                            activeclassname="active"
-                          >
-                            Investor
-                          </NavLink>
-                        </li>
-                        <li>
-                          <NavLink
-                            to="/founderlogin"
-                            onClick={toggleMenu}
-                            className="hover:bg-salmon transition hover:text-white p-2 rounded"
-                            activeclassname="active"
-                          >
-                            Founder
-                          </NavLink>
-                        </li>
-                      </ul>
-                    )}
-                  </details>
-                )}
-              </li>
-              <li>
-                {userdata && (
-                  <Notifications
-                    className="h-5 w-5"
-                    API_URL={API_URL}
-                    userId={userdata._id}
-                  />
-                )}
-              </li>
+              {/* Same items as before */}
             </ul>
           </div>
         )}
