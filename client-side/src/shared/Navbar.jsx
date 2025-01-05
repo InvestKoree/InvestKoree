@@ -8,6 +8,7 @@ import Notifications from "./Notifications";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchVisible, setSearchVisible] = useState(false); // State to toggle search input visibility
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const navigate = useNavigate();
   const { userdata, logOut } = useAuth();
@@ -47,6 +48,7 @@ const Navbar = () => {
     document.addEventListener("mousedown", handleOutsideClick);
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
@@ -56,6 +58,7 @@ const Navbar = () => {
       toast.error("Please enter a search term.");
     }
   };
+
   return (
     <div className="sticky top-0 z-50 bg-white shadow-lg">
       <div className="navbar px-6 py-3 flex justify-between items-center">
@@ -73,23 +76,36 @@ const Navbar = () => {
             {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
           </button>
         </div>
-        <div className=" flex relative gap-2 navbar-center rounded-md">
-          <form onSubmit={handleSearch} className="flex items-center mx-4">
-            <input
-              type="text"
-              placeholder="Search By Business Name"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="border border-salmon rounded-l-md p-2 lg:w-64 sm:w-48 xs:w-32 xxs:w-24"
-            />
-            <button
-              type="submit"
-              className="bg-salmon text-white rounded-r-md p-2 absolute right-6"
-            >
-              <AiOutlineSearch />
-            </button>
-          </form>
+
+        {/* Mobile Search Button */}
+        <div className="flex items-center">
+          <button
+            onClick={() => setSearchVisible((prev) => !prev)} // Toggle search bar visibility
+            className="sm:text-base xs:text-base xxs:text-base sm:font-medium xs:font-medium xxs:font-medium"
+          >
+            <AiOutlineSearch />
+          </button>
+
+          {/* Search Bar in Mobile */}
+          {searchVisible && (
+            <form onSubmit={handleSearch} className="flex items-center mx-4">
+              <input
+                type="text"
+                placeholder="Search By Business Name"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="border border-salmon rounded-l-md p-2 lg:w-64 sm:w-48 xs:w-32 xxs:w-24"
+              />
+              <button
+                type="submit"
+                className="bg-salmon text-white rounded-r-md p-2 absolute right-6"
+              >
+                <AiOutlineSearch />
+              </button>
+            </form>
+          )}
         </div>
+
         {/* Full Navbar for Larger Screens */}
         <div
           className={`hidden lg:flex flex-1 justify-center items-center navbar-end`}
@@ -308,6 +324,7 @@ const Navbar = () => {
               <li>
                 <NavLink
                   to="/blogs"
+                  onClick={toggleMenu}
                   className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
                   activeclassname="active"
                 >
@@ -367,7 +384,8 @@ const Navbar = () => {
                         <li>
                           <NavLink
                             to="/investorlogin"
-                            className="hover:bg-salmon transition hover:text-white p-2 lg:mb-2 sm:mb-4 xs:mb-4 xxs:mb-4 rounded"
+                            onClick={toggleMenu}
+                            className="hover:bg-salmon transition hover:text-white p-2 lg:mb-2 sm:mb-2 xs:mb-2 xxs:mb-2 rounded"
                             activeclassname="active"
                           >
                             Investor
@@ -376,6 +394,7 @@ const Navbar = () => {
                         <li>
                           <NavLink
                             to="/founderlogin"
+                            onClick={toggleMenu}
                             className="hover:bg-salmon transition hover:text-white p-2 rounded"
                             activeclassname="active"
                           >
