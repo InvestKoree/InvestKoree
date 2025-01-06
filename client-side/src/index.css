@@ -612,6 +612,7 @@ iframe.goog-te-banner-frame,
 .bg-img {
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
 }
 .logo-css:hover {
   background-color: white;

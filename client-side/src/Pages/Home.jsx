@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import bannerpic from "../assets/bannernew.png";
-import bannerpic2 from "../assets/bannernew2.jpg";
+// import bannerpic2 from "../assets/bannernew2.jpg";
 import LatestPost from "./LatestPost";
 import { Link } from "react-router-dom";
 import "animate.css";
@@ -117,8 +117,8 @@ const Home = () => {
       {/* Hero Section */}
       <div>
         <Parallax
-          bgImage={isSmallScreen ? bannerpic2 : bannerpic}
-          className=" lg:h-full animate__fadeIn animate__animated bg-img  "
+          bgImage={bannerpic} // Single image used
+          className="h-[300px] sm:h-[400px] md:h-[600px] lg:h-full animate__fadeIn animate__animated bg-img"
           strength={300}
         >
           <div className="hero h-[400px] lg:h-[600px] flex lg:items-center  text-slate-700">
