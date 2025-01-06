@@ -80,6 +80,7 @@ const LatestPost = ({ item }) => {
               src={imageUrls[0]} // Display the first image
               alt="Fundraiser"
               className="w-full h-48 object-cover"
+              loading="lazy"
             />
           ) : (
             <img
