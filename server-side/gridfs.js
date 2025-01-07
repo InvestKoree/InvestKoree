@@ -17,7 +17,7 @@ let gfsBucket;
 
 // Wait until MongoDB connection is ready
 conn.once('open', () => {
-  // Use GridFSBucket for streaming files
+  
   gfsBucket = new GridFSBucket(conn.db, {
     bucketName: 'uploads', // Match the collection name
   });
