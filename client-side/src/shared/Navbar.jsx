@@ -79,7 +79,7 @@ const Navbar = () => {
         </div>
 
         {/* Search Bar for Large Screens */}
-        <div className="lg:flex hidden relative gap-2 navbar-center rounded-md">
+        <div className="lg:flex hidden relative gap-2  rounded-md">
           <form onSubmit={handleSearch} className="flex items-center mx-4">
             <input
               type="text"
