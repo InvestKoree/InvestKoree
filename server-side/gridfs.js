@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
 import { GridFsStorage } from 'multer-gridfs-storage';
 import { GridFSBucket } from 'mongodb';
-import connectDB from './config/db.js'; // Import the connectDB function
+import connectDB from './config/db.js';
+import sharp from 'sharp';  // For image processing
+import ffmpeg from 'fluent-ffmpeg';  // For video processing
+import fs from 'fs';  // To handle temporary file system
 
 // Connect to MongoDB
 connectDB();
@@ -32,28 +35,69 @@ const storage = new GridFsStorage({
       'image/png',
       'video/mp4',
       'image/jpg',
-      'application/pdf', // PDF files
-      'application/msword', // .doc files
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx files
-      'application/vnd.ms-excel', // .xls files
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx files
-      'application/vnd.ms-powerpoint', // .ppt files
-      'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx files
-      'text/plain', // .txt files
-      'application/zip', // .zip files
-      'application/x-rar-compressed', // .rar files
-      // Add more MIME types as needed
+      // Add more file types as needed
     ];
 
     if (!fileTypes.includes(file.mimetype)) {
       return null; // Reject the file if the type is not allowed
     }
 
-    return {
-      bucketName: 'uploads',
-      filename: file.originalname, // GridFS bucket name
-      // metadata: { originalname: file.originalname }, // Optional metadata
-    };
+    return new Promise((resolve, reject) => {
+      // Process images
+      if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        const outputFilename = file.originalname.split('.')[0] + '.webp'; // Convert to webp format
+        const tempPath = './uploads/temp/' + outputFilename; // Temporary path for processing
+
+        // Convert image to WebP format
+        sharp(file.buffer)
+          .webp({ quality: 80 }) // Compress and convert to WebP with 80% quality
+          .toFile(tempPath, (err, info) => {
+            if (err) {
+              return reject(err);
+            }
+
+            // On successful image conversion, upload it to GridFS
+            resolve({
+              bucketName: 'uploads',
+              filename: outputFilename, // Store in WebP format
+              metadata: { originalname: file.originalname },
+            });
+
+            // Clean up temporary files after uploading
+            fs.unlink(tempPath, (err) => {
+              if (err) console.error('Error deleting temp file', err);
+            });
+          });
+
+      } else if (file.mimetype === 'video/mp4') {
+        const outputFilename = file.originalname.split('.')[0] + '.webm'; // Convert to .webm
+        const tempPath = './uploads/temp/' + outputFilename; // Temporary path for processing
+
+        // Convert video to a compressed format using ffmpeg
+        ffmpeg(file.buffer)
+          .output(tempPath)
+          .outputOptions('-vcodec', 'libvpx-vp9') // Use VP9 codec
+          .outputOptions('-b:v', '1M') // Set bitrate to 1Mbps
+          .outputOptions('-preset', 'ultrafast') // Fast encoding preset
+          .on('end', () => {
+            // On successful video conversion, upload it to GridFS
+            resolve({
+              bucketName: 'uploads',
+              filename: outputFilename, // Store the compressed video
+              metadata: { originalname: file.originalname },
+            });
+
+            // Clean up temporary files after uploading
+            fs.unlink(tempPath, (err) => {
+              if (err) console.error('Error deleting temp file', err);
+            });
+          })
+          .on('error', (err) => {
+            reject(err);
+          })
+          .run();
+      }
+    });
   },
 });
 

@@ -26,12 +26,12 @@ const LatestPost = ({ item }) => {
           try {
             const trimmedFilename = filename.trim(); // Trim whitespace/newline
             const response = await fetch(
-              `${API_URL}/images/filename/${trimmedFilename}`
-            ); // Use the filename in the API call
+              `${API_URL}/images/filename/${trimmedFilename}` // Use the filename in the API call
+            );
             console.log(
               `Fetching image with filename ${trimmedFilename}:`,
               response
-            ); // Log the response
+            );
             if (response.ok) {
               const blob = await response.blob();
               return URL.createObjectURL(blob); // Create a URL for the blob
@@ -65,6 +65,17 @@ const LatestPost = ({ item }) => {
     };
   }, [businessPictures]);
 
+  // Preload the first image (if available)
+  useEffect(() => {
+    if (imageUrls.length > 0) {
+      const img = new Image();
+      img.src = imageUrls[0]; // Set the first image URL to preload
+      img.onload = () => {
+        console.log("Image preloaded successfully:", imageUrls[0]);
+      };
+    }
+  }, [imageUrls]);
+
   // Calculate funding percentage for progress bar
   const fundingAmount = parseFloat(fundingAmountString);
   // const fundingPercentage = (50000 / fundingAmount) * 100;
@@ -80,13 +91,14 @@ const LatestPost = ({ item }) => {
               src={imageUrls[0]} // Display the first image
               alt="Fundraiser"
               className="w-full h-48 object-cover"
-              loading="lazy"
+              loading="eager" // Preload the image immediately
             />
           ) : (
             <img
               src={temp} // Default image if no pictures available
               alt="Fundraiser"
               className="w-full h-48 object-cover"
+              loading="eager" // Preload the default image
             />
           )}
           <div className="p-4">
