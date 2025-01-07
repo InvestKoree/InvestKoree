@@ -64,7 +64,7 @@ const Navbar = () => {
       <div className="navbar px-6 py-3 flex justify-between items-center">
         <div className="flex items-center navbar-start">
           <Link to="/">
-            <img className="h-16 w-36 logo-css" src={logo} alt="logo" />
+            <img className="h-16  logo-css" src={logo} alt="logo" />
           </Link>
         </div>
 
