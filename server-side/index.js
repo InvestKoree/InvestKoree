@@ -224,7 +224,7 @@ app.get('/images/filename/:filename', async (req, res) => {
   try {
     const filename = req.params.filename;
 
-    // Find the file metadata by filename
+   
     const file = await mongoose.connection.db
       .collection('uploads.files')
       .findOne({ filename: filename });
