@@ -123,7 +123,7 @@ app.post(
       // Loop through the uploaded files and extract ObjectIds
       for (const field in req.files) {
         if (req.files[field]) {
-          fileIds[field] = req.files[field].map(file => file.id); // Capture ObjectIds
+          fileIds[field] = await Promise.all(req.files[field].map(file => file.id)); // Capture ObjectIds
         }
       }
 

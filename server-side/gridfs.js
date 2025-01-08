@@ -27,87 +27,49 @@ conn.once('open', () => {
 const storage = new GridFsStorage({
   url: 'mongodb://admin:Saifinvestkoree2024@194.238.16.43:27017/investKoreeDB?authSource=admin',
   file: async (req, file) => {
-    // Acceptable file types
     const fileTypes = ['image/jpeg', 'image/png', 'video/mp4', 'image/jpg'];
 
-    // Reject invalid file types
     if (!fileTypes.includes(file.mimetype)) {
       throw new Error('Invalid file type');
     }
 
-    // Process Images
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-      return new Promise((resolve, reject) => {
-        const chunks = [];
-        file.stream.on('data', (chunk) => {
-          chunks.push(chunk);
-        });
+    return new Promise((resolve, reject) => {
+      const uploadStream = gfsBucket.openUploadStream(file.originalname);
+      const passThrough = new stream.PassThrough();
 
-        file.stream.on('end', async () => {
-          try {
-            const buffer = Buffer.concat(chunks); // Combine chunks into a buffer
-
-            // Process image with Sharp and convert to WebP
-            const processedImageBuffer = await sharp(buffer)
-              .webp({ quality: 80 })
-              .toBuffer(); // Convert directly to buffer
-
-            const readableStream = new stream.PassThrough();
-            readableStream.end(processedImageBuffer); // Create a readable stream
-
-            // Upload directly to GridFS
-            readableStream.pipe(
-              gfsBucket.openUploadStream(file.originalname.split('.')[0] + '.webp', {
-                contentType: 'image/webp',
-                metadata: { originalname: file.originalname },
-              })
-            );
-
+      // Process Images
+      if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        sharp(file.stream)
+          .webp({ quality: 80 })
+          .pipe(uploadStream)
+          .on('finish', () => {
             resolve({
               bucketName: 'uploads',
-              filename: file.originalname.split('.')[0] + '.webp',
-              metadata: { originalname: file.originalname },
-            });
-          } catch (err) {
-            reject(err);
-          }
-        });
-      });
-    }
-
-    // Process Videos
-    if (file.mimetype === 'video/mp4') {
-      return new Promise((resolve, reject) => {
-        const passThrough = new stream.PassThrough();
-
-        // Use ffmpeg to process the video directly
-        ffmpeg(file.stream)
-          .format('webm') // Convert to webm format
-          .videoCodec('libvpx-vp9') // VP9 codec for compression
-          .audioCodec('libvorbis') // Audio codec
-          .outputOptions('-b:v', '1M') // Bitrate
-          .outputOptions('-preset', 'ultrafast') // Faster processing
-          .pipe(passThrough) // Stream output directly to memory
-          .on('end', () => {
-            // Upload directly to GridFS
-            passThrough.pipe(
-              gfsBucket.openUploadStream(file.originalname.split('.')[0] + '.webm', {
-                contentType: 'video/webm',
-                metadata: { originalname: file.originalname },
-              })
-            );
-
-            resolve({
-              bucketName: 'uploads',
-              filename: file.originalname.split('.')[0] + '.webm',
-              metadata: { originalname: file.originalname },
+              filename: uploadStream.filename,
+              id: uploadStream.id, // Capture the id here
             });
           })
-          .on('error', (err) => {
-            reject(err);
-          });
-      });
-    }
+          .on('error', reject);
+      }
+
+      // Process Videos
+      if (file.mimetype === 'video/mp4') {
+        ffmpeg(file.stream)
+          .format('webm')
+          .videoCodec('libvpx-vp9') // VP9 codec for compression
+          .outputOptions('-b:v', '1M') // Bitrate
+          .outputOptions('-preset', 'ultrafast') // Faster processing
+          .pipe(uploadStream)
+          .on('finish', () => {
+            resolve({
+              bucketName: 'uploads',
+              filename: uploadStream.filename,
+              id: uploadStream.id, // Capture the id here
+            });
+          })
+          .on('error', reject);
+      }
+    });
   },
 });
 
