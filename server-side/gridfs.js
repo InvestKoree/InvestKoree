@@ -99,7 +99,7 @@ const storage = new GridFsStorage({
         return;
       }
 
-      // If no processing required
+      
       file.stream
         .pipe(uploadStream)
         .on('finish', () => {
