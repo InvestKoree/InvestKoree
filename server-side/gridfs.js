@@ -39,9 +39,8 @@ const storage = new GridFsStorage({
     ];
 
     if (!fileTypes.includes(file.mimetype)) {
-      return null; // Reject the file if the type is not allowed
+      return reject(new Error('Invalid file type')); // Reject with an error
     }
-
     return new Promise((resolve, reject) => {
       // Process images
       if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
@@ -49,45 +48,53 @@ const storage = new GridFsStorage({
         const tempPath = './uploads/temp/' + outputFilename; // Temporary path for processing
 
         // Convert image to WebP format
-        sharp(file.buffer)
-          .webp({ quality: 80 }) // Compress and convert to WebP with 80% quality
-          .toFile(tempPath, (err, info) => {
-            if (err) {
-              return reject(err);
-            }
-
-            // On successful image conversion, upload it to GridFS
-            resolve({
-              bucketName: 'uploads',
-              filename: outputFilename, // Store in WebP format
-              metadata: { originalname: file.originalname },
+        const chunks = [];
+        file.stream.on('data', (chunk) => {
+          chunks.push(chunk); // Collect chunks
+        });
+        
+        file.stream.on('end', () => {
+          const buffer = Buffer.concat(chunks); // Combine chunks into a single buffer
+        
+          sharp(buffer) // Process the buffer
+            .webp({ quality: 80 })
+            .toFile(tempPath, (err, info) => {
+              if (err) {
+                return reject(err);
+              }
+        
+              // Resolve after processing
+              resolve({
+                bucketName: 'uploads',
+                filename: outputFilename,
+                metadata: { originalname: file.originalname },
+              });
+        
+              fs.unlink(tempPath, (err) => {
+                if (err) console.error('Error deleting temp file', err);
+              });
             });
-
-            // Clean up temporary files after uploading
-            fs.unlink(tempPath, (err) => {
-              if (err) console.error('Error deleting temp file', err);
-            });
-          });
-
+        });
+        
       } else if (file.mimetype === 'video/mp4') {
         const outputFilename = file.originalname.split('.')[0] + '.webm'; // Convert to .webm
         const tempPath = './uploads/temp/' + outputFilename; // Temporary path for processing
 
         // Convert video to a compressed format using ffmpeg
-        ffmpeg(file.buffer)
+        const inputStream = file.stream;
+
+        ffmpeg(inputStream) // Use the stream directly
           .output(tempPath)
-          .outputOptions('-vcodec', 'libvpx-vp9') // Use VP9 codec
-          .outputOptions('-b:v', '1M') // Set bitrate to 1Mbps
-          .outputOptions('-preset', 'ultrafast') // Fast encoding preset
+          .outputOptions('-vcodec', 'libvpx-vp9') // Compress video
+          .outputOptions('-b:v', '1M')
+          .outputOptions('-preset', 'ultrafast')
           .on('end', () => {
-            // On successful video conversion, upload it to GridFS
             resolve({
               bucketName: 'uploads',
-              filename: outputFilename, // Store the compressed video
+              filename: outputFilename,
               metadata: { originalname: file.originalname },
             });
-
-            // Clean up temporary files after uploading
+        
             fs.unlink(tempPath, (err) => {
               if (err) console.error('Error deleting temp file', err);
             });
@@ -96,6 +103,7 @@ const storage = new GridFsStorage({
             reject(err);
           })
           .run();
+        
       }
     });
   },
