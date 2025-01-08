@@ -83,7 +83,7 @@ const storage = new GridFsStorage({
         // Convert video to a compressed format using ffmpeg
         const inputStream = file.stream;
 
-        ffmpeg(inputStream) // Use the stream directly
+        ffmpeg(inputStream) 
           .output(tempPath)
           .outputOptions('-vcodec', 'libvpx-vp9') // Compress video
           .outputOptions('-b:v', '1M')
