@@ -120,12 +120,17 @@ app.post(
       // Initialize an array to hold ObjectIds
       const fileIds = {};
 
-      // Loop through the uploaded files and extract ObjectIds
       for (const field in req.files) {
         if (req.files[field]) {
-          fileIds[field] = req.files[field].map(file => file.id); // Capture ObjectIds
+          fileIds[field] = req.files[field].map((file) => {
+            if (!file.id) {
+              throw new Error(`File upload failed for field: ${field}`); // Handle missing IDs
+            }
+            return file.id; // Ensure _id is captured
+          });
         }
       }
+      
 
       // Now you can use fileIds to save to your database or process further
       console.log('Uploaded file IDs:', fileIds);

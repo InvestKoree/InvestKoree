@@ -13,14 +13,15 @@ const conn = mongoose.connection;
 let gfsBucket;
 
 // Wait until MongoDB connection is ready
-conn.once('open', () => {
-  // Use GridFSBucket for streaming files
-  gfsBucket = new GridFSBucket(conn.db, {
-    bucketName: 'uploads', // Match the collection name
-  });
-
+conn.on('connected', () => {
+  gfsBucket = new GridFSBucket(conn.db, { bucketName: 'uploads' });
   console.log('GridFSBucket initialized!');
 });
+
+conn.on('error', (err) => {
+  console.error('MongoDB connection error:', err);
+});
+
 
 // Create storage engine for multer-gridfs-storage
 const storage = new GridFsStorage({
@@ -46,13 +47,13 @@ const storage = new GridFsStorage({
     ];
 
     if (!fileTypes.includes(file.mimetype)) {
-      return null; // Reject the file if the type is not allowed
+      return `${file.originalname}`;  // Reject the file if the type is not allowed
     }
 
     return {
       bucketName: 'uploads',
       filename: file.originalname, // GridFS bucket name
-      // metadata: { originalname: file.originalname }, // Optional metadata
+      metadata: { uploadedBy: req.user?.id || 'unknown' }, 
     };
   },
 });
