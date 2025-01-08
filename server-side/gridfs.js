@@ -27,7 +27,7 @@ conn.on('error', (err) => {
 const storage = new GridFsStorage({
   url: 'mongodb://admin:Saifinvestkoree2024@194.238.16.43:27017/investKoreeDB?authSource=admin',
   file: (req, file) => {
-    // Accept all file types
+  
     const fileTypes = [
       'image/jpeg',
       'image/png',
