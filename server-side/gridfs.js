@@ -29,40 +29,47 @@ const storage = new GridFsStorage({
   file: async (req, file) => {
     const fileTypes = ['image/jpeg', 'image/png', 'video/mp4', 'image/jpg'];
 
+    // Check file type
     if (!fileTypes.includes(file.mimetype)) {
       throw new Error('Invalid file type');
     }
 
     return new Promise((resolve, reject) => {
+      // Ensure the file stream exists
+      if (!file.stream) {
+        console.error('Missing file stream');
+        reject(new Error('Missing file stream'));
+        return;
+      }
+
+      // Create a GridFS upload stream
       const uploadStream = gfsBucket.openUploadStream(file.originalname);
-      const passThrough = new stream.PassThrough();
 
       // Process Images
-      if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-        const uploadStream = gfsBucket.openUploadStream(file.originalname);
-        const passThrough = new stream.PassThrough();
-      
-        sharp(file.stream)
+      if (file.mimetype.startsWith('image/')) {
+        sharp()
           .webp({ quality: 80 })
-          .pipe(passThrough)
           .on('error', (err) => {
-            console.error('Error processing image:', err);
+            console.error('Sharp processing error:', err);
             reject(err);
-          });
-      
-        passThrough
-          .pipe(uploadStream)
+          })
+          .pipe(uploadStream) // Pipe to GridFS
           .on('finish', () => {
             resolve({
               bucketName: 'uploads',
               filename: uploadStream.filename,
-              id: uploadStream.id, // Capture the id here
+              id: uploadStream.id,
             });
           })
           .on('error', (err) => {
             console.error('Error uploading image:', err);
             reject(err);
           });
+
+        // Pass the input stream to Sharp
+        file.stream.pipe(sharp());
+
+        return;
       }
 
       // Process Videos
@@ -72,16 +79,40 @@ const storage = new GridFsStorage({
           .videoCodec('libvpx-vp9') // VP9 codec for compression
           .outputOptions('-b:v', '1M') // Bitrate
           .outputOptions('-preset', 'ultrafast') // Faster processing
-          .pipe(uploadStream)
+          .on('error', (err) => {
+            console.error('FFmpeg processing error:', err);
+            reject(err);
+          })
+          .pipe(uploadStream) // Pipe to GridFS
           .on('finish', () => {
             resolve({
               bucketName: 'uploads',
               filename: uploadStream.filename,
-              id: uploadStream.id, // Capture the id here
+              id: uploadStream.id,
             });
           })
-          .on('error', reject);
+          .on('error', (err) => {
+            console.error('Error uploading video:', err);
+            reject(err);
+          });
+
+        return;
       }
+
+      // If no processing required
+      file.stream
+        .pipe(uploadStream)
+        .on('finish', () => {
+          resolve({
+            bucketName: 'uploads',
+            filename: uploadStream.filename,
+            id: uploadStream.id,
+          });
+        })
+        .on('error', (err) => {
+          console.error('Error uploading file:', err);
+          reject(err);
+        });
     });
   },
 });
