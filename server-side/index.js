@@ -139,6 +139,9 @@ app.post(
     }
   }
 );
+
+
+
 // app.put('/adminpost/update/:id', authToken, upload.fields([
 //   { name: 'businessPicture', maxCount: 10 },
 //   { name: 'nidCopy', maxCount: 1 },
