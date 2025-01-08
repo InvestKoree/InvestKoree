@@ -26,7 +26,7 @@ import search from './routes/search.js';
 
 
 dotenv.config();
-// Create __dirname equivalent
+
 
 // Initialize App
 const app = express();
