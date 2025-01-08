@@ -39,8 +39,18 @@ const storage = new GridFsStorage({
 
       // Process Images
       if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        const uploadStream = gfsBucket.openUploadStream(file.originalname);
+        const passThrough = new stream.PassThrough();
+      
         sharp(file.stream)
           .webp({ quality: 80 })
+          .pipe(passThrough)
+          .on('error', (err) => {
+            console.error('Error processing image:', err);
+            reject(err);
+          });
+      
+        passThrough
           .pipe(uploadStream)
           .on('finish', () => {
             resolve({
@@ -49,7 +59,10 @@ const storage = new GridFsStorage({
               id: uploadStream.id, // Capture the id here
             });
           })
-          .on('error', reject);
+          .on('error', (err) => {
+            console.error('Error uploading image:', err);
+            reject(err);
+          });
       }
 
       // Process Videos
