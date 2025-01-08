@@ -41,8 +41,6 @@ const storage = new GridFsStorage({
       if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
         sharp(file.stream)
           .webp({ quality: 80 })
-          .pipe(passThrough)
-          .on('error', reject)
           .pipe(uploadStream)
           .on('finish', () => {
             resolve({
@@ -58,8 +56,9 @@ const storage = new GridFsStorage({
       if (file.mimetype === 'video/mp4') {
         ffmpeg(file.stream)
           .format('webm')
-          .pipe(passThrough)
-          .on('error', reject)
+          .videoCodec('libvpx-vp9') // VP9 codec for compression
+          .outputOptions('-b:v', '1M') // Bitrate
+          .outputOptions('-preset', 'ultrafast') // Faster processing
           .pipe(uploadStream)
           .on('finish', () => {
             resolve({
