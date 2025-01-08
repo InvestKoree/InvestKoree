@@ -1,10 +1,7 @@
 import mongoose from 'mongoose';
 import { GridFsStorage } from 'multer-gridfs-storage';
 import { GridFSBucket } from 'mongodb';
-import connectDB from './config/db.js';
-import sharp from 'sharp'; // For image processing
-import ffmpeg from 'fluent-ffmpeg'; // For video processing
-import stream from 'stream'; // For handling streams
+import connectDB from './config/db.js'; // Import the connectDB function
 
 // Connect to MongoDB
 connectDB();
@@ -17,103 +14,46 @@ let gfsBucket;
 
 // Wait until MongoDB connection is ready
 conn.once('open', () => {
+  // Use GridFSBucket for streaming files
   gfsBucket = new GridFSBucket(conn.db, {
     bucketName: 'uploads', // Match the collection name
   });
+
   console.log('GridFSBucket initialized!');
 });
 
 // Create storage engine for multer-gridfs-storage
 const storage = new GridFsStorage({
   url: 'mongodb://admin:Saifinvestkoree2024@194.238.16.43:27017/investKoreeDB?authSource=admin',
-  file: async (req, file) => {
-    const fileTypes = ['image/jpeg', 'image/png', 'video/mp4', 'image/jpg'];
+  file: (req, file) => {
+    // Accept all file types
+    const fileTypes = [
+      'image/jpeg',
+      'image/png',
+      'video/mp4',
+      'image/jpg',
+      'application/pdf', // PDF files
+      'application/msword', // .doc files
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx files
+      'application/vnd.ms-excel', // .xls files
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx files
+      'application/vnd.ms-powerpoint', // .ppt files
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx files
+      'text/plain', // .txt files
+      'application/zip', // .zip files
+      'application/x-rar-compressed', // .rar files
+      // Add more MIME types as needed
+    ];
 
-    // Check file type
     if (!fileTypes.includes(file.mimetype)) {
-      throw new Error('Invalid file type');
+      return null; // Reject the file if the type is not allowed
     }
 
-    return new Promise((resolve, reject) => {
-      // Ensure the file stream exists
-      if (!file.stream) {
-        console.error('Missing file stream');
-        reject(new Error('Missing file stream'));
-        return;
-      }
-
-      // Create a GridFS upload stream
-      const uploadStream = gfsBucket.openUploadStream(file.originalname);
-
-      // Process Images
-      if (file.mimetype.startsWith('image/')) {
-        sharp()
-          .webp({ quality: 80 })
-          .on('error', (err) => {
-            console.error('Sharp processing error:', err);
-            reject(err);
-          })
-          .pipe(uploadStream) // Pipe to GridFS
-          .on('finish', () => {
-            resolve({
-              bucketName: 'uploads',
-              filename: uploadStream.filename,
-              id: uploadStream.id,
-            });
-          })
-          .on('error', (err) => {
-            console.error('Error uploading image:', err);
-            reject(err);
-          });
-
-        // Pass the input stream to Sharp
-        file.stream.pipe(sharp());
-
-        return;
-      }
-
-      // Process Videos
-      if (file.mimetype === 'video/mp4') {
-        ffmpeg(file.stream)
-          .format('webm')
-          .videoCodec('libvpx-vp9') // VP9 codec for compression
-          .outputOptions('-b:v', '1M') // Bitrate
-          .outputOptions('-preset', 'ultrafast') // Faster processing
-          .on('error', (err) => {
-            console.error('FFmpeg processing error:', err);
-            reject(err);
-          })
-          .pipe(uploadStream) // Pipe to GridFS
-          .on('finish', () => {
-            resolve({
-              bucketName: 'uploads',
-              filename: uploadStream.filename,
-              id: uploadStream.id,
-            });
-          })
-          .on('error', (err) => {
-            console.error('Error uploading video:', err);
-            reject(err);
-          });
-
-        return;
-      }
-
-      
-      file.stream
-        .pipe(uploadStream)
-        .on('finish', () => {
-          resolve({
-            bucketName: 'uploads',
-            filename: uploadStream.filename,
-            id: uploadStream.id,
-          });
-        })
-        .on('error', (err) => {
-          console.error('Error uploading file:', err);
-          reject(err);
-        });
-    });
+    return {
+      bucketName: 'uploads',
+      filename: file.originalname, // GridFS bucket name
+      // metadata: { originalname: file.originalname }, // Optional metadata
+    };
   },
 });
 
