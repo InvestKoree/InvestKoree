@@ -139,9 +139,6 @@ app.post(
     }
   }
 );
-
-
-
 // app.put('/adminpost/update/:id', authToken, upload.fields([
 //   { name: 'businessPicture', maxCount: 10 },
 //   { name: 'nidCopy', maxCount: 1 },
@@ -227,7 +224,7 @@ app.get('/images/filename/:filename', async (req, res) => {
   try {
     const filename = req.params.filename;
 
-   
+    // Find the file metadata by filename
     const file = await mongoose.connection.db
       .collection('uploads.files')
       .findOne({ filename: filename });

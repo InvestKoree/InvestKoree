@@ -1,4 +1,3 @@
-
 import PendingPost from '../models/pendingPost.js';
 import FounderPending from '../models/founderpending.js';
 
