@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import imageCompression from "browser-image-compression";
 import axios from "axios";
 const FounderPost = () => {
   const initialFormData = {
@@ -44,44 +43,11 @@ const FounderPost = () => {
   const [financialFile, setFinancialFile] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
 
-  const handleFileChange = async (e, setFile) => {
-    const file = e.target.files[0];
-    if (file) {
-      const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 800,
-        useWebWorker: true,
-        fileType: "image/webp",
-      };
+  const handleFileChange = (e, setFile) => setFile(e.target.files[0]);
 
-      try {
-        const compressedFile = await imageCompression(file, options);
-        setFile(compressedFile);
-      } catch (error) {
-        console.error("Error compressing file:", error);
-        setFile(file);
-      }
-    }
-  };
-
-  const handleMultipleFileChange = async (e) => {
+  const handleMultipleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    const options = {
-      maxSizeMB: 1,
-      maxWidthOrHeight: 800,
-      useWebWorker: true,
-      fileType: "image/webp", // Specify WebP directly
-    };
-
-    try {
-      const compressedFiles = await Promise.all(
-        files.map((file) => imageCompression(file, options))
-      );
-      setBusinessPictures(compressedFiles);
-    } catch (error) {
-      console.error("Error compressing files:", error);
-      setBusinessPictures(files); // Fallback to original files if compression fails
-    }
+    setBusinessPictures(files);
   };
 
   const handleVideoChange = (e) => {
@@ -128,24 +94,34 @@ const FounderPost = () => {
         formData.append("file", picture);
         formData.append("upload_preset", "your_upload_preset"); // Replace with your upload preset
 
-        const uploadResponse = await axios.post(
-          `https://api.cloudinary.com/v1_1/dhqmilgfz/image/upload`, // Replace with your Cloudinary cloud name
-          formData
-        );
-        uploadPromises.push(uploadResponse.data.secure_url); // Store the URL
+        try {
+          const uploadResponse = await axios.post(
+            `https://api.cloudinary.com/v1_1/dhqmilgfz/image/upload`, // Replace with your Cloudinary cloud name
+            formData
+          );
+          uploadPromises.push(uploadResponse.data.secure_url); // Store the URL
+        } catch (error) {
+          console.error("Error uploading business picture:", error);
+          toast.error(`Failed to upload business picture: ${error.message}`);
+        }
       }
 
       // Upload video to Cloudinary
       if (videoFile) {
         const videoFormData = new FormData();
-        videoFormData.append("file", videoFile);
+        videoFormData.append("file ", videoFile);
         videoFormData.append("upload_preset", "your_upload_preset"); // Replace with your upload preset
 
-        const videoUploadResponse = await axios.post(
-          `https://api.cloudinary.com/v1_1/dhqmilgfz/video/upload`, // Replace with your Cloudinary cloud name
-          videoFormData
-        );
-        uploadPromises.push(videoUploadResponse.data.secure_url); // Store the URL
+        try {
+          const videoUploadResponse = await axios.post(
+            `https://api.cloudinary.com/v1_1/dhqmilgfz/video/upload`, // Replace with your Cloudinary cloud name
+            videoFormData
+          );
+          uploadPromises.push(videoUploadResponse.data.secure_url); // Store the URL
+        } catch (error) {
+          console.error("Error uploading video:", error);
+          toast.error(`Failed to upload video: ${error.message}`);
+        }
       }
 
       // Upload other files (NID, TIN, Tax, Trade License, Bank Statement, Security, Financial)
@@ -161,15 +137,20 @@ const FounderPost = () => {
 
       for (const { file, name } of otherFiles) {
         if (file) {
-          const formData = new FormData();
-          formData.append("file", file);
-          formData.append("upload_preset", "your_upload_preset"); // Replace with your upload preset
+          const fileFormData = new FormData();
+          fileFormData.append("file", file);
+          fileFormData.append("upload_preset", "your_upload_preset"); // Replace with your upload preset
 
-          const uploadResponse = await axios.post(
-            `https://api.cloudinary.com/v1_1/dhqmilgfz/upload`, // Replace with your Cloudinary cloud name
-            formData
-          );
-          uploadPromises.push(uploadResponse.data.secure_url); // Store the URL
+          try {
+            const uploadResponse = await axios.post(
+              `https://api.cloudinary.com/v1_1/dhqmilgfz/upload`, // Replace with your Cloudinary cloud name
+              fileFormData
+            );
+            uploadPromises.push(uploadResponse.data.secure_url); // Store the URL
+          } catch (error) {
+            console.error(`Error uploading ${name}:`, error);
+            toast.error(`Failed to upload ${name}: ${error.message}`);
+          }
         }
       }
 
