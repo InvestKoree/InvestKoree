@@ -2,8 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import imageCompression from "browser-image-compression";
-import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
-const ffmpeg = createFFmpeg({ log: true });
+import axios from "axios";
 const FounderPost = () => {
   const initialFormData = {
     businessName: "",
@@ -85,46 +84,10 @@ const FounderPost = () => {
     }
   };
 
-  const handleVideoChange = async (e) => {
+  const handleVideoChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      try {
-        if (!ffmpeg.isLoaded()) {
-          await ffmpeg.load();
-        }
-
-        // Load the video file into FFmpeg
-        ffmpeg.FS("writeFile", "input.mp4", await fetchFile(file));
-
-        // Run the FFmpeg command to convert to WebM
-        await ffmpeg.run(
-          "-i",
-          "input.mp4",
-          "-c:v",
-          "libvpx",
-          "-b:v",
-          "1M",
-          "-c:a",
-          "libvorbis",
-          "output.webm"
-        );
-
-        // Read the converted video file
-        const data = ffmpeg.FS("readFile", "output.webm");
-
-        // Create a Blob from the converted video
-        const webmVideo = new Blob([data.buffer], { type: "video/webm" });
-
-        // Set the converted video file
-        setVideoFile(webmVideo);
-
-        // Clean up FFmpeg FS
-        ffmpeg.FS("unlink", "input.mp4");
-        ffmpeg.FS("unlink", "output.webm");
-      } catch (error) {
-        console.error("Error processing video:", error);
-        toast.error("Video conversion failed. Please try again.");
-      }
+      setVideoFile(file);
     }
   };
 
@@ -135,51 +98,82 @@ const FounderPost = () => {
     });
   };
 
-  const handleSecurityOptionChange = (e) => {
-    const selectedOption = e.target.value;
-    setFormData({
-      ...formData,
-      securityOption: selectedOption,
-    });
-    setOtherOption(selectedOption === "Other");
-  };
-
-  const handleDocumentationOptionChange = (e) => {
-    const selectedOption = e.target.value;
-    setFormData({
-      ...formData,
-      documentationOption: selectedOption,
-    });
-    setOtherDocumentation(selectedOption === "Other");
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const postData = new FormData();
+      const uploadPromises = [];
 
-      // Append form data fields
-      Object.keys(formData).forEach((key) => {
-        postData.append(key, formData[key]);
-      });
+      // Upload business pictures to Cloudinary
+      for (const picture of businessPictures) {
+        const formData = new FormData();
+        formData.append("file", picture);
+        formData.append("upload_preset", "your_upload_preset"); // Replace with your upload preset
 
-      // Append business pictures
-      businessPictures.forEach((file) => {
-        postData.append("businessPicture", file);
-      });
+        const uploadResponse = await axios.post(
+          `https://api.cloudinary.com/v1_1/dhqmilgfz/image/upload`, // Replace with your Cloudinary cloud name
+          formData
+        );
+        uploadPromises.push(uploadResponse.data.secure_url); // Store the URL
+      }
 
-      // Append other files
-      if (nidFile) postData.append("nidCopy", nidFile);
-      if (tinFile) postData.append("tinCopy", tinFile);
-      if (taxFile) postData.append("taxCopy", taxFile);
-      if (tradeLicenseFile) postData.append("tradeLicense", tradeLicenseFile);
-      if (bankStatementFile)
-        postData.append("bankStatement", bankStatementFile);
-      if (securityFile) postData.append("securityFile", securityFile);
-      if (financialFile) postData.append("financialFile", financialFile);
-      if (videoFile) postData.append("video", videoFile);
+      // Upload video to Cloudinary
+      if (videoFile) {
+        const videoFormData = new FormData();
+        videoFormData.append("file", videoFile);
+        videoFormData.append("upload_preset", "your_upload_preset"); // Replace with your upload preset
+
+        const videoUploadResponse = await axios.post(
+          `https://api.cloudinary.com/v1_1/dhqmilgfz/video/upload`, // Replace with your Cloudinary cloud name
+          videoFormData
+        );
+        uploadPromises.push(videoUploadResponse.data.secure_url); // Store the URL
+      }
+
+      // Upload other files (NID, TIN, Tax, Trade License, Bank Statement, Security, Financial)
+      const otherFiles = [
+        { file: nidFile, name: "nidCopy" },
+        { file: tinFile, name: "tinCopy" },
+        { file: taxFile, name: "taxCopy" },
+        { file: tradeLicenseFile, name: "tradeLicense" },
+        { file: bankStatementFile, name: "bankStatement" },
+        { file: securityFile, name: "securityFile" },
+        { file: financialFile, name: "financialFile" },
+      ];
+
+      for (const { file, name } of otherFiles) {
+        if (file) {
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("upload_preset", "your_upload_preset"); // Replace with your upload preset
+
+          const uploadResponse = await axios.post(
+            `https://api.cloudinary.com/v1_1/dhqmilgfz/upload`, // Replace with your Cloudinary cloud name
+            formData
+          );
+          uploadPromises.push(uploadResponse.data.secure_url); // Store the URL
+        }
+      }
+
+      // Wait for all uploads to complete
+      const uploadedUrls = await Promise.all(uploadPromises);
+
+      // Prepare the data to be sent to your API
+      const postData = {
+        ...formData,
+        businessPictures: uploadedUrls.filter(
+          (url, index) => index < businessPictures.length
+        ), // Only include image URLs
+        video: uploadedUrls[uploadedUrls.length - 1], // Last URL is the video
+        nidCopy: uploadedUrls[uploadedUrls.length - 2], // Second last is NID
+        tinCopy: uploadedUrls[uploadedUrls.length - 3], // Third last is TIN
+        taxCopy: uploadedUrls[uploadedUrls.length - 4], // Fourth last is Tax
+        tradeLicense: uploadedUrls[uploadedUrls.length - 5], // Fifth last is Trade License
+        bankStatement: uploadedUrls[uploadedUrls.length - 6], // Sixth last is Bank Statement
+        securityFile: uploadedUrls[uploadedUrls.length - 7], // Seventh last is Security
+        financialFile: uploadedUrls[uploadedUrls.length - 8], // Eighth last is Financial
+      };
 
       const token = localStorage.getItem("token");
 

@@ -24,6 +24,7 @@
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.4",
     "chartjs": "^0.3.24",
+    "cloudinary": "^2.5.1",
     "csurf": "^1.10.0",
     "firebase": "^11.0.2",
     "framer-motion": "^11.12.0",

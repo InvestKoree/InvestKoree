@@ -3,8 +3,8 @@ import http from 'http';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { Server } from 'socket.io';
-import multer from 'multer';
-import { storage,gfsBucket } from './gridfs.js'; 
+// import multer from 'multer';
+// import { storage,gfsBucket } from './gridfs.js'; 
 import helmet from 'helmet'; // Import helmet
 import connectDB from './config/db.js';
 import signupRoute from '../server-side/routes/signup.js';
@@ -68,8 +68,8 @@ const cspOptions = {
 
 app.use(helmet.contentSecurityPolicy(cspOptions));
 
-// Multer Setup
-const upload = multer({ storage });
+// // Multer Setup
+// const upload = multer({ storage });
 
 // Create Founder Post with Pending Approval
 
@@ -103,40 +103,16 @@ io.on('connection', (socket) => {
 app.post(
   '/adminpost/pendingpost',
   authToken,
-  upload.fields([
-    { name: 'businessPicture', maxCount: 10 },
-    { name: 'nidCopy', maxCount: 1 },
-    { name: 'tinCopy', maxCount: 1 },
-    { name: 'taxCopy', maxCount: 1 },
-    { name: 'tradeLicense', maxCount: 1 },
-    { name: 'bankStatement', maxCount: 1 },
-    { name: 'securityFile', maxCount: 1 },
-    { name: 'financialFile', maxCount: 1 },
-    { name: 'video', maxCount: 1 },
-  ]),
   async (req, res) => {
     console.log('Files received:', req.files); // Log the received files
     try {
-      // Initialize an array to hold ObjectIds
-      const fileIds = {};
-
-      for (const field in req.files) {
-        if (req.files[field]) {
-          fileIds[field] = req.files[field].map((file) => {
-            if (!file.id) {
-              throw new Error(`File upload failed for field: ${field}`); // Handle missing IDs
-            }
-            return file.id; // Ensure _id is captured
-          });
-        }
+      // Check if files are uploaded
+      if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).json({ error: "No files were uploaded." });
       }
-      
 
-      // Now you can use fileIds to save to your database or process further
-      console.log('Uploaded file IDs:', fileIds);
-
-      // Call your function to create the post, passing the fileIds
-      await createFounderPost(req, res, fileIds); // Pass fileIds to your function
+      // Call your function to create the post, passing the request and files
+      await createFounderPost(req, res); // Pass the request and response to your function
 
     } catch (error) {
       console.error('Error creating post:', error);
