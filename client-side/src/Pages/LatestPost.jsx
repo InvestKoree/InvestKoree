@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 const LatestPost = ({ item }) => {
   console.log("Item data:", item);
 
@@ -62,7 +63,7 @@ const LatestPost = ({ item }) => {
   }, [imageUrls]);
 
   const fundingAmount = parseFloat(fundingAmountString);
-  const fundingPercentage = 100;
+  // const fundingPercentage = 100;
   const leftForFund = fundingAmount - 50000;
 
   return (
