@@ -4,7 +4,7 @@ import { GridFSBucket } from 'mongodb';
 import connectDB from './config/db.js'; // Import the connectDB function
 import sharp from 'sharp'; // For image processing
 import ffmpeg from 'fluent-ffmpeg'; // For video processing
-import stream from 'stream'; // For handling streams
+import stream from 'stream';
 
 // Connect to MongoDB
 connectDB();
