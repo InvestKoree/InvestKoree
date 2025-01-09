@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import imageCompression from "browser-image-compression";
+import { createFFmpeg, fetchFile } from "@ffmpeg/ffmpeg";
 const FounderPost = () => {
   const initialFormData = {
     businessName: "",
@@ -43,7 +44,77 @@ const FounderPost = () => {
   const [financialFile, setFinancialFile] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
 
-  const handleFileChange = (e, setFile) => setFile(e.target.files[0]);
+  const handleFileChange = async (e, setFile) => {
+    const file = e.target.files[0];
+    if (file) {
+      const options = {
+        maxSizeMB: 1, // Set the maximum size in MB
+        maxWidthOrHeight: 800, // Set the maximum width or height
+        useWebWorker: true, // Use web worker for non-blocking compression
+      };
+
+      try {
+        const compressedFile = await imageCompression(file, options);
+        setFile(compressedFile); // Set the compressed file
+      } catch (error) {
+        console.error("Error compressing file:", error);
+        setFile(file); // Fallback to original file if compression fails
+      }
+    }
+  };
+
+  const handleMultipleFileChange = async (e) => {
+    const files = Array.from(e.target.files);
+    const compressedFilesPromises = files.map(async (file) => {
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 800,
+        useWebWorker: true,
+      };
+
+      try {
+        const compressedFile = await imageCompression(file, options);
+        return compressedFile;
+      } catch (error) {
+        console.error("Error compressing file:", error);
+        return file; // Return the original file if compression fails
+      }
+    });
+
+    const compressedFiles = await Promise.all(compressedFilesPromises);
+    setBusinessPictures(compressedFiles);
+  };
+  const handleVideoChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (!ffmpeg.isLoaded()) {
+        await ffmpeg.load();
+      }
+
+      // Load the video file into FFmpeg
+      ffmpeg.FS("writeFile", "input.mp4", await fetchFile(file));
+
+      // Run the FFmpeg command to compress the video
+      await ffmpeg.run(
+        "-i",
+        "input.mp4",
+        "-vcodec",
+        "libx264",
+        "-crf",
+        "28",
+        "output.mp4"
+      );
+
+      // Read the compressed video file
+      const data = ffmpeg.FS("readFile", "output.mp4");
+
+      // Create a Blob from the compressed video
+      const compressedVideo = new Blob([data.buffer], { type: "video/mp4" });
+
+      // Set the compressed video file
+      setVideoFile(compressedVideo);
+    }
+  };
 
   const handleInputChange = (e) => {
     setFormData({
@@ -68,11 +139,6 @@ const FounderPost = () => {
       documentationOption: selectedOption,
     });
     setOtherDocumentation(selectedOption === "Other");
-  };
-
-  const handleMultipleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setBusinessPictures(files);
   };
 
   const handleSubmit = async (e) => {
@@ -241,7 +307,7 @@ const FounderPost = () => {
             accept="video/*"
             name="video"
             className="file-input file-input-bordered file-input-warning w-full max-w-xs"
-            onChange={(e) => handleFileChange(e, setVideoFile)}
+            onChange={handleVideoChange}
           />
         </label>
         {/* Phone Number */}
