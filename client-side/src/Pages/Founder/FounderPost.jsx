@@ -182,7 +182,7 @@ const FounderPost = () => {
         businessPictures: uploadedUrls.filter(
           (url, index) => index < businessPictures.length
         ), // Only include image URLs
-        video: uploadedUrls[uploadedUrls.length - 1], // Last URL is the video
+        videofile: uploadedUrls[uploadedUrls.length - 1], // Last URL is the video
         nidCopy: uploadedUrls[uploadedUrls.length - 2], // Second last is NID
         tinCopy: uploadedUrls[uploadedUrls.length - 3], // Third last is TIN
         taxCopy: uploadedUrls[uploadedUrls.length - 4], // Fourth last is Tax
@@ -198,6 +198,7 @@ const FounderPost = () => {
         method: "POST",
         body: postData,
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Include the token here
         },
       });
