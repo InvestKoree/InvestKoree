@@ -52,18 +52,12 @@ const FounderPost = () => {
         maxSizeMB: 1,
         maxWidthOrHeight: 800,
         useWebWorker: true,
+        fileType: "image/webp", // Specify WebP directly
       };
 
       try {
         const compressedFile = await imageCompression(file, options);
-        // Convert to WebP
-        const webpFile = await imageCompression.getFilefromDataUrl(
-          await imageCompression.getDataUrlFromFile(compressedFile, {
-            type: "image/webp",
-            quality: 0.8,
-          })
-        );
-        setFile(webpFile);
+        setFile(compressedFile);
       } catch (error) {
         console.error("Error compressing file:", error);
         setFile(file); // Fallback to original file if compression fails
@@ -73,53 +67,64 @@ const FounderPost = () => {
 
   const handleMultipleFileChange = async (e) => {
     const files = Array.from(e.target.files);
-    const compressedFilesPromises = files.map(async (file) => {
-      const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 800,
-        useWebWorker: true,
-      };
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 800,
+      useWebWorker: true,
+      fileType: "image/webp", // Specify WebP directly
+    };
 
-      try {
-        const compressedFile = await imageCompression(file, options);
-        // Convert to WebP
-        const webpFile = await imageCompression.getFilefromDataUrl(
-          await imageCompression.getDataUrlFromFile(compressedFile, {
-            type: "image/webp",
-            quality: 0.8,
-          })
-        );
-        return webpFile;
-      } catch (error) {
-        console.error("Error compressing file:", error);
-        return file; // Return the original file if compression fails
-      }
-    });
-
-    const compressedFiles = await Promise.all(compressedFilesPromises);
-    setBusinessPictures(compressedFiles);
+    try {
+      const compressedFiles = await Promise.all(
+        files.map((file) => imageCompression(file, options))
+      );
+      setBusinessPictures(compressedFiles);
+    } catch (error) {
+      console.error("Error compressing files:", error);
+      setBusinessPictures(files); // Fallback to original files if compression fails
+    }
   };
+
   const handleVideoChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (!ffmpeg.isLoaded()) {
-        await ffmpeg.load();
+      try {
+        if (!ffmpeg.isLoaded()) {
+          await ffmpeg.load();
+        }
+
+        // Load the video file into FFmpeg
+        ffmpeg.FS("writeFile", "input.mp4", await fetchFile(file));
+
+        // Run the FFmpeg command to convert to WebM
+        await ffmpeg.run(
+          "-i",
+          "input.mp4",
+          "-c:v",
+          "libvpx",
+          "-b:v",
+          "1M",
+          "-c:a",
+          "libvorbis",
+          "output.webm"
+        );
+
+        // Read the converted video file
+        const data = ffmpeg.FS("readFile", "output.webm");
+
+        // Create a Blob from the converted video
+        const webmVideo = new Blob([data.buffer], { type: "video/webm" });
+
+        // Set the converted video file
+        setVideoFile(webmVideo);
+
+        // Clean up FFmpeg FS
+        ffmpeg.FS("unlink", "input.mp4");
+        ffmpeg.FS("unlink", "output.webm");
+      } catch (error) {
+        console.error("Error processing video:", error);
+        toast.error("Video conversion failed. Please try again.");
       }
-
-      // Load the video file into FFmpeg
-      ffmpeg.FS("writeFile", "input.mp4 ", await fetchFile(file));
-
-      // Run the FFmpeg command to convert to WebM
-      await ffmpeg.run("-i", "input.mp4", "output.webm");
-
-      // Read the converted video file
-      const data = ffmpeg.FS("readFile", "output.webm");
-
-      // Create a Blob from the converted video
-      const webmVideo = new Blob([data.buffer], { type: "video/webm" });
-
-      // Set the converted video file
-      setVideoFile(webmVideo);
     }
   };
 
