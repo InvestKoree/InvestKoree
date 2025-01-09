@@ -90,6 +90,23 @@ const FounderPost = () => {
       setVideoFile(file);
     }
   };
+  const handleSecurityOptionChange = (e) => {
+    const selectedOption = e.target.value;
+    setFormData({
+      ...formData,
+      securityOption: selectedOption,
+    });
+    setOtherOption(selectedOption === "Other");
+  };
+
+  const handleDocumentationOptionChange = (e) => {
+    const selectedOption = e.target.value;
+    setFormData({
+      ...formData,
+      documentationOption: selectedOption,
+    });
+    setOtherDocumentation(selectedOption === "Other");
+  };
 
   const handleInputChange = (e) => {
     setFormData({
