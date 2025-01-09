@@ -191,7 +191,7 @@ const FounderPost = () => {
         securityFile: uploadedUrls[uploadedUrls.length - 7], // Seventh last is Security
         financialFile: uploadedUrls[uploadedUrls.length - 8], // Eighth last is Financial
       };
-
+      console.log("Post Data:", postData);
       const token = localStorage.getItem("token");
 
       const response = await fetch(`${API_URL}/adminpost/pendingpost`, {
