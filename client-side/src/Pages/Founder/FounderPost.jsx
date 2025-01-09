@@ -63,7 +63,7 @@ const FounderPost = () => {
             quality: 0.8,
           })
         );
-        setFile(webpFile); // Set the compressed WebP file
+        setFile(webpFile);
       } catch (error) {
         console.error("Error compressing file:", error);
         setFile(file); // Fallback to original file if compression fails
