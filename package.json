@@ -10,6 +10,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.12.15",
     "@reduxjs/toolkit": "^2.3.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",

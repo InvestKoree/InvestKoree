@@ -60,7 +60,7 @@ const FounderPost = () => {
         setFile(compressedFile);
       } catch (error) {
         console.error("Error compressing file:", error);
-        setFile(file); // Fallback to original file if compression fails
+        setFile(file);
       }
     }
   };
