@@ -1,6 +1,6 @@
-// Import your Cloudinary configuration
 import PendingPost from '../models/pendingPost.js';
 import FounderPending from '../models/founderpending.js';
+
 export const createFounderPost = async (req, res, uploadedUrls) => {
   console.log("Request Body:", req.body);
   console.log("User  ID:", req.user?.id);
