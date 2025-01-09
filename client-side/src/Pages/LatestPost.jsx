@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import temp from "../assets/s2.jpg";
 const LatestPost = ({ item }) => {
   console.log("Item data:", item);
 
@@ -125,6 +128,17 @@ const LatestPost = ({ item }) => {
       </Link>
     </div>
   );
+};
+LatestPost.propTypes = {
+  item: PropTypes.shape({
+    address: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+    businessSector: PropTypes.string.isRequired,
+    fundingAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+      .isRequired,
+    businessName: PropTypes.string.isRequired,
+    businessPictures: PropTypes.arrayOf(PropTypes.string).isRequired, // Ensure this is an array of strings (filenames)
+  }).isRequired,
 };
 
 export default LatestPost;
