@@ -1,10 +1,8 @@
-import cloudinary from '../cloudinaryConfig.js'; // Import your Cloudinary configuration
+// Import your Cloudinary configuration
 import PendingPost from '../models/pendingPost.js';
 import FounderPending from '../models/founderpending.js';
-
-export const createFounderPost = async (req, res) => {
+export const createFounderPost = async (req, res, uploadedUrls) => {
   console.log("Request Body:", req.body);
-  console.log("Request Files:", req.files);
   console.log("User  ID:", req.user?.id);
 
   try {
@@ -21,11 +19,6 @@ export const createFounderPost = async (req, res) => {
       fundingAmount = "", fundingHelp = "", returndate = "", projectedROI = "",
       returnPlan = "", businessSafety = "", additionalComments = "", description = "",
     } = req.body;
-
-    // Check if files are uploaded
-    if (!req.files || Object.keys(req.files).length === 0) {
-      return res.status(400).json({ error: "No files were uploaded." });
-    }
 
     // Prepare the new post
     const newPost = new PendingPost({
@@ -51,43 +44,16 @@ export const createFounderPost = async (req, res) => {
       returndate,
       projectedROI,
       description,
+      businessPictures: uploadedUrls.filter(url => url.includes('business_pictures')),
+      nidFile: uploadedUrls.find(url => url.includes('nidFile')),
+      tinFile: uploadedUrls.find(url => url.includes('tinFile')),
+      taxFile: uploadedUrls.find(url => url.includes('taxFile')),
+      tradeLicenseFile: uploadedUrls.find(url => url.includes('tradeLicenseFile')),
+      bankStatementFile: uploadedUrls.find(url => url.includes('bankStatementFile')),
+      securityFile: uploadedUrls.find(url => url.includes('securityFile')),
+      financialFile: uploadedUrls.find(url => url.includes('financialFile')),
+      videoFile: uploadedUrls.find(url => url.includes('videoFile')),
     });
-
-    // Upload business pictures to Cloudinary
-    if (req.files.businessPicture) {
-      const uploadPromises = req.files.businessPicture.map(file => {
-        return cloudinary.uploader.upload(file.path, {
-          folder: 'business_pictures', // Optional: specify a folder in Cloudinary
-          resource_type: 'image',
-          quality: 'auto', // Specify resource type
-        });
-      });
-      const uploadedPictures = await Promise.all(uploadPromises);
-      newPost.businessPictures = uploadedPictures.map(picture => picture.secure_url);
-    }
-
-    // Upload other files (NID, TIN, Tax, Trade License, Bank Statement, Security, Financial)
-    const otherFiles = [
-      { file: req.files.nidCopy, name: 'nidFile' },
-      { file: req.files.tinCopy, name: 'tinFile' },
-      { file: req.files.taxCopy, name: 'taxFile' },
-      { file: req.files.tradeLicense, name: 'tradeLicenseFile' },
-      { file: req.files.bankStatement, name: 'bankStatementFile' },
-      { file: req.files.securityFile, name: 'securityFile' },
-      { file: req.files.financialFile, name: 'financialFile' },
-      { file: req.files.video, name: 'videoFile' },
-    ];
-
-    for (const { file, name } of otherFiles) {
-      if (file) {
-        const uploadResponse = await cloudinary.uploader.upload(file.path, {
-          folder: 'documents',
-          quality: 'auto', // Optional: specify a folder in Cloudinary
-          resource_type: name === 'videoFile' ? 'video' : 'raw', // Specify resource type based on file type
-        });
-        newPost[name] = uploadResponse.secure_url; // Store the secure URL
-      }
-    }
 
     // Save the new post to the PendingPost collection
     const savedPost = await newPost.save();
