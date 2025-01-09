@@ -86,12 +86,13 @@ const FounderPost = () => {
     setIsLoading(true);
 
     try {
-      const formData = new FormData();
+      const postData = new FormData();
 
-      // Append other form fields to FormData
+      // Append regular form fields (text fields) to FormData
       Object.keys(formData).forEach((key) => {
-        postData.append(key, formData[key]);
+        postData.append(key, formData[key]); // Append each key-value pair from formData
       });
+
       // Upload business pictures to Cloudinary
       for (const picture of businessPictures) {
         const pictureFormData = new FormData();
@@ -103,7 +104,7 @@ const FounderPost = () => {
             `https://api.cloudinary.com/v1_1/dhqmilgfz/image/upload`, // Replace with your Cloudinary cloud name
             pictureFormData
           );
-          formData.append("businessPictures", uploadResponse.data.secure_url); // Store the URL
+          postData.append("businessPictures", uploadResponse.data.secure_url); // Store the URL
         } catch (error) {
           console.error("Error uploading business picture:", error);
           toast.error(`Failed to upload business picture: ${error.message}`);
@@ -121,7 +122,7 @@ const FounderPost = () => {
             `https://api.cloudinary.com/v1_1/dhqmilgfz/video/upload`, // Replace with your Cloudinary cloud name
             videoFormData
           );
-          formData.append("video", videoUploadResponse.data.secure_url); // Store the URL
+          postData.append("video", videoUploadResponse.data.secure_url); // Store the URL
         } catch (error) {
           console.error("Error uploading video:", error);
           toast.error(`Failed to upload video: ${error.message}`);
@@ -150,7 +151,7 @@ const FounderPost = () => {
               `https://api.cloudinary.com/v1_1/dhqmilgfz/upload`, // Replace with your Cloudinary cloud name
               fileFormData
             );
-            formData.append(name, uploadResponse.data.secure_url); // Store the URL
+            postData.append(name, uploadResponse.data.secure_url); // Store the URL
           } catch (error) {
             console.error(`Error uploading ${name}:`, error);
             toast.error(`Failed to upload ${name}: ${error.message}`);
@@ -163,7 +164,7 @@ const FounderPost = () => {
 
       const response = await fetch(`${API_URL}/adminpost/pendingpost`, {
         method: "POST",
-        body: formData, // Send the FormData directly
+        body: postData, // Send the FormData directly
         headers: {
           Authorization: `Bearer ${token}`, // Include the token here
         },
