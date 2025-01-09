@@ -52,7 +52,7 @@ const FounderPost = () => {
         maxSizeMB: 1,
         maxWidthOrHeight: 800,
         useWebWorker: true,
-        fileType: "image/webp", // Specify WebP directly
+        fileType: "image/webp",
       };
 
       try {
