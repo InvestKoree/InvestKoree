@@ -201,31 +201,31 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
 });
 // Endpoint to retrieve a file by ID
 // Assuming you have a GridFS setup
-app.get('/images/filename/:filename', async (req, res) => {
-  try {
-    const filename = req.params.filename;
+// app.get('/images/filename/:filename', async (req, res) => {
+//   try {
+//     const filename = req.params.filename;
 
-    // Find the file metadata by filename
-    const file = await mongoose.connection.db
-      .collection('uploads.files')
-      .findOne({ filename: filename });
+//     // Find the file metadata by filename
+//     const file = await mongoose.connection.db
+//       .collection('uploads.files')
+//       .findOne({ filename: filename });
 
-    if (!file) {
-      return res.status(404).json({ error: 'File not found' });
-    }
+//     if (!file) {
+//       return res.status(404).json({ error: 'File not found' });
+//     }
 
-    // Set headers
-    res.set('Content-Type', file.contentType);
-    res.set('Content-Disposition', 'inline');
+//     // Set headers
+//     res.set('Content-Type', file.contentType);
+//     res.set('Content-Disposition', 'inline');
 
-    // Stream file data
-    const downloadStream = gfsBucket.openDownloadStream(file._id);
-    downloadStream.pipe(res);
-  } catch (err) {
-    console.error('Error fetching image:', err.message);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
+//     // Stream file data
+//     const downloadStream = gfsBucket.openDownloadStream(file._id);
+//     downloadStream.pipe(res);
+//   } catch (err) {
+//     console.error('Error fetching image:', err.message);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
 
 // Pending Posts Routes
 app.get('/adminpost/pending', async (req, res) => {
