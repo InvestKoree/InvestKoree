@@ -86,20 +86,25 @@ const FounderPost = () => {
     setIsLoading(true);
 
     try {
-      const uploadPromises = [];
+      const formData = new FormData();
+
+      // Append other form fields to FormData
+      Object.keys(initialFormData).forEach((key) => {
+        formData.append(key, formData[key]);
+      });
 
       // Upload business pictures to Cloudinary
       for (const picture of businessPictures) {
-        const formData = new FormData();
-        formData.append("file", picture);
-        formData.append("upload_preset", "uploadpreset"); // Replace with your upload preset
+        const pictureFormData = new FormData();
+        pictureFormData.append("file", picture);
+        pictureFormData.append("upload_preset", "uploadpreset"); // Replace with your upload preset
 
         try {
           const uploadResponse = await axios.post(
             `https://api.cloudinary.com/v1_1/dhqmilgfz/image/upload`, // Replace with your Cloudinary cloud name
-            formData
+            pictureFormData
           );
-          uploadPromises.push(uploadResponse.data.secure_url); // Store the URL
+          formData.append("businessPictures", uploadResponse.data.secure_url); // Store the URL
         } catch (error) {
           console.error("Error uploading business picture:", error);
           toast.error(`Failed to upload business picture: ${error.message}`);
@@ -109,7 +114,7 @@ const FounderPost = () => {
       // Upload video to Cloudinary
       if (videoFile) {
         const videoFormData = new FormData();
-        videoFormData.append("file ", videoFile);
+        videoFormData.append("file", videoFile);
         videoFormData.append("upload_preset", "uploadpreset"); // Replace with your upload preset
 
         try {
@@ -117,7 +122,7 @@ const FounderPost = () => {
             `https://api.cloudinary.com/v1_1/dhqmilgfz/video/upload`, // Replace with your Cloudinary cloud name
             videoFormData
           );
-          uploadPromises.push(videoUploadResponse.data.secure_url); // Store the URL
+          formData.append("video", videoUploadResponse.data.secure_url); // Store the URL
         } catch (error) {
           console.error("Error uploading video:", error);
           toast.error(`Failed to upload video: ${error.message}`);
@@ -146,7 +151,7 @@ const FounderPost = () => {
               `https://api.cloudinary.com/v1_1/dhqmilgfz/upload`, // Replace with your Cloudinary cloud name
               fileFormData
             );
-            uploadPromises.push(uploadResponse.data.secure_url); // Store the URL
+            formData.append(name, uploadResponse.data.secure_url); // Store the URL
           } catch (error) {
             console.error(`Error uploading ${name}:`, error);
             toast.error(`Failed to upload ${name}: ${error.message}`);
@@ -154,35 +159,17 @@ const FounderPost = () => {
         }
       }
 
-      // Wait for all uploads to complete
-      const uploadedUrls = await Promise.all(uploadPromises);
-
-      // Prepare the data to be sent to your API
-      const postData = {
-        ...formData,
-        businessPictures: uploadedUrls.filter(
-          (url, index) => index < businessPictures.length
-        ), // Only include image URLs
-        videofile: uploadedUrls[uploadedUrls.length - 1], // Last URL is the video
-        nidCopy: uploadedUrls[uploadedUrls.length - 2], // Second last is NID
-        tinCopy: uploadedUrls[uploadedUrls.length - 3], // Third last is TIN
-        taxCopy: uploadedUrls[uploadedUrls.length - 4], // Fourth last is Tax
-        tradeLicense: uploadedUrls[uploadedUrls.length - 5], // Fifth last is Trade License
-        bankStatement: uploadedUrls[uploadedUrls.length - 6], // Sixth last is Bank Statement
-        securityFile: uploadedUrls[uploadedUrls.length - 7], // Seventh last is Security
-        financialFile: uploadedUrls[uploadedUrls.length - 8], // Eighth last is Financial
-      };
-      console.log("Post Data:", postData);
+      // Send the complete FormData to your API
       const token = localStorage.getItem("token");
 
       const response = await fetch(`${API_URL}/adminpost/pendingpost`, {
         method: "POST",
-        body: postData,
+        body: formData, // Send the FormData directly
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Include the token here
         },
       });
+
       if (response.ok) {
         toast.success("Your post has been submitted for review!");
         navigate("/founderdashboard");

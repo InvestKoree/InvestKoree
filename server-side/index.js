@@ -23,6 +23,8 @@ import FounderPending from './models/founderpending.js';
 import CheckDuplicate from './routes/checkDuplicate.js';
 import mongoose from 'mongoose';
 import search from './routes/search.js';
+import multer from 'multer';
+import cloudinary from './cloudinaryConfig.js'; 
 
 
 dotenv.config();
@@ -73,7 +75,7 @@ app.use(helmet.contentSecurityPolicy(cspOptions));
 
 // Create Founder Post with Pending Approval
 
-
+const upload = multer({ storage: multer.memoryStorage() }); 
 // Routes
 app.use('/searchpost', search);
 app.use('/users', signupRoute);
@@ -100,26 +102,99 @@ io.on('connection', (socket) => {
 });
 
 // Create Founder Post with Pending Approval
-app.post(
-  '/adminpost/pendingpost',
-  authToken,
-  async (req, res) => {
-    console.log('Files received:', req.files); // Log the received files
-    try {
-      // Check if files are uploaded
-      if (!req.files || Object.keys(req.files).length === 0) {
-        return res.status(400).json({ error: "No files were uploaded." });
-      }
-
-      // Call your function to create the post, passing the request and files
-      await createFounderPost(req, res); // Pass the request and response to your function
-
-    } catch (error) {
-      console.error('Error creating post:', error);
-      res.status(500).json({ message: 'Error creating post: ' + error.message });
+app.post('/adminpost/pendingpost', upload.fields([
+  { name: 'businessPicture', maxCount: 10 },
+  { name: 'nidCopy', maxCount: 1 },
+  { name: 'tinCopy', maxCount: 1 },
+  { name: 'taxCopy', maxCount: 1 },
+  { name: 'tradeLicense', maxCount: 1 },
+  { name: 'bankStatement', maxCount: 1 },
+  { name: 'securityFile', maxCount: 1 },
+  { name: 'financialFile', maxCount: 1 },
+  { name: 'video', maxCount: 1 },
+]), async (req, res) => {
+  try {
+    // Check if files are uploaded
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).json({ error: "No files were uploaded." });
     }
+
+    // Prepare an array to hold upload promises
+    const uploadPromises = [];
+
+    // Upload business pictures to Cloudinary
+    if (req.files.businessPicture) {
+      for (const picture of req.files.businessPicture) {
+        const uploadPromise = cloudinary.uploader.upload_stream({
+          resource_type: 'image',
+          folder: 'business_pictures',
+          quality: 'auto',
+        }, (error, result) => {
+          if (error) {
+            console.error("Error uploading business picture:", error);
+            return res.status(500).json({ error: "Failed to upload business picture." });
+          }
+          return result.secure_url; // Return the secure URL
+        });
+        uploadPromises.push(uploadPromise);
+      }
+    }
+
+    // Upload other files (NID, TIN, etc.)
+    const otherFiles = [
+      { file: req.files.nidCopy, name: 'nidFile' },
+      { file: req.files.tinCopy, name: 'tinFile' },
+      { file: req.files.taxCopy, name: 'taxFile' },
+      { file: req.files.tradeLicense, name: 'tradeLicenseFile' },
+      { file: req.files.bankStatement, name: 'bankStatementFile' },
+      { file: req.files.securityFile, name: 'securityFile' },
+      { file: req.files.financialFile, name: 'financialFile' },
+      { file: req.files.video, name: 'videoFile' },
+    ];
+
+    for (const { file, name } of otherFiles) {
+      if (file) {
+        const uploadPromise = cloudinary.uploader.upload_stream({
+          resource_type: name === 'videoFile' ? 'video' : 'raw',
+          folder: 'documents',
+          quality: 'auto',
+        }, (error, result) => {
+          if (error) {
+            console.error(`Error uploading ${name}:`, error);
+            return res.status(500).json({ error: `Failed to upload ${name}.` });
+          }
+          return result.secure_url; // Return the secure URL
+        });
+        uploadPromises.push(uploadPromise);
+      }
+    }
+
+    // Wait for all uploads to complete
+    const uploadedUrls = await Promise.all(uploadPromises);
+
+ // Create the post object with the uploaded URLs
+    const post = {
+      businessPictures: uploadedUrls.slice(0, req.files.businessPicture.length), // Get URLs for business pictures
+      nidFile: uploadedUrls[req.files.businessPicture.length], // NID file URL
+      tinFile: uploadedUrls[req.files.businessPicture.length + 1], // TIN file URL
+      taxFile: uploadedUrls[req.files.businessPicture.length + 2], // Tax file URL
+      tradeLicenseFile: uploadedUrls[req.files.businessPicture.length + 3], // Trade license file URL
+      bankStatementFile: uploadedUrls[req.files.businessPicture.length + 4], // Bank statement file URL
+      securityFile: uploadedUrls[req.files.businessPicture.length + 5], // Security file URL
+      financialFile: uploadedUrls[req.files.businessPicture.length + 6], // Financial file URL
+      videoFile: uploadedUrls[req.files.businessPicture.length + 7], // Video file URL
+      // Add other post fields as necessary
+    };
+
+    // Call your function to create the post in the database
+    await createFounderPost(post); // Adjust this function to accept the post object
+
+    res.status(201).json({ message: 'Post created successfully', post });
+  } catch (error) {
+    console.error('Error creating post:', error);
+    res.status(500).json({ message: 'Error creating post: ' + error.message });
   }
-);
+});
 // app.put('/adminpost/update/:id', authToken, upload.fields([
 //   { name: 'businessPicture', maxCount: 10 },
 //   { name: 'nidCopy', maxCount: 1 },
