@@ -48,14 +48,21 @@ const FounderPost = () => {
     const file = e.target.files[0];
     if (file) {
       const options = {
-        maxSizeMB: 1, // Set the maximum size in MB
-        maxWidthOrHeight: 800, // Set the maximum width or height
-        useWebWorker: true, // Use web worker for non-blocking compression
+        maxSizeMB: 1,
+        maxWidthOrHeight: 800,
+        useWebWorker: true,
       };
 
       try {
         const compressedFile = await imageCompression(file, options);
-        setFile(compressedFile); // Set the compressed file
+        // Convert to WebP
+        const webpFile = await imageCompression.getFilefromDataUrl(
+          await imageCompression.getDataUrlFromFile(compressedFile, {
+            type: "image/webp",
+            quality: 0.8,
+          })
+        );
+        setFile(webpFile); // Set the compressed WebP file
       } catch (error) {
         console.error("Error compressing file:", error);
         setFile(file); // Fallback to original file if compression fails
@@ -74,7 +81,14 @@ const FounderPost = () => {
 
       try {
         const compressedFile = await imageCompression(file, options);
-        return compressedFile;
+        // Convert to WebP
+        const webpFile = await imageCompression.getFilefromDataUrl(
+          await imageCompression.getDataUrlFromFile(compressedFile, {
+            type: "image/webp",
+            quality: 0.8,
+          })
+        );
+        return webpFile;
       } catch (error) {
         console.error("Error compressing file:", error);
         return file; // Return the original file if compression fails
@@ -92,27 +106,19 @@ const FounderPost = () => {
       }
 
       // Load the video file into FFmpeg
-      ffmpeg.FS("writeFile", "input.mp4", await fetchFile(file));
+      ffmpeg.FS("writeFile", "input.mp4 ", await fetchFile(file));
 
-      // Run the FFmpeg command to compress the video
-      await ffmpeg.run(
-        "-i",
-        "input.mp4",
-        "-vcodec",
-        "libx264",
-        "-crf",
-        "28",
-        "output.mp4"
-      );
+      // Run the FFmpeg command to convert to WebM
+      await ffmpeg.run("-i", "input.mp4", "output.webm");
 
-      // Read the compressed video file
-      const data = ffmpeg.FS("readFile", "output.mp4");
+      // Read the converted video file
+      const data = ffmpeg.FS("readFile", "output.webm");
 
-      // Create a Blob from the compressed video
-      const compressedVideo = new Blob([data.buffer], { type: "video/mp4" });
+      // Create a Blob from the converted video
+      const webmVideo = new Blob([data.buffer], { type: "video/webm" });
 
-      // Set the compressed video file
-      setVideoFile(compressedVideo);
+      // Set the converted video file
+      setVideoFile(webmVideo);
     }
   };
 
