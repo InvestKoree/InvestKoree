@@ -89,10 +89,9 @@ const FounderPost = () => {
       const formData = new FormData();
 
       // Append other form fields to FormData
-      Object.keys(initialFormData).forEach((key) => {
-        formData.append(key, formData[key]);
+      Object.keys(formData).forEach((key) => {
+        postData.append(key, formData[key]);
       });
-
       // Upload business pictures to Cloudinary
       for (const picture of businessPictures) {
         const pictureFormData = new FormData();
