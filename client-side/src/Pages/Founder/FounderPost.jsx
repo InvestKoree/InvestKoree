@@ -92,7 +92,7 @@ const FounderPost = () => {
       for (const picture of businessPictures) {
         const formData = new FormData();
         formData.append("file", picture);
-        formData.append("upload_preset", "your_upload_preset"); // Replace with your upload preset
+        formData.append("upload_preset", "uploadpreset"); // Replace with your upload preset
 
         try {
           const uploadResponse = await axios.post(
@@ -110,7 +110,7 @@ const FounderPost = () => {
       if (videoFile) {
         const videoFormData = new FormData();
         videoFormData.append("file ", videoFile);
-        videoFormData.append("upload_preset", "your_upload_preset"); // Replace with your upload preset
+        videoFormData.append("upload_preset", "uploadpreset"); // Replace with your upload preset
 
         try {
           const videoUploadResponse = await axios.post(
@@ -139,7 +139,7 @@ const FounderPost = () => {
         if (file) {
           const fileFormData = new FormData();
           fileFormData.append("file", file);
-          fileFormData.append("upload_preset", "your_upload_preset"); // Replace with your upload preset
+          fileFormData.append("upload_preset", "uploadpreset"); // Replace with your upload preset
 
           try {
             const uploadResponse = await axios.post(
