@@ -3,8 +3,7 @@ import { GridFsStorage } from 'multer-gridfs-storage';
 import { GridFSBucket } from 'mongodb';
 import connectDB from './config/db.js'; // Import the connectDB function
 import sharp from 'sharp'; // For image processing
-import ffmpeg from 'fluent-ffmpeg'; // For video processing
-import stream from 'stream';
+import stream from 'stream'; // For handling streams
 
 // Connect to MongoDB
 connectDB();
@@ -34,17 +33,6 @@ const storage = new GridFsStorage({
       'image/png',
       'video/mp4',
       'image/jpg',
-      'application/pdf', // PDF files
-  'application/msword', // .doc files
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx files
-  'application/vnd.ms-excel', // .xls files
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx files
-  'application/vnd.ms-powerpoint', // .ppt files
-  'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx files
-  'text/plain', // .txt files
-  'application/zip', // .zip files
-  'application/x-rar-compressed',
-      // Add more MIME types as needed
     ];
 
     if (!fileTypes.includes(file.mimetype)) {
@@ -53,7 +41,15 @@ const storage = new GridFsStorage({
 
     // Handle image conversion to WebP
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-      const buffer = await sharp(file.buffer)
+      const buffer = await new Promise((resolve, reject) => {
+        const chunks = [];
+        file.stream.on('data', (chunk) => chunks.push(chunk));
+        file.stream.on('end', () => resolve(Buffer.concat(chunks)));
+        file.stream.on('error', reject);
+      });
+
+      // Convert to WebP using sharp
+      const webpBuffer = await sharp(buffer)
         .resize({ width: 800 }) // Resize if needed
         .toFormat('webp', { quality: 80 }) // Convert to WebP
         .toBuffer();
@@ -63,7 +59,7 @@ const storage = new GridFsStorage({
         filename: `${file.originalname.split('.')[0]}.webp`, // Change the filename to .webp
         metadata: { uploadedBy: req.user?.id || 'unknown' },
         // Use a stream to upload the buffer directly
-        stream: new stream.PassThrough().end(buffer),
+        stream: new stream.PassThrough().end(webpBuffer),
       };
     }
 
@@ -73,7 +69,7 @@ const storage = new GridFsStorage({
         const outputFileName = `${file.originalname.split('.')[0]}.webm`;
         const outputStream = gfsBucket.openUploadStream(outputFileName);
 
-        ffmpeg(file.buffer)
+        ffmpeg(file.stream)
           .toFormat('webm')
           .on('end', () => {
             resolve({
