@@ -704,7 +704,7 @@ const FounderPost = () => {
           </button>
         </div>
         {isLoading && (
-          <p className="text-center text-gray-500">Submitting your post...</p>
+          <p className="text-center text-gray-500">Please Wait a While..</p>
         )}
       </form>
     </div>
