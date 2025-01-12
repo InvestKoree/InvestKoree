@@ -102,7 +102,17 @@ io.on('connection', (socket) => {
 });
 
 // Create Founder Post with Pending Approval
-app.post('/adminpost/pendingpost', authToken,async (req, res) => {
+aapp.post('/adminpost/pendingpost',authToken, upload.fields([
+  { name: 'businessPicture', maxCount: 10 },
+  { name: 'nidCopy', maxCount: 1 },
+  { name: 'tinCopy', maxCount: 1 },
+  { name: 'taxCopy', maxCount: 1 },
+  { name: 'tradeLicense', maxCount: 1 },
+  { name: 'bankStatement', maxCount: 1 },
+  { name: 'securityFile', maxCount: 1 },
+  { name: 'financialFile', maxCount: 1 },
+  { name: 'video', maxCount: 1 },
+]),async (req, res) => {
   console.log('Request Body:', req.body); // Log the request body to debug
 
   try {
