@@ -133,9 +133,7 @@ app.post('/adminpost/pendingpost',authToken, upload.fields([
     } = req.body;
 
     // Validate that required fields are provided
-    if (!businessName || !email || !businessPictures) {
-      return res.status(400).json({ error: "Missing required fields: businessName, email, or businessPictures." });
-    }
+ 
 
     // Create the new post object
     const newPost = new PendingPost({
