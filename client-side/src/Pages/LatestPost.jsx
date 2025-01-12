@@ -13,10 +13,10 @@ const LatestPost = ({ item }) => {
     businessPicture,
     // This should now contain filenames
   } = item;
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+
   const firstImage =
     businessPicture && businessPicture.length > 0
-      ? `${API_URL}/images/${businessPicture[0]}`
+      ? `${businessPicture[0]}`
       : temp;
   // const [imageUrls, setImageUrls] = useState([]);
   // const [imageLoaded, setImageLoaded] = useState(false);
