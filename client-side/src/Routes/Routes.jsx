@@ -24,15 +24,15 @@ import FounderPending from "../Pages/Founder/FounderPending";
 import FounderPostReview from "../Pages/Founder/FounderPostReview";
 import InvestorTerms from "../Pages/Investor/InvestorTerms";
 import FounderTerms from "../Pages/Founder/FounderTerms";
-import Blogs from "../Pages/Blogs";
-import BlogOne from "../Pages/BlogOne";
+import Blogs from "../Pages/Blogs/Blogs";
+import BlogOne from "../Pages/Blogs/BlogOne";
 import Overview from "../Pages/Overview";
 import WhatWeDo from "../Pages/WhatWeDo";
 import WhoWeAre from "../Pages/WhoWeAre";
-import BlogTwo from "../Pages/BlogTwo";
-import BlogThree from "../Pages/BlogThree";
+import BlogTwo from "../Pages/Blogs/BlogTwo";
+import BlogThree from "../Pages/Blogs/BlogThree";
 import SearchResults from "../Pages/SearchResults";
-import BlogFour from "../Pages/BlogFour";
+import BlogFour from "../Pages/Blogs/BlogFour";
 import BlogFive from "../Pages/Blogs/BlogFive";
 
 export const router = createBrowserRouter([
