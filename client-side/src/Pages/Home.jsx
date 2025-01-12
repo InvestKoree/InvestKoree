@@ -9,11 +9,12 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import "animate.css";
 import mission2 from "../assets/mission2.jpg";
+import { AiOutlineSearch } from "react-icons/ai";
 import mission4 from "../assets/mission4.jpg";
 
 const Home = () => {
   const [latestPosts, setLatestPosts] = useState([]);
-
+  const [searchTerm, setSearchTerm] = useState("");
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const controls = useAnimation();
@@ -50,6 +51,15 @@ const Home = () => {
       window.removeEventListener("resize", checkScreenSize);
     };
   }, []);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      // Redirect to the search results page with the search term
+      navigate(`/search?businessName=${encodeURIComponent(searchTerm)}`);
+    } else {
+      toast.error("Please enter a search term.");
+    }
+  };
 
   // Fetch posts and scroll percentage logic
 
@@ -114,6 +124,26 @@ const Home = () => {
 
   return (
     <div>
+      <div className="">
+        <form
+          onSubmit={handleSearch}
+          className="flex flex-row relative my-4  lg:hidden"
+        >
+          <input
+            type="text"
+            placeholder="Search By Businessname"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="border border-salmon rounded-l-md p-2 w-full"
+          />
+          <button
+            type="submit"
+            className="bg-salmon text-white rounded-r-md p-2 absolute right-2"
+          >
+            <AiOutlineSearch />
+          </button>
+        </form>
+      </div>
       {/* Hero Section */}
       <div>
         <Parallax

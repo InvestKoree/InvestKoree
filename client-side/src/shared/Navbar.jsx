@@ -312,7 +312,7 @@ const Navbar = () => {
                   )}
                 </details>
               </li>
-              <li className="w-[80%] flex  mb-2 lg:hidden">
+              {/* <li className="w-[80%] flex  mb-2 lg:hidden">
                 <form
                   onSubmit={handleSearch}
                   className="flex flex-row relative "
@@ -331,7 +331,7 @@ const Navbar = () => {
                     <AiOutlineSearch />
                   </button>
                 </form>
-              </li>
+              </li> */}
               <li>
                 <NavLink
                   to="/blogs"
