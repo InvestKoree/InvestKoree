@@ -5,7 +5,7 @@ const pendingPostSchema = new mongoose.Schema({
   businessName: { type: String, required: true },
   email: { type: String, required: true, match: /.+\@.+\..+/ },
   address: { type: String, required: true },
-  phone: { type: String, required: true, match: /^\+\d{1,3}\s\d{3}-\d{3}-\d{4}$/ },
+  phone: { type: String, required: true },
   description: { type: String, required: true },
   reason: { type: String, default: '' },
   status: { type: String, default: 'pending' },
