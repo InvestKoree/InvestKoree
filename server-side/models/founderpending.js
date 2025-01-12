@@ -23,18 +23,18 @@ const FounderPendingSchema = new mongoose.Schema({
   returnPlan: { type: String, required: true },
   businessSafety: { type: String, required: true },
   additionalComments: { type: String, default: '' },
-  businessPictures: [{ type: String, match: /^https?:\/\/.+\..+/ }],
-  nidFile: { type: String, match: /^https?:\/\/.+\..+/ },
-  tinFile: { type: String, match: /^https?:\/\/.+\..+/ },
-  taxFile: { type: String, match: /^https?:\/\/.+\..+/ },
-  tradeLicenseFile: { type: String, match: /^https?:\/\/.+\..+/ },
-  bankStatementFile: { type: String, match: /^https?:\/\/.+\..+/ },
+  businessPicture: [{ type: String, match: /^https?:\/\/.+\..+/ }],
+  nidCopy: { type: String, match: /^https?:\/\/.+\..+/ },
+  tinCopy: { type: String, match: /^https?:\/\/.+\..+/ },
+  tinCopy: { type: String, match: /^https?:\/\/.+\..+/ },
+  tradeLicense: { type: String, match: /^https?:\/\/.+\..+/ },
+  bankStatement: { type: String, match: /^https?:\/\/.+\..+/ },
   securityFile: { type: String, match: /^https?:\/\/.+\..+/ },
   financialFile: { type: String, match: /^https?:\/\/.+\..+/ },
   projectedROI: { type: String, required: true },
   returndate: { type: String, required: true },
   startDate: { type: Date, default: Date.now },
-  videoFile: { type: String, match: /^https?:\/\/.+\..+/ }
+  video: { type: String, match: /^https?:\/\/.+\..+/ }
 }, { timestamps: true });
 
 const FounderPending = mongoose.model('FounderPending', FounderPendingSchema);
