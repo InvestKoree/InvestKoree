@@ -71,13 +71,13 @@ const FounderPostReview = () => {
         if (
           !Array.isArray(formData[key]) &&
           formData[key] !== null &&
-          key !== "businessPictures" &&
-          key !== "videoFile" &&
-          key !== "nidFile" &&
-          key !== "tinFile" &&
-          key !== "taxFile" &&
-          key !== "tradeLicenseFile" &&
-          key !== "bankStatementFile" &&
+          key !== "businessPicture" &&
+          key !== "video" &&
+          key !== "nidcopy" &&
+          key !== "tincopy" &&
+          key !== "taxcopy" &&
+          key !== "tradeLicense" &&
+          key !== "bankStatement" &&
           key !== "securityFile" &&
           key !== "financialFile"
         ) {
@@ -87,32 +87,32 @@ const FounderPostReview = () => {
 
       // Handle file uploads
       // Handle businessPictures
-      if (formData.businessPictures && formData.businessPictures.length > 0) {
-        for (const file of formData.businessPictures) {
+      if (formData.businessPicture && formData.businessPicture.length > 0) {
+        for (const file of formData.businessPicture) {
           postData.append("businessPicture", file); // Append the file object directly
         }
       }
 
       // Handle videoFile
-      if (formData.videoFile) {
-        postData.append("video", formData.videoFile); // Append the file object directly
+      if (formData.video) {
+        postData.append("video", formData.video); // Append the file object directly
       }
 
       // Append other files similarly
-      if (formData.nidFile) {
-        postData.append("nidCopy", formData.nidFile);
+      if (formData.nidCopy) {
+        postData.append("nidCopy", formData.nidCopy);
       }
-      if (formData.tinFile) {
-        postData.append("tinCopy", formData.tinFile);
+      if (formData.tinCopy) {
+        postData.append("tinCopy", formData.tinCopy);
       }
-      if (formData.taxFile) {
-        postData.append("taxCopy", formData.taxFile);
+      if (formData.taxCopy) {
+        postData.append("taxCopy", formData.taxCopy);
       }
-      if (formData.tradeLicenseFile) {
-        postData.append("tradeLicense", formData.tradeLicenseFile);
+      if (formData.tradeLicense) {
+        postData.append("tradeLicense", formData.tradeLicense);
       }
-      if (formData.bankStatementFile) {
-        postData.append("bankStatement", formData.bankStatementFile);
+      if (formData.bankStatement) {
+        postData.append("bankStatement", formData.bankStatement);
       }
       if (formData.securityFile) {
         postData.append("securityFile", formData.securityFile);
@@ -263,13 +263,13 @@ const FounderPostReview = () => {
           />
         </label>
         <div className="my-3">
-          {post.businessPictures && post.businessPictures.length > 0 && (
+          {post.businessPicture && post.businessPicture.length > 0 && (
             <div>
               <h3 className="font-bold">
                 Previously Uploaded Business Pictures:
               </h3>
               <ul>
-                {post.businessPictures.map((picture, index) => (
+                {post.businessPicture.map((picture, index) => (
                   <li key={index} className="text-gray-700">
                     {picture.split("/").pop()}{" "}
                     {/* Display only the file name */}
@@ -299,7 +299,7 @@ const FounderPostReview = () => {
             <div>
               <h3 className="font-bold lg:mr-24">Previously Uploaded Video:</h3>
               <p className="text-gray-700">
-                {post.videoFile.split("/").pop()}
+                {post.video.split("/").pop()}
               </p>{" "}
               {/* Display only the file name */}
             </div>
@@ -397,12 +397,12 @@ const FounderPostReview = () => {
           />
         </label>
         <div className="my-3">
-          {post.nidFile && (
+          {post.nidCopy && (
             <div>
               <h3 className="font-bold lg:mr-16">
                 Previously Uploaded NID Copy:
               </h3>
-              <p className="text-gray-700">{post.nidFile.split("/").pop()}</p>
+              <p className="text-gray-700">{post.nidCopy.split("/").pop()}</p>
             </div>
           )}
         </div>
@@ -420,10 +420,10 @@ const FounderPostReview = () => {
           />
         </label>
         <div className="my-3">
-          {post.tinFile && (
+          {post.tinCopy && (
             <div>
               <h3 className="font-bold lg:mr-28">Previously Uploaded TIN:</h3>
-              <p className="text-gray-700">{post.tinFile.split("/").pop()}</p>
+              <p className="text-gray-700">{post.tinCopy.split("/").pop()}</p>
             </div>
           )}
         </div>
@@ -440,12 +440,12 @@ const FounderPostReview = () => {
           />
         </label>
         <div className="my-3">
-          {post.taxFile && (
+          {post.taxCopy && (
             <div>
               <h3 className="font-bold lg:mr-6">
                 Previously Uploaded Tax Information:
               </h3>
-              <p className="text-gray-700">{post.taxFile.split("/").pop()}</p>
+              <p className="text-gray-700">{post.taxCopy.split("/").pop()}</p>
             </div>
           )}
         </div>
@@ -463,13 +463,13 @@ const FounderPostReview = () => {
           />
         </label>
         <div className="my-3">
-          {post.tradeLicenseFile && (
+          {post.tradeLicense && (
             <div>
               <h3 className="font-bold lg:mr-10">
                 Previously Uploaded Trade License:
               </h3>
               <p className="text-gray-700">
-                {post.tradeLicenseFile.split("/").pop()}
+                {post.tradeLicense.split("/").pop()}
               </p>
             </div>
           )}
@@ -490,13 +490,13 @@ const FounderPostReview = () => {
           />
         </label>
         <div className="my-3">
-          {post.bankStatementFile && (
+          {post.bankStatement && (
             <div>
               <h3 className="font-bold lg:mr-6">
                 Previously Uploaded Bank Statement:
               </h3>
               <p className="text-gray-700">
-                {post.bankStatementFile.split("/").pop()}
+                {post.bankStatement.split("/").pop()}
               </p>
             </div>
           )}
