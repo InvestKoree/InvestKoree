@@ -1,7 +1,7 @@
 // import { useState } from "react";
-import blog1 from "../assets/blog1.jpg";
-import blog2 from "../assets/blog2.jpg";
-import blog3 from "../assets/blog3.jpg";
+import blog1 from "../../assets/blog1.jpg";
+import blog2 from "../../assets/blog2.jpg";
+import blog3 from "../../assets/blog3.jpg";
 import { useNavigate } from "react-router-dom";
 const Blogs = () => {
   // Track which post is expanded
@@ -18,6 +18,9 @@ const Blogs = () => {
   };
   const handleShowMore4 = () => {
     navigate("/blogfour");
+  };
+  const handleShowMore5 = () => {
+    navigate("/blogfive");
   };
   return (
     <div>
@@ -181,6 +184,41 @@ const Blogs = () => {
                 {/* Button */}
                 <button
                   onClick={handleShowMore4}
+                  className="mt-auto bg-salmon text-white px-2 py-2 rounded hover:bg-blue-600"
+                >
+                  Show More
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
+            {/* Image and Text Container */}
+            <div className="flex flex-col md:flex-row h-full p-4">
+              {/* Image */}
+              <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[full] xxs:w-[full] xs:w-[full]  sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[30%] xxs:h-[30%] xs:h-[30%]">
+                <img
+                  src={blog3}
+                  className="object-cover w-full h-full rounded-md"
+                />
+              </div>
+
+              {/* Text */}
+              <div className="lg:p-4 flex flex-col justify-between w-full md:w-1/2 ">
+                <h2 className="text-lg font-bold mb-2">
+                  How InvestKoree Helps Bangladeshi Businesses Grow by
+                  Connecting Them with Investors
+                </h2>
+                <p className="text-sm text-gray-700 mb-4 line-clamp-3">
+                  In today's competitive business landscape, finding the right
+                  investors can be the key to success. For businesses in
+                  Bangladesh, especially startups or small businesses,
+                  connecting with the right investors is not always easy. This
+                  is where InvestKoree steps in.
+                </p>
+
+                {/* Button */}
+                <button
+                  onClick={handleShowMore5}
                   className="mt-auto bg-salmon text-white px-2 py-2 rounded hover:bg-blue-600"
                 >
                   Show More
