@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 
 const FounderPenndingSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User ', index: true }, // Ensure this is correct
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User', index: true }, // Ensure this is correct
   businessName: { type: String, required: true },
   email: { type: String, required: true, match: /.+\@.+\..+/ },
   address: { type: String, required: true },
