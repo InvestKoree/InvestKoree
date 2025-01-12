@@ -113,6 +113,8 @@ app.post('/adminpost/pendingpost', upload.fields([
   { name: 'financialFile', maxCount: 1 },
   { name: 'video', maxCount: 1 },
 ]), async (req, res) => {
+  console.log('Request Body:', req.body); // Log the request body
+  console.log('Files received:', req.files);
   try {
     // Check if files are uploaded
     if (!req.files || Object.keys(req.files).length === 0) {
