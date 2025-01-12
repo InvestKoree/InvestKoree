@@ -104,7 +104,7 @@ const FounderPost = () => {
             `https://api.cloudinary.com/v1_1/dhqmilgfz/image/upload`, // Replace with your Cloudinary cloud name
             pictureFormData
           );
-          postData.append("businessPictures", uploadResponse.data.secure_url); // Store the URL
+          postData.append("businessPicture", uploadResponse.data.secure_url); // Store the URL
         } catch (error) {
           console.error("Error uploading business picture:", error);
           toast.error(`Failed to upload business picture: ${error.message}`);

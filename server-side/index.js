@@ -115,8 +115,6 @@ app.post('/adminpost/pendingpost', upload.fields([
 ]), async (req, res) => {
   console.log('Request Body:', req.body); // Log the request body
   console.log('Files received:', req.files);
-  console.log('Files received:', req);
-  
 
   try {
     // Check if files are uploaded
@@ -124,75 +122,22 @@ app.post('/adminpost/pendingpost', upload.fields([
       return res.status(400).json({ error: "No files were uploaded." });
     }
 
-    // Prepare an array to hold upload promises
-    const uploadPromises = [];
-
-    // Upload business pictures to Cloudinary
-    if (req.files.businessPicture) {
-      for (const picture of req.files.businessPicture) {
-        const uploadPromise = cloudinary.uploader.upload_stream({
-          resource_type: 'image',
-          folder: 'business_pictures',
-          quality: 'auto',
-        }, (error, result) => {
-          if (error) {
-            console.error("Error uploading business picture:", error);
-            return res.status(500).json({ error: "Failed to upload business picture." });
-          }
-          return result.secure_url; // Return the secure URL
-        });
-        uploadPromises.push(uploadPromise);
-      }
-    }
-
-    // Upload other files (NID, TIN, etc.)
-    const otherFiles = [
-      { file: req.files.nidCopy, name: 'nidFile' },
-      { file: req.files.tinCopy, name: 'tinFile' },
-      { file: req.files.taxCopy, name: 'taxFile' },
-      { file: req.files.tradeLicense, name: 'tradeLicenseFile' },
-      { file: req.files.bankStatement, name: 'bankStatementFile' },
-      { file: req.files.securityFile, name: 'securityFile' },
-      { file: req.files.financialFile, name: 'financialFile' },
-      { file: req.files.video, name: 'videoFile' },
-    ];
-
-    for (const { file, name } of otherFiles) {
-      if (file) {
-        const uploadPromise = cloudinary.uploader.upload_stream({
-          resource_type: name === 'videoFile' ? 'video' : 'raw',
-          folder: 'documents',
-          quality: 'auto',
-        }, (error, result) => {
-          if (error) {
-            console.error(`Error uploading ${name}:`, error);
-            return res.status(500).json({ error: `Failed to upload ${name}.` });
-          }
-          return result.secure_url; // Return the secure URL
-        });
-        uploadPromises.push(uploadPromise);
-      }
-    }
-
-    // Wait for all uploads to complete
-    const uploadedUrls = await Promise.all(uploadPromises);
-
- // Create the post object with the uploaded URLs
+    // Create the post object with the uploaded URLs
     const post = {
-      businessPictures: uploadedUrls.slice(0, req.files.businessPicture.length), // Get URLs for business pictures
-      nidFile: uploadedUrls[req.files.businessPicture.length], // NID file URL
-      tinFile: uploadedUrls[req.files.businessPicture.length + 1], // TIN file URL
-      taxFile: uploadedUrls[req.files.businessPicture.length + 2], // Tax file URL
-      tradeLicenseFile: uploadedUrls[req.files.businessPicture.length + 3], // Trade license file URL
-      bankStatementFile: uploadedUrls[req.files.businessPicture.length + 4], // Bank statement file URL
-      securityFile: uploadedUrls[req.files.businessPicture.length + 5], // Security file URL
-      financialFile: uploadedUrls[req.files.businessPicture.length + 6], // Financial file URL
-      videoFile: uploadedUrls[req.files.businessPicture.length + 7], // Video file URL
+      businessPictures: req.body.businessPicture ? req.body.businessPicture.split(',') : [], // Assuming you send a comma-separated string of URLs
+      nidFile: req.body.nidCopy,
+      tinFile: req.body.tinCopy,
+      taxFile: req.body.taxCopy,
+      tradeLicenseFile: req.body.tradeLicense,
+      bankStatementFile: req.body.bankStatement,
+      securityFile: req.body.securityFile,
+      financialFile: req.body.financialFile,
+      videoFile: req.body.video,
       // Add other post fields as necessary
     };
 
     // Call your function to create the post in the database
-    await createFounderPost(post); // Adjust this function to accept the post object
+    await createFounderPost(req, res, post); // Pass req, res, and post object
 
     res.status(201).json({ message: 'Post created successfully', post });
   } catch (error) {
