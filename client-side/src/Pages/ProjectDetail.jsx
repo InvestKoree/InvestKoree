@@ -8,8 +8,7 @@ const ProjectDetail = () => {
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState("images");
-  const [imageUrls, setImageUrls] = useState([]);
-  const [videoUrl, setVideoUrl] = useState(null); // State to hold video URL
+  // State to hold video URL
 
   useEffect(() => {
     // Fetch project details from the backend
@@ -20,36 +19,6 @@ const ProjectDetail = () => {
         );
         const data = await response.json();
         setProject(data); // Set the project data in state
-
-        // Fetch images based on businessPictures
-        const urls = await Promise.all(
-          data.businessPictures.map(async (filename) => {
-            const response = await fetch(
-              `${API_URL}/images/filename/${filename}`
-            );
-            if (response.ok) {
-              const blob = await response.blob();
-              return URL.createObjectURL(blob); // Create a URL for the blob
-            } else {
-              console.error(`Failed to fetch image: ${filename}`);
-              return null;
-            }
-          })
-        );
-        setImageUrls(urls.filter((url) => url)); // Filter out any null values
-
-        // Set the video URL from the project data
-        if (data.videoFile) {
-          const videoResponse = await fetch(
-            `${API_URL}/images/filename/${data.videoFile}`
-          );
-          if (videoResponse.ok) {
-            const videoBlob = await videoResponse.blob();
-            setVideoUrl(URL.createObjectURL(videoBlob)); // Create a URL for the video blob
-          } else {
-            console.error(`Failed to fetch video: ${data.videoFile}`);
-          }
-        }
       } catch (error) {
         console.error("Error fetching project details:", error);
       }
@@ -109,7 +78,7 @@ const ProjectDetail = () => {
               <div className="relative w-[full] max-w-md mx-auto">
                 {viewMode === "images" ? (
                   <div className="carousel carousel-vertical rounded-box transform transition-transform duration-300 ease-in-out delay-150 hover:scale-125 h-96">
-                    {imageUrls.map((src, index) => (
+                    {project.businessPicture.map((src, index) => (
                       <div
                         key={index}
                         className={`carousel-item h-full ${
@@ -126,9 +95,9 @@ const ProjectDetail = () => {
                   </div>
                 ) : (
                   <div className="video-container rounded-md h-96">
-                    {videoUrl ? (
+                    {project.video ? (
                       <video
-                        src={videoUrl}
+                        src={project.video}
                         controls
                         className="object-cover w-full h-full rounded-md"
                       />
