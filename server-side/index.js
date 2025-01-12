@@ -254,6 +254,8 @@ app.post('/adminpost/pendingpost',authToken, upload.fields([
 //   }
 // });
 // Delete a pending post
+
+
 app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
   const postId = req.params.id;
 

@@ -24,7 +24,7 @@ businessSector: {
     type: String,
     required: true
   },
-  businessPictures: [{ type: String }], 
+  businessPicture: [{ type: String }], 
 //   funded: {
 //     type: Number,
 //     required: true
@@ -33,7 +33,7 @@ additionalComments: {
     type: String,
     required: true
   },
-  nidFile: { type: String },
+ nidCopy: { type: String },
   createdAt: {
     type: Date,
     default: Date.now
