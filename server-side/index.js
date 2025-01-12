@@ -104,6 +104,7 @@ io.on('connection', (socket) => {
 // Create Founder Post with Pending Approval
 app.post('/adminpost/pendingpost',authToken, upload.fields([
   { name: 'businessPicture', maxCount: 10 },
+  { name: 'video', maxCount: 1 },
   { name: 'nidCopy', maxCount: 1 },
   { name: 'tinCopy', maxCount: 1 },
   { name: 'taxCopy', maxCount: 1 },
@@ -111,7 +112,7 @@ app.post('/adminpost/pendingpost',authToken, upload.fields([
   { name: 'bankStatement', maxCount: 1 },
   { name: 'securityFile', maxCount: 1 },
   { name: 'financialFile', maxCount: 1 },
-  { name: 'video', maxCount: 1 },
+  
 ]),async (req, res) => {
   console.log('Request Body:', req.body); // Log the request body to debug
 
@@ -140,6 +141,7 @@ app.post('/adminpost/pendingpost',authToken, upload.fields([
     const newPost = new PendingPost({
       userId,
       businessName,
+      description,
       email,
       address,
       phone,
@@ -159,8 +161,8 @@ app.post('/adminpost/pendingpost',authToken, upload.fields([
       additionalComments,
       returndate,
       projectedROI,
-      description,
-      businessPictures, // Array of URLs from the frontend
+      businessPictures,
+      videoFile, // Array of URLs from the frontend
       nidFile,
       tinFile,
       taxFile,
@@ -168,7 +170,7 @@ app.post('/adminpost/pendingpost',authToken, upload.fields([
       bankStatementFile,
       securityFile,
       financialFile,
-      videoFile,
+      
     });
 
     // Save the new post to the PendingPost collection
