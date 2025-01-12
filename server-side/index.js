@@ -128,8 +128,8 @@ app.post('/adminpost/pendingpost',authToken, upload.fields([
       investmentDuration, securityOption, otherSecurityOption, documentationOption,
       otherDocumentationOption, assets, revenue, fundingAmount, fundingHelp,
       returndate, projectedROI, returnPlan, businessSafety, additionalComments,
-      description, businessPictures, nidFile, tinFile, taxFile, tradeLicenseFile,
-      bankStatementFile, securityFile, financialFile, videoFile,
+      description, businessPicture, nidCopy,  tinCopy, taxCopy, tradeLicense,
+       bankStatement, securityFile, financialFile, video,
     } = req.body;
 
     // Validate that required fields are provided
@@ -159,13 +159,13 @@ app.post('/adminpost/pendingpost',authToken, upload.fields([
       additionalComments,
       returndate,
       projectedROI,
-      businessPictures,
-      videoFile, // Array of URLs from the frontend
-      nidFile,
-      tinFile,
-      taxFile,
-      tradeLicenseFile,
-      bankStatementFile,
+      businessPicture,
+      video, // Array of URLs from the frontend
+      nidCopy,
+      tinCopy,
+      taxCopy,
+      tradeLicense,
+      bankStatement,
       securityFile,
       financialFile,
       
