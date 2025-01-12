@@ -1,41 +1,41 @@
-// models/FounderPending.js
 import mongoose from 'mongoose';
 
-const FounderPenndingSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User', index: true }, // Ensure this is correct
+const FounderPendingSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User', index: true },
   businessName: { type: String, required: true },
   email: { type: String, required: true, match: /.+\@.+\..+/ },
   address: { type: String, required: true },
-  phone: { type: String, required: true },
+  phone: { type: String, required: true, match: /^\+\d{1,3}\s\d{3}-\d{3}-\d{4}$/ },
   description: { type: String, required: true },
- reason: { type: String},
- status :{type:String},
+  reason: { type: String, default: '' },
+  status: { type: String, default: 'pending' },
   businessCategory: { type: String, required: true },
   businessSector: { type: String, required: true },
   investmentDuration: { type: String, required: true },
   securityOption: { type: String, required: true },
-  otherSecurityOption: { type: String },
+  otherSecurityOption: { type: String, default: '' },
   documentationOption: { type: String, required: true },
-  otherDocumentationOption: { type: String },
+  otherDocumentationOption: { type: String, default: '' },
   assets: { type: String, required: true },
   revenue: { type: String, required: true },
   fundingAmount: { type: String, required: true },
   fundingHelp: { type: String, required: true },
   returnPlan: { type: String, required: true },
   businessSafety: { type: String, required: true },
-  additionalComments: { type: String },
-  businessPictures: [{ type: String }], 
-  nidFile: { type: String },
-  tinFile: { type: String },
-  taxFile: { type: String },
-  tradeLicenseFile: { type: String },
-  bankStatementFile: { type: String },
-  securityFile: { type: String },
-  financialFile: { type: String },
+  additionalComments: { type: String, default: '' },
+  businessPictures: [{ type: String, match: /^https?:\/\/.+\..+/ }],
+  nidFile: { type: String, match: /^https?:\/\/.+\..+/ },
+  tinFile: { type: String, match: /^https?:\/\/.+\..+/ },
+  taxFile: { type: String, match: /^https?:\/\/.+\..+/ },
+  tradeLicenseFile: { type: String, match: /^https?:\/\/.+\..+/ },
+  bankStatementFile: { type: String, match: /^https?:\/\/.+\..+/ },
+  securityFile: { type: String, match: /^https?:\/\/.+\..+/ },
+  financialFile: { type: String, match: /^https?:\/\/.+\..+/ },
   projectedROI: { type: String, required: true },
   returndate: { type: String, required: true },
   startDate: { type: Date, default: Date.now },
-  videoFile: { type: String } 
+  videoFile: { type: String, match: /^https?:\/\/.+\..+/ }
 }, { timestamps: true });
-const FounderPending = mongoose.model('FounderPending', FounderPenndingSchema);
+
+const FounderPending = mongoose.model('FounderPending', FounderPendingSchema);
 export default FounderPending;
