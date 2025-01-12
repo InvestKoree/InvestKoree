@@ -115,6 +115,9 @@ app.post('/adminpost/pendingpost', upload.fields([
 ]), async (req, res) => {
   console.log('Request Body:', req.body); // Log the request body
   console.log('Files received:', req.files);
+  console.log('Files received:', req);
+  
+
   try {
     // Check if files are uploaded
     if (!req.files || Object.keys(req.files).length === 0) {
