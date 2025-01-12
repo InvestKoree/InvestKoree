@@ -110,7 +110,7 @@ const ProjectDetail = () => {
                 {/* Dot Navigation for Images */}
                 {viewMode === "images" && (
                   <div className="flex justify-center mt-4">
-                    {imageUrls.map((_, index) => (
+                    {project.businessPicture.map((_, index) => (
                       <button
                         key={index}
                         className={`dot ${
