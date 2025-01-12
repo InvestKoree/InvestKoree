@@ -102,7 +102,7 @@ io.on('connection', (socket) => {
 });
 
 // Create Founder Post with Pending Approval
-app.post('/adminpost/pendingpost', async (req, res) => {
+app.post('/adminpost/pendingpost', authToken,async (req, res) => {
   console.log('Request Body:', req.body); // Log the request body to debug
 
   try {
