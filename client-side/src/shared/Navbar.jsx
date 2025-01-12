@@ -14,7 +14,6 @@ const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchVisible, setSearchVisible] = useState(false); // To control mobile search input visibility
 
   const handleSignOut = () => {
     logOut();
@@ -79,7 +78,7 @@ const Navbar = () => {
         </div>
 
         {/* Search Bar for Large Screens */}
-        <div className="lg:flex hidden relative gap-2  rounded-md">
+        <div className="lg:flex hidden     relative gap-2  rounded-md">
           <form onSubmit={handleSearch} className="flex items-center mx-4">
             <input
               type="text"
@@ -103,7 +102,7 @@ const Navbar = () => {
         >
           <ul
             ref={dropdownRef}
-            className="lg:font-bold lg:text-lg sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium menu menu-horizontal gap-8 px-1 flex"
+            className="lg:font-bold lg:text-lg sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium menu menu-horizontal gap-8 px-1 flex lg:w-[800px] lg:justify-end"
           >
             <li>
               <NavLink
@@ -312,6 +311,26 @@ const Navbar = () => {
                     </ul>
                   )}
                 </details>
+              </li>
+              <li className="w-[80%] flex  mb-2 lg:hidden">
+                <form
+                  onSubmit={handleSearch}
+                  className="flex flex-row relative "
+                >
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="border border-salmon rounded-l-md p-2 w-full"
+                  />
+                  <button
+                    type="submit"
+                    className="bg-salmon text-white rounded-r-md p-2 absolute right-2"
+                  >
+                    <AiOutlineSearch />
+                  </button>
+                </form>
               </li>
               <li>
                 <NavLink
