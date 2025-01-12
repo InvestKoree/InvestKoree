@@ -1,4 +1,4 @@
-import blog1 from "../assets/blog1.jpg";
+import blog1 from "../../assets/blog1.jpg";
 
 const BlogFive = () => {
   return (
