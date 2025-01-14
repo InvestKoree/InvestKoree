@@ -15,15 +15,16 @@ const InvestorTerms = () => {
       </div>
       <div className="mx-auto flex flex-col gap-8">
         <h1 className="font-extrabold text-xl">
-          Investor Terms and Conditions: T&C
+          Investor Terms and Conditions (T&C)
         </h1>
         <p>
-          1) The minimum investment amount is one thousand or its multiples.
+          1) The minimum investment amount is one thousand dollars or its
+          multiples.
         </p>
         <p>
-          2) There will be a maturity period for receiving profits. If you
-          withdraw funds before the maturity period, you will not receive any
-          profit, and a platform usage fee will apply.
+          2) There is a maturity period for receiving profits. If you withdraw
+          funds before the maturity period, you will not receive any profit, and
+          a platform usage fee will apply.
         </p>
         <p>
           3) Investments are entirely at your own risk. We do not provide any

@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 
 const FounderTerms = () => {
   return (
-    <div className="lg:h-[full] lg:w-[1200px] mt-20 flex lg:flex-row sm:flex-col  xs:flex-col lg:mx-auto lg:gap-12  xxs:flex-col  sm:px-4  xs:px-4  xxs:px-4 sm:mb-4  xs:mb-4  xxs:mb-4 sm:h-full  xs:h-full  xxs:h-full   ">
+    <div className="lg:h-[full] lg:w-[1200px] mt-20 flex lg:flex-row sm:flex-col xs:flex-col lg:mx-auto lg:gap-12 xxs:flex-col sm:px-4 xs:px-4 xxs:px-4 sm:mb-4 xs:mb-4 xxs:mb-4 sm:h-full xs:h-full xxs:h-full">
       <div>
         <Link to="/founderdashboard">
           <input
             type="submit"
-            className="post-btn lg:h-[7%] lg:w-[100px] sm:h-[80%] xs:h-[80%] xxs:h-[80%] sm:w-[20%]  xs:w-[20%] xxs:w-[20%] sm:px-4 xs:px-4 xxs:px-4  sm:py-2 xs:py-2 xxs:py-2  "
+            className="post-btn lg:h-[7%] lg:w-[100px] sm:h-[80%] xs:h-[80%] xxs:h-[80%] sm:w-[20%] xs:w-[20%] xxs:w-[20%] sm:px-4 xs:px-4 xxs:px-4 sm:py-2 xs:py-2 xxs:py-2"
             name="founder-post"
             value="Back"
           />
@@ -18,11 +18,11 @@ const FounderTerms = () => {
           Terms and Conditions (T&C) for Founders
         </h1>
         <p>
-          1) You cannot raise more than $20,000 for the first round of funding.
+          1) You cannot raise more than $20,000 in the first round of funding.
         </p>
         <p>2) You must share updates on your raised funds on a weekly basis.</p>
         <p>
-          3) If you raise $10,000 for a one-month period, you are required to
+          3) If you raise $10,000 in a one-month period, you are required to
           repay $2,500 every week.
         </p>
         <p>
