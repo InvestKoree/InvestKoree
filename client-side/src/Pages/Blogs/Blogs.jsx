@@ -2,6 +2,7 @@
 import blog1 from "../../assets/blog1.jpg";
 import blog2 from "../../assets/blog2.jpg";
 import blog3 from "../../assets/blog3.jpg";
+import blog6 from "../../assets/blogsix.jpg";
 import blog4 from "../../assets/blog4.jpeg";
 import blog5 from "../../assets/blog5.jpeg";
 import { useNavigate } from "react-router-dom";
@@ -242,7 +243,7 @@ const Blogs = () => {
                 {/* Image */}
                 <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[full] xxs:w-[full] xs:w-[full]  sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[30%] xxs:h-[30%] xs:h-[30%]">
                   <img
-                    src={blog5}
+                    src={blog6}
                     className="object-cover w-full h-full rounded-md"
                   />
                 </div>
