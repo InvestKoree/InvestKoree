@@ -34,6 +34,7 @@ import BlogThree from "../Pages/Blogs/BlogThree";
 import SearchResults from "../Pages/SearchResults";
 import BlogFour from "../Pages/Blogs/BlogFour";
 import BlogFive from "../Pages/Blogs/BlogFive";
+import Blogsix from "../Pages/Blogs/Blogsix";
 
 export const router = createBrowserRouter([
   {
@@ -128,6 +129,10 @@ export const router = createBrowserRouter([
       {
         path: "/blogfive",
         element: <BlogFive></BlogFive>,
+      },
+      {
+        path: "/blogsix",
+        element: <Blogsix></Blogsix>,
       },
       {
         path: "/blogtwo",
