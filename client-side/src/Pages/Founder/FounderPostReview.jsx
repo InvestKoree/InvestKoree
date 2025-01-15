@@ -27,136 +27,150 @@ const FounderPostReview = () => {
     }
   };
 
-  // Handle input change
+  useEffect(() => {
+    // Set initial form data from post data
+    if (post) {
+      setFormData(post);
+      setBusinessPictures(post.businessPictures || []);
+      setVideoFile(post.videoFile || null);
+      setNidFile(post.nidFile || null);
+      setTinFile(post.tinFile || null);
+      setTaxFile(post.taxFile || null);
+      setTradeLicenseFile(post.tradeLicenseFile || null);
+      setBankStatementFile(post.bankStatementFile || null);
+      setSecurityFile(post.securityFile || null);
+      setFinancialFile(post.financialFile || null);
+    }
+  }, [post]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSecurityOptionChange = (e) => {
-    const selectedOption = e.target.value;
-    setFormData({
-      ...formData,
-      securityOption: selectedOption,
-    });
-    setOtherOption(selectedOption === "Other");
-  };
-
-  const handleDocumentationOptionChange = (e) => {
-    const selectedOption = e.target.value;
-    setFormData({
-      ...formData,
-      documentationOption: selectedOption,
-    });
-    setOtherDocumentation(selectedOption === "Other");
-  };
-
-  // Handle file change (for images/videos)
-  const handleFileChange = (e, field) => {
-    setFormData({ ...formData, [field]: e.target.files[0] });
+  const handleFileChange = (e, setFile) => {
+    setFile(e.target.files[0]);
   };
 
   const handleMultipleFileChange = (e) => {
-    const files = Array.from(e.target.files); // Convert FileList to an array
-    setFormData({ ...formData, businessPictures: files }); // Update state with the array of files
+    const files = Array.from(e.target.files);
+    setBusinessPictures(files);
+  };
+
+  const handleVideoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setVideoFile(file);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+
     try {
       const postData = new FormData();
 
-      // Handle non-file fields
-      for (const key of Object.keys(formData)) {
-        if (
-          !Array.isArray(formData[key]) &&
-          formData[key] !== null &&
-          key !== "businessPicture" &&
-          key !== "video" &&
-          key !== "nidcopy" &&
-          key !== "tincopy" &&
-          key !== "taxcopy" &&
-          key !== "tradeLicense" &&
-          key !== "bankStatement" &&
-          key !== "securityFile" &&
-          key !== "financialFile"
-        ) {
-          postData.append(key, formData[key]);
-        }
-      }
-
-      // Handle file uploads
-      // Handle businessPictures
-      if (formData.businessPicture && formData.businessPicture.length > 0) {
-        for (const file of formData.businessPicture) {
-          postData.append("businessPicture", file); // Append the file object directly
-        }
-      }
-
-      // Handle videoFile
-      if (formData.video) {
-        postData.append("video", formData.video); // Append the file object directly
-      }
-
-      // Append other files similarly
-      if (formData.nidCopy) {
-        postData.append("nidCopy", formData.nidCopy);
-      }
-      if (formData.tinCopy) {
-        postData.append("tinCopy", formData.tinCopy);
-      }
-      if (formData.taxCopy) {
-        postData.append("taxCopy", formData.taxCopy);
-      }
-      if (formData.tradeLicense) {
-        postData.append("tradeLicense", formData.tradeLicense);
-      }
-      if (formData.bankStatement) {
-        postData.append("bankStatement", formData.bankStatement);
-      }
-      if (formData.securityFile) {
-        postData.append("securityFile", formData.securityFile);
-      }
-      if (formData.financialFile) {
-        postData.append("financialFile", formData.financialFile);
-      }
-
-      const token = localStorage.getItem("token");
-      // Make POST request to the pending post route
-      await axios.post(`${API_URL}/adminpost/pendingpost`, postData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        timeout: 600000,
+      // Append regular form fields (text fields) to FormData
+      Object.keys(formData).forEach((key) => {
+        postData.append(key, formData[key]); // Append each key-value pair from formData
       });
-      await handleRemovePost(post._id);
-      navigate("/founderpending");
-      toast.success("Post has been Resubmitted Successfully");
-    } catch (error) {
-      console.error("Error updating post:", error);
-      if (error.response) {
-        // Server responded with a status other than 2xx
-        toast.error(
-          `Error: ${error.response.data.message || "Failed to update post."}`
-        );
-      } else if (error.request) {
-        // Request was made but no response was received
-        toast.error(
-          "No response received from the server. Please check your network connection."
-        );
-      } else {
-        // Something happened in setting up the request
-        toast.error(`Error: ${error.message}`);
+
+      // Upload business pictures to Cloudinary
+      for (const picture of businessPictures) {
+        const pictureFormData = new FormData();
+        pictureFormData.append("file", picture);
+        pictureFormData.append("upload_preset", "uploadpreset"); // Replace with your upload preset
+
+        try {
+          const uploadResponse = await axios.post(
+            `https://api.cloudinary.com/v1_1/dhqmilgfz/image/upload`, // Replace with your Cloudinary cloud name
+            pictureFormData
+          );
+          postData.append("businessPictures", uploadResponse.data.secure_url); // Store the URL
+        } catch (error) {
+          console.error("Error uploading business picture:", error);
+          toast.error(`Failed to upload business picture: ${error.message}`);
+        }
       }
+
+      // Upload video to Cloudinary
+      if (videoFile) {
+        const videoFormData = new FormData();
+        videoFormData.append("file", videoFile);
+        videoFormData.append("upload_preset", "uploadpreset"); // Replace with your upload preset
+
+        try {
+          const videoUploadResponse = await axios.post(
+            `https://api.cloudinary.com/v1_1/dhqmilgfz/video/upload`, // Replace with your Cloudinary cloud name
+            videoFormData
+          );
+          postData.append("video", videoUploadResponse.data.secure_url); // Store the URL
+        } catch (error) {
+          console.error("Error uploading video:", error);
+          toast.error(`Failed to upload video: ${error.message}`);
+        }
+      }
+
+      // Upload other files (NID, TIN, Tax, Trade License, Bank Statement, Security, Financial)
+      const otherFiles = [
+        { file: nidFile, name: "nidCopy" },
+        { file: tinFile, name: "tinCopy" },
+        { file: taxFile, name: "taxCopy" },
+        { file: tradeLicenseFile, name: "tradeLicense" },
+        { file: bankStatementFile, name: "bankStatement" },
+        { file: securityFile, name: "securityFile" },
+        { file: financialFile, name: "financialFile" },
+      ];
+
+      for (const { file, name } of otherFiles) {
+        if (file) {
+          const fileFormData = new FormData();
+          fileFormData.append("file", file);
+          fileFormData.append("upload_preset", "uploadpreset"); // Replace with your upload preset
+
+          try {
+            const uploadResponse = await axios.post(
+              `https://api.cloudinary.com/v1_1/dhqmilgfz/upload`, // Replace with your Cloudinary cloud name
+              fileFormData
+            );
+            postData.append(name, uploadResponse.data.secure_url); // Store the URL
+          } catch (error) {
+            console.error(`Error uploading ${name}:`, error);
+            toast.error(`Failed to upload ${name}: ${error.message}`);
+          }
+        }
+      }
+
+      // Send the complete FormData to your API
+      const token = localStorage.getItem("token");
+
+      const response = await axios.post(
+        `${API_URL}/adminpost/pendingpost`,
+        postData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token here
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        toast.success("Post has been resubmitted successfully!");
+        navigate("/founderpending");
+      } else {
+        toast.error(
+          `Failed to submit form: ${response.data.message || "Unknown error"}`
+        );
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error(`Error submitting form: ${error.message}`);
+    } finally {
+      setIsLoading(false); // Set loading state back to false
     }
   };
 
-  useEffect(() => {
-    // Set initial form data from post data
-    if (post) {
-      setFormData(post);
-    }
-  }, [post]);
   return (
     <div>
       <h2 className="text-2xl font-bold my-5 text-center">Edit Post</h2>
@@ -778,8 +792,12 @@ const FounderPostReview = () => {
 
         {/* Submit Button */}
         <div className="form-control my-3">
-          <button type="submit" className="btn btn-warning w-full max-w-xs">
-            Resubmit
+          <button
+            type="submit"
+            className="btn btn-warning w-full max-w-xs"
+            disabled={isLoading}
+          >
+            {isLoading ? "Submitting..." : "Resubmit"}
           </button>
         </div>
       </form>
