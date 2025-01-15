@@ -11,9 +11,19 @@ const FounderPostReview = () => {
   const [formData, setFormData] = useState(post || null); // Initialize form data with post data
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const navigate = useNavigate();
+  const [nidFile, setNidFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [otherOption, setOtherOption] = useState(false);
   const [otherDocumentation, setOtherDocumentation] = useState(false);
+  const [businessPictures, setBusinessPictures] = useState([]);
+  const [tinFile, setTinFile] = useState(null);
+  const [taxFile, setTaxFile] = useState(null);
+  const [tradeLicenseFile, setTradeLicenseFile] = useState(null);
+  const [bankStatementFile, setBankStatementFile] = useState(null);
+  const [securityFile, setSecurityFile] = useState(null);
+  const [financialFile, setFinancialFile] = useState(null);
+  const [videoFile, setVideoFile] = useState(null);
+
   const handleRemovePost = async (postId) => {
     try {
       const token = localStorage.getItem("token");
