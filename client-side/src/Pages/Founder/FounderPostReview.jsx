@@ -51,6 +51,23 @@ const FounderPostReview = () => {
   const handleFileChange = (e, setFile) => {
     setFile(e.target.files[0]);
   };
+  const handleSecurityOptionChange = (e) => {
+    const selectedOption = e.target.value;
+    setFormData({
+      ...formData,
+      securityOption: selectedOption,
+    });
+    setOtherOption(selectedOption === "Other");
+  };
+
+  const handleDocumentationOptionChange = (e) => {
+    const selectedOption = e.target.value;
+    setFormData({
+      ...formData,
+      documentationOption: selectedOption,
+    });
+    setOtherDocumentation(selectedOption === "Other");
+  };
 
   const handleMultipleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -158,6 +175,7 @@ const FounderPostReview = () => {
       if (response.status === 201) {
         toast.success("Post has been resubmitted successfully!");
         navigate("/founderpending");
+        await handleRemovePost(post._id);
       } else {
         toast.error(
           `Failed to submit form: ${response.data.message || "Unknown error"}`
@@ -304,7 +322,7 @@ const FounderPostReview = () => {
             type="file"
             accept="video/*"
             name="video"
-            onChange={(e) => handleFileChange(e, "videoFile")}
+            onChange={(e) => handleVideoChange(e, "videoFile")}
             className="file-input file-input-bordered file-input-warning w-full max-w-xs"
           />
         </label>
