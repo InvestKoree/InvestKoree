@@ -664,7 +664,8 @@ const FounderPostReview = () => {
           <input
             type="file"
             name="financialFile"
-            onChange={(e) => handleFileChange(e, "financialFile")}
+            required
+            onChange={(e) => handleFileChange(e, setSecurityFile)}
             className="file-input file-input-bordered file-input-warning w-full max-w-xs"
           />
         </label>
