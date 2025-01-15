@@ -172,9 +172,9 @@ const FounderPostReview = () => {
 
       // Send the complete FormData to your API
       const token = localStorage.getItem("token");
-
+      const postId = post._id;
       const response = await axios.post(
-        `${API_URL}/adminpost/pendingpost`,
+        `${API_URL}/adminpost/pendingpost/${postId}`,
         postData,
         {
           headers: {

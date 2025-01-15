@@ -23,18 +23,18 @@ const pendingPostSchema = new mongoose.Schema({
   returnPlan: { type: String, required: true },
   businessSafety: { type: String, required: true },
   additionalComments: { type: String, default: '' },
-  businessPicture: [{ type: String, match: /^https?:\/\/.+\..+/ }],
-  nidCopy: { type: String, match: /^https?:\/\/.+\..+/ },
-  tinCopy: { type: String, match: /^https?:\/\/.+\..+/ },
-  tinCopy: { type: String, match: /^https?:\/\/.+\..+/ },
-  tradeLicense: { type: String, match: /^https?:\/\/.+\..+/ },
-  bankStatement: { type: String, match: /^https?:\/\/.+\..+/ },
-  securityFile: { type: String, match: /^https?:\/\/.+\..+/ },
-  financialFile: { type: String, match: /^https?:\/\/.+\..+/ },
+  businessPicture: { type: [String] },
+  nidCopy: { type: String },
+  tinCopy: { type: String },
+  tinCopy: { type: String },
+  tradeLicense: { type: String },
+  bankStatement: { type: String },
+  securityFile: { type: String },
+  financialFile: { type: String },
   projectedROI: { type: String, required: true },
   returndate: { type: String, required: true },
   startDate: { type: Date, default: Date.now },
-  video: { type: String, match: /^https?:\/\/.+\..+/ }
+  video: { type: String }
 }, { timestamps: true });
 
 const PendingPost = mongoose.model('PendingPost', pendingPostSchema);

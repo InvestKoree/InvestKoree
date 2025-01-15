@@ -192,68 +192,109 @@ app.post('/adminpost/pendingpost',authToken, upload.fields([
   }
 });
 
+app.put('/adminpost/pendingpost/:postId', authToken, upload.fields([
+  { name: 'businessPicture', maxCount: 10 },
+  { name: 'video', maxCount: 1 },
+  { name: 'nidCopy', maxCount: 1 },
+  { name: 'tinCopy', maxCount: 1 },
+  { name: 'taxCopy', maxCount: 1 },
+  { name: 'tradeLicense', maxCount: 1 },
+  { name: 'bankStatement', maxCount: 1 },
+  { name: 'securityFile', maxCount: 1 },
+  { name: 'financialFile', maxCount: 1 },
+]), async (req, res) => {
+  console.log('Request Body:', req.body); // Log the request body to debug
+  console.log('Files received:', req.files); // Log the received files
 
-// app.put('/adminpost/update/:id', authToken, upload.fields([
-//   { name: 'businessPicture', maxCount: 10 },
-//   { name: 'nidCopy', maxCount: 1 },
-//   { name: 'tinCopy', maxCount: 1 },
-//   { name: 'taxCopy', maxCount: 1 },
-//   { name: 'tradeLicense', maxCount: 1 },
-//   { name: 'bankStatement', maxCount: 1 },
-//   { name: 'securityFile', maxCount: 1 },
-//   { name: 'financialFile', maxCount: 1 },
-//   { name: 'video', maxCount: 1 },
-// ]), async (req, res) => {
-//   try {
-//     const postId = req.params.id;
+  try {
+    const userId = req.user?.id; // Retrieve user ID from authenticated request
+    if (!userId) {
+      return res.status(400).json({ error: "User  ID is required." });
+    }
 
-//     // Prepare the updated post
-//     const updatedPost = { ...req.body };
+    const postId = req.params.postId; // Get the post ID from the URL
 
-//     // Handle the uploaded files
-//     if (req.files) {
-//       if (req.files.businessPicture) {
-//         updatedPost.businessPictures = req.files.businessPicture.map(file => file.originalname); // Store filenames
-//       }
-//       if (req.files.nidCopy) {
-//         updatedPost.nidFile = req.files.nidCopy[0].originalname; // Store filename
-//       }
-//       if (req.files.tinCopy) {
-//         updatedPost.tinFile = req.files.tinCopy[0].originalname; // Store filename
-//       }
-//       if (req.files.taxCopy) {
-//         updatedPost.taxFile = req.files.taxCopy[0].originalname; // Store filename
-//       }
-//       if (req.files.tradeLicense) {
-//         updatedPost.tradeLicenseFile = req.files.tradeLicense[0].originalname; // Store filename
-//       }
-//       if (req.files.bankStatement) {
-//         updatedPost.bankStatementFile = req.files.bankStatement[0].originalname; // Store filename
-//       }
-//       if (req.files.securityFile) {
-//         updatedPost.securityFile = req.files.securityFile[0].originalname; // Store filename
-//       }
-//       if (req.files.financialFile) {
-//         updatedPost.financialFile = req.files.financialFile[0].originalname; // Store filename
-//       }
-//       if (req.files.video) {
-//         updatedPost.videoFile = req.files.video[0].originalname; // Store filename
-//       }
-//     }
+    // Find the existing post
+    const existingPost = await PendingPost.findById(postId);
+    if (!existingPost) {
+      return res.status(404).json({ error: "Post not found." });
+    }
 
-//     // Update the post in the database
-//     const foundPost = await FounderPost.findByIdAndUpdate(postId, updatedPost, { new: true });
+    // Destructure fields from the request body
+    const {
+      businessName, email, address, phone, businessCategory, businessSector,
+      investmentDuration, securityOption, otherSecurityOption, documentationOption,
+      otherDocumentationOption, assets, revenue, fundingAmount, fundingHelp,
+      returndate, projectedROI, returnPlan, businessSafety, additionalComments,
+      description,
+    } = req.body;
 
-//     if (!foundPost) {
-//       return res.status(404).json({ message: 'Post not found' });
-//     }
+    // Update the existing post with new data
+    existingPost.businessName = businessName;
+    existingPost.description = description;
+    existingPost.email = email;
+    existingPost.address = address;
+    existingPost.phone = phone;
+    existingPost.businessCategory = businessCategory;
+    existingPost.businessSector = businessSector;
+    existingPost.investmentDuration = investmentDuration;
+    existingPost.securityOption = securityOption;
+    existingPost.otherSecurityOption = otherSecurityOption;
+    existingPost.documentationOption = documentationOption;
+    existingPost.otherDocumentationOption = otherDocumentationOption;
+    existingPost.assets = assets;
+    existingPost.revenue = revenue;
+    existingPost.fundingAmount = fundingAmount;
+    existingPost.fundingHelp = fundingHelp;
+    existingPost.returnPlan = returnPlan;
+    existingPost.businessSafety = businessSafety;
+    existingPost.additionalComments = additionalComments;
+    existingPost.returndate = returndate;
+    existingPost.projectedROI = projectedROI;
 
-//     res.status(200).json(foundPost);
-//   } catch (error) {
-//     res.status(500).json({ message: 'Error updating post: ' + error.message });
-//   }
-// });
-// Delete a pending post
+    // Handle file uploads
+    if (req.files.businessPicture) {
+      existingPost.businessPicture = req.files.businessPicture.map(file => file.secure_url);
+    }
+    if (req.files.video) {
+      existingPost.video = req.files.video[0].secure_url;
+    }
+    if (req.files.nidCopy) {
+      existingPost.nidCopy = req.files.nidCopy[0].secure_url;
+    }
+    if (req.files.tinCopy) {
+      existingPost.tinCopy = req.files.tinCopy[0].secure_url;
+    }
+    if (req.files.taxCopy) {
+      existingPost.taxCopy = req.files.taxCopy[0].secure_url;
+    }
+    if (req.files.tradeLicense) {
+      existingPost.tradeLicense = req.files.tradeLicense[0].secure_url;
+    }
+    if (req.files.bankStatement) {
+      existingPost.bankStatement = req.files.bankStatement[0].secure_url;
+    }
+    if (req.files.securityFile) {
+      existingPost.securityFile = req.files.securityFile[0].secure_url;
+    }
+    if (req.files.financialFile) {
+      existingPost.financialFile = req.files.financialFile[0].secure_url;
+    }
+
+    // Save the updated post
+    const updatedPost = await existingPost.save();
+
+    // Respond to the client with success
+    res.status(200).json({
+      message: "Post updated successfully",
+      post: updatedPost,
+    });
+  } catch (error) {
+    console.error('Error updating post:', error);
+    res.status (500).json({ message: 'Error updating post: ' + error.message });
+  }
+});
+
 
 
 app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
