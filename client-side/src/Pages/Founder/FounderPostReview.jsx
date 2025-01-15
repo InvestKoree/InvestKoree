@@ -101,46 +101,36 @@ const FounderPostReview = () => {
 
       // Append regular form fields (text fields) to FormData
       Object.keys(formData).forEach((key) => {
-        postData.append(key, formData[key]); // Append each key-value pair from formData
+        postData.append(key, formData[key]);
       });
 
       // Upload business pictures to Cloudinary
       for (const picture of businessPictures) {
         const pictureFormData = new FormData();
         pictureFormData.append("file", picture);
-        pictureFormData.append("upload_preset", "uploadpreset"); // Replace with your upload preset
+        pictureFormData.append("upload_preset", "uploadpreset");
 
-        try {
-          const uploadResponse = await axios.post(
-            `https://api.cloudinary.com/v1_1/dhqmilgfz/image/upload`, // Replace with your Cloudinary cloud name
-            pictureFormData
-          );
-          postData.append("businessPictures", uploadResponse.data.secure_url); // Store the URL
-        } catch (error) {
-          console.error("Error uploading business picture:", error);
-          toast.error(`Failed to upload business picture: ${error.message}`);
-        }
+        const uploadResponse = await axios.post(
+          `https://api.cloudinary.com/v1_1/dhqmilgfz/image/upload`,
+          pictureFormData
+        );
+        postData.append("businessPictures", uploadResponse.data.secure_url);
       }
 
       // Upload video to Cloudinary
       if (videoFile) {
         const videoFormData = new FormData();
         videoFormData.append("file", videoFile);
-        videoFormData.append("upload_preset", "uploadpreset"); // Replace with your upload preset
+        videoFormData.append("upload_preset", "uploadpreset");
 
-        try {
-          const videoUploadResponse = await axios.post(
-            `https://api.cloudinary.com/v1_1/dhqmilgfz/video/upload`, // Replace with your Cloudinary cloud name
-            videoFormData
-          );
-          postData.append("video", videoUploadResponse.data.secure_url); // Store the URL
-        } catch (error) {
-          console.error("Error uploading video:", error);
-          toast.error(`Failed to upload video: ${error.message}`);
-        }
+        const videoUploadResponse = await axios.post(
+          `https://api.cloudinary.com/v1_1/dhqmilgfz/video/upload`,
+          videoFormData
+        );
+        postData.append("video", videoUploadResponse.data.secure_url);
       }
 
-      // Upload other files (NID, TIN, Tax, Trade License, Bank Statement, Security, Financial)
+      // Upload other files
       const otherFiles = [
         { file: nidFile, name: "nidCopy" },
         { file: tinFile, name: "tinCopy" },
@@ -155,46 +145,57 @@ const FounderPostReview = () => {
         if (file) {
           const fileFormData = new FormData();
           fileFormData.append("file", file);
-          fileFormData.append("upload_preset", "uploadpreset"); // Replace with your upload preset
+          fileFormData.append("upload_preset", "uploadpreset");
 
-          try {
-            const uploadResponse = await axios.post(
-              `https://api.cloudinary.com/v1_1/dhqmilgfz/upload`, // Replace with your Cloudinary cloud name
-              fileFormData
-            );
-            postData.append(name, uploadResponse.data.secure_url); // Store the URL
-          } catch (error) {
-            console.error(`Error uploading ${name}:`, error);
-            toast.error(`Failed to upload ${name}: ${error.message}`);
-          }
+          const uploadResponse = await axios.post(
+            `https://api.cloudinary.com/v1_1/dhqmilgfz/upload`,
+            fileFormData
+          );
+          postData.append(name, uploadResponse.data.secure_url);
         }
       }
 
       // Send the complete FormData to your API
       const token = localStorage.getItem("token");
       const postId = post._id;
+
       const response = await axios.put(
         `${API_URL}/adminpost/pendingpost/${postId}`,
         postData,
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Include the token here
+            Authorization: `Bearer ${token}`,
           },
         }
       );
 
-      if (response.status === 201) {
-        toast.success("Post has been resubmitted successfully!");
+      // Check if the response status is 200
+      if (response.status === 200) {
+        toast.success("Post has been updated successfully!");
         navigate("/founderpending");
         await handleRemovePost(post._id);
       } else {
+        // Handle unexpected response status
         toast.error(
           `Failed to submit form: ${response.data.message || "Unknown error"}`
         );
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      toast.error(`Error submitting form: ${error.message}`);
+      if (error.response) {
+        // Server responded with a status other than 2xx
+        toast.error(
+          `Error: ${error.response.data.message || "Failed to update post."}`
+        );
+      } else if (error.request) {
+        // Request was made but no response was received
+        toast.error(
+          "No response received from the server. Please check your network connection."
+        );
+      } else {
+        // Something happened in setting up the request
+        toast.error(`Error: ${error.message}`);
+      }
     } finally {
       setIsLoading(false); // Set loading state back to false
     }
