@@ -11,6 +11,7 @@ const FounderPostReview = () => {
   const [formData, setFormData] = useState(post || null); // Initialize form data with post data
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [otherOption, setOtherOption] = useState(false);
   const [otherDocumentation, setOtherDocumentation] = useState(false);
   const handleRemovePost = async (postId) => {
