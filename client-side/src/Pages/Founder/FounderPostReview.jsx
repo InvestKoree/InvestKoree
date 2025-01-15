@@ -434,8 +434,8 @@ const FounderPostReview = () => {
           </div>
           <input
             type="file"
-            name="nidFile"
-            onChange={(e) => handleFileChange(e, "nidFile")}
+            name="nidCopy"
+            onChange={(e) => handleFileChange(e, "nidCopy")}
             className="file-input file-input-bordered file-input-warning w-full max-w-xs"
           />
         </label>
@@ -457,8 +457,8 @@ const FounderPostReview = () => {
           </div>
           <input
             type="file"
-            name="tinFile"
-            onChange={(e) => handleFileChange(e, "tinFile")}
+            name="tinCopy"
+            onChange={(e) => handleFileChange(e, "tinCopy")}
             className="file-input file-input-bordered file-input-warning w-full max-w-xs"
           />
         </label>
@@ -477,8 +477,8 @@ const FounderPostReview = () => {
           </div>
           <input
             type="file"
-            name="taxFile"
-            onChange={(e) => handleFileChange(e, "taxFile")}
+            name="taxCopy"
+            onChange={(e) => handleFileChange(e, "taxCopy")}
             className="file-input file-input-bordered file-input-warning w-full max-w-xs"
           />
         </label>
@@ -500,8 +500,8 @@ const FounderPostReview = () => {
           </div>
           <input
             type="file"
-            name="tradeLicenseFile"
-            onChange={(e) => handleFileChange(e, "tradeLicenseFile")}
+            name="tradeLicense"
+            onChange={(e) => handleFileChange(e, "tradeLicense")}
             className="file-input file-input-bordered file-input-warning w-full max-w-xs"
           />
         </label>
@@ -527,8 +527,8 @@ const FounderPostReview = () => {
           </div>
           <input
             type="file"
-            name="bankStatementFile"
-            onChange={(e) => handleFileChange(e, "bankStatementFile")}
+            name="bankStatement"
+            onChange={(e) => handleFileChange(e, "bankStatement")}
             className="file-input file-input-bordered file-input-warning w-full max-w-xs"
           />
         </label>
