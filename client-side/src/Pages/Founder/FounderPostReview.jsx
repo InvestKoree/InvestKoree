@@ -435,7 +435,8 @@ const FounderPostReview = () => {
           <input
             type="file"
             name="nidCopy"
-            onChange={(e) => handleFileChange(e, "nidCopy")}
+            onChange={(e) => handleFileChange(e, setNidFile)}
+            required
             className="file-input file-input-bordered file-input-warning w-full max-w-xs"
           />
         </label>
@@ -458,7 +459,8 @@ const FounderPostReview = () => {
           <input
             type="file"
             name="tinCopy"
-            onChange={(e) => handleFileChange(e, "tinCopy")}
+            required
+            onChange={(e) => handleFileChange(e, setTinFile)}
             className="file-input file-input-bordered file-input-warning w-full max-w-xs"
           />
         </label>
@@ -478,7 +480,8 @@ const FounderPostReview = () => {
           <input
             type="file"
             name="taxCopy"
-            onChange={(e) => handleFileChange(e, "taxCopy")}
+            required
+            onChange={(e) => handleFileChange(e, setTaxFile)}
             className="file-input file-input-bordered file-input-warning w-full max-w-xs"
           />
         </label>
@@ -501,7 +504,8 @@ const FounderPostReview = () => {
           <input
             type="file"
             name="tradeLicense"
-            onChange={(e) => handleFileChange(e, "tradeLicense")}
+            required
+            onChange={(e) => handleFileChange(e, setTradeLicenseFile)}
             className="file-input file-input-bordered file-input-warning w-full max-w-xs"
           />
         </label>
@@ -528,7 +532,8 @@ const FounderPostReview = () => {
           <input
             type="file"
             name="bankStatement"
-            onChange={(e) => handleFileChange(e, "bankStatement")}
+            required
+            onChange={(e) => handleFileChange(e, setBankStatementFile)}
             className="file-input file-input-bordered file-input-warning w-full max-w-xs"
           />
         </label>
@@ -593,7 +598,8 @@ const FounderPostReview = () => {
           <input
             type="file"
             name="securityFile"
-            onChange={(e) => handleFileChange(e, "securityFile")}
+            required
+            onChange={(e) => handleFileChange(e, setSecurityFile)}
             className="file-input file-input-bordered file-input-warning w-full max-w-xs"
           />
         </label>
