@@ -77,18 +77,18 @@ const ProjectDetail = () => {
             <div>
               <div className="relative w-[full] max-w-md mx-auto">
                 {viewMode === "images" ? (
-                  <div className="carousel carousel-vertical rounded-box transform transition-transform duration-300 ease-in-out delay-150 hover:scale-125 h-96">
+                  <div className="carousel carousel-vertical rounded-box transform  transition-transform duration-300 ease-in-out delay-150 hover:scale-125 h-96">
                     {project.businessPicture.map((src, index) => (
                       <div
                         key={index}
-                        className={`carousel-item h-full ${
+                        className={`carousel-item h-full lg:mb-10 ${
                           currentSlide === index ? "block" : "hidden"
                         }`}
                       >
                         <img
                           src={src}
                           alt={`Slide ${index + 1}`}
-                          className="object-cover w-full h-full"
+                          className="object-cover w-full h-full mb-10"
                         />
                       </div>
                     ))}
@@ -109,7 +109,7 @@ const ProjectDetail = () => {
 
                 {/* Dot Navigation for Images */}
                 {viewMode === "images" && (
-                  <div className="flex justify-center mt-4">
+                  <div className="flex justify-center mt-12">
                     {project.businessPicture.map((_, index) => (
                       <button
                         key={index}

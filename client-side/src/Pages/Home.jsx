@@ -151,13 +151,13 @@ const Home = () => {
           className=" lg:h-full animate__fadeIn animate__animated bg-img  "
           strength={300}
         >
-          <div className="hero h-[400px] lg:h-[600px] flex lg:items-center  text-slate-700">
-            <div className="hero-content xs:w-[90%] sm:w-[90%] flex-col lg:flex-row-reverse gap-8 lg:gap-24">
-              <div className="xs:text-center lg:text-left ">
-                <h1 className="xs:text-2xl sm:text-2xl xxs:text-2xl lg:text-6xl   animate__animated animate__fadeInDownBig font-bold sm:text-white xs:text-white xxs:text-white ">
+          <div className="hero h-[400px] lg:h-[600px] xs:w-full sm:w-full xxs:w-full  flex lg:items-center  text-slate-700">
+            <div className="hero-content xs:w-[90%] sm:w-[90%] flex-col lg:flex-row-reverse gap-8 lg:gap-24 lg:items-start lg:justify-start xs:mx-auto sm:mx-auto xxs:mx-auto">
+              <div className="flex flex-col sm:text-center xs:text-center xxs:text-center lg:text-left ">
+                <h1 className="xs:text-3xl sm:text-3xl xxs:text-3xl lg:text-6xl  xs:mt-8 sm:mt-8 xxs:mt-8 lg:text-white  animate__animated animate__fadeInDownBig font-bold sm:text-cyan xs:text-cyan xxs:text-cyan ">
                   Welcome to <br /> InvestKoree.com
                 </h1>
-                <p className="py-3 lg:text-2xl animate__animated animate__fadeInUpBig flex lg:flex-row sm:flex-col xs:flex-col xxs:flex-col  sm:font-semibold xs:font-semibold xxs:font-semibold sm:text-sm xs:text-sm xxs:text-sm sm:text-white xs:text-white xxs:text-white">
+                <p className="py-3 lg:text-2xl animate__animated animate__fadeInUpBig lg:text-white flex lg:flex-row sm:flex-col xs:flex-col xxs:flex-col  sm:font-semibold xs:font-semibold xxs:font-semibold sm:text-xl xs:text-xl xxs:text-xl sm:text-cyan xs:text-cyan xxs:text-cyan">
                   It's Easy and Fast to Invest.{" "}
                   <span>Get Profit Faster Here.</span>
                 </p>
