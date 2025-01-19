@@ -85,7 +85,7 @@ const Navbar = () => {
               placeholder="Search By Business Name"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="border border-salmon rounded-l-md p-2 lg:h-[50px] lg:w-[600px] md:w-[400px] sm:w-48 xs:w-32 xxs:w-24"
+              className="border border-salmon rounded-l-md p-2 lg:h-[50px] lg:max-w-[600px] md:w-[400px] sm:w-48 xs:w-32 xxs:w-24"
             />
             <button
               type="submit"
