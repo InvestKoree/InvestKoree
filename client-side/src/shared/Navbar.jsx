@@ -78,14 +78,14 @@ const Navbar = () => {
         </div>
 
         {/* Search Bar for Large Screens */}
-        <div className="lg:flex hidden left-56    relative gap-2  rounded-md">
+        <div className="lg:flex hidden lg:left-56    relative gap-2  rounded-md">
           <form onSubmit={handleSearch} className="flex items-center mx-4 ">
             <input
               type="text"
               placeholder="Search By Business Name"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="border border-salmon rounded-l-md p-2 lg:h-[50px] lg:w-[600px] sm:w-48 xs:w-32 xxs:w-24"
+              className="border border-salmon rounded-l-md p-2 lg:h-[50px] lg:w-[600px] md:w-[400px] sm:w-48 xs:w-32 xxs:w-24"
             />
             <button
               type="submit"
