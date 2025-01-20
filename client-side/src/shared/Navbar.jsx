@@ -247,7 +247,6 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu */}
-        {/* Mobile Menu */}
         {isOpen && (
           <div className="lg:hidden flex flex-col items-start p-4 bg-white shadow-lg">
             <ul
@@ -308,26 +307,7 @@ const Navbar = () => {
                   )}
                 </details>
               </li>
-              {/* <li className="w-[80%] flex  mb-2 lg:hidden">
-                <form
-                  onSubmit={handleSearch}
-                  className="flex flex-row relative "
-                >
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border border-salmon rounded-l-md p-2 w-full"
-                  />
-                  <button
-                    type="submit"
-                    className="bg-salmon text-white rounded-r-md p-2 absolute right-2"
-                  >
-                    <AiOutlineSearch />
-                  </button>
-                </form>
-              </li> */}
+
               <li>
                 <NavLink
                   to="/blogs"
