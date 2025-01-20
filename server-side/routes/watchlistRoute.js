@@ -53,15 +53,23 @@ router.delete('/remove/:postId', authToken, async (req, res) => {
 
 // Get user's watchlist
 router.get('/', authToken, async (req, res) => {
-  const userId = req.user?.id;
-
-  try {
-    const watchlist = await Watchlist.findOne({ userId }).populate('posts');
-    res.status(200).json({ watchlist });
-  } catch (error) {
-    console.error('Error fetching watchlist:', error);
-    res.status(500).json({ message: 'Error fetching watchlist', error });
-  }
-});
+    const userId = req.user?.id;
+  
+    try {
+      // Find the user's watchlist
+      const watchlist = await Watchlist.findOne({ userId }).populate('posts');
+  
+      // If no watchlist is found, return an empty array for posts
+      if (!watchlist) {
+        return res.status(200).json({ watchlist: { posts: [] } });
+      }
+  
+      // Respond with the watchlist
+      res.status(200).json({ watchlist });
+    } catch (error) {
+      console.error('Error fetching watchlist:', error);
+      res.status(500).json({ message: 'Error fetching watchlist', error });
+    }
+  });
 
 export default router;
