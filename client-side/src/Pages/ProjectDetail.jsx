@@ -37,6 +37,22 @@ const ProjectDetail = () => {
       toast.error("Failed to add project to watchlist.");
     }
   };
+  const checkIfAddedToWatchlist = async (postId) => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.get(`${API_URL}/watchlist`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const watchlist = response.data.watchlist;
+      if (watchlist && watchlist.posts.includes(postId)) {
+        setIsAddedToWatchlist(true); // Set state if the project is in the watchlist
+      }
+    } catch (error) {
+      console.error("Error fetching watchlist:", error);
+    }
+  };
   useEffect(() => {
     // Fetch project details from the backend
     const fetchProjectDetails = async () => {
@@ -45,7 +61,8 @@ const ProjectDetail = () => {
           `${API_URL}/founderpost/projectdetail/${id}`
         );
         const data = await response.json();
-        setProject(data); // Set the project data in state
+        setProject(data);
+        checkIfAddedToWatchlist(data._id); // Set the project data in state
       } catch (error) {
         console.error("Error fetching project details:", error);
       }
