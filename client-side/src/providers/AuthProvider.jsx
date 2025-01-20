@@ -110,7 +110,7 @@ export const AuthProvider = ({ children }) => {
         const { userId, role } = result;
 
         if (role !== "founder") {
-          const errorMessage = `Access denied: Only ${role}s can log in here.`;
+          const errorMessage = `Access denied: Only founders can log in here.`;
           toast.error(errorMessage); // Show the toast with the error message
           throw new Error(errorMessage); // Throw an error to stop further execution
         }
@@ -148,7 +148,7 @@ export const AuthProvider = ({ children }) => {
         const { userId, role } = result;
 
         if (role !== "investor") {
-          const errorMessage = `Access denied: Only ${role}s can log in here.`;
+          const errorMessage = `Access denied: Only investors can log in here.`;
           toast.error(errorMessage); // Show the toast with the error message
           throw new Error(errorMessage); // Throw an error to stop further execution
         }
@@ -186,7 +186,7 @@ export const AuthProvider = ({ children }) => {
         const { userId, role } = result;
 
         if (role !== "admin") {
-          const errorMessage = `Access denied: Only ${role}s can log in here.`;
+          const errorMessage = `Access denied: Only admins can log in here.`;
           toast.error(errorMessage); // Show the toast with the error message
           throw new Error(errorMessage); // Throw an error to stop further execution
         }
