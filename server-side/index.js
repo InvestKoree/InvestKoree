@@ -21,7 +21,7 @@ import Notification from './models/notification.js';
 import CheckDuplicate from './routes/checkDuplicate.js';
 // import mongoose from 'mongoose';
 import search from './routes/search.js';
-import watchlist from './routes/watchlist.js';
+import watchlist from './routes/watchlistRoute.js';
 import multer from 'multer';
 // import cloudinary from './cloudinaryConfig.js'; 
 import PendingPost from './models/pendingPost.js';
