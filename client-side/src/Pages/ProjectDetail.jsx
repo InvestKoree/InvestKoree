@@ -16,9 +16,13 @@ const ProjectDetail = () => {
   const [isAddedToWatchlist, setIsAddedToWatchlist] = useState(false);
 
   const handleAddToWatchlist = async () => {
+    const token = localStorage.getItem("token");
     try {
       const response = await axios.post(`${API_URL}/watchlist/add`, {
         postId: project._id,
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token here
+        },
       });
       if (response.status === 200) {
         setIsAddedToWatchlist(true);
