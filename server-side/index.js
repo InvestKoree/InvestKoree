@@ -21,6 +21,7 @@ import Notification from './models/notification.js';
 import CheckDuplicate from './routes/checkDuplicate.js';
 // import mongoose from 'mongoose';
 import search from './routes/search.js';
+import watchlist from './routes/watchlist.js';
 import multer from 'multer';
 // import cloudinary from './cloudinaryConfig.js'; 
 import PendingPost from './models/pendingPost.js';
@@ -86,6 +87,7 @@ app.use('/api', userSpecificRoute);
 app.use('/investments', investmentRoute);
 app.use('/api', userPostsRoute);
 app.use('/api', allPostsRoute);
+app.use('/watchlist', watchlist);
 app.use('/uploads', express.static('uploads'));
 // Real-time Socket.IO Setup
 io.on('connection', (socket) => {

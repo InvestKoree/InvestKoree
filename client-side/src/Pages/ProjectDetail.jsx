@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import axios from "axios";
+import { useAuth } from "../providers/AuthProvider";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 const ProjectDetail = () => {
   const { id } = useParams(); // Get the project ID from the URL
   const [project, setProject] = useState(null); // State to hold project data
@@ -9,7 +11,25 @@ const ProjectDetail = () => {
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState("images");
   // State to hold video URL
+  const { user } = useAuth();
+  const [isAddedToWatchlist, setIsAddedToWatchlist] = useState(false);
 
+  const handleAddToWatchlist = async () => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/watchlist/add`,
+        { postId: project._id },
+        { headers: { Authorization: `Bearer ${user.token}` } }
+      );
+      if (response.status === 200) {
+        setIsAddedToWatchlist(true);
+        alert("Project added to watchlist!");
+      }
+    } catch (error) {
+      console.error("Error adding to watchlist:", error);
+      alert("Failed to add project to watchlist.");
+    }
+  };
   useEffect(() => {
     // Fetch project details from the backend
     const fetchProjectDetails = async () => {
@@ -196,6 +216,18 @@ const ProjectDetail = () => {
                 className="btn xs:w-[60%] xxs:w-[60%] sm:w-[60%] login-btn"
               >
                 Invest
+              </button>
+              <button
+                className="btn btn-outline flex items-center"
+                onClick={handleAddToWatchlist}
+                disabled={isAddedToWatchlist}
+              >
+                {isAddedToWatchlist ? (
+                  <AiFillStar className="mr-2 text-yellow-500" size={20} />
+                ) : (
+                  <AiOutlineStar className="mr-2 text-gray-500" size={20} />
+                )}
+                {isAddedToWatchlist ? "Added to Watchlist" : "Add to Watchlist"}
               </button>
             </div>
           </div>
