@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useAuth } from "../providers/AuthProvider";
+// import { useAuth } from "../providers/AuthProvider";
 import { toast } from "react-toastify";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 const ProjectDetail = () => {
@@ -46,7 +46,6 @@ const ProjectDetail = () => {
         },
       });
       const watchlist = response.data.watchlist;
-
       if (watchlist && watchlist.posts.includes(postId)) {
         setIsAddedToWatchlist(true); // Set state if the project is in the watchlist
       }
