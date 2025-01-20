@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../providers/AuthProvider";
+import { toast } from "react-toastify";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 const ProjectDetail = () => {
   const { id } = useParams(); // Get the project ID from the URL
@@ -11,23 +12,21 @@ const ProjectDetail = () => {
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState("images");
   // State to hold video URL
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const [isAddedToWatchlist, setIsAddedToWatchlist] = useState(false);
 
   const handleAddToWatchlist = async () => {
     try {
-      const response = await axios.post(
-        `${API_URL}/watchlist/add`,
-        { postId: project._id },
-        { headers: { Authorization: `Bearer ${user.token}` } }
-      );
+      const response = await axios.post(`${API_URL}/watchlist/add`, {
+        postId: project._id,
+      });
       if (response.status === 200) {
         setIsAddedToWatchlist(true);
-        alert("Project added to watchlist!");
+        toast.success("Project added to watchlist!");
       }
     } catch (error) {
       console.error("Error adding to watchlist:", error);
-      alert("Failed to add project to watchlist.");
+      toast.error("Failed to add project to watchlist.");
     }
   };
   useEffect(() => {
