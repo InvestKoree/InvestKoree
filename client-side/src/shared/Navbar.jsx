@@ -100,7 +100,7 @@ const Navbar = () => {
         <div className="hidden whitespace-nowrap lg:flex lg:flex-row flex-1 justify-center items-center navbar-end">
           <ul
             ref={dropdownRef}
-            className="lg:font-bold whitespace-nowrap lg:text-lg sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium menu menu-horizontal gap-6 px-1 flex-nowrap overflow-x-auto lg:w-[800px] lg:h-20 lg:justify-end"
+            className="lg:font-bold whitespace-nowrap lg:text-lg sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium menu menu-horizontal gap-6 px-1 flex-nowrap  lg:w-[800px] lg:h-20 lg:justify-end"
           >
             <li>
               <NavLink
