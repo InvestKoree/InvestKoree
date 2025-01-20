@@ -46,6 +46,7 @@ const ProjectDetail = () => {
         },
       });
       const watchlist = response.data.watchlist;
+
       if (watchlist && watchlist.posts.includes(postId)) {
         setIsAddedToWatchlist(true); // Set state if the project is in the watchlist
       }
