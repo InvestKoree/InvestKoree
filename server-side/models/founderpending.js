@@ -25,7 +25,7 @@ const FounderPendingSchema = new mongoose.Schema({
   additionalComments: { type: String, default: '' },
   businessPicture: [{ type: String, match: /^https?:\/\/.+\..+/ }],
   nidCopy: { type: String, match: /^https?:\/\/.+\..+/ },
-  tinCopy: { type: String, match: /^https?:\/\/.+\..+/ },
+  taxCopy: { type: String, match: /^https?:\/\/.+\..+/ },
   tinCopy: { type: String, match: /^https?:\/\/.+\..+/ },
   tradeLicense: { type: String, match: /^https?:\/\/.+\..+/ },
   bankStatement: { type: String, match: /^https?:\/\/.+\..+/ },

@@ -25,7 +25,7 @@ const pendingPostSchema = new mongoose.Schema({
   additionalComments: { type: String, default: '' },
   businessPicture: { type: [String] },
   nidCopy: { type: String },
-  tinCopy: { type: String },
+  taxCopy: { type: String },
   tinCopy: { type: String },
   tradeLicense: { type: String },
   bankStatement: { type: String },
