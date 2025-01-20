@@ -5,7 +5,7 @@ import Watchlist from '../models/watchlist.js';
 const router = express.Router();
 
 // Add post to watchlist
-router.post('/add', async (req, res) => {
+router.post('/add',authToken, async (req, res) => {
   const { postId } = req.body;
   console.log("Request Body:", req.body);
 console.log("Request Params:", req.params);
