@@ -60,9 +60,7 @@ router.get('/', authToken, async (req, res) => {
       const watchlist = await Watchlist.findOne({ userId }).populate('posts');
       console.log(watchlist);
       // If no watchlist is found, return an empty array for posts
-      if (!watchlist) {
-        return res.status(200).json({ watchlist: { posts: [] } });
-      }
+     
   
       // Respond with the watchlist
       res.status(200).json({ watchlist });
