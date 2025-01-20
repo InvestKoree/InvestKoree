@@ -98,11 +98,11 @@ const Navbar = () => {
 
         {/* Full Navbar for Larger Screens */}
         <div
-          className={`hidden lg:flex flex-1 justify-center items-center navbar-end`}
+          className={`hidden whitespace-nowrap lg:flex flex-1 justify-center items-center navbar-end`}
         >
           <ul
             ref={dropdownRef}
-            className="lg:font-bold lg:text-lg sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium menu menu-horizontal gap-8 px-1 flex lg:w-[800px] lg:justify-end"
+            className="lg:font-bold  whitespace-nowrap lg:text-lg sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium menu menu-horizontal gap-8 px-1 flex lg:w-[800px] lg:justify-end"
           >
             <li>
               <NavLink
