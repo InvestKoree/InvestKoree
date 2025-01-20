@@ -7,6 +7,9 @@ const router = express.Router();
 // Add post to watchlist
 router.post('/add', async (req, res) => {
   const { postId } = req.body;
+  console.log("Request Body:", req.body);
+console.log("Request Params:", req.params);
+console.log("Request Query:", req.query);
   const userId = req.user?.id;
 
   try {
