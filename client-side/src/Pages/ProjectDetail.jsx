@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { useAuth } from "../providers/AuthProvider";
+//iimport { useAuth } from "../providers/AuthProvider";
 import { toast } from "react-toastify";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 const ProjectDetail = () => {
