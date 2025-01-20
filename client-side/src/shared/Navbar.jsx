@@ -78,7 +78,7 @@ const Navbar = () => {
         </div>
 
         {/* Search Bar for Large Screens */}
-        <div className="lg:flex hidden lg:left-12 relative gap-2  rounded-md">
+        <div className="lg:flex hidden navbar-center   relative gap-2  rounded-md">
           <form onSubmit={handleSearch} className="flex items-center mx-4 ">
             <input
               type="text"
@@ -97,12 +97,10 @@ const Navbar = () => {
         </div>
 
         {/* Full Navbar for Larger Screens */}
-        <div
-          className={`hidden whitespace-nowrap lg:flex flex-1 justify-center items-center navbar-end`}
-        >
+        <div className="hidden whitespace-nowrap lg:flex lg:flex-row flex-1 justify-center items-center navbar-end">
           <ul
             ref={dropdownRef}
-            className="lg:font-bold  whitespace-nowrap lg:text-lg sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium menu menu-horizontal gap-8 px-1 flex lg:w-[800px] lg:justify-end"
+            className="lg:font-bold whitespace-nowrap lg:text-lg sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium menu menu-horizontal gap-6 px-1 flex-nowrap overflow-x-auto lg:w-[800px] lg:h-20 lg:justify-end"
           >
             <li>
               <NavLink
@@ -113,7 +111,6 @@ const Navbar = () => {
                 Get Funded
               </NavLink>
             </li>
-
             <li>
               <details
                 open={activeDropdown === "category"}
@@ -134,8 +131,7 @@ const Navbar = () => {
                       <NavLink
                         to="/shariah"
                         className="hover:bg-salmon transition sm:mb-2 xs:mb-2 xxs:mb-2 hover:text-white p-2 rounded"
-                        active
-                        classname="active"
+                        activeclassname="active"
                       >
                         Shariah
                       </NavLink>
