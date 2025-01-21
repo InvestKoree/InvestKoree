@@ -17,7 +17,7 @@ const InvestorWatchlist = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setWatchlist(response.data.watchlist.posts); // Assuming posts is an array of post IDs
+        setWatchlist(response.data.watchlist.posts);
         console.log("Watchlist Posts:", response.data.watchlist.posts);
       } catch (error) {
         console.error("Error fetching watchlist:", error);
