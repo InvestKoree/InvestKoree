@@ -172,9 +172,11 @@ const InvestorDashboard = () => {
                 {userdata.name || "Investor"}!
               </li>
             )}
-            <li className="font-bold hover:bg-salmon hover:text-white text-lg  rounded-lg">
-              <a>Dashboard</a>
-            </li>
+            <Link to="/investordashboard">
+              <li className="font-bold hover:bg-salmon hover:text-white text-lg  rounded-lg">
+                <a>Dashboard</a>
+              </li>
+            </Link>
             <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
               <a>Payments</a>
             </li>
