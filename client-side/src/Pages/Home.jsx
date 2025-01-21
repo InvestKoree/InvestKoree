@@ -152,8 +152,8 @@ const Home = () => {
           strength={300}
         >
           <div className="hero h-[400px] lg:h-[600px] xs:w-full sm:w-full xxs:w-full  flex lg:items-center  text-slate-700">
-            <div className="hero-content xs:w-[90%] sm:w-[90%] flex-col lg:flex-row-reverse gap-8 lg:gap-24 lg:items-start lg:justify-start xs:mx-auto sm:mx-auto xxs:mx-auto">
-              <div className="flex flex-col sm:text-left xs:text-left xxs:text-left lg:text-left ">
+            <div className="hero-content xs:w-[90%] sm:w-[90%] flex-col  gap-8 lg:gap-24 xxs:justify-start xxs:items-start sm:items-start xs:items-start lg:items-start lg:ml-8 lg:justify-start ">
+              <div className="lg:text-left xxs:text-left ">
                 <h1 className="xs:text-3xl sm:text-3xl xxs:text-3xl lg:text-6xl  xs:mt-8 sm:mt-8 xxs:mt-8 lg:text-white  animate__animated animate__fadeInDownBig font-bold sm:text-cyan xs:text-cyan xxs:text-cyan ">
                   Welcome to <br /> InvestKoree.com
                 </h1>
