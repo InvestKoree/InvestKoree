@@ -35,6 +35,7 @@ import SearchResults from "../Pages/SearchResults";
 import BlogFour from "../Pages/Blogs/BlogFour";
 import BlogFive from "../Pages/Blogs/BlogFive";
 import Blogsix from "../Pages/Blogs/Blogsix";
+import InvestorWatchlist from "../Pages/Investor/InvestorWatchlist";
 
 export const router = createBrowserRouter([
   {
@@ -149,6 +150,10 @@ export const router = createBrowserRouter([
       {
         path: "/whatwedo",
         element: <WhatWeDo></WhatWeDo>,
+      },
+      {
+        path: "/investorwatchlist",
+        element: <InvestorWatchlist></InvestorWatchlist>,
       },
       {
         path: "/whoweare",
