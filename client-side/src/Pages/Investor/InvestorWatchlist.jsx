@@ -18,6 +18,7 @@ const InvestorWatchlist = () => {
           },
         });
         setWatchlist(response.data.watchlist.posts);
+
         console.log("Watchlist Posts:", response.data.watchlist.posts);
       } catch (error) {
         console.error("Error fetching watchlist:", error);
@@ -26,18 +27,23 @@ const InvestorWatchlist = () => {
 
     fetchWatchlist();
   }, []);
-  const handleRemoveFromWatchlist = async (postId) => {
+  const handleRemoveFromWatchlist = async (post) => {
     const token = localStorage.getItem("token");
+    const postId = post._id; // Extract the _id from the post object
+
     try {
+      // Make the DELETE request with the postId in the URL
       await axios.delete(`${API_URL}/watchlist/remove/${postId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+
       // Update the local state to remove the post
-      setWatchlist((prevWatchlist) =>
-        prevWatchlist.filter((id) => id !== postId)
+      setWatchlist(
+        (prevWatchlist) => prevWatchlist.filter((item) => item._id !== postId) // Filter out the post by _id
       );
+
       toast.success("Post removed from watchlist!");
     } catch (error) {
       console.error("Error removing from watchlist:", error);
@@ -91,7 +97,7 @@ const InvestorWatchlist = () => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {watchlist.map((row, index) => {
-                  const totalAmount = 1000;
+                  const totalAmount = 100;
                   const investedAmount = 0.7 * totalAmount;
 
                   return (
@@ -109,17 +115,17 @@ const InvestorWatchlist = () => {
                         {row.returndate}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500">
-                        {investedAmount}
+                        {investedAmount}%
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500">
                         <Link
                           to={`/projectdetail/${row._id}`}
-                          className="btn btn-primary mr-2"
+                          className="btn btn-success text-white mr-2"
                         >
                           Invest
                         </Link>
                         <button
-                          onClick={() => handleRemoveFromWatchlist(row._id)}
+                          onClick={() => handleRemoveFromWatchlist(row)}
                           className="btn btn-outline text-red-500"
                         >
                           Remove

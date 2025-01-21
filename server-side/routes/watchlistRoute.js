@@ -33,16 +33,27 @@ router.post('/add',authToken, async (req, res) => {
 
 // Remove post from watchlist
 router.delete('/remove/:postId', authToken, async (req, res) => {
-  const { postId } = req.params;
-  const userId = req.user?.id;
+  const { postId } = req.params; // Get the postId from the request parameters
+  const userId = req.user?.id; // Get the userId from the authenticated user
 
   try {
+    // Find the user's watchlist
     const watchlist = await Watchlist.findOne({ userId });
 
-    if (watchlist) {
-      watchlist.posts = watchlist.posts.filter((id) => id.toString() !== postId);
-      await watchlist.save();
+    if (!watchlist) {
+      return res.status(404).json({ message: 'Watchlist not found' });
     }
+
+    // Check if the post exists in the watchlist by matching the _id field
+    const postIndex = watchlist.posts.findIndex(post => post._id.toString() === postId);
+
+    if (postIndex === -1) {
+      return res.status(404).json({ message: 'Post not found in watchlist' });
+    }
+
+    // Remove the post from the watchlist
+    watchlist.posts.splice(postIndex, 1); // Remove the post at the found index
+    await watchlist.save();
 
     res.status(200).json({ message: 'Post removed from watchlist', watchlist });
   } catch (error) {
