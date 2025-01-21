@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const watchlistSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'PendingPost' }],
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FounderPending' }],
 });
 
 const Watchlist = mongoose.model('Watchlist', watchlistSchema);
