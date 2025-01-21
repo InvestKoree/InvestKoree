@@ -157,7 +157,7 @@ const Home = () => {
                 <h1 className="xs:text-3xl sm:text-3xl xxs:text-3xl lg:text-6xl  xs:mt-8 sm:mt-8 xxs:mt-8 lg:text-white  animate__animated animate__fadeInDownBig font-bold sm:text-cyan xs:text-cyan xxs:text-cyan ">
                   Welcome to <br /> InvestKoree.com
                 </h1>
-                <p className="py-3 lg:text-2xl animate__animated animate__fadeInUpBig lg:text-white flex lg:flex-row sm:flex-col xs:flex-col xxs:flex-col  sm:font-semibold xs:font-semibold xxs:font-semibold sm:text-xl xs:text-xl xxs:text-xl sm:text-cyan xs:text-cyan xxs:text-cyan">
+                <p className="py-3 lg:text-2xl animate__animated animate__fadeInUpBig lg:text-white flex lg:flex-row sm:flex-col xs:flex-col xxs:flex-col  sm:font-semibold xs:font-semibold xxs:font-semibold sm:text-xl xs:text-xl xxs:text-xl sm:text-white xs:text-white xxs:text-white">
                   It's Easy and Fast to Invest.{" "}
                   <span>Get Profit Faster Here.</span>
                 </p>
