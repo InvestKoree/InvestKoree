@@ -117,9 +117,11 @@ const InvestorWatchlist = () => {
             <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
               <a>Cards</a>
             </li>
-            <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-              <a>WatchList</a>
-            </li>
+            <Link to="/investorwatchlist">
+              <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
+                <a>WatchList</a>
+              </li>
+            </Link>
             <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
               <a>Rewards</a>
             </li>
@@ -134,3 +136,4 @@ const InvestorWatchlist = () => {
     </div>
   );
 };
+export default InvestorWatchlist;
