@@ -99,7 +99,7 @@ const FounderDashboard = () => {
             <Link to="/founderpost">
               <input
                 type="submit"
-                className="post-btn lg:h-[40%] lg:w-[100px] sm:h-[60%] xs:h-[60%] xxs:h-[60%] sm:w-[30%] xs:w-[30%] xxs:w-[30%]"
+                className="post-btn lg:h-[50%] lg:w-[100px] sm:h-[60%] xs:h-[60%] xxs:h-[60%] sm:w-[30%] xs:w-[30%] xxs:w-[30%]"
                 name="founder-post"
                 value="Post"
               />

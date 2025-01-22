@@ -154,12 +154,16 @@ const InvestorWatchlist = () => {
                 <a>Dashboard</a>
               </li>
             </Link>
-            <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-              <a>Payments</a>
-            </li>
-            <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-              <a>Cards</a>
-            </li>
+            <Link to="/investorpayment">
+              <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
+                <a>Payments</a>
+              </li>
+            </Link>
+            <Link to="/investorcard">
+              <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
+                <a>Cards</a>
+              </li>
+            </Link>
             <Link to="/investorwatchlist">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
                 <a>WatchList</a>
