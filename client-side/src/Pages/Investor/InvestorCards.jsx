@@ -28,13 +28,13 @@ const InvestorCards = () => {
             </label>
           </div>
 
-          <div className="min-h-screen rounded-xl bg-gradient-to-b from-gray-900 to-gray-800 p-6 text-white">
+          <div className="min-h-screen rounded-xl  p-6 ">
             <div className="max-w-md mx-auto">
               {/* Header */}
               <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold">My Cards (2)</h1>
                 <button className="w-8 h-8 bg-gray-700 flex items-center justify-center rounded-full hover:bg-gray-600">
-                  <span className="text-xl font-bold">+</span>
+                  <span className="text-xl font-bold text-white">+</span>
                 </button>
               </div>
 
@@ -44,15 +44,15 @@ const InvestorCards = () => {
                   activeCards[0] ? "opacity-100" : "opacity-50"
                 }`}
               >
-                <div className="mb-3">
+                <div className="mb-3 text-white">
                   <p className="text-sm text-gray-400">NAME</p>
                   <p className="font-semibold">Sandro Tavartkiladze</p>
                 </div>
-                <div className="mb-3">
+                <div className="mb-3 text-white">
                   <p className="text-sm text-gray-400">CARD NUMBER</p>
                   <p className="font-semibold">**** 7412</p>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center text-white">
                   <div>
                     <p className="text-sm text-gray-400">BALANCE</p>
                     <p className="text-2xl font-bold">$6,200.00</p>
@@ -76,15 +76,15 @@ const InvestorCards = () => {
                   activeCards[1] ? "opacity-100" : "opacity-50"
                 }`}
               >
-                <div className="mb-3">
+                <div className="mb-3 text-white">
                   <p className="text-sm text-gray-400">NAME</p>
                   <p className="font-semibold">Sandro Tavartkiladze</p>
                 </div>
-                <div className="mb-3">
+                <div className="mb-3 text-white">
                   <p className="text-sm text-gray-400">CARD NUMBER</p>
                   <p className="font-semibold">**** 2444</p>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center text-white">
                   <div>
                     <p className="text-sm text-gray-400">BALANCE</p>
                     <p className="text-2xl font-bold">$1,500.00</p>
