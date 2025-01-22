@@ -31,6 +31,7 @@
 body {
   min-height: 929px;
   top: 0 !important;
+  background-color: rgba(255, 160, 122, 0.2) ;
 }
 .login-img {
   height: 100vh;
@@ -361,7 +362,7 @@ form.sign-up-form {
 .testimonial-card {
   position: relative;
   overflow: hidden;
-  background: white;
+ 
   width: 100%;
 
   border-radius: 8px;
