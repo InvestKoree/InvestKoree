@@ -38,6 +38,8 @@ import Blogsix from "../Pages/Blogs/Blogsix";
 import InvestorWatchlist from "../Pages/Investor/InvestorWatchlist";
 import InvestorPayments from "../Pages/Investor/InvestorPayments";
 import InvestorCards from "../Pages/Investor/InvestorCards";
+import BlogEight from "../Pages/Blogs/BlogEight";
+import BlogSeven from "../Pages/Blogs/BlogSeven";
 
 export const router = createBrowserRouter([
   {
@@ -140,6 +142,14 @@ export const router = createBrowserRouter([
       {
         path: "/blogtwo",
         element: <BlogTwo></BlogTwo>,
+      },
+      {
+        path: "/blogeight",
+        element: <BlogEight></BlogEight>,
+      },
+      {
+        path: "/blogseven",
+        element: <BlogSeven></BlogSeven>,
       },
       {
         path: "/blogthree",
