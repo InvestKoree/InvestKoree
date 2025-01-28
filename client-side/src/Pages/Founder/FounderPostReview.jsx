@@ -339,7 +339,7 @@ const FounderPostReview = () => {
           />
         </label>
         <div className="my-3">
-          {post.videoFile && (
+          {post.video && (
             <div>
               <h3 className="font-bold lg:mr-24">Previously Uploaded Video:</h3>
               <p className="text-gray-700">
