@@ -24,20 +24,6 @@ const FounderPostReview = () => {
   const [financialFile, setFinancialFile] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
 
-  const handleRemovePost = async (postId) => {
-    try {
-      const token = localStorage.getItem("token");
-      await axios.delete(`${API_URL}/adminpost/pending/${postId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setPosts(posts.filter((post) => post._id !== postId)); // Remove the deleted post from the state
-    } catch (error) {
-      toast.error("Error removing post: " + error.message);
-    }
-  };
-
   useEffect(() => {
     // Set initial form data from post data
     if (post) {
@@ -173,7 +159,6 @@ const FounderPostReview = () => {
       if (response.status === 200) {
         toast.success("Post has been updated successfully!");
         navigate("/founderpending");
-        await handleRemovePost(post._id);
       } else {
         // Handle unexpected response status
         toast.error(
