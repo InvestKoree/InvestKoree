@@ -40,7 +40,7 @@ import InvestorPayments from "../Pages/Investor/InvestorPayments";
 import InvestorCards from "../Pages/Investor/InvestorCards";
 import BlogEight from "../Pages/Blogs/BlogEight";
 import BlogSeven from "../Pages/Blogs/BlogSeven";
-import Bkash from "../Pages/bkash";
+import Bkash from "../Pages/Bkash";
 
 export const router = createBrowserRouter([
   {
