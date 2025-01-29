@@ -14,7 +14,6 @@ const StocksPost = ({ item }) => {
     businessName,
   } = item;
 
-  // Calculate funding percentage for progress bar
   const fundingPercentage = (50000 / fundingAmount) * 100;
   const leftForFund = fundingAmount - 50000;
 
