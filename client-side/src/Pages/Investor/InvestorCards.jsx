@@ -138,9 +138,11 @@ const InvestorCards = () => {
                 <a>WatchList</a>
               </li>
             </Link>
-            <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-              <a>Rewards</a>
-            </li>
+            <Link to="/investorrewards">
+              <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
+                <a>Rewards</a>
+              </li>
+            </Link>
             <Link to="/investorterms">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg mb-2 rounded-lg">
                 <a>Terms and Conditions</a>

@@ -41,6 +41,7 @@ import InvestorCards from "../Pages/Investor/InvestorCards";
 import BlogEight from "../Pages/Blogs/BlogEight";
 import BlogSeven from "../Pages/Blogs/BlogSeven";
 import Bkash from "../Pages/Bkash";
+import InvestorRewards from "../Pages/Investor/InvestorRewards";
 
 export const router = createBrowserRouter([
   {
@@ -159,6 +160,10 @@ export const router = createBrowserRouter([
       {
         path: "/bkash",
         element: <Bkash></Bkash>,
+      },
+      {
+        path: "/investorrewards",
+        element: <InvestorRewards></InvestorRewards>,
       },
       {
         path: "/overview",
