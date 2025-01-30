@@ -85,7 +85,7 @@ const InvestorRewards = () => {
                         {row.businessName}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(row.startDate).toLocaleDateString()}-
+                        {new Date(row.startDate).toLocaleDateString()} to
                         {row.returndate}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
