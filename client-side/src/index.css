@@ -62,7 +62,15 @@ body {
   height: 10px;
   background-color: rgba(64, 148, 209, 1);
 }
+.tooltip::before {
+  background-color: salmon;
+  color: white; /* Replace with your desired color */
+}
 
+.tooltip::after {
+  border-bottom-color: salmon;
+  color: white;  /* For the tooltip arrow */
+}
 .login-img::after {
   content: "";
   position: absolute;

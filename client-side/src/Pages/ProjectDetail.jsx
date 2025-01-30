@@ -115,7 +115,7 @@ const ProjectDetail = () => {
 
   return (
     <div>
-      <div className="min-h-screen">
+      <div className="h-50">
         {/* Image and Video Section */}
         <div className="hero flex justify-center">
           <div className="hero-content flex-col lg:flex-row items-center">
@@ -235,25 +235,26 @@ const ProjectDetail = () => {
                   </div>
                 </div>
               </div>
-
-              <button
-                onClick={handleInvestClick}
-                className="btn xs:w-[60%] xxs:w-[60%] sm:w-[60%] login-btn"
-              >
-                Invest
-              </button>
-              <button
-                className="btn btn-outline flex items-center"
-                onClick={handleAddToWatchlist}
-                disabled={isAddedToWatchlist}
-              >
-                {isAddedToWatchlist ? (
-                  <AiFillStar className="mr-2 text-yellow-500" size={20} />
-                ) : (
-                  <AiOutlineStar className="mr-2 text-gray-500" size={20} />
-                )}
-                {isAddedToWatchlist ? "Added to Watchlist" : "Add to Watchlist"}
-              </button>
+              <div className="flex flex-row items-center gap-4">
+                <button
+                  onClick={handleInvestClick}
+                  className="btn xs:w-[60%] xxs:w-[60%] sm:w-[60%] login-btn"
+                >
+                  Invest
+                </button>
+                <button
+                  className="btn btn-outline tooltip tooltip-bottom custom-tooltip hover:bg-salmon"
+                  data-tip="Add to Watchlist"
+                  onClick={handleAddToWatchlist}
+                  disabled={isAddedToWatchlist}
+                >
+                  {isAddedToWatchlist ? (
+                    <AiFillStar className="mr-2 text-yellow-500" size={20} />
+                  ) : (
+                    <AiOutlineStar className="mr-2 text-gray-500" size={20} />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>
