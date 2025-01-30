@@ -144,7 +144,7 @@ const FounderPending = () => {
               <a>Pending Posts</a>
             </li>
           </Link>
-          <Link to="/terms">
+          <Link to="/founderterms">
             <li className="font-bold hover:bg-salmon hover:text-white text-lg mb-2 rounded-lg">
               <a>Terms and Conditions</a>
             </li>
