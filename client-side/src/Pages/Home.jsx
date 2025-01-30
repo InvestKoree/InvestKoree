@@ -228,7 +228,7 @@ const Home = () => {
           />
         </div>
         <div className="flex flex-col text-center  lg:w-[1200px] sm:p-4  xs:p-4 xxs:p-4">
-          <h2 className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl">
+          <h2 className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl text-gray-900 font-bold">
             Why we are here
           </h2>
           <p className="mt-4 lg:text-xl mb-10">Our Mission</p>
@@ -241,54 +241,79 @@ const Home = () => {
             potential while offering investors opportunities to support ventures
             that align with their strategic goals and values.
           </p>
-          <p className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl mb-6">
-            Our Services
-          </p>
-          <ul className="lg:text-lg sm:text-left xs:text-left xxs:text-left lg:flex lg:flex-col lg:gap-2 lg:text-left">
-            <li className="font-bold">
-              1. Business-Investor Matchmaking
-              <li className="font-normal service-list-item">
-                We connect businesses with investors who align with their
-                industry, growth stage, and investment needs.
+          <div className=" py-12 px-4 sm:px-6 lg:px-8">
+            <p className="text-4xl font-bold text-center text-gray-900 mb-12">
+              Our Services
+            </p>
+            <ul className="max-w-4xl mx-auto space-y-8">
+              {/* Service Item 1 */}
+              <li className=" p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <p className="text-2xl font-bold text-gray-900 mb-2">
+                  Business-Investor Matchmaking
+                </p>
+                <p className="text-lg text-gray-600">
+                  We connect businesses with investors who align with their
+                  industry, growth stage, and investment needs.
+                </p>
               </li>
-            </li>
-            <li className="font-bold">
-              2. Business Analysis & Profiling
-              <li className="font-normal service-list-item">
-                Our team analyzes business models, strengths, and market
-                potential to present compelling cases to potential investors.
+
+              {/* Service Item 2 */}
+              <li className=" p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <p className="text-2xl font-bold text-gray-900 mb-2">
+                  Business Analysis & Profiling
+                </p>
+                <p className="text-lg text-gray-600">
+                  Our team analyzes business models, strengths, and market
+                  potential to present compelling cases to potential investors.
+                </p>
               </li>
-            </li>
-            <li className="font-bold">
-              3. Investor Outreach & Engagement
-              <li className="font-normal service-list-item">
-                We facilitate direct communication and engagement between
-                businesses and investors to ensure seamless collaboration.
+
+              {/* Service Item 3 */}
+              <li className=" p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <p className="text-2xl font-bold text-gray-900 mb-2">
+                  Investor Outreach & Engagement
+                </p>
+                <p className="text-lg text-gray-600">
+                  We facilitate direct communication and engagement between
+                  businesses and investors to ensure seamless collaboration.
+                </p>
               </li>
-            </li>
-            <li className="font-bold">
-              4. Market Insights & Trends
-              <li className="font-normal service-list-item">
-                We provide in-depth research on market trends, industry
-                forecasts, and investment opportunities.
+
+              {/* Service Item 4 */}
+              <li className=" p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <p className="text-2xl font-bold text-gray-900 mb-2">
+                  Market Insights & Trends
+                </p>
+                <p className="text-lg text-gray-600">
+                  We provide in-depth research on market trends, industry
+                  forecasts, and investment opportunities.
+                </p>
               </li>
-            </li>
-            <li className="font-bold">
-              5. Consulting & Advisory
-              <li className="font-normal service-list-item">
-                Our expert advisors offer guidance on refining business
-                strategies, enhancing investor appeal, and improving the
-                likelihood of successful investment deals.
+
+              {/* Service Item 5 */}
+              <li className=" p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <p className="text-2xl font-bold text-gray-900 mb-2">
+                  Consulting & Advisory
+                </p>
+                <p className="text-lg text-gray-600">
+                  Our expert advisors offer guidance on refining business
+                  strategies, enhancing investor appeal, and improving the
+                  likelihood of successful investment deals.
+                </p>
               </li>
-            </li>
-            <li className="font-bold">
-              6. Resource Center & Knowledge Sharing
-              <li className="font-normal service-list-item">
-                We offer resources, articles, and tools to help businesses
-                prepare for investor pitches and understand market dynamics.
+
+              {/* Service Item 6 */}
+              <li className=" p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <p className="text-2xl font-bold text-gray-900 mb-2">
+                  Resource Center & Knowledge Sharing
+                </p>
+                <p className="text-lg text-gray-600">
+                  We offer resources, articles, and tools to help businesses
+                  prepare for investor pitches and understand market dynamics.
+                </p>
               </li>
-            </li>
-          </ul>
+            </ul>
+          </div>
         </div>
       </motion.div>
 
@@ -300,7 +325,7 @@ const Home = () => {
         initial="hidden"
         animate={controls}
       >
-        <p className=" lg:text-3xl sm:text-xl  xs:text-xl  xxs:text-xl text-center mb-4">
+        <p className=" lg:text-3xl sm:text-xl  xs:text-xl  xxs:text-xl text-center mb-4 text-gray-900 font-bold">
           Testimonial
         </p>
         <p className="text-center lg:text-3xl sm:text-xl  xs:text-xl  xxs:text-xl lg:text-bold  sm:text-bold  xs:text-bold  xxs:text-bold mb-16">
