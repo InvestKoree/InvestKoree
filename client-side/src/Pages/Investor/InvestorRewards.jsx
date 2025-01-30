@@ -85,10 +85,11 @@ const InvestorRewards = () => {
                         {row.businessName}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(row.startDate).toLocaleDateString()}
+                        {new Date(row.startDate).toLocaleDateString()}-
+                        {row.returndate}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {row.returndate}
+                        10%
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500">
                         50tk CashBack on every 1000tk investment
