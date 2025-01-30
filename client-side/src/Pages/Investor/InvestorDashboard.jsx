@@ -57,7 +57,7 @@ const InvestorDashboard = () => {
   useEffect(() => {
     const fetchInvestments = async () => {
       try {
-        const response = await fetch(`${API_URL}/investments/get`); // Adjust the endpoint as needed
+        const response = await fetch(`${API_URL}/investments/get`);
         const data = await response.json();
         setInvestments(data);
         console.log(data);
