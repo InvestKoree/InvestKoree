@@ -14,6 +14,7 @@ const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showSearchBar, setShowSearchBar] = useState(false); // State to toggle search bar visibility
 
   const handleSignOut = () => {
     logOut();
@@ -53,6 +54,7 @@ const Navbar = () => {
     if (searchTerm.trim()) {
       // Redirect to the search results page with the search term
       navigate(`/search?businessName=${encodeURIComponent(searchTerm)}`);
+      setShowSearchBar(false); // Hide the search bar after submitting
     } else {
       toast.error("Please enter a search term.");
     }
@@ -78,22 +80,31 @@ const Navbar = () => {
         </div>
 
         {/* Search Bar for Large Screens */}
-        <div className="lg:flex hidden lg:mr-14   relative gap-2  rounded-md">
-          <form onSubmit={handleSearch} className="flex items-center mx-4 ">
-            <input
-              type="text"
-              placeholder="Search By Business Name"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="border border-salmon rounded-l-md p-2 lg:h-[50px] lg:max-w-[300px] md:w-[400px] sm:w-48 xs:w-32 xxs:w-24"
-            />
+        <div className="lg:flex hidden lg:mr-14 relative gap-2 rounded-md">
+          {showSearchBar ? (
+            <form onSubmit={handleSearch} className="flex items-center mx-4">
+              <input
+                type="text"
+                placeholder="Search By Business Name"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="border border-salmon rounded-l-md p-2 lg:h-[50px] lg:max-w-[300px] md:w-[400px] sm:w-48 xs:w-32 xxs:w-24"
+              />
+              <button
+                type="submit"
+                className="bg-salmon text-white rounded-r-md p-2 absolute right-6"
+              >
+                <AiOutlineSearch />
+              </button>
+            </form>
+          ) : (
             <button
-              type="submit"
-              className="bg-salmon text-white rounded-r-md p-2 absolute right-6"
+              onClick={() => setShowSearchBar(true)}
+              className="bg-salmon text-white rounded-md p-2"
             >
               <AiOutlineSearch />
             </button>
-          </form>
+          )}
         </div>
 
         {/* Full Navbar for Larger Screens */}
