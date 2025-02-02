@@ -26,7 +26,7 @@ import multer from 'multer';
 // import cloudinary from './cloudinaryConfig.js'; 
 import PendingPost from './models/pendingPost.js';
 import FounderPending from './models/founderpending.js';
-
+import commentRoutes from "./routes/commentRoutes.js";
 
 dotenv.config();
 
@@ -344,7 +344,7 @@ app.delete('/adminpost/pending/:id', authToken, async (req, res) => {
 //     res.status(500).json({ error: 'Internal server error' });
 //   }
 // });
-
+app.use("/comments", commentRoutes);
 // Pending Posts Routes
 app.get('/adminpost/pending', async (req, res) => {
   try {

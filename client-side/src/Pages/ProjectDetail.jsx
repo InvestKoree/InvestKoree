@@ -5,15 +5,73 @@ import { toast } from "react-toastify";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 const ProjectDetail = () => {
-  const { id } = useParams();
-  const [project, setProject] = useState(null);
+  const { id } = useParams(); // Get the project ID from the URL
+  const [project, setProject] = useState(null); // State to hold project data
   const [currentSlide, setCurrentSlide] = useState(0);
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState("images");
   const [isAddedToWatchlist, setIsAddedToWatchlist] = useState(false);
-  const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState("");
+  const [comments, setComments] = useState([]); // State to hold comments
+  const [newComment, setNewComment] = useState(""); // State for the new comment input
+
+  // Fetch project details and comments when the component mounts
+  useEffect(() => {
+    const fetchProjectDetails = async () => {
+      try {
+        const response = await fetch(
+          `${API_URL}/founderpost/projectdetail/${id}`
+        );
+        const data = await response.json();
+        setProject(data);
+        checkIfAddedToWatchlist(data._id);
+        fetchComments(data._id); // Fetch comments for this project
+      } catch (error) {
+        console.error("Error fetching project details:", error);
+      }
+    };
+
+    fetchProjectDetails();
+  }, [id, API_URL]);
+
+  // Fetch comments for the specific project
+  const fetchComments = async (projectId) => {
+    try {
+      const response = await axios.get(`${API_URL}/comments/${projectId}`);
+      setComments(response.data); // Set comments for this project
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
+  };
+
+  // Handle adding a new comment
+  const handleCommentSubmit = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("You must be signed in to comment.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `${API_URL}/comments/add`,
+        { postId: project._id, text: newComment }, // Include project ID in the request
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setNewComment(""); // Clear the input field
+        fetchComments(project._id); // Refresh comments for this project
+        toast.success("Comment added successfully!");
+      }
+    } catch (error) {
+      console.error("Error adding comment:", error);
+      toast.error("Failed to add comment.");
+    }
+  };
 
   const handleAddToWatchlist = async () => {
     const token = localStorage.getItem("token");
@@ -73,43 +131,6 @@ const ProjectDetail = () => {
 
     fetchProjectDetails();
   }, [id, API_URL]);
-
-  const fetchComments = async (postId) => {
-    try {
-      const response = await axios.get(`${API_URL}/comments/${postId}`);
-      setComments(response.data);
-    } catch (error) {
-      console.error("Error fetching comments:", error);
-    }
-  };
-
-  const handleCommentSubmit = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      toast.error("You must be signed in to comment.");
-      return;
-    }
-
-    try {
-      const response = await axios.post(
-        `${API_URL}/comments/add`,
-        { postId: project._id, text: newComment },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.status === 200) {
-        setNewComment("");
-        fetchComments(project._id); // Refresh comments after adding a new one
-        toast.success("Comment added successfully!");
-      }
-    } catch (error) {
-      console.error("Error adding comment:", error);
-      toast.error("Failed to add comment.");
-    }
-  };
 
   if (!project) {
     return <div>Loading...</div>;
