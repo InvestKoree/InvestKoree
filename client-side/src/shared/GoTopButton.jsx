@@ -5,7 +5,8 @@ const GoToTopButton = ({ showGoToTop, scrollToTop }) => {
     showGoToTop && (
       <button
         onClick={scrollToTop}
-        className="fixed bottom-2 left-2  hover:bg-neutral-800 text-salmonLight p-3 rounded-full shadow-lg"
+        className="fixed bottom-2
+         left-2  hover:bg-neutral-800 text-salmonLight p-3 rounded-full shadow-lg"
         aria-label="Scroll to top"
       >
         <FaArrowUp size={24} />
