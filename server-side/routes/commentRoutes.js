@@ -1,6 +1,6 @@
 import express from "express";
 import Comment from "../models/commentModel.js"; // Import the Comment model
-import authToken from "../utils/authMiddleware.js"; // Middleware to authenticate users
+import { authToken } from "../utils/authMiddleware.js";// Middleware to authenticate users
 
 const router = express.Router();
 
