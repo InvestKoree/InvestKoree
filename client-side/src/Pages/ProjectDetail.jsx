@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { useAuth } from "../providers/AuthProvider";
 import { toast } from "react-toastify";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+
 const ProjectDetail = () => {
-  const { id } = useParams(); // Get the project ID from the URL
-  const [project, setProject] = useState(null); // State to hold project data
+  const { id } = useParams();
+  const [project, setProject] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState("images");
-  // State to hold video URL
-  // const { user } = useAuth();
   const [isAddedToWatchlist, setIsAddedToWatchlist] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
   const handleAddToWatchlist = async () => {
     const token = localStorage.getItem("token");
-    console.log("Token:", token); // Log the token to check if it's present
+    console.log("Token:", token);
     try {
       const response = await axios.post(
         `${API_URL}/watchlist/add`,
         { postId: project._id },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Include the token here
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -37,6 +37,7 @@ const ProjectDetail = () => {
       toast.error("Failed to add project to watchlist.");
     }
   };
+
   const checkIfAddedToWatchlist = async (postId) => {
     const token = localStorage.getItem("token");
     try {
@@ -48,14 +49,14 @@ const ProjectDetail = () => {
       const watchlist = response.data.watchlist;
       console.log("Updated Watchlist:", watchlist);
       if (watchlist && watchlist.posts.some((post) => post._id === postId)) {
-        setIsAddedToWatchlist(true); // Set state if the project is in the watchlist
+        setIsAddedToWatchlist(true);
       }
     } catch (error) {
       console.error("Error fetching watchlist:", error);
     }
   };
+
   useEffect(() => {
-    // Fetch project details from the backend
     const fetchProjectDetails = async () => {
       try {
         const response = await fetch(
@@ -63,7 +64,8 @@ const ProjectDetail = () => {
         );
         const data = await response.json();
         setProject(data);
-        checkIfAddedToWatchlist(data._id); // Set the project data in state
+        checkIfAddedToWatchlist(data._id);
+        fetchComments(data._id); // Fetch comments when project details are loaded
       } catch (error) {
         console.error("Error fetching project details:", error);
       }
@@ -71,6 +73,43 @@ const ProjectDetail = () => {
 
     fetchProjectDetails();
   }, [id, API_URL]);
+
+  const fetchComments = async (postId) => {
+    try {
+      const response = await axios.get(`${API_URL}/comments/${postId}`);
+      setComments(response.data);
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
+  };
+
+  const handleCommentSubmit = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("You must be signed in to comment.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `${API_URL}/comments/add`,
+        { postId: project._id, text: newComment },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setNewComment("");
+        fetchComments(project._id); // Refresh comments after adding a new one
+        toast.success("Comment added successfully!");
+      }
+    } catch (error) {
+      console.error("Error adding comment:", error);
+      toast.error("Failed to add comment.");
+    }
+  };
 
   if (!project) {
     return <div>Loading...</div>;
@@ -222,17 +261,13 @@ const ProjectDetail = () => {
                   <div
                     className="bg-salmon h-2.5 rounded-full"
                     style={{
-                      // width: `${(70000 / project.fundingAmount) * 100}%`,
                       width: `${80}%`,
-                    }} // Calculate percentage
+                    }}
                   ></div>
                 </div>
                 <div className="flex xs:ml-2 xxs:ml-2 sm:ml-2 lg:justify-between xs:justify-between xxs:justify-between sm:justify-between text-sm">
                   <div>Raised :</div>
-                  <div className="xs:mr-2 xxs:mr-2 sm:mr- 2">
-                    {/* {((70000 / project.fundingAmount) * 100).toFixed(0)}% */}
-                    {80}%
-                  </div>
+                  <div className="xs:mr-2 xxs:mr-2 sm:mr- 2">{80}%</div>
                 </div>
               </div>
               <div className="flex flex-row items-center gap-4">
@@ -322,6 +357,40 @@ const ProjectDetail = () => {
             <div className="collapse-content peer-checked:block">
               <p>{project.businessSafety}</p>
             </div>
+          </div>
+        </div>
+
+        {/* Comment Section */}
+        <div className="mt-12 w-[80%] lg:w-[50%] xs:mb-4 xxs:mb-4 sm:mb-4 mx-auto">
+          <h2 className="text-xl font-bold mb-4">Comments</h2>
+          <div className="mb-4">
+            <textarea
+              className="w-full p-2 border rounded"
+              rows="3"
+              placeholder="Add a comment..."
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+            ></textarea>
+            <button
+              className="btn btn-primary mt-2"
+              onClick={handleCommentSubmit}
+            >
+              Add Comment
+            </button>
+          </div>
+          <div>
+            {comments.length > 0 ? (
+              comments.map((comment, index) => (
+                <div key={index} className="mb-4 p-2 border rounded">
+                  <p className="text-slate-500">{comment.text}</p>
+                  <p className="text-sm text-gray-400">
+                    - User ID: {comment.userId}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p>No comments yet.</p>
+            )}
           </div>
         </div>
       </div>
