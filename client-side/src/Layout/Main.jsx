@@ -7,21 +7,21 @@ import AuthProvider from "../providers/AuthProvider";
 import { Outlet, useLocation } from "react-router-dom";
 import ScrollProgressBar from "../shared/ScroolProgressBar";
 import GoToTopButton from "../shared/GoTopButton";
-import GoToBottomButton from "../shared/GoToBottomButton"; // Import new component
+// import GoToBottomButton from "../shared/GoToBottomButton"; // Import new component
 import { useEffect, useState } from "react";
 
 const Main = () => {
   const location = useLocation();
   const [showGoToTop, setShowGoToTop] = useState(false);
-  const [showGoToBottom, setShowGoToBottom] = useState(false);
+  // const [showGoToBottom, setShowGoToBottom] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setShowGoToTop(window.scrollY > 300); // Show "Go to Top" button after scrolling 300px
-      setShowGoToBottom(
-        window.innerHeight + window.scrollY <
-          document.documentElement.scrollHeight - 100 // Show "Go to Bottom" button when not at bottom
-      );
+      // setShowGoToBottom(
+      //   window.innerHeight + window.scrollY <
+      //     document.documentElement.scrollHeight - 100 // Show "Go to Bottom" button when not at bottom
+      // );
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -35,12 +35,12 @@ const Main = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const scrollToBottom = () => {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: "smooth",
-    });
-  };
+  // const scrollToBottom = () => {
+  //   window.scrollTo({
+  //     top: document.documentElement.scrollHeight,
+  //     behavior: "smooth",
+  //   });
+  // };
 
   return (
     <div className="roboto-regular">
@@ -68,10 +68,10 @@ const Main = () => {
           </AnimatePresence>
         </ReactLenis>
         <GoToTopButton showGoToTop={showGoToTop} scrollToTop={scrollToTop} />
-        <GoToBottomButton
+        {/* <GoToBottomButton
           showGoToBottom={showGoToBottom}
           scrollToBottom={scrollToBottom}
-        />
+        /> */}
         <Footer />
       </AuthProvider>
     </div>
