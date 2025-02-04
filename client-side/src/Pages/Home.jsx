@@ -154,9 +154,9 @@ const Home = () => {
           <div className="hero h-[400px] lg:h-[600px] xs:w-full sm:w-full xxs:w-full  flex lg:items-center  text-slate-700">
             <div className="hero-content xs:w-[90%] sm:w-[90%] flex-col  gap-8 lg:gap-24 xxs:justify-start xxs:items-start sm:items-start xs:items-start lg:items-start lg:ml-8 lg:justify-start ">
               <div className="lg:text-left xxs:text-left ">
-                <h1 className="xs:text-3xl sm:text-3xl xxs:text-3xl lg:text-6xl  xs:mt-8 sm:mt-8 xxs:mt-8 lg:text-white  animate__animated animate__fadeInDownBig font-bold sm:text-white xs:text-white xxs:text-white ">
+                <p className="xs:text-3xl sm:text-3xl xxs:text-3xl lg:text-6xl  xs:mt-8 sm:mt-8 xxs:mt-8 lg:text-white  animate__animated animate__fadeInDownBig font-bold sm:text-white xs:text-white xxs:text-white ">
                   Welcome to <br /> InvestKoree.com
-                </h1>
+                </p>
                 <p className="py-3 lg:text-2xl animate__animated animate__fadeInUpBig lg:text-white flex lg:flex-row sm:flex-col xs:flex-col xxs:flex-col  sm:font-semibold xs:font-semibold xxs:font-semibold sm:text-xl xs:text-xl xxs:text-xl sm:text-white xs:text-white xxs:text-white">
                   It's Easy and Fast to Invest.{" "}
                   <span>Get Profit Faster Here.</span>
@@ -228,18 +228,94 @@ const Home = () => {
           />
         </div>
         <div className="flex flex-col text-center  lg:w-[1200px] sm:p-4  xs:p-4 xxs:p-4">
-          <h2 className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl text-gray-900 font-bold">
-            Why we are here
-          </h2>
-          <p className="mt-4 lg:text-xl mb-10">Our Mission</p>
+          <p className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl text-gray-900 font-bold">
+            Our Mission
+          </p>
+          <h1 className="mt-4 lg:text-xl mb-10">
+            Empowering Businesses: Connect with Investors Through InvestKoree
+          </h1>
           <p className="lg:text-left  sm:text-left xs:text-left xxs:text-left lg:text-lg">
-            At Invest Koree, our mission is to bridge the gap between ambitious
-            businesses and visionary investors. We strive to create a dynamic
-            platform where innovative ideas meet financial backing, fostering
-            sustainable growth and impactful change. By connecting businesses
-            with the right investors, we empower companies to reach their full
-            potential while offering investors opportunities to support ventures
-            that align with their strategic goals and values.
+            Welcome to InvestKoree, the premier platform connecting visionary
+            businesses with investors ready to help them grow. Whether you're a
+            startup or an established business, we tailor our services to match
+            your unique needs. We strive to create a dynamic platform where
+            innovative ideas meet financial backing, fostering sustainable
+            growth and impactful change. By connecting businesses with the right
+            investors, we empower companies to reach their full potential while
+            offering investors opportunities to support ventures that align with
+            their strategic goals and values.
+          </p>
+          <h2 className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl text-gray-900 font-bold mt-12">
+            How InvestKoree Works
+          </h2>
+          <p className="mt-8 font-bold lg:text-xl mb-2  lg:text-center  sm:text-center xs:text-center xxs:text-center">
+            1. Step 1: Register Your Business
+          </p>
+          <p className="lg:text-center mb-4  sm:text-center xs:text-center xxs:text-center lg:text-lg">
+            Create a profile to showcase your business to potential investors.
+            Highlight your goals, vision, and unique selling points.
+          </p>
+          <p className="mt-4 font-bold lg:text-xl mb-2 lg:text-center  sm:text-center xs:text-center xxs:text-center">
+            Step 2: Explore Investment Opportunities
+          </p>
+          <p className="lg:text-center mb-4  sm:text-center xs:text-center xxs:text-center lg:text-lg">
+            Use our intuitive search feature to find investors aligned with your
+            industry and values.
+          </p>
+          <p className="mt-4 font-bold lg:text-xl mb-2 lg:text-center  sm:text-center xs:text-center xxs:text-center">
+            3. Step 3: Build Connections
+          </p>
+          <p className="lg:text-center  sm:text-center xs:text-center xxs:text-center lg:text-lg">
+            Connect with verified investors who are ready to help your business
+            thrive.
+          </p>
+          <h2 className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl text-gray-900 font-bold mt-12">
+            Why Choose InvestKoree?
+          </h2>
+          <p className="mt-8 font-bold lg:text-xl mb-2  lg:text-center  sm:text-center xs:text-center xxs:text-center">
+            Tailored Solutions
+          </p>
+          <p className="lg:text-center mb-4  sm:text-center xs:text-center xxs:text-center lg:text-lg">
+            We match businesses with investors based on specific needs and
+            goals.
+          </p>
+          <p className="mt-4 font-bold lg:text-xl mb-2 lg:text-center  sm:text-center xs:text-center xxs:text-center">
+            Verified Investors
+          </p>
+          <p className="lg:text-center mb-4  sm:text-center xs:text-center xxs:text-center lg:text-lg">
+            All our investors undergo a rigorous verification process.
+          </p>
+          <p className="mt-4 font-bold lg:text-xl mb-2 lg:text-center  sm:text-center xs:text-center xxs:text-center">
+            Proven Success
+          </p>
+          <p className="lg:text-center  sm:text-center xs:text-center xxs:text-center lg:text-lg">
+            Businesses have transformed and expanded through InvestKoree’s
+            platform.
+          </p>
+          <h2 className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl text-gray-900 font-bold mt-12">
+            Your Guide to Business Investment Opportunities
+          </h2>
+          <p className="mt-4 lg:text-xl mb-10">
+            Explore the latest trends, tips, and strategies to attract the right
+            investors. Check out our blog for insights:
+          </p>
+          <p className="mt-8 font-bold lg:text-xl mb-2  lg:text-center  sm:text-center xs:text-center xxs:text-center">
+            1. Top 5 Business Sectors for Investment in 2025
+          </p>
+          <p className="lg:text-center mb-4  sm:text-center xs:text-center xxs:text-center lg:text-lg">
+            Learn where investors are focusing their attention this year.
+          </p>
+          <p className="mt-4 font-bold lg:text-xl mb-2 lg:text-center  sm:text-center xs:text-center xxs:text-center">
+            How to Attract the Right Investors to Your Business
+          </p>
+          <p className="lg:text-center mb-4  sm:text-center xs:text-center xxs:text-center lg:text-lg">
+            Tips to present your business in the best light.
+          </p>
+          <p className="mt-4 font-bold lg:text-xl mb-2 lg:text-center  sm:text-center xs:text-center xxs:text-center">
+            Success Stories: How InvestKoree Helped Businesses Thrive
+          </p>
+          <p className="lg:text-center  sm:text-center xs:text-center xxs:text-center lg:text-lg">
+            Inspiration from real-world examples.
           </p>
           <div className=" py-12 px-4 sm:px-6 lg:px-8">
             <p className="text-4xl font-bold text-center text-gray-900 mb-12">
@@ -326,10 +402,10 @@ const Home = () => {
         animate={controls}
       >
         <p className=" lg:text-3xl sm:text-xl  xs:text-xl  xxs:text-xl text-center mb-4 text-gray-900 font-bold">
-          Testimonial
+          Success Stories from Our Platform
         </p>
         <p className="text-center lg:text-3xl sm:text-xl  xs:text-xl  xxs:text-xl lg:text-bold  sm:text-bold  xs:text-bold  xxs:text-bold mb-16">
-          What people say about us
+          Hear from businesses like yours that achieved growth with InvestKoree:
         </p>
         <div className="flex flex-col  sm:flex-row  sm:mx-4 xs:mx-4 xxs:mx-4 gap-6 items-center justify-center">
           {/* Sample Testimonial 1 */}
@@ -342,18 +418,17 @@ const Home = () => {
               />
               <div>
                 <h4 className="text-lg font-medium text-gray-900 group-hover:text-white">
-                  Dianne Russell
+                  Hasibul Hassan Safran
                 </h4>
                 <p className="text-sm text-gray-500 group-hover:text-white">
-                  Founder
+                  Startup Founder
                 </p>
               </div>
             </div>
             <div className="mt-4 testimonial-card-content">
               <p className="text-gray-700 group-hover:text-white">
-                Campoal is great for people to bring changes to what they
-                believe in, it's nice to see some good morals and common sense
-                being acknowledged where modern governments fail.
+                "InvestKoree helped us secure funding within weeks. The process
+                was seamless!This platform is a game-changer for startups."
               </p>
             </div>
           </div>
@@ -368,18 +443,17 @@ const Home = () => {
               />
               <div>
                 <h4 className="text-lg font-medium text-gray-900 group-hover:text-white">
-                  Dianne Russell
+                  Omor Faruk
                 </h4>
                 <p className="text-sm text-gray-500 group-hover:text-white">
-                  Founder
+                  Small Business Owner
                 </p>
               </div>
             </div>
             <div className="mt-4 testimonial-card-content">
               <p className="text-gray-700 group-hover:text-white">
-                Campoal is great for people to bring changes to what they
-                believe in, it's nice to see some good morals and common sense
-                being acknowledged where modern governments fail.
+                "Their platform connected us with investors who understood our
+                vision. We've doubled our revenue since!"
               </p>
             </div>
           </div>
