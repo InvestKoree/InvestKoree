@@ -33,7 +33,7 @@ router.get("/:postId", async (req, res) => {
   const { postId } = req.params;
 
   try {
-    // Find all comments for the specified project
+
     const comments = await Comment.find({ postId })
       .populate("userId") // Populate the user details (e.g., username)
       .sort({ createdAt: -1 }); // Sort by newest first
