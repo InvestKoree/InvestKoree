@@ -172,13 +172,13 @@ const ProjectDetail = () => {
 
     try {
       await axios.post(
-        `${API_URL}/comments/reply`,
-        { commentId, text: newReply },
+        `${API_URL}/comments/${commentId}/reply`, // Corrected path
+        { text: newReply },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setNewReply("");
       setReplyingTo(null);
-      fetchComments(id);
+      fetchComments(project._id);
       toast.success("Reply added successfully!");
     } catch (error) {
       console.error("Error adding reply:", error);
