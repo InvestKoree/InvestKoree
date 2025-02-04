@@ -16,7 +16,9 @@ const ProjectDetail = () => {
   const [comments, setComments] = useState([]); // State to hold comments
   const [newComment, setNewComment] = useState("");
   const [replies, setReplies] = useState({});
-  const [newReply, setNewReply] = useState(""); // State for the new comment input
+  const [newReply, setNewReply] = useState("");
+  const [showReplies, setShowReplies] = useState({}); // State to track visibility of replies
+  const [showRepliesToggle, setShowRepliesToggle] = useState({}); // State to track show/hide for replies
 
   // Fetch comments for the specific project
   const fetchComments = async (projectId) => {
@@ -28,6 +30,7 @@ const ProjectDetail = () => {
       console.error("Error fetching comments:", error);
     }
   };
+
   const fetchReplies = async (commentId) => {
     try {
       const response = await axios.get(
@@ -58,16 +61,11 @@ const ProjectDetail = () => {
           },
         }
       );
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         setNewComment(""); // Clear the input field
         fetchComments(project._id); // Refresh comments for this project
         toast.success("Comment added successfully!");
         console.log("Comment added:", response.data); // Log the response to check if it's successful
-      }
-      if (response.status === 201) {
-        setNewComment(""); // Clear the input field
-        fetchComments(project._id); // Refresh the comments list
-        toast.success("Comment added successfully!");
       }
     } catch (error) {
       console.error("Error adding comment:", error);
@@ -203,6 +201,21 @@ const ProjectDetail = () => {
     const fetchedReplies = await fetchReplies(commentId);
     setReplies((prev) => ({ ...prev, [commentId]: fetchedReplies }));
   };
+
+  const toggleReplies = (commentId) => {
+    setShowReplies((prev) => ({
+      ...prev,
+      [commentId]: !prev[commentId],
+    }));
+  };
+
+  const toggleRepliesVisibility = (commentId) => {
+    setShowRepliesToggle((prev) => ({
+      ...prev,
+      [commentId]: !prev[commentId],
+    }));
+  };
+
   return (
     <div>
       <div className="h-50">
@@ -475,25 +488,32 @@ const ProjectDetail = () => {
                   )}
                   <button
                     className="btn btn-sm btn-outline mt-2"
-                    onClick={() => loadReplies(comment._id)}
+                    onClick={() => {
+                      loadReplies(comment._id);
+                      toggleRepliesVisibility(comment._id);
+                    }}
                   >
-                    Show Replies
+                    {showRepliesToggle[comment._id]
+                      ? "Hide Replies"
+                      : "Show Replies"}
                   </button>
 
                   {/* Replies Section */}
-                  <div className="mt-2 ml-4">
-                    {replies[comment._id]?.map((reply) => (
-                      <div
-                        key={reply._id}
-                        className="p-2 border-l border-gray-400 ml-4"
-                      >
-                        <p>{reply.text}</p>
-                        <p className="text-sm text-gray-400">
-                          - {reply.userId.name}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
+                  {showRepliesToggle[comment._id] && (
+                    <div className="mt-2 ml-4">
+                      {replies[comment._id]?.map((reply) => (
+                        <div
+                          key={reply._id}
+                          className="p-2 border-l border-gray-400 ml-4"
+                        >
+                          <p>{reply.text}</p>
+                          <p className="text-sm text-gray-400">
+                            - {reply.userId.name}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))
             ) : (
