@@ -14,7 +14,8 @@ const ProjectDetail = () => {
   const [replyingTo, setReplyingTo] = useState(null);
   const [isAddedToWatchlist, setIsAddedToWatchlist] = useState(false);
   const [comments, setComments] = useState([]); // State to hold comments
-  const [newComment, setNewComment] = useState(""); // State for the new comment input
+  const [newComment, setNewComment] = useState("");
+  const [newReply, setNewReply] = useState(""); // State for the new comment input
 
   // Fetch comments for the specific project
   const fetchComments = async (projectId) => {
@@ -465,7 +466,7 @@ const ProjectDetail = () => {
                 </div>
               ))
             ) : (
-              <p>No comments yet.</p>
+              <p className="mb-6">No comments yet.</p>
             )}
           </div>
         </div>
