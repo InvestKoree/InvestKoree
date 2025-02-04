@@ -74,7 +74,11 @@ router.get("/:commentId/replies", async (req, res) => {
   const { commentId } = req.params;
 
   try {
-    const comment = await Comment.findById(commentId).populate("replies.userId", "name _id");
+    const comment = await Comment.findById(commentId).populate({
+      path: "replies.userId", // Explicitly populate the nested field
+      select: "name _id",
+    });
+
     if (!comment) {
       return res.status(404).json({ message: "Comment not found" });
     }
@@ -85,4 +89,5 @@ router.get("/:commentId/replies", async (req, res) => {
     res.status(500).json({ message: "Error fetching replies: " + error.message });
   }
 });
+
 export default router;
