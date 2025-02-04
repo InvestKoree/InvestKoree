@@ -454,7 +454,7 @@ const ProjectDetail = () => {
                     - {comment.userId.name}
                   </p>
                   <button
-                    className="btn btn-sm btn-outline mt-2"
+                    className="btn btn-sm btn-outline mt-2 mr-2"
                     onClick={() => {
                       const token = localStorage.getItem("token");
                       if (!token) {
