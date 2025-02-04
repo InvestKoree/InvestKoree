@@ -391,10 +391,13 @@ const ProjectDetail = () => {
           <div>
             {comments.length > 0 ? (
               comments.map((comment) => (
-                <div key={comment._id} className="mb-4 p-2 border rounded">
-                  <p className="text-slate-500">{comment.text}</p>
+                <div
+                  key={comment._id}
+                  className="mb-4 p-2   border border-black rounded"
+                >
+                  <p>{comment.text}</p>
                   <p className="text-sm text-gray-400">
-                    - User ID: {comment.userId._id}
+                    - User Name: {comment.userId.name}
                   </p>
                 </div>
               ))

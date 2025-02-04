@@ -34,7 +34,7 @@ router.get("/:postId", async (req, res) => {
 
   try {
     const comments = await Comment.find({ postId })
-      .populate("userId", "_id") // Populate only the '_id' field of the user
+    .populate("userId", "name _id") 
       .sort({ createdAt: -1 }); // Sort by newest first
 
     // Respond with the comments
