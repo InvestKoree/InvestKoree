@@ -409,7 +409,7 @@ const Home = () => {
         </p>
         <div className="flex flex-col  sm:flex-row  sm:mx-4 xs:mx-4 xxs:mx-4 gap-6 items-center justify-center">
           {/* Sample Testimonial 1 */}
-          <div className="bg-white w-full sm:w-[35%] lg:w-[40%] hover:bg-salmon rounded-lg  testimonial-card shadow-md p-6 group">
+          <div className="bg-white w-full sm:w-[35%] lg:w-[40%] hover:bg-salmon rounded-lg sm:h-56 xs:h-56 xxs:h-56  testimonial-card shadow-md p-6 group">
             <div className="flex items-center testimonial-card-content">
               <img
                 className="w-12 h-12 rounded-full mr-4"
@@ -434,7 +434,7 @@ const Home = () => {
           </div>
 
           {/* Sample Testimonial 2 */}
-          <div className="bg-white w-full sm:w-[35%] lg:w-[40%] hover:bg-salmon rounded-lg  testimonial-card shadow-md p-6 group">
+          <div className="bg-white w-full sm:w-[35%] lg:w-[40%] hover:bg-salmon sm:h-56 xs:h-56 xxs:h-56 rounded-lg  testimonial-card shadow-md p-6 group">
             <div className="flex items-center testimonial-card-content">
               <img
                 className="w-12 h-12 rounded-full mr-4"
