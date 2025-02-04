@@ -44,5 +44,45 @@ router.get("/:postId", async (req, res) => {
     res.status(500).json({ message: "Error fetching comments: " + error.message });
   }
 });
+// Route to add a reply to a comment
+router.post("/:commentId/reply", authToken, async (req, res) => {
+  const { commentId } = req.params;
+  const { text } = req.body;
+  const userId = req.user.id;
 
+  try {
+    const comment = await Comment.findById(commentId);
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    // Add reply to the comment
+    const reply = { userId, text };
+    comment.replies.push(reply);
+
+    await comment.save();
+
+    res.status(201).json({ message: "Reply added successfully!", reply });
+  } catch (error) {
+    console.error("Error adding reply:", error);
+    res.status(500).json({ message: "Error adding reply: " + error.message });
+  }
+});
+
+// Route to get replies for a comment
+router.get("/:commentId/replies", async (req, res) => {
+  const { commentId } = req.params;
+
+  try {
+    const comment = await Comment.findById(commentId).populate("replies.userId", "name _id");
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    res.status(200).json(comment.replies);
+  } catch (error) {
+    console.error("Error fetching replies:", error);
+    res.status(500).json({ message: "Error fetching replies: " + error.message });
+  }
+});
 export default router;

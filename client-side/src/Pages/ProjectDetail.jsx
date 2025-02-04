@@ -11,6 +11,7 @@ const ProjectDetail = () => {
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState("images");
+  const [replyingTo, setReplyingTo] = useState(null);
   const [isAddedToWatchlist, setIsAddedToWatchlist] = useState(false);
   const [comments, setComments] = useState([]); // State to hold comments
   const [newComment, setNewComment] = useState(""); // State for the new comment input
@@ -161,6 +162,28 @@ const ProjectDetail = () => {
     setViewMode(mode);
   };
   console.log("Project Data:", project);
+  const handleReplySubmit = async (commentId) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("You must be signed in to reply.");
+      return;
+    }
+
+    try {
+      await axios.post(
+        `${API_URL}/comments/reply`,
+        { commentId, text: newReply },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setNewReply("");
+      setReplyingTo(null);
+      fetchComments(id);
+      toast.success("Reply added successfully!");
+    } catch (error) {
+      console.error("Error adding reply:", error);
+      toast.error("Failed to add reply.");
+    }
+  };
 
   return (
     <div>
@@ -371,7 +394,7 @@ const ProjectDetail = () => {
         </div>
 
         {/* Comment Section */}
-        <div className="mt-12 w-[80%] lg:w-[50%] xs:mb-4 xxs:mb-4 sm:mb-4 mx-auto">
+        <div className="mt-12 w-[80%] lg:w-[50%] mx-auto">
           <h2 className="text-xl font-bold mb-4">Comments</h2>
           <div className="mb-4">
             <textarea
@@ -393,12 +416,52 @@ const ProjectDetail = () => {
               comments.map((comment) => (
                 <div
                   key={comment._id}
-                  className="mb-4 p-2   border border-black rounded"
+                  className="mb-4 p-2 border border-black rounded"
                 >
                   <p>{comment.text}</p>
                   <p className="text-sm text-gray-400">
-                    - User Name: {comment.userId.name}
+                    - {comment.userId.name}
                   </p>
+                  <button
+                    className="btn btn-sm btn-outline mt-2"
+                    onClick={() =>
+                      setReplyingTo(
+                        replyingTo === comment._id ? null : comment._id
+                      )
+                    }
+                  >
+                    Reply
+                  </button>
+                  {replyingTo === comment._id && (
+                    <div className="mt-2">
+                      <textarea
+                        className="w-full p-2 border rounded"
+                        rows="2"
+                        placeholder="Write a reply..."
+                        value={newReply}
+                        onChange={(e) => setNewReply(e.target.value)}
+                      ></textarea>
+                      <button
+                        className="btn btn-sm btn-primary mt-2"
+                        onClick={() => handleReplySubmit(comment._id)}
+                      >
+                        Submit Reply
+                      </button>
+                    </div>
+                  )}
+                  <div className="mt-2 ml-4">
+                    {comment.replies?.map((reply) => (
+                      <div
+                        key={reply._id}
+                        className="p-2 border-l border-gray-400 ml-4"
+                      >
+                        <p>{reply.text}</p>
+                        <p className="text-sm text-gray-400">
+                          - {reply.userId.name}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))
             ) : (

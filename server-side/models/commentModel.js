@@ -1,33 +1,22 @@
 import mongoose from "mongoose";
 
-const commentSchema = new mongoose.Schema(
+const ReplySchema = new mongoose.Schema(
   {
-    // Reference to the project the comment belongs to
-    postId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "FounderPost", // Reference to the FounderPost model (or your project model)
-      required: true,
-    },
-    // Reference to the user who made the comment
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User", // Reference to the User model
-      required: true,
-    },
-    // The comment text
-    text: {
-      type: String,
-      required: true,
-    },
-  },
-  { 
-    timestamps: true, // Automatically add createdAt and updatedAt fields
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    text: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now },
   }
 );
 
-// Indexes for performance optimization (optional, if needed)
-commentSchema.index({ postId: 1, userId: 1 });
+const CommentSchema = new mongoose.Schema(
+  {
+    postId: { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: true },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    text: { type: String, required: true },
+    replies: [ReplySchema], // Embedded replies
+  },
+  { timestamps: true }
+);
 
-const Comment = mongoose.model("Comment", commentSchema);
-
+const Comment = mongoose.model("Comment", CommentSchema);
 export default Comment;
