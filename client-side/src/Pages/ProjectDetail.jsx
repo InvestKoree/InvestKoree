@@ -15,6 +15,7 @@ const ProjectDetail = () => {
   const [isAddedToWatchlist, setIsAddedToWatchlist] = useState(false);
   const [comments, setComments] = useState([]); // State to hold comments
   const [newComment, setNewComment] = useState("");
+  const [replies, setReplies] = useState({});
   const [newReply, setNewReply] = useState(""); // State for the new comment input
 
   // Fetch comments for the specific project
