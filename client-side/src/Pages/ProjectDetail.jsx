@@ -38,6 +38,7 @@ const ProjectDetail = () => {
   const fetchComments = async (projectId) => {
     try {
       const response = await axios.get(`${API_URL}/comments/${projectId}`);
+      console.log("Fetched comments:", response.data); // Log the comments to see if it's updated
       setComments(response.data); // Set comments for this project
     } catch (error) {
       console.error("Error fetching comments:", error);
@@ -66,6 +67,7 @@ const ProjectDetail = () => {
         setNewComment(""); // Clear the input field
         fetchComments(project._id); // Refresh comments for this project
         toast.success("Comment added successfully!");
+        console.log("Comment added:", response.data); // Log the response to check if it's successful
       }
     } catch (error) {
       console.error("Error adding comment:", error);
