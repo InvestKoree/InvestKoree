@@ -13,6 +13,7 @@ const Navbar = () => {
   const { userdata, logOut } = useAuth();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
+  const searchBarRef = useRef(null); // Reference for the search bar
   const [searchTerm, setSearchTerm] = useState("");
   const [showSearchBar, setShowSearchBar] = useState(false); // State to toggle search bar visibility
 
@@ -40,8 +41,14 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        searchBarRef.current &&
+        !searchBarRef.current.contains(event.target) // Check if click is outside search bar
+      ) {
         setActiveDropdown(null); // Close dropdowns when clicking outside
+        setShowSearchBar(false); // Close search bar when clicking outside
       }
     };
 
@@ -82,7 +89,11 @@ const Navbar = () => {
         {/* Search Bar for Large Screens */}
         <div className="lg:flex hidden lg:mr-14 relative gap-2 rounded-md">
           {showSearchBar ? (
-            <form onSubmit={handleSearch} className="flex items-center mx-4">
+            <form
+              onSubmit={handleSearch}
+              className="flex items-center mx-4"
+              ref={searchBarRef} // Attach the reference to the search bar
+            >
               <input
                 type="text"
                 placeholder="Search By Business Name"
