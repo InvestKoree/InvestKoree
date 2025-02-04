@@ -27,6 +27,17 @@ const ProjectDetail = () => {
       console.error("Error fetching comments:", error);
     }
   };
+  const fetchReplies = async (commentId) => {
+    try {
+      const response = await axios.get(
+        `${API_URL}/comments/${commentId}/replies`
+      );
+      return response.data; // Returns the array of replies
+    } catch (error) {
+      console.error("Error fetching replies:", error);
+      return [];
+    }
+  };
 
   // Handle adding a new comment
   const handleCommentSubmit = async () => {
@@ -186,6 +197,11 @@ const ProjectDetail = () => {
     }
   };
 
+  const loadReplies = async (commentId) => {
+    if (replies[commentId]) return; // Prevent refetching if already loaded
+    const fetchedReplies = await fetchReplies(commentId);
+    setReplies((prev) => ({ ...prev, [commentId]: fetchedReplies }));
+  };
   return (
     <div>
       <div className="h-50">
@@ -456,8 +472,16 @@ const ProjectDetail = () => {
                       </button>
                     </div>
                   )}
+                  <button
+                    className="btn btn-sm btn-outline mt-2"
+                    onClick={() => loadReplies(comment._id)}
+                  >
+                    Show Replies
+                  </button>
+
+                  {/* Replies Section */}
                   <div className="mt-2 ml-4">
-                    {comment.replies?.map((reply) => (
+                    {replies[comment._id]?.map((reply) => (
                       <div
                         key={reply._id}
                         className="p-2 border-l border-gray-400 ml-4"
