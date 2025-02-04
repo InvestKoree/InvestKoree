@@ -69,6 +69,11 @@ const ProjectDetail = () => {
         toast.success("Comment added successfully!");
         console.log("Comment added:", response.data); // Log the response to check if it's successful
       }
+      if (response.status === 201) {
+        setNewComment(""); // Clear the input field
+        fetchComments(project._id); // Refresh the comments list
+        toast.success("Comment added successfully!");
+      }
     } catch (error) {
       console.error("Error adding comment:", error);
       toast.error("Failed to add comment.");
