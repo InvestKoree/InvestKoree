@@ -425,14 +425,20 @@ const ProjectDetail = () => {
                   </p>
                   <button
                     className="btn btn-sm btn-outline mt-2"
-                    onClick={() =>
+                    onClick={() => {
+                      const token = localStorage.getItem("token");
+                      if (!token) {
+                        toast.error("You need to log in first.");
+                        return;
+                      }
                       setReplyingTo(
                         replyingTo === comment._id ? null : comment._id
-                      )
-                    }
+                      );
+                    }}
                   >
                     Reply
                   </button>
+
                   {replyingTo === comment._id && (
                     <div className="mt-2">
                       <textarea
