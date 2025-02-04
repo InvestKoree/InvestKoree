@@ -15,25 +15,6 @@ const ProjectDetail = () => {
   const [comments, setComments] = useState([]); // State to hold comments
   const [newComment, setNewComment] = useState(""); // State for the new comment input
 
-  // Fetch project details and comments when the component mounts
-  useEffect(() => {
-    const fetchProjectDetails = async () => {
-      try {
-        const response = await fetch(
-          `${API_URL}/founderpost/projectdetail/${id}`
-        );
-        const data = await response.json();
-        setProject(data);
-        checkIfAddedToWatchlist(data._id);
-        fetchComments(data._id); // Fetch comments for this project
-      } catch (error) {
-        console.error("Error fetching project details:", error);
-      }
-    };
-
-    fetchProjectDetails();
-  }, [id, API_URL]);
-
   // Fetch comments for the specific project
   const fetchComments = async (projectId) => {
     try {
@@ -179,6 +160,7 @@ const ProjectDetail = () => {
   const handleViewModeChange = (mode) => {
     setViewMode(mode);
   };
+  console.log("Project Data:", project);
 
   return (
     <div>
@@ -408,11 +390,11 @@ const ProjectDetail = () => {
           </div>
           <div>
             {comments.length > 0 ? (
-              comments.map((comment, index) => (
-                <div key={index} className="mb-4 p-2 border rounded">
+              comments.map((comment) => (
+                <div key={comment._id} className="mb-4 p-2 border rounded">
                   <p className="text-slate-500">{comment.text}</p>
                   <p className="text-sm text-gray-400">
-                    - User ID: {comment.userId}
+                    - User ID: {comment.userId._id}
                   </p>
                 </div>
               ))
