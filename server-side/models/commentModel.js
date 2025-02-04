@@ -1,4 +1,3 @@
-// models/commentModel.js
 import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema(
@@ -21,10 +20,14 @@ const commentSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true } // Automatically add createdAt and updatedAt fields
+  { 
+    timestamps: true, // Automatically add createdAt and updatedAt fields
+  }
 );
 
-// Create the Comment model
+// Indexes for performance optimization (optional, if needed)
+commentSchema.index({ postId: 1, userId: 1 });
+
 const Comment = mongoose.model("Comment", commentSchema);
 
 export default Comment;

@@ -1,6 +1,6 @@
 import express from "express";
 import Comment from "../models/commentModel.js"; // Import the Comment model
-import { authToken } from "../utils/authMiddleware.js";// Middleware to authenticate users
+import { authToken } from "../utils/authMiddleware.js"; // Middleware to authenticate users
 
 const router = express.Router();
 
@@ -33,9 +33,8 @@ router.get("/:postId", async (req, res) => {
   const { postId } = req.params;
 
   try {
-
     const comments = await Comment.find({ postId })
-      .populate("userId") // Populate the user details (e.g., username)
+      .populate("userId", "_id") // Populate only the '_id' field of the user
       .sort({ createdAt: -1 }); // Sort by newest first
 
     // Respond with the comments
