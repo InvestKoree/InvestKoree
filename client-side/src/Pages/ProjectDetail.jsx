@@ -3,9 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { useAuth } from "../providers/AuthProvider";
 
 const ProjectDetail = () => {
-  const { id } = useParams(); // Get the project ID from the URL
+  const { id } = useParams();
+  const { userdata } = useAuth(); // Get the project ID from the URL
   const [project, setProject] = useState(null); // State to hold project data
   const [currentSlide, setCurrentSlide] = useState(0);
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
@@ -478,7 +480,7 @@ const ProjectDetail = () => {
                   <p className="text-sm text-gray-400">
                     - {comment.userId.name}
                   </p>
-                  {user.id === comment.userId && (
+                  {userdata.userId === comment.userId && (
                     <button onClick={() => handleDeleteComment(comment.id)}>
                       Delete Comment
                     </button>
@@ -540,7 +542,7 @@ const ProjectDetail = () => {
                           <p className="text-sm text-gray-400">
                             - {reply.userId.name}
                           </p>
-                          {user.id === reply.userId && (
+                          {userdata.userId === reply.userId && (
                             <button
                               onClick={() =>
                                 handleDeleteReply(comment.id, reply.id)
