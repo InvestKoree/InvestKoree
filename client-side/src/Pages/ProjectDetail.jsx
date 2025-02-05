@@ -222,16 +222,11 @@ const ProjectDetail = () => {
     }
   };
   const handleDeleteReply = async (commentId, replyId) => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      toast.error("You must be signed in to delete a reply.");
-      return;
-    }
-
     try {
-      await axios.delete(`${API_URL}/comments/${commentId}/reply/${replyId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `${API_URL}/comments/${commentId}/reply/${replyId}`,
+        {}
+      );
       // Update the replies state to remove the deleted reply
       setReplies((prev) => ({
         ...prev,
@@ -550,7 +545,9 @@ const ProjectDetail = () => {
                           {userdata?.name === reply.userId.name && (
                             <button
                               className="btn btn-error text-white mt-2"
-                              onClick={() => handleDeleteReply(reply._id)}
+                              onClick={() =>
+                                handleDeleteReply(comment._id, reply._id)
+                              }
                             >
                               Delete Reply
                             </button>
