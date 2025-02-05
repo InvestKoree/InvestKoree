@@ -480,8 +480,8 @@ const ProjectDetail = () => {
                   <p className="text-sm text-gray-400">
                     - {comment.userId.name}
                   </p>
-                  {userdata._id === comment.userId && (
-                    <button onClick={() => handleDeleteComment(comment.id)}>
+                  {userdata?._id === comment.userId && (
+                    <button onClick={() => handleDeleteComment(comment._id)}>
                       Delete Comment
                     </button>
                   )}
@@ -542,10 +542,10 @@ const ProjectDetail = () => {
                           <p className="text-sm text-gray-400">
                             - {reply.userId.name}
                           </p>
-                          {userdata._id === reply.userId && (
+                          {userdata?._id === reply.userId && (
                             <button
                               onClick={() =>
-                                handleDeleteReply(comment.id, reply.id)
+                                handleDeleteReply(comment._id, reply._id)
                               }
                             >
                               Delete Reply
