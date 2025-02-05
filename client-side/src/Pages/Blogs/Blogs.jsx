@@ -7,6 +7,7 @@ import blog4 from "../../assets/blog4.jpeg";
 import blog5 from "../../assets/blog5.jpeg";
 import blog7 from "../../assets/blog7.png";
 import blog8 from "../../assets/blog8.jpeg";
+import blog9 from "../../assets/blognine.jpeg";
 import { useNavigate } from "react-router-dom";
 const Blogs = () => {
   // Track which post is expanded
@@ -35,6 +36,9 @@ const Blogs = () => {
   };
   const handleShowMore8 = () => {
     navigate("/blogeight");
+  };
+  const handleShowMore9 = () => {
+    navigate("/blognine");
   };
   return (
     <div>
@@ -348,6 +352,38 @@ const Blogs = () => {
 
                   <button
                     onClick={handleShowMore8}
+                    className="mt-auto bg-salmon text-white px-2 py-2 rounded hover:bg-blue-600"
+                  >
+                    Show More
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[400px] ">
+            <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
+              <div className="flex flex-col md:flex-row h-full p-4 bg-white">
+                <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[full] xxs:w-[full] xs:w-[full]  sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[30%] xxs:h-[30%] xs:h-[30%]">
+                  <img src={blog9} className=" w-full h-full rounded-md" />
+                </div>
+
+                <div className="lg:p-4 flex flex-col justify-between w-full md:w-1/2 ">
+                  <h2 className="text-lg font-bold mb-2">
+                    How to Attract Investors for Your Startup in Bangladesh: A
+                    Step-by-Step Guide
+                  </h2>
+                  <p className="text-sm text-gray-700 mb-4 line-clamp-3">
+                    Starting a business is exciting, but securing funding is
+                    often one of the biggest challenges for entrepreneurs in
+                    Bangladesh. Whether you have an innovative idea or a growing
+                    startup, attracting the right investors is crucial for
+                    scaling your business. In this blog, we’ll walk you through
+                    the key steps to make your startup investment-ready and
+                    increase your chances of securing funding.
+                  </p>
+
+                  <button
+                    onClick={handleShowMore9}
                     className="mt-auto bg-salmon text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     Show More
