@@ -208,13 +208,7 @@ const Home = () => {
         )}
       </div>
       {/* Mission Section */}
-      <motion.div
-        ref={refWhy}
-        className="mission-section my-20 flex flex-col lg:flex-col gap-10 justify-center lg:h-full items-center"
-        variants={whySectionVariants}
-        initial="hidden"
-        animate={inViewWhy ? "visible" : "hidden"}
-      >
+      <div className="mission-section my-20 flex flex-col lg:flex-col gap-10 justify-center lg:h-full items-center">
         <div className="flex flex-col lg:flex-row gap-8 animate__bounceInLeft  animate__animated">
           <img
             className="rounded-xl sm:w-[200px]   xs:w-[200px] xxs:w-[200px] lg:h-[550px] lg:w-[350px]"
@@ -391,16 +385,10 @@ const Home = () => {
             </ul>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Testimonial Section */}
-      <motion.section
-        className="customer-review my-32"
-        ref={ref2}
-        variants={textVariants2}
-        initial="hidden"
-        animate={controls}
-      >
+      <section className="customer-review my-32">
         <p className=" lg:text-3xl sm:text-xl  xs:text-xl  xxs:text-xl text-center mb-4 text-gray-900 font-bold">
           Success Stories from Our Platform
         </p>
@@ -458,7 +446,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </motion.section>
+      </section>
       {/* <div style={{ height: "100vh", padding: "20px" }}>
         <h1>Scroll to see the percentage bar</h1>
         <p>Scroll Percentage: {Math.round(scrollPercentage)}%</p>
