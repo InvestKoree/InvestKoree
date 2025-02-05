@@ -17,7 +17,6 @@ const ProjectDetail = () => {
   const [newComment, setNewComment] = useState("");
   const [replies, setReplies] = useState({});
   const [newReply, setNewReply] = useState("");
-  const [showReplies, setShowReplies] = useState({}); // State to track visibility of replies
   const [showRepliesToggle, setShowRepliesToggle] = useState({}); // State to track show/hide for replies
 
   // Fetch comments for the specific project
@@ -100,15 +99,12 @@ const ProjectDetail = () => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.get(`${API_URL}/watchlist`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-      const watchlist = response.data.watchlist;
-      console.log("Updated Watchlist:", watchlist);
-      if (watchlist && watchlist.posts.some((post) => post._id === postId)) {
-        setIsAddedToWatchlist(true);
-      }
+      const watchlist = response.data.watchlist || { posts: [] };
+      setIsAddedToWatchlist(
+        watchlist.posts.some((post) => post._id === postId)
+      );
     } catch (error) {
       console.error("Error fetching watchlist:", error);
     }
@@ -137,6 +133,11 @@ const ProjectDetail = () => {
   }
 
   const handleInvestClick = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("You must be signed in to invest.");
+      return;
+    }
     const post = {
       _id: id,
       businessName: project.businessName,
@@ -202,20 +203,42 @@ const ProjectDetail = () => {
     setReplies((prev) => ({ ...prev, [commentId]: fetchedReplies }));
   };
 
-  const toggleReplies = (commentId) => {
-    setShowReplies((prev) => ({
-      ...prev,
-      [commentId]: !prev[commentId],
-    }));
-  };
-
   const toggleRepliesVisibility = (commentId) => {
     setShowRepliesToggle((prev) => ({
       ...prev,
       [commentId]: !prev[commentId],
     }));
   };
+  const handleDeleteComment = async (commentId) => {
+    try {
+      await axios.delete(`${API_URL}/comments/${commentId}`);
+      setComments(comments.filter((comment) => comment._id !== commentId));
+      toast.success("Comment deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting comment", error);
+      toast.error("Failed to delete comment.");
+    }
+  };
 
+  const handleDeleteReply = async (commentId, replyId) => {
+    try {
+      await axios.delete(`/api/comments/${commentId}/replies/${replyId}`);
+      setComments(
+        comments.map((comment) =>
+          comment.id === commentId
+            ? {
+                ...comment,
+                replies: comment.replies.filter(
+                  (reply) => reply.id !== replyId
+                ),
+              }
+            : comment
+        )
+      );
+    } catch (error) {
+      console.error("Error deleting reply", error);
+    }
+  };
   return (
     <div>
       <div className="h-50">
@@ -226,20 +249,22 @@ const ProjectDetail = () => {
               <div className="relative w-[full] max-w-md mx-auto">
                 {viewMode === "images" ? (
                   <div className="carousel carousel-vertical rounded-box transform  transition-transform duration-300 ease-in-out delay-150 hover:scale-125 h-96">
-                    {project.businessPicture.map((src, index) => (
-                      <div
-                        key={index}
-                        className={`carousel-item h-full lg:mb-10 ${
-                          currentSlide === index ? "block" : "hidden"
-                        }`}
-                      >
-                        <img
-                          src={src}
-                          alt={`Slide ${index + 1}`}
-                          className="object-cover w-full h-full mb-10"
-                        />
-                      </div>
-                    ))}
+                    {project.businessPicture?.length > 0 ? (
+                      project.businessPicture.map((src, index) => (
+                        <div
+                          key={index}
+                          className="carousel-item h-full lg:mb-10"
+                        >
+                          <img
+                            src={src}
+                            alt={`Slide ${index + 1}`}
+                            className="object-cover w-full h-full mb-10"
+                          />
+                        </div>
+                      ))
+                    ) : (
+                      <p>No images available</p>
+                    )}
                   </div>
                 ) : (
                   <div className="video-container rounded-md h-96">
@@ -453,6 +478,11 @@ const ProjectDetail = () => {
                   <p className="text-sm text-gray-400">
                     - {comment.userId.name}
                   </p>
+                  {user.id === comment.userId && (
+                    <button onClick={() => handleDeleteComment(comment.id)}>
+                      Delete Comment
+                    </button>
+                  )}
                   <button
                     className="btn btn-sm btn-outline mt-2 mr-2"
                     onClick={() => {
@@ -510,6 +540,15 @@ const ProjectDetail = () => {
                           <p className="text-sm text-gray-400">
                             - {reply.userId.name}
                           </p>
+                          {user.id === reply.userId && (
+                            <button
+                              onClick={() =>
+                                handleDeleteReply(comment.id, reply.id)
+                              }
+                            >
+                              Delete Reply
+                            </button>
+                          )}
                         </div>
                       ))}
                     </div>

@@ -89,5 +89,62 @@ router.get("/:commentId/replies", async (req, res) => {
     res.status(500).json({ message: "Error fetching replies: " + error.message });
   }
 });
+router.delete("/:commentId", authToken, async (req, res) => {
+  const { commentId } = req.params;
+  const userId = req.user.id; // Get logged-in user ID
+
+  try {
+    const comment = await Comment.findById(commentId);
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    // Check if the logged-in user is the owner of the comment
+    if (comment.userId.toString() !== userId) {
+      return res.status(403).json({ message: "Unauthorized to delete this comment" });
+    }
+
+    await Comment.findByIdAndDelete(commentId); // Delete comment from database
+
+    res.status(200).json({ message: "Comment deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting comment:", error);
+    res.status(500).json({ message: "Error deleting comment: " + error.message });
+  }
+});
+
+// Route to delete a reply (Only the reply owner can delete)
+router.delete("/:commentId/reply/:replyId", authToken, async (req, res) => {
+  const { commentId, replyId } = req.params;
+  const userId = req.user.id;
+
+  try {
+    const comment = await Comment.findById(commentId);
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    // Find the reply index in the replies array
+    const replyIndex = comment.replies.findIndex(reply => reply._id.toString() === replyId);
+
+    if (replyIndex === -1) {
+      return res.status(404).json({ message: "Reply not found" });
+    }
+
+    // Check if the logged-in user is the owner of the reply
+    if (comment.replies[replyIndex].userId.toString() !== userId) {
+      return res.status(403).json({ message: "Unauthorized to delete this reply" });
+    }
+
+    // Remove reply from array
+    comment.replies.splice(replyIndex, 1);
+    await comment.save();
+
+    res.status(200).json({ message: "Reply deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting reply:", error);
+    res.status(500).json({ message: "Error deleting reply: " + error.message });
+  }
+});
 
 export default router;
