@@ -481,7 +481,10 @@ const ProjectDetail = () => {
                     - {comment.userId.name}
                   </p>
                   {userdata?.name === comment.userId.name && (
-                    <button onClick={() => handleDeleteComment(comment._id)}>
+                    <button
+                      className="float-right btn btn-error text-white  "
+                      onClick={() => handleDeleteComment(comment._id)}
+                    >
                       Delete Comment
                     </button>
                   )}
@@ -544,6 +547,7 @@ const ProjectDetail = () => {
                           </p>
                           {userdata?.name === reply.userId.name && (
                             <button
+                              className="btn btn-error text-white mt-2"
                               onClick={() =>
                                 handleDeleteReply(comment._id, reply._id)
                               }
