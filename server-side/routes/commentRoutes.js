@@ -89,9 +89,9 @@ router.get("/:commentId/replies", async (req, res) => {
     res.status(500).json({ message: "Error fetching replies: " + error.message });
   }
 });
-router.delete("/:commentId", authToken, async (req, res) => {
+router.delete("/:commentId",  async (req, res) => {
   const { commentId } = req.params;
-  const userId = req.user.id; // Get logged-in user ID
+
 
   try {
     const comment = await Comment.findById(commentId);
@@ -111,9 +111,9 @@ router.delete("/:commentId", authToken, async (req, res) => {
 });
 
 // Route to delete a reply (Only the reply owner can delete)
-router.delete("/:commentId/reply/:replyId", authToken, async (req, res) => {
+router.delete("/:commentId/reply/:replyId",  async (req, res) => {
   const { commentId, replyId } = req.params;
-  const userId = req.user.id;
+  
 
   try {
     const comment = await Comment.findById(commentId);
