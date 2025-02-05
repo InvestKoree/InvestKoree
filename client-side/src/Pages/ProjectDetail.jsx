@@ -221,24 +221,26 @@ const ProjectDetail = () => {
       toast.error("Failed to delete comment.");
     }
   };
-
   const handleDeleteReply = async (commentId, replyId) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("You must be signed in to delete a reply.");
+      return;
+    }
+
     try {
-      await axios.delete(`/api/comments/${commentId}/replies/${replyId}`);
-      setComments(
-        comments.map((comment) =>
-          comment.id === commentId
-            ? {
-                ...comment,
-                replies: comment.replies.filter(
-                  (reply) => reply.id !== replyId
-                ),
-              }
-            : comment
-        )
-      );
+      await axios.delete(`${API_URL}/comments/${commentId}/reply/${replyId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      // Update the replies state to remove the deleted reply
+      setReplies((prev) => ({
+        ...prev,
+        [commentId]: prev[commentId].filter((reply) => reply._id !== replyId),
+      }));
+      toast.success("Reply deleted successfully!");
     } catch (error) {
-      console.error("Error deleting reply", error);
+      console.error("Error deleting reply:", error);
+      toast.error("Failed to delete reply.");
     }
   };
   return (
