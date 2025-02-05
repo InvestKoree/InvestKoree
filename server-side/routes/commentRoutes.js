@@ -100,10 +100,7 @@ router.delete("/:commentId", authToken, async (req, res) => {
     }
 
     // Check if the logged-in user is the owner of the comment
-    if (comment.userId.toString() !== userId) {
-      return res.status(403).json({ message: "Unauthorized to delete this comment" });
-    }
-
+ 
     await Comment.findByIdAndDelete(commentId); // Delete comment from database
 
     res.status(200).json({ message: "Comment deleted successfully" });
@@ -131,11 +128,8 @@ router.delete("/:commentId/reply/:replyId", authToken, async (req, res) => {
       return res.status(404).json({ message: "Reply not found" });
     }
 
-    // Check if the logged-in user is the owner of the reply
-    if (comment.replies[replyIndex].userId.toString() !== userId) {
-      return res.status(403).json({ message: "Unauthorized to delete this reply" });
-    }
 
+  
     // Remove reply from array
     comment.replies.splice(replyIndex, 1);
     await comment.save();
