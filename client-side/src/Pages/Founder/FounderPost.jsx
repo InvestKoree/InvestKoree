@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import imageCompression from "browser-image-compression";
 import axios from "axios";
 const FounderPost = () => {
   const initialFormData = {
@@ -45,9 +46,28 @@ const FounderPost = () => {
 
   const handleFileChange = (e, setFile) => setFile(e.target.files[0]);
 
-  const handleMultipleFileChange = (e) => {
+  const handleMultipleFileChange = async (e) => {
     const files = Array.from(e.target.files);
-    setBusinessPictures(files);
+    const compressedFiles = await Promise.all(
+      files.map(async (file) => {
+        const options = {
+          maxSizeKB: 500, // Maximum size in MB (adjust as needed)
+          maxWidthOrHeight: 1024, // Maximum width or height (adjust as needed)
+          useWebWorker: true, // Use web workers for better performance
+        };
+
+        try {
+          const compressedFile = await imageCompression(file, options);
+          return compressedFile;
+        } catch (error) {
+          console.error("Error compressing image:", error);
+          toast.error("Failed to compress image.");
+          return file; // Fallback to the original file if compression fails
+        }
+      })
+    );
+
+    setBusinessPictures(compressedFiles);
   };
 
   const handleVideoChange = (e) => {
