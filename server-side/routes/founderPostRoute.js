@@ -1,6 +1,7 @@
 // server-side/routes/founderRoutes.js
 import express from 'express';
 import founderPost from '../models/founderPostModel.js';
+import PendingPost from '../models/pendingPost.js';
 const router = express.Router();
 // Route to get all latest posts
 router.get('/latestposts', async (req, res) => {
@@ -29,6 +30,20 @@ router.get('/post/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const post = await founderPost.findById(id);
+
+    if (!post) {
+      return res.status(404).json({ message: "post not found" });
+    }
+
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching post details", error });
+  }
+});
+router.get('/post/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await PendingPost.findById(id);
 
     if (!post) {
       return res.status(404).json({ message: "post not found" });

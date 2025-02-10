@@ -43,6 +43,7 @@ import BlogSeven from "../Pages/Blogs/BlogSeven";
 import Bkash from "../Pages/Bkash";
 import InvestorRewards from "../Pages/Investor/InvestorRewards";
 import BlogNine from "../Pages/Blogs/BlogNine";
+import AdminPendingPostDetail from "../Pages/AdminPanel/AdminPendingPostDetails";
 
 export const router = createBrowserRouter([
   {
@@ -99,6 +100,10 @@ export const router = createBrowserRouter([
       {
         path: "/post/:id",
         element: <AdminPostDetail></AdminPostDetail>,
+      },
+      {
+        path: "/pendingpost/:id",
+        element: <AdminPendingPostDetail></AdminPendingPostDetail>,
       },
 
       {
