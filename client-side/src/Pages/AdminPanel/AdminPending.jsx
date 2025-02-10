@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useAuth } from "../../providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AdminPending = () => {
   const [posts, setPosts] = useState([]);
@@ -11,6 +11,7 @@ const AdminPending = () => {
   const { userdata } = useAuth();
   const [denyReason, setDenyReason] = useState("");
   const [currentPostId, setCurrentPostId] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPendingPosts = async () => {
@@ -81,7 +82,9 @@ const AdminPending = () => {
       setLoading(false);
     }
   };
-
+  const handleRowClick = (postId) => {
+    navigate(`/post/${postId}`); // Navigate to the post details page
+  };
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -118,7 +121,11 @@ const AdminPending = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {posts.map((post, index) => (
-                <tr key={post._id} className="hover:bg-gray-100">
+                <tr
+                  key={post._id}
+                  className="hover:bg-gray-100"
+                  onClick={() => handleRowClick(post._id)}
+                >
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {index + 1}
                   </td>
