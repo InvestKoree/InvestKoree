@@ -83,7 +83,7 @@ const AdminPending = () => {
     }
   };
   const handleRowClick = (postId) => {
-    navigate(`founderposts/pendingpost/${postId}`); // Navigate to the post details page
+    navigate(`/pendingpost/${postId}`); // Navigate to the post details page
   };
   return (
     <div className="drawer lg:drawer-open">
