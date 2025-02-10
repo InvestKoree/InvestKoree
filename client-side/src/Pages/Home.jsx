@@ -144,6 +144,7 @@ const Home = () => {
           </button>
         </form>
       </div>
+
       {/* Hero Section */}
       <div>
         <Parallax
