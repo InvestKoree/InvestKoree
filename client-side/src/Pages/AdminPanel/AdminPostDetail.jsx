@@ -103,7 +103,7 @@ const AdminPostDetail = () => {
         <div>
           <strong>Business Pictures:</strong>
           <div className="grid grid-cols-3 gap-2">
-            {post.businessPictures.map((pic, index) => (
+            {post.businessPicture.map((pic, index) => (
               <img
                 key={index}
                 src={pic}
@@ -125,7 +125,7 @@ const AdminPostDetail = () => {
         </p>
         <p>
           <strong>Video File:</strong>{" "}
-          {post.videoFile ? (
+          {post.video ? (
             <a href={post.videoFile} target="_blank" rel="noopener noreferrer">
               View
             </a>
