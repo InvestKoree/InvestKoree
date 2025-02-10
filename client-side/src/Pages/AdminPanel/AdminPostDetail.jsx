@@ -126,7 +126,7 @@ const AdminPostDetail = () => {
         <p>
           <strong>Video File:</strong>{" "}
           {post.video ? (
-            <a href={post.videoFile} target="_blank" rel="noopener noreferrer">
+            <a href={post.video} target="_blank" rel="noopener noreferrer">
               View
             </a>
           ) : (
