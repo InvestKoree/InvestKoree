@@ -40,7 +40,7 @@ router.get('/post/:id', async (req, res) => {
     res.status(500).json({ message: "Error fetching post details", error });
   }
 });
-router.get('/post/:id', async (req, res) => {
+router.get('/pendingpost/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const post = await PendingPost.findById(id);
