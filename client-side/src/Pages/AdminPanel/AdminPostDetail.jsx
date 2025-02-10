@@ -115,8 +115,8 @@ const AdminPostDetail = () => {
         </div>
         <p>
           <strong>NID File:</strong>{" "}
-          {post.nidFile ? (
-            <a href={post.nidFile} target="_blank" rel="noopener noreferrer">
+          {post.nidCopy ? (
+            <a href={post.nidCopy} target="_blank" rel="noopener noreferrer">
               View
             </a>
           ) : (
@@ -135,8 +135,8 @@ const AdminPostDetail = () => {
         </p>
         <p>
           <strong>TIN File:</strong>{" "}
-          {post.tinFile ? (
-            <a href={post.tinFile} target="_blank" rel="noopener noreferrer">
+          {post.tinCopy ? (
+            <a href={post.tinCopy} target="_blank" rel="noopener noreferrer">
               View
             </a>
           ) : (
@@ -145,8 +145,8 @@ const AdminPostDetail = () => {
         </p>
         <p>
           <strong>Tax File:</strong>{" "}
-          {post.taxFile ? (
-            <a href={post.taxFile} target="_blank" rel="noopener noreferrer">
+          {post.taxCopy ? (
+            <a href={post.taxCopy} target="_blank" rel="noopener noreferrer">
               View
             </a>
           ) : (
@@ -155,9 +155,9 @@ const AdminPostDetail = () => {
         </p>
         <p>
           <strong>Trade License File:</strong>{" "}
-          {post.tradeLicenseFile ? (
+          {post.tradeLicense ? (
             <a
-              href={post.tradeLicenseFile}
+              href={post.tradeLicense}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -169,9 +169,9 @@ const AdminPostDetail = () => {
         </p>
         <p>
           <strong>Bank Statement File:</strong>{" "}
-          {post.bankStatementFile ? (
+          {post.bankStatement ? (
             <a
-              href={post.bankStatementFile}
+              href={post.bankStatement}
               target="_blank"
               rel="noopener noreferrer"
             >
