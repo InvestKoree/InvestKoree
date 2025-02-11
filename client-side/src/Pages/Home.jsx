@@ -171,11 +171,12 @@ const Home = () => {
             <div className="hero-content xs:w-[90%] sm:w-[90%] flex-col gap-8 lg:gap-24 xxs:justify-start xxs:items-start sm:items-start xs:items-start lg:items-start lg:ml-8 lg:justify-start">
               <div className="lg:text-left xxs:text-left">
                 <p className="xs:text-3xl sm:text-3xl xxs:text-3xl lg:text-6xl xs:mt-8 sm:mt-8 xxs:mt-8 lg:text-white animate__animated animate__fadeInDownBig font-bold sm:text-white xs:text-white xxs:text-white">
-                  {t("welcome")} {/* Use translation */}
+                  {t("welcome")} <br />
+                  {t("title")}
                 </p>
                 <p className="py-3 lg:text-2xl animate__animated animate__fadeInUpBig lg:text-white flex lg:flex-row sm:flex-col xs:flex-col xxs:flex-col sm:font-semibold xs:font-semibold xxs:font-semibold sm:text-xl xs:text-xl xxs:text-xl sm:text-white xs:text-white xxs:text-white">
-                  {t("easy_fast")} {/* Use translation */}
-                  <span>{t("get_profit_faster")}</span>
+                  {t("easy_fast")} <br />
+                  {t("get_profit_faster")}
                 </p>
                 <Link to="/shariah">
                   <button className="btn btn-active btn-neutral animate__animated animate__fadeInUpBig">
@@ -246,15 +247,7 @@ const Home = () => {
             {t("empowering_businesses")} {/* Use translation */}
           </h1>
           <p className="lg:text-left sm:text-left xs:text-left xxs:text-left lg:text-lg">
-            Welcome to InvestKoree, the premier platform connecting visionary
-            businesses with investors ready to help them grow. Whether you're a
-            startup or an established business, we tailor our services to match
-            your unique needs. We strive to create a dynamic platform where
-            innovative ideas meet financial backing, fostering sustainable
-            growth and impactful change. By connecting businesses with the right
-            investors, we empower companies to reach their full potential while
-            offering investors opportunities to support ventures that align with
-            their strategic goals and values.
+            {t("mission")}
           </p>
           <h2 className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl text-gray-900 font-bold mt-12">
             {t("how_investkoree_works")} {/* Use translation */}
@@ -395,7 +388,7 @@ const Home = () => {
       {/* Testimonial Section */}
       <section className="customer-review my-32">
         <p className="lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl text-center mb-4 text-gray-900 font-bold">
-          {t("success_stories")} {/* Use translation */}
+          {t("success_stories2")} {/* Use translation */}
         </p>
         <p className="text-center lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl lg:text-bold sm:text-bold xs:text-bold xxs:text-bold mb-16">
           {t("hear_from_businesses")} {/* Use translation */}
@@ -411,17 +404,16 @@ const Home = () => {
               />
               <div>
                 <h4 className="text-lg font-medium text-gray-900 group-hover:text-white">
-                  Hasibul Hassan Safran
+                  {t("testimonial_1_name")}
                 </h4>
                 <p className="text-sm text-gray-500 group-hover:text-white">
-                  Startup Founder
+                  {t("testimonial_1_role")}
                 </p>
               </div>
             </div>
             <div className="mt-4 testimonial-card-content">
               <p className="text-gray-700 group-hover:text-white">
-                "InvestKoree helped us secure funding within weeks. The process
-                was seamless! This platform is a game-changer for startups."
+                {t("testimonial_1_text")}
               </p>
             </div>
           </div>
@@ -436,17 +428,16 @@ const Home = () => {
               />
               <div>
                 <h4 className="text-lg font-medium text-gray-900 group-hover:text-white">
-                  Omor Faruk
+                  {t("testimonial_2_name")}
                 </h4>
                 <p className="text-sm text-gray-500 group-hover:text-white">
-                  Small Business Owner
+                  {t("testimonial_2_role")}
                 </p>
               </div>
             </div>
             <div className="mt-4 testimonial-card-content">
               <p className="text-gray-700 group-hover:text-white">
-                "Their platform connected us with investors who understood our
-                vision. We've doubled our revenue since!"
+                {t("testimonial_2_text")}
               </p>
             </div>
           </div>
