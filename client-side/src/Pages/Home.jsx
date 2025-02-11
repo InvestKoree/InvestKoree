@@ -157,7 +157,7 @@ const Home = () => {
           onClick={() => i18n.changeLanguage("bn")}
           className="btn btn-primary mx-2"
         >
-          BG
+          BN
         </button>
       </div>
       {/* Hero Section */}
