@@ -110,23 +110,6 @@ const AdminPendingPostDetail = () => {
             ? new Date(post.startDate).toLocaleDateString()
             : "N/A"}
         </p>
-        <div>
-          <strong>Business Pictures:</strong>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
-            {post?.businessPicture?.length > 0 ? (
-              post.businessPicture.map((pic, index) => (
-                <img
-                  key={index}
-                  src={pic}
-                  alt={`Business Picture ${index + 1}`}
-                  className="w-full h-40 object-cover rounded"
-                />
-              ))
-            ) : (
-              <p>No images available</p>
-            )}
-          </div>
-        </div>
 
         {/* File Links */}
         {[
@@ -155,6 +138,23 @@ const AdminPendingPostDetail = () => {
             )}
           </p>
         ))}
+        <div>
+          <strong>Business Pictures:</strong>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+            {post?.businessPicture?.length > 0 ? (
+              post.businessPicture.map((pic, index) => (
+                <img
+                  key={index}
+                  src={pic}
+                  alt={`Business Picture ${index + 1}`}
+                  className="w-full h-40 object-cover rounded"
+                />
+              ))
+            ) : (
+              <p>No images available</p>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

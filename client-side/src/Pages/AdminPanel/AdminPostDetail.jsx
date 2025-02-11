@@ -100,19 +100,7 @@ const AdminPostDetail = () => {
           <strong>Start Date:</strong>{" "}
           {new Date(post.startDate).toLocaleDateString()}
         </p>
-        <div>
-          <strong>Business Pictures:</strong>
-          <div className="grid grid-cols-3 gap-2">
-            {post.businessPicture.map((pic, index) => (
-              <img
-                key={index}
-                src={pic}
-                alt={`Business Picture ${index + 1}`}
-                className="w-full h-40 object-cover rounded"
-              />
-            ))}
-          </div>
-        </div>
+
         <p>
           <strong>NID File:</strong>{" "}
           {post.nidCopy ? (
@@ -209,6 +197,19 @@ const AdminPostDetail = () => {
             "N/A"
           )}
         </p>
+        <div>
+          <strong>Business Pictures:</strong>
+          <div className="grid grid-cols-3 gap-2">
+            {post.businessPicture.map((pic, index) => (
+              <img
+                key={index}
+                src={pic}
+                alt={`Business Picture ${index + 1}`}
+                className="w-full h-40 object-cover rounded"
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
