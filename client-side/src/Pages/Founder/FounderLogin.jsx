@@ -7,9 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const FounderLogin = () => {
   const [phonenumber, setPhoneNumber] = useState("");
+  const { t } = useTranslation();
   const [showOTPModal, setShowOTPModal] = useState(false);
   const [showPassword, setShowPassword] = useState({
     login: false,
@@ -182,14 +184,14 @@ const FounderLogin = () => {
             className="sign-in-form sm:mr-4 xs:mr-4 xxs:mr-4 "
           >
             <h2 className="lg:text-4xl text-black mb-2 md:text-2xl sm:text-lg xxs:text-lg xs:text-lg">
-              Founder Sign in
+              {t("founder_login")}
             </h2>
             {error && <p className="error-message">{error}</p>}
             <div className="input-field">
               <i className="fas fa-envelope"></i>
               <input
                 type="text"
-                placeholder="Email Address or Phone Number"
+                placeholder={t("email_address")}
                 name="u_signin_email_or_phone"
                 required
               />
@@ -198,7 +200,7 @@ const FounderLogin = () => {
               <i className="fas fa-lock"></i>
               <input
                 type={showPassword.login ? "text" : "password"}
-                placeholder="Password"
+                placeholder={t("password")}
                 name="u_signin_pass"
                 required
               />
@@ -229,14 +231,14 @@ const FounderLogin = () => {
             className="sign-up-form xs:ml-4 sm:ml-4 xxs:ml-4"
           >
             <h2 className="lg:text-4xl text-black mb -2 md:text-2xl sm:text-lg xxs:text-lg xs:text-lg">
-              Founder Sign up
+              {t("sign_up")}
             </h2>
             {error && <p className="error-message">{error}</p>}
             <div className="input-field">
               <i className="fas fa-user"></i>
               <input
                 type="text"
-                placeholder="Full Name"
+                placeholder={t("full_name")}
                 name="u_signup_name"
                 required
               />
@@ -245,7 +247,7 @@ const FounderLogin = () => {
               <i className="fas fa-envelope"></i>
               <input
                 type="email"
-                placeholder="Email Address"
+                placeholder={t("email_address")}
                 name="u_signup_email"
                 required
               />
@@ -254,7 +256,7 @@ const FounderLogin = () => {
               <i className="fas fa-phone"></i>
               <input
                 type="text"
-                placeholder="Phone Number"
+                placeholder={t("phone_number")}
                 name="u_signup_number"
                 required
               />
@@ -263,7 +265,7 @@ const FounderLogin = () => {
               <i className="fas fa-lock"></i>
               <input
                 type={showPassword.register ? "text" : "password"}
-                placeholder="Password"
+                placeholder={t("phone_number")}
                 name="u_signup_password"
                 required
               />
@@ -283,7 +285,7 @@ const FounderLogin = () => {
               <i className="fas fa-lock"></i>
               <input
                 type={showPassword.confirm ? "text" : "password"}
-                placeholder="Confirm Password"
+                placeholder={t("confirm_password")}
                 name="u_signup_cpassword"
                 required
               />
@@ -308,12 +310,11 @@ const FounderLogin = () => {
                 onChange={() => setIsTermsAccepted((prev) => !prev)}
               />
               <label htmlFor="terms" className="text-sm font-light">
-                I have read and agreed to{" "}
                 <Link
                   to="/founderterms"
                   className="text-blue-500 hover:underline"
                 >
-                  terms and conditions
+                  {t("terms_conditions")}
                 </Link>
               </label>
             </div>
@@ -333,13 +334,13 @@ const FounderLogin = () => {
       <div className="panels-container">
         <div className="panel left-panel sm:mr-6 xs:mr-6 xxs:mr-6">
           <div className="content">
-            <h3>New here?</h3>
-            <p>Sign up to access exclusive features!</p>
+            <h3>{t("new_here")}</h3> {/* Use translation */}
+            <p>{t("access_exclusive_features")}</p>
             <button
               className="login-btn2 lg:w-96 sm:w-36 xxs:w-24 xs:w-32 md:lg:w-80 transparent"
               onClick={() => setIsSignUpMode(true)}
             >
-              Sign up
+              {t("sign_up")}
             </button>
           </div>
 
@@ -348,13 +349,13 @@ const FounderLogin = () => {
 
         <div className="panel right-panel sm:ml-6 xs:ml-6 xxs:ml-6">
           <div className="content">
-            <h3>One of us?</h3>
-            <p>Log in to access your account.</p>
+            <h3>{t("one_of_us")}</h3> {/* Use translation */}
+            <p>{t("log_in_to_access")}</p>
             <button
               className="login-btn2 lg:w-96 sm:w-36 xxs:w-24 xs:w-32 md:lg:w-80 transparent"
               onClick={() => setIsSignUpMode(false)}
             >
-              Log in
+              {t("sign_in")}
             </button>
             {registrationSuccessful && ( // Show button if registration was successful
               <button
@@ -362,7 +363,7 @@ const FounderLogin = () => {
                 onClick={() => setShowOTPModal(true)}
                 className="otp-btn mt-4"
               >
-                Open OTP Modal
+                {t("open_otp_modal")}
               </button>
             )}
           </div>
