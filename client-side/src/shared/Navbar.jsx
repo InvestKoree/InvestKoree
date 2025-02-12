@@ -402,6 +402,53 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
+                <button
+                  onClick={toggleLanguageDropdown}
+                  className="hover:bg-salmon hover:text-white transition p-2 rounded flex flex-row items-center"
+                >
+                  <AiOutlineGlobal />
+                  {i18n.language === "en" ? "EN" : "BN"}
+                </button>
+                {showLanguageDropdown && (
+                  <ul className=" bg-white right-[1px] flex gap-2 p-2 rounded mt-2">
+                    <li className=" rounded ">
+                      <div className="flex flex-row gap-1">
+                        <div>
+                          <img src={usa} alt="USA Flag" className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <button
+                            onClick={() => handleLanguageChange("en")}
+                            className="text-sm"
+                          >
+                            EN
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                    <li className=" rounded ">
+                      <div className="flex flex-row gap-1">
+                        <div>
+                          <img
+                            src={bd}
+                            alt="Bangladesh Flag"
+                            className="w-4 h-4"
+                          />
+                        </div>
+                        <div>
+                          <button
+                            onClick={() => handleLanguageChange("bn")}
+                            className=" text-sm "
+                          >
+                            BN
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                )}
+              </li>
+              <li>
                 {userdata ? (
                   <div className="flex flex-col">
                     {userdata.role === "investor" && (
@@ -445,12 +492,12 @@ const Navbar = () => {
                         e.preventDefault();
                         toggleDropdown("login");
                       }}
-                      className="hover:bg-salmon mt-2 p-2 rounded hover:text-white"
+                      className="hover:bg-salmon  p-2 rounded hover:text-white"
                     >
                       Login
                     </summary>
                     {activeDropdown === "login" && (
-                      <ul className="bg-base-100 rounded-t-none p-2">
+                      <ul className="bg-base-100 rounded-t-none  flex flex-col gap-2 p-2">
                         <li>
                           <NavLink
                             to="/investorlogin"
