@@ -105,7 +105,7 @@ const Navbar = () => {
         </div>
 
         {/* Search Bar for Large Screens */}
-        <div className="lg:flex hidden lg:mr-14 relative gap-2 rounded-md">
+        <div className="lg:flex hidden lg:mr-24 relative gap-2 rounded-md">
           {showSearchBar ? (
             <form
               onSubmit={handleSearch}
