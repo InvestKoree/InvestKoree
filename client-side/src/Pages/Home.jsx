@@ -14,7 +14,7 @@ import mission4 from "../assets/mission4.jpg";
 import { useTranslation } from "react-i18next";
 
 const Home = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [latestPosts, setLatestPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -146,7 +146,7 @@ const Home = () => {
           </button>
         </form>
       </div>
-      <div className="flex justify-center my-4">
+      {/* <div className="flex justify-center my-4">
         <button
           onClick={() => i18n.changeLanguage("en")}
           className="btn btn-primary mx-2"
@@ -159,7 +159,7 @@ const Home = () => {
         >
           BN
         </button>
-      </div>
+      </div> */}
       {/* Hero Section */}
       <div>
         <Parallax

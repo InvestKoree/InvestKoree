@@ -2,15 +2,25 @@ import { useState, useEffect, useRef } from "react";
 import logo from "../assets/ll.png";
 import { useNavigate, NavLink, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AiOutlineMenu, AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
+import {
+  AiOutlineMenu,
+  AiOutlineClose,
+  AiOutlineSearch,
+  AiOutlineGlobal,
+} from "react-icons/ai";
 import { useAuth } from "../providers/AuthProvider";
 import Notifications from "./Notifications";
+import { useTranslation } from "react-i18next";
+import bd from "../assets/bd.png";
+import usa from "../assets/usa.png";
 
 const Navbar = () => {
+  const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const navigate = useNavigate();
   const { userdata, logOut } = useAuth();
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false); // State for language dropdown
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
   const searchBarRef = useRef(null); // Reference for the search bar
@@ -26,7 +36,14 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+  const toggleLanguageDropdown = () => {
+    setShowLanguageDropdown(!showLanguageDropdown);
+  };
 
+  const handleLanguageChange = (lang) => {
+    i18n.changeLanguage(lang);
+    setShowLanguageDropdown(false); // Close the dropdown after selection
+  };
   const toggleMobileDropdown = (dropdownName) => {
     setActiveDropdown((prev) => (prev === dropdownName ? null : dropdownName));
   };
@@ -48,7 +65,8 @@ const Navbar = () => {
         !searchBarRef.current.contains(event.target) // Check if click is outside search bar
       ) {
         setActiveDropdown(null); // Close dropdowns when clicking outside
-        setShowSearchBar(false); // Close search bar when clicking outside
+        setShowSearchBar(false);
+        setShowLanguageDropdown(false); // Close search bar when clicking outside
       }
     };
 
@@ -188,6 +206,49 @@ const Navbar = () => {
               >
                 Blog
               </NavLink>
+            </li>
+            <li className="relative">
+              <button
+                onClick={toggleLanguageDropdown}
+                className="hover:bg-salmon hover:text-white transition mt-2 rounded"
+              >
+                <AiOutlineGlobal />
+                {i18n.language === "en" ? "EN" : "BN"}
+              </button>
+              {showLanguageDropdown && (
+                <ul className="absolute top-16 bg-white right-[1px] w-[90px] rounded mt-2">
+                  <li className="hover:bg-salmon hover:text-white rounded mr-1">
+                    <div>
+                      <div>
+                        <img src={usa} alt="USA Flag" className="" />
+                      </div>
+                      <div>
+                        <button
+                          onClick={() => handleLanguageChange("en")}
+                          className="text-sm"
+                        >
+                          EN
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                  <li className="hover:bg-salmon hover:text-white rounded mr-1 mb-2">
+                    <div>
+                      <div>
+                        <img src={bd} alt="Bangladesh Flag" />
+                      </div>
+                      <div>
+                        <button
+                          onClick={() => handleLanguageChange("bn")}
+                          className=" text-sm "
+                        >
+                          BN
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              )}
             </li>
             <li>
               {userdata ? (
