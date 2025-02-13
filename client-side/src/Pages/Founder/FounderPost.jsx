@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import imageCompression from "browser-image-compression";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 const FounderPost = () => {
   const initialFormData = {
     businessName: "",
@@ -43,6 +44,7 @@ const FounderPost = () => {
   const [securityFile, setSecurityFile] = useState(null);
   const [financialFile, setFinancialFile] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
+  const { t } = useTranslation();
 
   const handleFileChange = (e, setFile) => setFile(e.target.files[0]);
 
@@ -231,33 +233,33 @@ const FounderPost = () => {
         onSubmit={handleSubmit}
       >
         <p className="lg:text-2xl xs:text-lg xxs:text-lg sm:text-lg font-bold my-10">
-          For Business Investment
+          {t("founder_post_title")}
         </p>
         {/* Business Name */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">Name of the Business</span>
+            <span className="label-text">{t("business_name")}</span>
           </div>
           <input
             type="text"
             name="businessName"
             value={formData.businessName}
             onChange={handleInputChange}
-            placeholder="Type here"
+            placeholder={t("business_name_placeholder")}
             className="input input-bordered input-warning w-full max-w-xs"
             required
           />
         </label>
-        {/* description*/}
+        {/* Description */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">Details of the Business</span>
+            <span className="label-text">{t("business_description")}</span>
           </div>
           <textarea
-            name="description" // Change this to match the backend
-            value={formData.description} // Update state accordingly
+            name="description"
+            value={formData.description}
             onChange={handleInputChange}
-            placeholder="Type here"
+            placeholder={t("business_description_placeholder")}
             className="textarea textarea-bordered textarea-warning w-full max-w-xs"
             rows="4"
           />
@@ -265,14 +267,14 @@ const FounderPost = () => {
         {/* Email */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">Email</span>
+            <span className="label-text">{t("email")}</span>
           </div>
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            placeholder="Type here"
+            placeholder={t("email_placeholder")}
             className="input input-bordered input-warning w-full max-w-xs"
             required
           />
@@ -280,14 +282,14 @@ const FounderPost = () => {
         {/* Address */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">Address</span>
+            <span className="label-text">{t("address")}</span>
           </div>
           <input
             type="text"
             name="address"
             value={formData.address}
             onChange={handleInputChange}
-            placeholder="Type here"
+            placeholder={t("address_placeholder")}
             className="input input-bordered input-warning w-full max-w-xs"
             required
           />
@@ -295,9 +297,7 @@ const FounderPost = () => {
         {/* Business Picture */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">
-              Upload Your Business's Picture Here(Min 5)
-            </span>
+            <span className="label-text">{t("upload_business_picture")}</span>
           </div>
           <input
             type="file"
@@ -308,11 +308,10 @@ const FounderPost = () => {
             multiple
           />
         </label>
+        {/* Video Upload */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">
-              Upload Your Business's Video Here(Max 50mb)
-            </span>
+            <span className="label-text">{t("upload_video")}</span>
           </div>
           <input
             type="file"
@@ -325,14 +324,14 @@ const FounderPost = () => {
         {/* Phone Number */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">Phone Number</span>
+            <span className="label-text">{t("phone_number")}</span>
           </div>
           <input
             type="text"
             name="phone"
             value={formData.phone}
             onChange={handleInputChange}
-            placeholder="Type here"
+            placeholder={t("phone_number_placeholder")}
             className="input input-bordered input-warning w-full max-w-xs"
             required
           />
@@ -340,7 +339,7 @@ const FounderPost = () => {
         {/* NID Copy */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">Upload Your NID Copy</span>
+            <span className="label-text">{t("upload_nid")}</span>
           </div>
           <input
             type="file"
@@ -353,7 +352,7 @@ const FounderPost = () => {
         {/* TIN Copy */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">Upload Your TIN</span>
+            <span className="label-text">{t("upload_tin")}</span>
           </div>
           <input
             type="file"
@@ -366,7 +365,7 @@ const FounderPost = () => {
         {/* Tax Information */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">Upload Your Tax Information</span>
+            <span className="label-text">{t("upload_tax_info")}</span>
           </div>
           <input
             type="file"
@@ -379,7 +378,7 @@ const FounderPost = () => {
         {/* Trade License */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">Upload Your Trade License Copy</span>
+            <span className="label-text">{t("upload_trade_license")}</span>
           </div>
           <input
             type="file"
@@ -392,9 +391,7 @@ const FounderPost = () => {
         {/* Bank Statement */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">
-              Upload Your Recent Bank Statement
-            </span>
+            <span className="label-text">{t("upload_bank_statement")}</span>
           </div>
           <input
             type="file"
@@ -407,7 +404,7 @@ const FounderPost = () => {
         {/* Business Category */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">What Category Of Business</span>
+            <span className="label-text">{t("business_category")}</span>
           </div>
           <select
             name="businessCategory"
@@ -417,7 +414,7 @@ const FounderPost = () => {
             required
           >
             <option disabled value="">
-              Pick a Category
+              {t("pick_a_category")}
             </option>
             <option value="Shariah">Shariah</option>
             <option value="Stocks">Stocks</option>
@@ -427,7 +424,7 @@ const FounderPost = () => {
         {/* Business Sector */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">What Sector Of Business</span>
+            <span className="label-text">{t("business_sector")}</span>
           </div>
           <select
             name="businessSector"
@@ -437,7 +434,7 @@ const FounderPost = () => {
             required
           >
             <option disabled value="">
-              Pick a Sector
+              {t("pick_a_sector")}
             </option>
             <option value="Health">Health</option>
             <option value="Farming">Farming</option>
@@ -464,7 +461,7 @@ const FounderPost = () => {
         {/* Investment Duration */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">Investment Duration</span>
+            <span className="label-text">{t("investment_duration")}</span>
           </div>
           <select
             name="investmentDuration"
@@ -474,7 +471,7 @@ const FounderPost = () => {
             required
           >
             <option disabled value="">
-              Pick a Duration
+              {t("pick_a_duration")}
             </option>
             <option value="short-term">short-term (2 weeks to 1 month)</option>
             <option value="mid-term">mid-term (2 months to 6 months)</option>
@@ -484,7 +481,7 @@ const FounderPost = () => {
         {/* Security Option */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">Pick a Security Option</span>
+            <span className="label-text">{t("security_option")}</span>
           </div>
           <select
             name="securityOption"
@@ -494,7 +491,7 @@ const FounderPost = () => {
             required
           >
             <option disabled value="">
-              Pick a Security
+              {t("pick_a_security")}
             </option>
             <option value="Property">Property</option>
             <option value="Equipment">Equipment</option>
@@ -505,14 +502,14 @@ const FounderPost = () => {
         {otherOption && (
           <label className="form-control my-3 w-full max-w-xs">
             <div className="label">
-              <span className="label-text">Other Security Option</span>
+              <span className="label-text">{t("other_security_option")}</span>
             </div>
             <input
               type="text"
               name="otherSecurityOption"
               value={formData.otherSecurityOption}
               onChange={handleInputChange}
-              placeholder="Type here"
+              placeholder={t("other_security_option_placeholder")}
               className="input input-bordered input-warning w-full max-w-xs"
               required={otherOption}
             />
@@ -521,7 +518,7 @@ const FounderPost = () => {
         {/* Upload Security File */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">Upload The Security File</span>
+            <span className="label-text">{t("upload_security_file")}</span>
           </div>
           <input
             type="file"
@@ -534,7 +531,7 @@ const FounderPost = () => {
         {/* Documentation Option */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">Pick a Documentation Option</span>
+            <span className="label-text">{t("documentation_option")}</span>
           </div>
           <select
             name="documentationOption"
@@ -544,7 +541,7 @@ const FounderPost = () => {
             required
           >
             <option disabled value="">
-              Pick a Documentation
+              {t("pick_a_documentation")}
             </option>
             <option value="Audit Report">Audit Report</option>
             <option value="Income Statement">Income Statement</option>
@@ -555,14 +552,16 @@ const FounderPost = () => {
         {otherDocumentation && (
           <label className="form-control my-3 w-full max-w-xs">
             <div className="label">
-              <span className="label-text">Other Documentation Option</span>
+              <span className="label-text">
+                {t("other_documentation_option")}
+              </span>
             </div>
             <input
               type="text"
               name="otherDocumentationOption"
               value={formData.otherDocumentationOption}
               onChange={handleInputChange}
-              placeholder="Type here"
+              placeholder={t("other_documentation_option_placeholder")}
               className="input input-bordered input-warning w-full max-w-xs"
               required={otherDocumentation}
             />
@@ -571,7 +570,7 @@ const FounderPost = () => {
         {/* Financial Document */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">Upload The Financial Document</span>
+            <span className="label-text">{t("upload_financial_document")}</span>
           </div>
           <input
             type="file"
@@ -584,14 +583,14 @@ const FounderPost = () => {
         {/* Assets */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">What Is Your Assets Worth</span>
+            <span className="label-text">{t("assets")}</span>
           </div>
           <input
             type="text"
             name="assets"
             value={formData.assets}
             onChange={handleInputChange}
-            placeholder="Type here"
+            placeholder={t("assets_placeholder")}
             className="input input-bordered input-warning w-full max-w-xs"
             required
           />
@@ -599,14 +598,14 @@ const FounderPost = () => {
         {/* Revenue */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">What Is Your Revenue Worth</span>
+            <span className="label-text">{t("revenue")}</span>
           </div>
           <input
             type="text"
             name="revenue"
             value={formData.revenue}
             onChange={handleInputChange}
-            placeholder="Type here"
+            placeholder={t("revenue_placeholder")}
             className="input input-bordered input-warning w-full max-w-xs"
             required
           />
@@ -614,16 +613,14 @@ const FounderPost = () => {
         {/* Funding Amount */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">
-              How Much Funding Are You Looking For
-            </span>
+            <span className="label-text">{t("funding_amount")}</span>
           </div>
           <input
             type="text"
             name="fundingAmount"
             value={formData.fundingAmount}
             onChange={handleInputChange}
-            placeholder="Type here"
+            placeholder={t("funding_amount_placeholder")}
             className="input input-bordered input-warning w-full max-w-xs"
             required
           />
@@ -631,70 +628,70 @@ const FounderPost = () => {
         {/* Funding Help */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">How Would The Funding Help You</span>
+            <span className="label-text">{t("funding_help")}</span>
           </div>
           <textarea
             name="fundingHelp"
             value={formData.fundingHelp}
             onChange={handleInputChange}
-            placeholder="Type here"
+            placeholder={t("funding_help_placeholder")}
             className="textarea textarea-warning w-full max-w-xs"
             required
           ></textarea>
         </label>
+        {/* Return Plan */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">
-              How Do You Plan To Return The Investment
-            </span>
+            <span className="label-text">{t("return_plan")}</span>
           </div>
           <textarea
             name="returnPlan"
             value={formData.returnPlan}
             onChange={handleInputChange}
-            placeholder="Type here"
+            placeholder={t("return_plan_placeholder")}
             className="textarea textarea-warning w-full max-w-xs"
             required
           ></textarea>
         </label>
+        {/* Return Date */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">When is Your Return Date</span>
+            <span className="label-text">{t("return_date")}</span>
           </div>
-          <textarea
+          <input
+            type="text"
             name="returndate"
             value={formData.returndate}
             onChange={handleInputChange}
-            placeholder="Type here"
-            className="textarea textarea-warning w-full max-w-xs"
+            placeholder={t("return_date_placeholder")}
+            className="input input-bordered input-warning w-full max-w-xs"
             required
-          ></textarea>
+          />
         </label>
         {/* Business Safety */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">
-              How Safe Do You Consider Your Business To Be?
-            </span>
+            <span className="label-text">{t("business_safety")}</span>
           </div>
           <textarea
             name="businessSafety"
             value={formData.businessSafety}
             onChange={handleInputChange}
-            placeholder="Type here"
+            placeholder={t("business_safety_placeholder")}
             className="textarea textarea-warning w-full max-w-xs"
             required
           ></textarea>
         </label>
+        {/* Projected ROI */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">What is your projectedROI</span>
+            <span className="label-text">{t("projected_roi")}</span>
           </div>
           <textarea
             name="projectedROI"
             value={formData.projectedROI}
             onChange={handleInputChange}
-            placeholder="Type here"
+            placeholder={t("projected_roi_placeholder")}
             className="textarea textarea-warning w-full max-w-xs"
             required
           ></textarea>
@@ -702,13 +699,13 @@ const FounderPost = () => {
         {/* Additional Information */}
         <label className="form-control my-3 w-full max-w-xs">
           <div className="label">
-            <span className="label-text">Additional Information</span>
+            <span className="label-text">{t("additional_information")}</span>
           </div>
           <textarea
-            name="additionalComments" // Change this to match the backend
-            value={formData.additionalComments} // Update state accordingly
+            name="additionalComments"
+            value={formData.additionalComments}
             onChange={handleInputChange}
-            placeholder="Type here"
+            placeholder={t("additional_information_placeholder")}
             className="textarea textarea-bordered textarea-warning w-full max-w-xs"
             rows="4"
           />
@@ -718,13 +715,13 @@ const FounderPost = () => {
           <button
             type="submit"
             className="btn btn-warning w-full max-w-xs"
-            disabled={isLoading} // Disable button if loading
+            disabled={isLoading}
           >
-            {isLoading ? "Submitting..." : "Submit"} {/* Change button text */}
+            {isLoading ? t("submitting") : t("submit_button")}
           </button>
         </div>
         {isLoading && (
-          <p className="text-center text-gray-500">Please Wait a While..</p>
+          <p className="text-center text-gray-500">{t("please_wait")}</p>
         )}
       </form>
     </div>
