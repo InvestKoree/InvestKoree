@@ -44,6 +44,7 @@ import Bkash from "../Pages/Bkash";
 import InvestorRewards from "../Pages/Investor/InvestorRewards";
 import BlogNine from "../Pages/Blogs/BlogNine";
 import AdminPendingPostDetail from "../Pages/AdminPanel/AdminPendingPostDetails";
+import BlogTen from "../Pages/Blogs/BlogTen";
 
 export const router = createBrowserRouter([
   {
@@ -162,6 +163,10 @@ export const router = createBrowserRouter([
       {
         path: "/blogthree",
         element: <BlogThree></BlogThree>,
+      },
+      {
+        path: "/blogten",
+        element: <BlogTen></BlogTen>,
       },
       {
         path: "/blognine",

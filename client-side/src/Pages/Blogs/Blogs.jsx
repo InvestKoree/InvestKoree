@@ -40,6 +40,9 @@ const Blogs = () => {
   const handleShowMore9 = () => {
     navigate("/blognine");
   };
+  const handleShowMore10 = () => {
+    navigate("/blogten");
+  };
   return (
     <div>
       <h1 className="text-center lg:text-4xl sm:text-2xl xxs:text-2xl xs:text-2xl mt-20">
@@ -384,6 +387,39 @@ const Blogs = () => {
 
                   <button
                     onClick={handleShowMore9}
+                    className="mt-auto bg-salmon text-white px-2 py-2 rounded hover:bg-blue-600"
+                  >
+                    Show More
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex lg:flex-row sm:flex-col xxs:flex-col xs:flex-col">
+          <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[400px] ">
+            <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
+              <div className="flex flex-col md:flex-row h-full p-4 bg-white">
+                <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[full] xxs:w-[full] xs:w-[full]  sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[30%] xxs:h-[30%] xs:h-[30%]">
+                  <img src={blog9} className=" w-full h-full rounded-md" />
+                </div>
+
+                <div className="lg:p-4 flex flex-col justify-between w-full md:w-1/2 ">
+                  <h2 className="text-lg font-bold mb-2">
+                    Startup Investment in Bangladesh: Strategies to Find the
+                    Right Investors
+                  </h2>
+                  <p className="text-sm text-gray-700 mb-4 line-clamp-3">
+                    The startup ecosystem in Bangladesh is rapidly evolving,
+                    creating new opportunities for entrepreneurs. However,
+                    finding the right investors remains a significant challenge
+                    for many. In this blog, we will discuss effective strategies
+                    to identify and connect with the right investors for your
+                    startup.
+                  </p>
+
+                  <button
+                    onClick={handleShowMore10}
                     className="mt-auto bg-salmon text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     Show More
