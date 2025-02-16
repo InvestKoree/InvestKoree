@@ -88,7 +88,7 @@ const Blogs = () => {
                   {/* Button */}
                   <button
                     onClick={handleShowMore1}
-                    className="mt-auto bg-salmon h-12 w-28 text-white py-2 px-2 h-10 rounded hover:bg-blue-600"
+                    className="mt-auto bg-salmon h-12 w-28 text-white py-2 px-2  rounded hover:bg-blue-600"
                   >
                     Show More
                   </button>
