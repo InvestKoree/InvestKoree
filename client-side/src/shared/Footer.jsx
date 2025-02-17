@@ -84,7 +84,7 @@ function Footer() {
         </div>
       </footer>
       <section className="bg-salmon text-slate-800 lg:h-12 sm:flex-col xs:flex-col xxs:flex-col items-center text-center sm:text-sm xs:text-sm xxs:text-sm font-bold py-4">
-        {t("copyright")}
+        Copyright © InvestKoree.com. All Rights Reserved.
       </section>
     </div>
   );
