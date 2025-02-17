@@ -152,5 +152,18 @@
   "my_profile": "My Profile",
   "logout": "Logout",
   "login": "Login",
-  "please_enter_search_term": "Please enter a search term"
+  "please_enter_search_term": "Please enter a search term",
+  "contact_us": "Contact Us",
+  "comaddress": "Motijheel",
+  "comphone_number": "01326709096",
+  "comemail_address": "investkoree@gmail.com",
+  "about_us": "About Us",
+  "overview": "Overview",
+  "who_we_are": "Who We Are",
+  "what_we_do": "What We Do",
+  "social": "Social",
+  "visit_facebook": "Visit our Facebook page",
+  "visit_linkedin": "Visit our LinkedIn page",
+  "visit_instagram": "Visit our Instagram page",
+  "visit_youtube": "Visit our YouTube channel"
   }
