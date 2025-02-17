@@ -90,10 +90,11 @@ const Navbar = () => {
       <div className="navbar px-6 py-3 flex justify-between items-center">
         <div className="flex items-center navbar-start">
           <Link to="/">
-            <img className="h-16 logo-css" src={logo} alt="logo" />
+            <img className="h-16  logo-css" src={logo} alt="logo" />
           </Link>
         </div>
 
+        {/* Mobile Menu Toggle Button */}
         <div className="lg:hidden block">
           <button
             onClick={toggleMenu}
@@ -103,12 +104,13 @@ const Navbar = () => {
           </button>
         </div>
 
+        {/* Search Bar for Large Screens */}
         <div className="lg:flex hidden lg:mr-28 relative gap-2 rounded-md">
           {showSearchBar ? (
             <form
               onSubmit={handleSearch}
               className="flex items-center mx-4"
-              ref={searchBarRef}
+              ref={searchBarRef} // Attach the reference to the search bar
             >
               <input
                 type="text"
@@ -134,10 +136,11 @@ const Navbar = () => {
           )}
         </div>
 
+        {/* Full Navbar for Larger Screens */}
         <div className="hidden whitespace-nowrap lg:flex lg:flex-row flex-1 justify-center items-center navbar-end">
           <ul
             ref={dropdownRef}
-            className="lg:font-bold whitespace-nowrap lg:text-lg sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium lg:w-[800px] lg:h-20 lg:justify-end"
+            className="lg:font-bold whitespace-nowrap lg:text-lg sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium menu menu-horizontal gap-6 px-1 flex-nowrap  lg:w-[800px] lg:h-20 lg:justify-end"
           >
             <li>
               <NavLink
@@ -145,7 +148,7 @@ const Navbar = () => {
                 className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
                 activeclassname="active"
               >
-                {t("get_funded")} {/* Use translation */}
+                {t("get_funded")}
               </NavLink>
             </li>
             <li>
@@ -160,7 +163,7 @@ const Navbar = () => {
                   }}
                   className="hover:bg-salmon mt-2 p-2 rounded hover:text-white"
                 >
-                  {t("category")} {/* Use translation */}
+                  {t("category")}
                 </summary>
                 {activeDropdown === "category" && (
                   <ul className="bg-base-100 rounded-t-none p-2">
@@ -170,7 +173,7 @@ const Navbar = () => {
                         className="hover:bg-salmon transition sm:mb-2 xs:mb-2 xxs:mb-2 hover:text-white p-2 rounded"
                         activeclassname="active"
                       >
-                        {t("shariah")} {/* Use translation */}
+                        {t("shariah")}
                       </NavLink>
                     </li>
                     <li>
@@ -179,7 +182,7 @@ const Navbar = () => {
                         className="hover:bg-salmon transition sm:mb-2 xs:mb-2 xxs:mb-2 hover:text-white p-2 rounded"
                         activeclassname="active"
                       >
-                        {t("stocks")} {/* Use translation */}
+                        {t("stocks")}
                       </NavLink>
                     </li>
                     <li>
@@ -188,7 +191,7 @@ const Navbar = () => {
                         className="hover:bg-salmon transition hover:text-white p-2 rounded"
                         activeclassname="active"
                       >
-                        {t("fixed_return")} {/* Use translation */}
+                        {t("fixed_return")}
                       </NavLink>
                     </li>
                   </ul>
@@ -201,7 +204,7 @@ const Navbar = () => {
                 className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
                 activeclassname="active"
               >
-                {t("blog")} {/* Use translation */}
+                {t("blog")}
               </NavLink>
             </li>
             <li className="relative">
@@ -237,7 +240,7 @@ const Navbar = () => {
                       <div>
                         <button
                           onClick={() => handleLanguageChange("bn")}
-                          className="text-sm"
+                          className=" text-sm "
                         >
                           BN
                         </button>
@@ -255,7 +258,7 @@ const Navbar = () => {
                       to="/investordashboard"
                       className="hover:bg-salmon transition hover:text-white p-2 rounded"
                     >
-                      {t("my_profile")} {/* Use translation */}
+                      {t("my_profile")}
                     </Link>
                   )}
                   {userdata.role === "founder" && (
@@ -263,7 +266,7 @@ const Navbar = () => {
                       to="/founderdashboard"
                       className="hover:bg-salmon transition hover:text-white p-2 rounded"
                     >
-                      {t("my_profile")} {/* Use translation */}
+                      {t("my_profile")}
                     </Link>
                   )}
                   {userdata.role === "admin" && (
@@ -272,14 +275,14 @@ const Navbar = () => {
                       onClick={toggleMenu}
                       className="hover:bg-salmon hover:text-white transition p-2 rounded"
                     >
-                      {t("my_profile")} {/* Use translation */}
+                      {t("my_profile")}
                     </NavLink>
                   )}
                   <div
                     onClick={handleSignOut}
                     className="hover:bg-salmon transition lg:ml-8 hover:text-white p-2 rounded cursor-pointer"
                   >
-                    {t("logout")} {/* Use translation */}
+                    {t("logout")}
                   </div>
                 </div>
               ) : (
@@ -291,7 +294,7 @@ const Navbar = () => {
                     }}
                     className="hover:bg-salmon mt-2 p-2 rounded hover:text-white"
                   >
-                    {t("login")} {/* Use translation */}
+                    {t("login")}
                   </summary>
                   {activeDropdown === "login" && (
                     <ul className="bg-base-100 rounded-t-none p-2">
@@ -301,7 +304,7 @@ const Navbar = () => {
                           className="hover:bg-salmon transition hover:text-white p-2 lg:mb-2 sm:mb-2 xs:mb-2 xxs:mb-2 rounded"
                           activeclassname="active"
                         >
-                          {t("investor_login")} {/* Use translation */}
+                          {t("investor_login")}
                         </NavLink>
                       </li>
                       <li>
@@ -310,7 +313,7 @@ const Navbar = () => {
                           className="hover:bg-salmon transition hover:text-white p-2 rounded"
                           activeclassname="active"
                         >
-                          {t("founder_login")} {/* Use translation */}
+                          {t("founder_login")}
                         </NavLink>
                       </li>
                     </ul>
@@ -320,11 +323,7 @@ const Navbar = () => {
             </li>
             <li>
               {userdata && (
-                <Notifications
-                  className="h-5 w-5"
-                  API_URL={API_URL}
-                  userId={userdata._id}
-                />
+                <Notifications API_URL={API_URL} userId={userdata._id} />
               )}
             </li>
           </ul>
@@ -343,7 +342,7 @@ const Navbar = () => {
                   onClick={toggleMenu}
                   className="hover:bg-salmon transition p-2 rounded"
                 >
-                  {t("get_funded")} {/* Use translation */}
+                  {t("get_funded")}
                 </NavLink>
               </li>
 
@@ -356,7 +355,7 @@ const Navbar = () => {
                     onClick={() => toggleMobileDropdown("category")}
                     className="hover:bg-salmon hover:text-white transition p-2 rounded cursor-pointer"
                   >
-                    {t("category")} {/* Use translation */}
+                    {t("category")}
                   </summary>
                   {activeDropdown === "category" && (
                     <ul className="bg-base-100 sm:p-2 xs:p-2 xxs:p-2 flex flex-col gap-2">
@@ -366,7 +365,7 @@ const Navbar = () => {
                           onClick={toggleMenu}
                           className="hover:bg-salmon transition sm:p-2 xs:p-2 xxs:p-2 rounded"
                         >
-                          {t("shariah")} {/* Use translation */}
+                          {t("shariah")}
                         </NavLink>
                       </li>
                       <li>
@@ -375,7 +374,7 @@ const Navbar = () => {
                           onClick={toggleMenu}
                           className="hover:bg-salmon transition p-2 rounded"
                         >
-                          {t("stocks")} {/* Use translation */}
+                          {t("stocks")}
                         </NavLink>
                       </li>
                       <li>
@@ -384,7 +383,7 @@ const Navbar = () => {
                           onClick={toggleMenu}
                           className="hover:bg-salmon transition p-2 rounded"
                         >
-                          {t("fixed_return")} {/* Use translation */}
+                          {t("fixed_return")}
                         </NavLink>
                       </li>
                     </ul>
@@ -399,7 +398,7 @@ const Navbar = () => {
                   className="hover:bg-salmon transition mt-2 hover:text-white p-2 rounded"
                   activeclassname="active"
                 >
-                  {t("blog")} {/* Use translation */}
+                  {t("blog")}
                 </NavLink>
               </li>
               <li>
@@ -411,8 +410,8 @@ const Navbar = () => {
                   {i18n.language === "en" ? "EN" : "BN"}
                 </button>
                 {showLanguageDropdown && (
-                  <ul className="bg-white right-[1px] flex gap-2 p-2 rounded mt-2">
-                    <li className="rounded">
+                  <ul className=" bg-white right-[1px] flex gap-2 p-2 rounded mt-2">
+                    <li className=" rounded ">
                       <div className="flex flex-row gap-1">
                         <div>
                           <img src={usa} alt="USA Flag" className="w-4 h-4" />
@@ -427,7 +426,7 @@ const Navbar = () => {
                         </div>
                       </div>
                     </li>
-                    <li className="rounded">
+                    <li className=" rounded ">
                       <div className="flex flex-row gap-1">
                         <div>
                           <img
@@ -439,7 +438,7 @@ const Navbar = () => {
                         <div>
                           <button
                             onClick={() => handleLanguageChange("bn")}
-                            className="text-sm"
+                            className=" text-sm "
                           >
                             BN
                           </button>
@@ -458,7 +457,7 @@ const Navbar = () => {
                         onClick={toggleMenu}
                         className="hover:bg-salmon transition hover:text-white p-2 rounded"
                       >
-                        {t("my_profile")} {/* Use translation */}
+                        {t("my_profile")}
                       </Link>
                     )}
                     {userdata.role === "founder" && (
@@ -467,7 +466,7 @@ const Navbar = () => {
                         onClick={toggleMenu}
                         className="hover:bg-salmon transition hover:text-white p-2 rounded"
                       >
-                        {t("my_profile")} {/* Use translation */}
+                        {t("my_profile")}
                       </Link>
                     )}
                     {userdata.role === "admin" && (
@@ -476,14 +475,14 @@ const Navbar = () => {
                         onClick={toggleMenu}
                         className="hover:bg-salmon hover:text-white transition p-2 rounded"
                       >
-                        {t("my_profile")} {/* Use translation */}
+                        {t("my_profile")}
                       </NavLink>
                     )}
                     <div
                       onClick={handleSignOut}
                       className="hover:bg-salmon transition hover:text-white p-2 rounded cursor-pointer"
                     >
-                      {t("logout")} {/* Use translation */}
+                      {t("logout")}
                     </div>
                   </div>
                 ) : (
@@ -493,20 +492,20 @@ const Navbar = () => {
                         e.preventDefault();
                         toggleDropdown("login");
                       }}
-                      className="hover:bg-salmon p-2 rounded hover:text-white"
+                      className="hover:bg-salmon  p-2 rounded hover:text-white"
                     >
-                      {t("login")} {/* Use translation */}
+                      {t("login")}
                     </summary>
                     {activeDropdown === "login" && (
-                      <ul className="bg-base-100 rounded-t-none flex flex-col gap-2 p-2">
+                      <ul className="bg-base-100 rounded-t-none  flex flex-col gap-2 p-2">
                         <li>
                           <NavLink
                             to="/investorlogin"
                             onClick={toggleMenu}
-                            className="hover:bg-salmon transition hover:text-white p-2 lg:mb-2 sm:mb-2 xs:mb-2 xxs:mb-2 rounded"
+                            className="hover:bg-salmon transition hover:text-white p-2 lg:mb-2 sm:mb-4 xs:mb-4 xxs:mb-4 rounded"
                             activeclassname="active"
                           >
-                            {t("investor_login")} {/* Use translation */}
+                            {t("investor_login")}
                           </NavLink>
                         </li>
                         <li>
@@ -516,7 +515,7 @@ const Navbar = () => {
                             className="hover:bg-salmon transition hover:text-white p-2 rounded"
                             activeclassname="active"
                           >
-                            {t("founder_login")} {/* Use translation */}
+                            {t("founder_login")}
                           </NavLink>
                         </li>
                       </ul>
