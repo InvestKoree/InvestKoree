@@ -142,5 +142,15 @@
   "additional_information_placeholder": "Type here",
   "submit_button": "Submit",
   "submitting": "Submitting...",
-  "please_wait": "Please Wait a While.."
+  "please_wait": "Please Wait a While..",
+  "get_funded": "Get Funded",
+  "category": "Category",
+  "shariah": "Shariah",
+  "stocks": "Stocks",
+  "fixed_return": "Fixed Return",
+  "blog": "Blog",
+  "my_profile": "My Profile",
+  "logout": "Logout",
+  "login": "Login",
+  "please_enter_search_term": "Please enter a search term"
   }

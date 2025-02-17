@@ -51,8 +51,6 @@
   "testimonial_2_name": "ওমর ফারুক",
   "testimonial_2_role": "ছোট ব্যবসার মালিক",
   "testimonial_2_text": "তাদের প্ল্যাটফর্ম আমাদের বিনিয়োগকারীদের সাথে সংযুক্ত করেছে যারা আমাদের দৃষ্টিভঙ্গি বুঝতে পেরেছিল। আমরা তখন থেকে আমাদের রাজস্ব দ্বিগুণ করেছি!",
-  "founder_login": "প্রতিষ্ঠাতা লগইন",
-  "investor_login": "বিনিয়োগকারী লগইন",
   "email_address": "ইমেইল ঠিকানা",
   "password": "পাসওয়ার্ড",
   "confirm_password": "পাসওয়ার্ড নিশ্চিত করুন",
@@ -142,5 +140,17 @@
   "additional_information_placeholder": "এখানে টাইপ করুন",
   "submit_button": "জমা দিন",
   "submitting": "জমা দেওয়া হচ্ছে...",
-  "please_wait": "দয়া করে কিছুক্ষণ অপেক্ষা করুন.."
+  "please_wait": "দয়া করে কিছুক্ষণ অপেক্ষা করুন..",
+  "get_funded": "তহবিল পান",
+  "category": "ক্যাটাগরি",
+  "shariah": "শরিয়াহ",
+  "stocks": "শেয়ার",
+  "fixed_return": "স্থির ফেরত",
+  "blog": "ব্লগ",
+  "my_profile": "আমার প্রোফাইল",
+  "logout": "লগ আউট",
+  "login": "লগ ইন করুন",
+  "investor_login": "বিনিয়োগকারী লগইন",
+  "founder_login": "প্রতিষ্ঠাতা লগইন",
+  "please_enter_search_term": "দয়া করে একটি অনুসন্ধান শব্দ লিখুন"
   }
