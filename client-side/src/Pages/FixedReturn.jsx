@@ -99,11 +99,11 @@ const FixedReturn = () => {
             </label>
           </div>
           <p className="lg:text-3xl md:text-2xl sm:text-xl xs:text-xl xxs:text-xl md:mb-2 xs:mb-2 xxs:mb-2 sm:mb-2 font-bold lg:mt-12 md:mt-12 text-center">
-            FixedReturn Business
+            {t("fixedreturn_business")}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:w-[1200px] lg:mx-auto sm:mx-auto lg:gap-6 xs:gap-8 xxs:gap-8 sm:gap-8 px-6 lg:px-20 cursor-pointer">
             {filteredPosts.map((item) => (
-              <FixedReturnPost key={item._id} item={item} />
+              <fixedReturnPost key={item._id} item={item} />
             ))}
           </div>
         </div>
@@ -116,95 +116,33 @@ const FixedReturn = () => {
           ></label>
           <ul className="menu bg-base-200 text-base-content min-h-full lg:w-80 p-4">
             <li className="font-extrabold  text-salmon xs:mt-6 xxs:mt-6 sm:mt-6 hover:text-white text-lg mb-2">
-              <a>Sector</a>
+              <a>{t("sector")}</a>
             </li>
             <div className="flex flex-row gap-2 mb-2">
               <div>
                 {/* Add onClick handlers to filter posts by sector */}
-                <li
-                  className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                    selectedSector === "Retail" ? "bg-salmon text-white" : ""
-                  }`}
-                  onClick={() => handleSectorClick("Retail")}
-                >
-                  <a>Retail</a>
-                </li>
-                <li
-                  className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                    selectedSector === "Financial" ? "bg-salmon text-white" : ""
-                  }`}
-                  onClick={() => handleSectorClick("Financial")}
-                >
-                  <a>Financial</a>
-                </li>
-                <li
-                  className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                    selectedSector === "Farming" ? "bg-salmon text-white" : ""
-                  }`}
-                  onClick={() => handleSectorClick("Farming")}
-                >
-                  <a>Farming</a>
-                </li>
-                <li
-                  className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                    selectedSector === "Clothing" ? "bg-salmon text-white" : ""
-                  }`}
-                  onClick={() => handleSectorClick("Clothing")}
-                >
-                  <a>Clothing</a>
-                </li>
-                <li
-                  className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                    selectedSector === "Health" ? "bg-salmon text-white" : ""
-                  }`}
-                  onClick={() => handleSectorClick("Health")}
-                >
-                  <a>Health</a>
-                </li>
-                <li
-                  className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                    selectedSector === "Arts" ? "bg-salmon text-white" : ""
-                  }`}
-                  onClick={() => handleSectorClick("Arts")}
-                >
-                  <a>Arts</a>
-                </li>
-                <li
-                  className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                    selectedSector === "Comics" ? "bg-salmon text-white" : ""
-                  }`}
-                  onClick={() => handleSectorClick("Comics")}
-                >
-                  <a>Comics</a>
-                </li>
-                <li
-                  className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                    selectedSector === "Crafts" ? "bg-salmon text-white" : ""
-                  }`}
-                  onClick={() => handleSectorClick("Crafts")}
-                >
-                  <a>Crafts</a>
-                </li>
-                <li
-                  className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                    selectedSector === "Photography"
-                      ? "bg-salmon text-white"
-                      : ""
-                  }`}
-                  onClick={() => handleSectorClick("Photography")}
-                >
-                  <a>Photography</a>
-                </li>
-                <li
-                  className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                    selectedSector === "Publishing"
-                      ? "bg-salmon text-white"
-                      : ""
-                  }`}
-                  onClick={() => handleSectorClick("Publishing")}
-                >
-                  <a>Publishing</a>
-                </li>
+                {[
+                  "Retail",
+                  "Financial",
+                  "Farming",
+                  "Clothing",
+                  "Health",
+                  "Arts",
+                  "Comics",
+                  "Crafts",
+                  "Photography",
+                  "Publishing",
+                ].map((sector) => (
+                  <li
+                    key={sector}
+                    className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
+                      selectedSector === sector ? "bg-salmon text-white" : ""
+                    }`}
+                    onClick={() => handleSectorClick(sector)}
+                  >
+                    <a>{t(sector.toLowerCase())}</a>
+                  </li>
+                ))}
               </div>
               {showRightCol && (
                 <div
@@ -214,90 +152,28 @@ const FixedReturn = () => {
                       : "animate__animated animate__fadeInTopRight"
                   }`}
                 >
-                  <li
-                    className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg   ${
-                      selectedSector === "Dance" ? "bg-salmon text-white" : ""
-                    }`}
-                    onClick={() => handleSectorClick("Dance")}
-                  >
-                    <a>Dance</a>
-                  </li>
-                  <li
-                    className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                      selectedSector === "Design" ? "bg-salmon text-white" : ""
-                    }`}
-                    onClick={() => handleSectorClick("Design")}
-                  >
-                    <a>Design</a>
-                  </li>
-                  <li
-                    className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                      selectedSector === "Fashion" ? "bg-salmon text-white" : ""
-                    }`}
-                    onClick={() => handleSectorClick("Fashion")}
-                  >
-                    <a>Fashion</a>
-                  </li>
-                  <li
-                    className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                      selectedSector === "Film" ? "bg-salmon text-white" : ""
-                    }`}
-                    onClick={() => handleSectorClick("Film")}
-                  >
-                    <a>Film </a>
-                  </li>
-                  <li
-                    className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                      selectedSector === "Food" ? "bg-salmon text-white" : ""
-                    }`}
-                    onClick={() => handleSectorClick("Food")}
-                  >
-                    <a>Food</a>
-                  </li>
-                  <li
-                    className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                      selectedSector === "Games" ? "bg-salmon text-white" : ""
-                    }`}
-                    onClick={() => handleSectorClick("Games")}
-                  >
-                    <a>Games</a>
-                  </li>
-                  <li
-                    className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                      selectedSector === "Journalism"
-                        ? "bg-salmon text-white"
-                        : ""
-                    }`}
-                    onClick={() => handleSectorClick("Journalism")}
-                  >
-                    <a>Journalism</a>
-                  </li>
-                  <li
-                    className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                      selectedSector === "Music" ? "bg-salmon text-white" : ""
-                    }`}
-                    onClick={() => handleSectorClick("Music")}
-                  >
-                    <a>Music</a>
-                  </li>
-                  <li
-                    className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                      selectedSector === "Tecnhology"
-                        ? "bg-salmon text-white"
-                        : ""
-                    }`}
-                    onClick={() => handleSectorClick("Tecnhology")}
-                  >
-                    <a>Tecnhology</a>
-                  </li>
-                  <li
-                    className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                      selectedSector === "Theater" ? "bg-salmon text-white" : ""
-                    }`}
-                    onClick={() => handleSectorClick("Theater")}
-                  >
-                    <a>Theater</a>
-                  </li>
+                  {[
+                    "Dance",
+                    "Design",
+                    "Fashion",
+                    "Film",
+                    "Food",
+                    "Games",
+                    "Journalism",
+                    "Music",
+                    "Technology",
+                    "Theater",
+                  ].map((sector) => (
+                    <li
+                      key={sector}
+                      className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
+                        selectedSector === sector ? "bg-salmon text-white" : ""
+                      }`}
+                      onClick={() => handleSectorClick(sector)}
+                    >
+                      <a>{t(sector.toLowerCase())}</a>
+                    </li>
+                  ))}
                 </div>
               )}
             </div>
@@ -305,36 +181,23 @@ const FixedReturn = () => {
               onClick={toggleRightCol}
               className="toggle-btn btn bg-gray-500 text-white w-full font-bold text-lg rounded-lg hover:text-black"
             >
-              {showRightCol ? "View Less" : "View More"}
+              {showRightCol ? t("view_less") : t("view_more")}
             </button>
             <li className="font-extrabold text-salmon hover:text-white text-lg mb-2 mt-6">
-              <a>Duration</a>
+              <a>{t("duration")}</a>
             </li>
             {/* Add onClick handlers to filter posts by duration */}
-            <li
-              className={`font-bold hover:bg-salmon hover:text-white text-lg  rounded-lg ${
-                selectedDuration === "short-term" ? "bg-salmon text-white" : ""
-              }`}
-              onClick={() => handleDurationClick("short-term")}
-            >
-              <a>Short term</a>
-            </li>
-            <li
-              className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                selectedDuration === "mid-term" ? "bg-salmon text-white" : ""
-              }`}
-              onClick={() => handleDurationClick("mid-term")}
-            >
-              <a>Mid term</a>
-            </li>
-            <li
-              className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                selectedDuration === "long-term" ? "bg-salmon text-white" : ""
-              }`}
-              onClick={() => handleDurationClick("long-term")}
-            >
-              <a>Long term</a>
-            </li>
+            {["short-term", "mid-term", "long-term"].map((duration) => (
+              <li
+                key={duration}
+                className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
+                  selectedDuration === duration ? "bg-salmon text-white" : ""
+                }`}
+                onClick={() => handleDurationClick(duration)}
+              >
+                <a>{t(duration)}</a>
+              </li>
+            ))}
 
             {/* Clear Filter Option */}
             <li className="mt-6">
@@ -342,19 +205,19 @@ const FixedReturn = () => {
                 onClick={clearFilters}
                 className="btn bg-gray-500 text-white w-full font-bold text-lg rounded-lg hover:text-black"
               >
-                Clear Filters
+                {t("clear_filters")}
               </button>
             </li>
             <div className="mt-6">
               {/* <p className="font-bold  text-xl">Selected Filters:</p> */}
               {selectedSector && (
                 <li className="text-lg font-bold rounded-lg text-white bg-salmon  my-2">
-                  <a>{selectedSector}</a>
+                  <a>{t(selectedSector.toLowerCase())}</a>
                 </li>
               )}
               {selectedDuration && (
                 <li className="text-lg font-bold rounded-lg text-white mt-4 bg-salmon">
-                  <a>{selectedDuration}</a>
+                  <a>{t(selectedDuration)}</a>
                 </li>
               )}
             </div>
