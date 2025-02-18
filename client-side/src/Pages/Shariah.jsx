@@ -214,7 +214,7 @@ const Shariah = () => {
               {/* <p className="font-bold  text-xl">Selected Filters:</p> */}
               {selectedSector && (
                 <li className="text-lg font-bold rounded-lg text-white bg-salmon  my-2">
-                  <a>{t(selectedSector)}</a>
+                  <a>{t(selectedSector.toLowerCase())}</a>
                 </li>
               )}
               {selectedDuration && (
