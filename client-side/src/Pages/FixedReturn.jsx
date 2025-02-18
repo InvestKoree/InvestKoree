@@ -1,8 +1,10 @@
 import FixedReturnPost from "../Pages/FixedReturnPost";
 import { useEffect, useState } from "react";
 import "animate.css";
+import { useTranslation } from "react-i18next";
 
 const FixedReturn = () => {
+  const { t } = useTranslation();
   const [fixedReturnpost, setFixedReturnPost] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [selectedSector, setSelectedSector] = useState(""); // State for selected sector
@@ -103,7 +105,7 @@ const FixedReturn = () => {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:w-[1200px] lg:mx-auto sm:mx-auto lg:gap-6 xs:gap-8 xxs:gap-8 sm:gap-8 px-6 lg:px-20 cursor-pointer">
             {filteredPosts.map((item) => (
-              <fixedReturnPost key={item._id} item={item} />
+              <FixedReturnPost key={item._id} item={item} />
             ))}
           </div>
         </div>
