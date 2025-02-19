@@ -247,12 +247,14 @@ const ProjectDetail = () => {
             <div>
               <div className="relative w-[full] max-w-md mx-auto">
                 {viewMode === "images" ? (
-                  <div className="carousel carousel-vertical rounded-box transform  transition-transform duration-300 ease-in-out delay-150 hover:scale-125 h-96">
+                  <div className="carousel carousel-vertical rounded-box transform transition-transform duration-300 ease-in-out delay-150 hover:scale-125 h-96">
                     {project.businessPicture?.length > 0 ? (
                       project.businessPicture.map((src, index) => (
                         <div
                           key={index}
-                          className="carousel-item h-full lg:mb-10"
+                          className={`carousel-item h-full lg:mb-10 ${
+                            currentSlide === index ? "block" : "hidden"
+                          }`} // Add conditional class
                         >
                           <img
                             src={src}
