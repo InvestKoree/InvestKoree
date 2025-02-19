@@ -265,7 +265,7 @@ const FounderLogin = () => {
               <i className="fas fa-lock"></i>
               <input
                 type={showPassword.register ? "text" : "password"}
-                placeholder={t("phone_number")}
+                placeholder={t("password")}
                 name="u_signup_password"
                 required
               />
