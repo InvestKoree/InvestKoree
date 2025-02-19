@@ -334,7 +334,7 @@ const InvestorLogin = () => {
       <div className="panels-container">
         <div className="panel left-panel sm:mr-6 xs:mr-6 xxs:mr-6">
           <div className="content">
-            <h3>{t("new_here")}</h3> {/* Use translation */}
+            <h3>{t("new_here")}</h3>
             <p>{t("access_exclusive_features")}</p>
             <button
               className="login-btn2 lg:w-96 sm:w-36 xxs:w-24 xs:w-32 md:lg:w-80 transparent"
