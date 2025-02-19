@@ -110,7 +110,7 @@ const Navbar = () => {
             <form
               onSubmit={handleSearch}
               className="flex items-center mx-4"
-              ref={searchBarRef} // Attach the reference to the search bar
+              ref={searchBarRef}
             >
               <input
                 type="text"
