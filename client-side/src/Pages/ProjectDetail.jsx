@@ -325,14 +325,14 @@ const ProjectDetail = () => {
               <div className="my-6">
                 <div className="flex lg:gap-8 xs:gap-4 xxs:gap-4 sm:gap-4">
                   <div className="bg-base-200 lg:p-4 xs:p-2 xxs:p-2 sm:p-2 xs:w-[25%] xxs:w-[25%] sm:w-[25%] flex flex-col lg:w-44 lg:h-20 rounded-lg xs:mx-auto xxs:mx-auto sm:mx-auto">
-                    <span className="text-salmon lg:text-2xl">70000 Taka</span>
+                    <span className="text-salmon lg:text-2xl">0 Taka</span>
                     <div className="xs:text-sm xxs:text-sm sm:text-sm">
                       Raised
                     </div>
                   </div>
                   <div className="bg-base-200 lg:p-4 xs:p-2 xxs:p-2 sm:p-2 xs:w-[25%] xxs:w-[25%] sm:w-[25%] flex flex-col lg:w-44 lg:h-20 rounded-lg xs:mx-auto xxs:mx-auto sm:mx-auto">
                     <span className="text-salmon lg:text-2xl overflow-x-auto">
-                      {/* {project.fundingAmount} Taka */}700000 taka
+                      {/* {project.fundingAmount} Taka */}120,000,00taka
                     </span>
                     <div className="xs:text-sm xxs:text-sm sm:text-sm">
                       Goal
@@ -351,13 +351,13 @@ const ProjectDetail = () => {
                   <div
                     className="bg-salmon h-2.5 rounded-full"
                     style={{
-                      width: `${80}%`,
+                      width: `${0}%`,
                     }}
                   ></div>
                 </div>
                 <div className="flex xs:ml-2 xxs:ml-2 sm:ml-2 lg:justify-between xs:justify-between xxs:justify-between sm:justify-between text-sm">
                   <div>Raised :</div>
-                  <div className="xs:mr-2 xxs:mr-2 sm:mr- 2">{80}%</div>
+                  <div className="xs:mr-2 xxs:mr-2 sm:mr- 2">{0}%</div>
                 </div>
               </div>
               <div className="flex flex-row items-center gap-4">

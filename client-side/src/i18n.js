@@ -5,8 +5,8 @@ import Backend from 'i18next-http-backend';
 import en from "./public/locales/en/translation.json";
 import bn from "./public/locales/bn/translation.json";
 i18n
-  .use(Backend) // Load translations from your backend
-  .use(initReactI18next) // Pass i18n down to react-i18next
+  .use(Backend)
+  .use(initReactI18next) 
   .init({
     resources: {
       en: { translation: en },
@@ -17,7 +17,7 @@ i18n
     interpolation: { escapeValue: false },
   
     backend: {
-      loadPath: '/locales/{{lng}}/{{ns}}.json', // Path to translation files
+      loadPath: '/locales/{{lng}}/{{ns}}.json', 
     },
   });
 

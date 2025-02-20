@@ -114,7 +114,7 @@ const Navbar = () => {
             >
               <input
                 type="text"
-                placeholder={t("search_placeholder")} // Use translation
+                placeholder={t("search_placeholder")}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="border border-salmon rounded-l-md p-2 lg:h-[50px] lg:max-w-[300px] md:w-[400px] sm:w-48 xs:w-32 xxs:w-24"
