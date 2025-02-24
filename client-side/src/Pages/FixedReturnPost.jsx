@@ -12,8 +12,12 @@ const FixedReturnPost = ({ item }) => {
     businessSector,
     fundingAmount,
     businessName,
+    businessPicture,
   } = item;
-
+  const firstImage =
+    businessPicture && businessPicture.length > 0
+      ? `${businessPicture[0]}`
+      : temp;
   // Calculate funding percentage for progress bar
   const fundingPercentage = (50000 / fundingAmount) * 100;
   const leftForFund = fundingAmount - 50000;
@@ -26,7 +30,7 @@ const FixedReturnPost = ({ item }) => {
         transform transition-transform duration-300 ease-in-out delay-150 hover:scale-105"
         >
           <img
-            src={temp} // Fallback image
+            src={firstImage} // Fallback image
             alt="Fundraiser"
             className="w-full h-48 object-cover"
           />
@@ -41,8 +45,8 @@ const FixedReturnPost = ({ item }) => {
             </div>
             <h3 className="text-lg font-semibold mb-2">{businessName}</h3>
             <div className="flex flex-row my-4 justify-between">
-              <p className="">Funded: 50000</p>
-              <p className="">Left for fund: {leftForFund}</p>
+              <p className="">Funded: 0 tk</p>
+              <p className="">Left for fund: {fundingAmount}</p>
             </div>
             <div className="mb-4">
               <div className="w-full bg-gray-200 rounded-full h-2.5 mb-2">
@@ -54,7 +58,7 @@ const FixedReturnPost = ({ item }) => {
               <div className="flex justify-between text-sm">
                 <div>
                   <i className="fas fa-box lg:mr-1 xxs:text-xs xs:text-xs sm-text-xs"></i>
-                  Raised: 50000taka
+                  Raised: 0taka
                 </div>
                 <div>
                   <i className="fas fa-bullseye lg:mr-1 xxs:text-xs xs:text-xs sm-text-xs"></i>
