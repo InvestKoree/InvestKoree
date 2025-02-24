@@ -331,8 +331,8 @@ const ProjectDetail = () => {
                     </div>
                   </div>
                   <div className="bg-base-200 lg:p-4 xs:p-2 xxs:p-2 sm:p-2 xs:w-[25%] xxs:w-[25%] sm:w-[25%] flex flex-col lg:w-44 lg:h-20 rounded-lg xs:mx-auto xxs:mx-auto sm:mx-auto">
-                    <span className="text-salmon lg:text-2xl overflow-x-auto">
-                      {/* {project.fundingAmount} Taka */}1.2 koti tk
+                    <span className="text-salmon lg:text-2xl overflow-y-auto">
+                      {project.fundingAmount} Taka
                     </span>
                     <div className="xs:text-sm xxs:text-sm sm:text-sm">
                       Goal

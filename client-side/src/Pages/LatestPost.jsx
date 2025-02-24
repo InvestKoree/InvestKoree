@@ -93,8 +93,8 @@ const LatestPost = ({ item }) => {
             </div>
             <h3 className="text-lg font-semibold mb-2">{businessName}</h3>
             <div className="flex flex-row my-4 justify-between">
-              <p className="">Funded: 0 tk</p>
-              <p className="">Left for fund: 120,000,00 tk</p>
+              <p className="">Funded:{fundingAmount}</p>
+              <p className="">Left for fund: {leftForFund}</p>
             </div>
             <div className="mb-4">
               <div className="w-full bg-gray-200 rounded-full h-2.5 mb-2">
@@ -110,7 +110,7 @@ const LatestPost = ({ item }) => {
                 </div>
                 <div>
                   <i className="fas fa-bullseye lg:mr-1 xxs:text-xs xs:text-xs sm:text-xs"></i>
-                  Goal:120,000,00 taka
+                  Goal:{fundingAmount} taka
                 </div>
               </div>
             </div>
