@@ -131,7 +131,7 @@ app.post('/adminpost/pendingpost',authToken, upload.fields([
       otherDocumentationOption, assets, revenue, fundingAmount, fundingHelp,
       returndate, projectedROI, returnPlan, businessSafety, additionalComments,
       description, businessPicture, nidCopy,  tinCopy, taxCopy, tradeLicense,
-       bankStatement, securityFile, financialFile, video,
+       bankStatement, securityFile, financialFile, video,bkash
     } = req.body;
 
     // Validate that required fields are provided
@@ -170,7 +170,7 @@ app.post('/adminpost/pendingpost',authToken, upload.fields([
       bankStatement,
       securityFile,
       financialFile,
-      
+      bkash
     });
 
     // Save the new post to the PendingPost collection
@@ -253,6 +253,8 @@ app.put('/adminpost/pendingpost/:postId', authToken, upload.fields([
     existingPost.additionalComments = additionalComments;
     existingPost.returndate = returndate;
     existingPost.projectedROI = projectedROI;
+    existingPost.bkash = bkash;
+
 
     // Handle file uploads
     if (req.files.businessPicture) {
@@ -413,6 +415,7 @@ app.post('/adminpost/accept', async (req, res) => {
       returndate: pendingPost.returndate,
       startDate: pendingPost.startDate,
       video:pendingPost.video,
+      bkash:pendingPost.bkash
     });
 
     // Save the accepted post to the FounderPost collection

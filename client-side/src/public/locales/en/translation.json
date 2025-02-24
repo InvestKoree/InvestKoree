@@ -197,5 +197,7 @@
   "short-term": "Short Term",
   "mid-term": "Mid Term",
   "long-term": "Long Term",
-  "search_placeholder":"Search By Business Name"
+  "search_placeholder":"Search By Business Name",
+     "bkash":"Upload Your Bkash Number",
+    "bkash_placeholder":"Your Bkash Number"
   }

@@ -18,6 +18,7 @@ const FounderPendingSchema = new mongoose.Schema({
   otherDocumentationOption: { type: String, default: '' },
   assets: { type: String, required: true },
   revenue: { type: String, required: true },
+  bkash: { type: String, required: true },
   fundingAmount: { type: String, required: true },
   fundingHelp: { type: String, required: true },
   returnPlan: { type: String, required: true },

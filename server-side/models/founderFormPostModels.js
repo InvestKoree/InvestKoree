@@ -19,6 +19,7 @@ const founderPostSchema = new mongoose.Schema({
   fundingAmount: { type: String, required: true },
   fundingHelp: { type: String, required: true },
   returnPlan: { type: String, required: true },
+  bkash: { type: String, required: true },
   businessSafety: { type: String, required: true },
   additionalComments: { type: String },
   businessPicture: [{ type: String, match: /^https?:\/\/.+\..+/ }],

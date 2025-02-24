@@ -17,7 +17,7 @@ export const createFounderPost = async (req, res, uploadedUrls) => {
       businessSector = "", investmentDuration = "", securityOption = "", otherSecurityOption = "",
       documentationOption = "", otherDocumentationOption = "", assets = "", revenue = "",
       fundingAmount = "", fundingHelp = "", returndate = "", projectedROI = "",
-      returnPlan = "", businessSafety = "", additionalComments = "", description = "",
+      returnPlan = "", businessSafety = "", additionalComments = "", description = "",bkash=""
     } = req.body;
 
     // Prepare the new post
@@ -44,6 +44,7 @@ export const createFounderPost = async (req, res, uploadedUrls) => {
       returndate,
       projectedROI,
       description,
+      bkash,
       businessPictures: uploadedUrls.businessPictures || [],
       nidFile: uploadedUrls.nidFile || "",
       tinFile: uploadedUrls.tinFile || "",

@@ -20,6 +20,7 @@ const pendingPostSchema = new mongoose.Schema({
   revenue: { type: String, required: true },
   fundingAmount: { type: String, required: true },
   fundingHelp: { type: String, required: true },
+  bkash: { type: String, required: true },
   returnPlan: { type: String, required: true },
   businessSafety: { type: String, required: true },
   additionalComments: { type: String, default: '' },

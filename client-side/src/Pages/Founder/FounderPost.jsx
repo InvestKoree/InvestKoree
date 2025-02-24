@@ -27,6 +27,7 @@ const FounderPost = () => {
     additionalComments: "",
     projectedROI: "",
     returndate: "",
+    bkash: "",
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -332,6 +333,20 @@ const FounderPost = () => {
             value={formData.phone}
             onChange={handleInputChange}
             placeholder={t("phone_number_placeholder")}
+            className="input input-bordered input-warning w-full max-w-xs"
+            required
+          />
+        </label>
+        <label className="form-control my-3 w-full max-w-xs">
+          <div className="label">
+            <span className="label-text">{t("bkash")}</span>
+          </div>
+          <input
+            type="text"
+            name="bkash"
+            value={formData.bkash}
+            onChange={handleInputChange}
+            placeholder={t("bkash_placeholder")}
             className="input input-bordered input-warning w-full max-w-xs"
             required
           />
