@@ -8,7 +8,7 @@ const LatestPost = ({ item }) => {
     address,
     _id,
     businessSector,
-    fundingAmount: fundingAmountString,
+    fundingAmount,
     businessName,
     businessPicture,
     // This should now contain filenames
@@ -68,7 +68,6 @@ const LatestPost = ({ item }) => {
   //   }
   // }, [imageUrls]);
 
-  const fundingAmount = parseFloat(fundingAmountString);
   // const fundingPercentage = 100;
   const leftForFund = fundingAmount - 50000;
 
@@ -93,7 +92,7 @@ const LatestPost = ({ item }) => {
             </div>
             <h3 className="text-lg font-semibold mb-2">{businessName}</h3>
             <div className="flex flex-row my-4 justify-between">
-              <p className="">Funded:{fundingAmount}</p>
+              <p className="">Funded:0 tk</p>
               <p className="">Left for fund: {leftForFund}</p>
             </div>
             <div className="mb-4">
