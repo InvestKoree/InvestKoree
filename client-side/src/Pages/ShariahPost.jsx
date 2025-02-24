@@ -52,7 +52,7 @@ const ShariahPost = ({ item }) => {
               <div className="w-full bg-gray-200 rounded-full h-2.5 mb-2">
                 <div
                   className="bg-salmon h-2.5 rounded-full"
-                  style={{ width: `${fundingPercentage}%` }}
+                  style={{ width: `0%` }}
                 ></div>
               </div>
               <div className="flex justify-between text-sm">
