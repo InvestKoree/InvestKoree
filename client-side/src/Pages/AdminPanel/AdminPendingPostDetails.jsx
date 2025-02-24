@@ -51,6 +51,9 @@ const AdminPendingPostDetail = () => {
           <strong>Phone:</strong> {post?.phone}
         </p>
         <p>
+          <strong>Bkash Number:</strong> {post?.bkash}
+        </p>
+        <p>
           <strong>Description:</strong> {post?.description}
         </p>
         <p>

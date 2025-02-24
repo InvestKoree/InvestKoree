@@ -43,6 +43,9 @@ const AdminPostDetail = () => {
           <strong>Phone:</strong> {post.phone}
         </p>
         <p>
+          <strong>Bkash</strong> {post.bkash}
+        </p>
+        <p>
           <strong>Description:</strong> {post.description}
         </p>
         <p>
