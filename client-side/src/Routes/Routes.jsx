@@ -45,6 +45,7 @@ import InvestorRewards from "../Pages/Investor/InvestorRewards";
 import BlogNine from "../Pages/Blogs/BlogNine";
 import AdminPendingPostDetail from "../Pages/AdminPanel/AdminPendingPostDetails";
 import BlogTen from "../Pages/Blogs/BlogTen";
+import Blog11 from "../Pages/Blogs/Blog11";
 
 export const router = createBrowserRouter([
   {
@@ -171,6 +172,10 @@ export const router = createBrowserRouter([
       {
         path: "/blognine",
         element: <BlogNine></BlogNine>,
+      },
+      {
+        path: "/blog11",
+        element: <Blog11></Blog11>,
       },
       {
         path: "/bkash",

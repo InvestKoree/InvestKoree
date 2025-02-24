@@ -9,6 +9,7 @@ import blog7 from "../../assets/blog7.png";
 import blog8 from "../../assets/blog8.jpeg";
 import blog9 from "../../assets/blognine.jpeg";
 import blog10 from "../../assets/blogten.png";
+import blog11 from "../../assets/blog11.png";
 import { useNavigate } from "react-router-dom";
 const Blogs = () => {
   // Track which post is expanded
@@ -43,6 +44,9 @@ const Blogs = () => {
   };
   const handleShowMore10 = () => {
     navigate("/blogten");
+  };
+  const handleShowMore11 = () => {
+    navigate("/blog11");
   };
   return (
     <div>
@@ -421,6 +425,37 @@ const Blogs = () => {
 
                   <button
                     onClick={handleShowMore10}
+                    className="mt-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
+                  >
+                    Show More
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[400px] ">
+            <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
+              <div className="flex flex-col md:flex-row h-full p-4 bg-white">
+                <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[full] xxs:w-[full] xs:w-[full]  sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[30%] xxs:h-[30%] xs:h-[30%]">
+                  <img src={blog11} className=" w-full h-full rounded-md" />
+                </div>
+
+                <div className="lg:p-4 flex flex-col justify-between w-full md:w-1/2 ">
+                  <h2 className=" font-bold mb-2">
+                    বাংলােদেশ স্টাটআপ কালচার: িকভােব সফল উেদ্যাক্তা হওয়া যায়?
+                  </h2>
+                  <p className="text-sm text-gray-700 mb-4 line-clamp-3">
+                    বাংলােদেশর স্টাটআপ ইেকািসেস্টম িদন িদন শিক্তশালী হে ।
+                    প্রযিক্ত, ই-কমাস, িফনেটক এবং এডেটেকর মেতা িবিভন্ন খােত নতন
+                    উেদ্যাক্তারা দারুণভােব সফল হে ন। িকন্তু একজন সফল উেদ্যাক্তা
+                    হেত হেল শুধমাত্র একটি আইিডয়া থাকেলই হয় না, এর জন্য দরকার
+                    সঠিক পিরকল্পনা, স্ট্র্যােটিজ এবং পিরশ্রম। আজেকর এই ব্লেগ
+                    আমরা জানেবা িকভােব বাংলােদেশ একজন সফল উেদ্যাক্তা হওয়া সম্ভব
+                    এবং কীভােব আপনার স্টাটআপেক সফলভােব পিরচালনা করেবন।
+                  </p>
+
+                  <button
+                    onClick={handleShowMore11}
                     className="mt-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     Show More
