@@ -12,8 +12,12 @@ const ShariahPost = ({ item }) => {
     businessSector,
     fundingAmount,
     businessName,
+    businessPicture,
   } = item;
-
+  const firstImage =
+    businessPicture && businessPicture.length > 0
+      ? `${businessPicture[0]}`
+      : temp;
   // Calculate funding percentage for progress bar
   const fundingPercentage = (50000 / fundingAmount) * 100;
   const leftForFund = fundingAmount - 50000;
@@ -26,7 +30,7 @@ const ShariahPost = ({ item }) => {
         transform transition-transform duration-300 ease-in-out delay-150 hover:scale-105"
         >
           <img
-            src={temp} // Fallback image
+            src={firstImage} // Fallback image
             alt="Fundraiser"
             className="w-full h-48 object-cover"
           />
