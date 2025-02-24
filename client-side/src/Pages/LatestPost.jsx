@@ -69,7 +69,7 @@ const LatestPost = ({ item }) => {
   // }, [imageUrls]);
 
   // const fundingPercentage = 100;
-  const leftForFund = fundingAmount - 50000;
+  const leftForFund = fundingAmount - 0;
 
   return (
     <div className="mx-auto">
