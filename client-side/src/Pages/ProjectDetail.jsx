@@ -4,8 +4,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { useAuth } from "../providers/AuthProvider";
+import { useTranslation } from "react-i18next";
 
 const ProjectDetail = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const { userdata } = useAuth(); // Get the project ID from the URL
   const [project, setProject] = useState(null); // State to hold project data
@@ -48,7 +50,7 @@ const ProjectDetail = () => {
   const handleCommentSubmit = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      toast.error("You must be signed in to comment.");
+      toast.error(t("comment_error"));
       return;
     }
 
@@ -65,12 +67,11 @@ const ProjectDetail = () => {
       if (response.status === 200 || response.status === 201) {
         setNewComment(""); // Clear the input field
         fetchComments(project._id); // Refresh comments for this project
-        toast.success("Comment added successfully!");
-        console.log("Comment added:", response.data); // Log the response to check if it's successful
+        toast.success(t("comment_success")); // Log the response to check if it's successful
       }
     } catch (error) {
       console.error("Error adding comment:", error);
-      toast.error("Failed to add comment.");
+      toast.error(t("comment_failure"));
     }
   };
 
@@ -89,11 +90,11 @@ const ProjectDetail = () => {
       );
       if (response.status === 200) {
         setIsAddedToWatchlist(true);
-        toast.success("Project added to watchlist!");
+        toast.success(t("watchlist_add_success"));
       }
     } catch (error) {
       console.error("Error adding to watchlist:", error);
-      toast.error("Failed to add project to watchlist.");
+      toast.error(t("watchlist_add_failure"));
     }
   };
 
@@ -137,7 +138,7 @@ const ProjectDetail = () => {
   const handleInvestClick = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      toast.error("You must be signed in to invest.");
+      toast.error(t("invest_error"));
       return;
     }
     const post = {
@@ -157,7 +158,7 @@ const ProjectDetail = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send investment data");
+        throw new Error(t("investment_failure"));
       }
 
       const result = await response.json();
@@ -179,7 +180,7 @@ const ProjectDetail = () => {
   const handleReplySubmit = async (commentId) => {
     const token = localStorage.getItem("token");
     if (!token) {
-      toast.error("You must be signed in to reply.");
+      toast.error(t("reply_error"));
       return;
     }
 
@@ -192,10 +193,10 @@ const ProjectDetail = () => {
       setNewReply("");
       setReplyingTo(null);
       fetchComments(project._id);
-      toast.success("Reply added successfully!");
+      toast.success(t("reply_success"));
     } catch (error) {
       console.error("Error adding reply:", error);
-      toast.error("Failed to add reply.");
+      toast.error(t("reply_failure"));
     }
   };
 
@@ -215,10 +216,10 @@ const ProjectDetail = () => {
     try {
       await axios.delete(`${API_URL}/comments/${commentId}`);
       setComments(comments.filter((comment) => comment._id !== commentId));
-      toast.success("Comment deleted successfully!");
+      toast.success(t("comment_delete_success"));
     } catch (error) {
       console.error("Error deleting comment", error);
-      toast.error("Failed to delete comment.");
+      toast.error(t("comment_delete_failure"));
     }
   };
   const handleDeleteReply = async (commentId, replyId) => {
@@ -232,10 +233,10 @@ const ProjectDetail = () => {
         ...prev,
         [commentId]: prev[commentId].filter((reply) => reply._id !== replyId),
       }));
-      toast.success("Reply deleted successfully!");
+      toast.success(t("reply_delete_success"));
     } catch (error) {
       console.error("Error deleting reply:", error);
-      toast.error("Failed to delete reply.");
+      toast.error(t("reply_delete_failure"));
     }
   };
   return (
@@ -264,7 +265,7 @@ const ProjectDetail = () => {
                         </div>
                       ))
                     ) : (
-                      <p>No images available</p>
+                      <p>{t("no_images")}</p>
                     )}
                   </div>
                 ) : (
@@ -276,7 +277,7 @@ const ProjectDetail = () => {
                         className="object-cover w-full h-full rounded-md"
                       />
                     ) : (
-                      <div>No video available</div>
+                      <div>{t("no_video")}</div>
                     )}
                   </div>
                 )}
@@ -305,7 +306,7 @@ const ProjectDetail = () => {
                     viewMode === "images" ? "btn-primary" : "btn-outline"
                   }`}
                 >
-                  Images
+                  {t("view_images")}
                 </button>
                 <button
                   onClick={() => handleViewModeChange("video")}
@@ -313,7 +314,7 @@ const ProjectDetail = () => {
                     viewMode === "video" ? "btn-primary" : "btn-outline"
                   }`}
                 >
-                  Video
+                  {t("view_video")}
                 </button>
               </div>
             </div>
@@ -327,7 +328,7 @@ const ProjectDetail = () => {
                   <div className="bg-base-200 lg:p-4 xs:p-2 xxs:p-2 sm:p-2 xs:w-[25%] xxs:w-[25%] sm:w-[25%] flex flex-col lg:w-44 lg:h-20 rounded-lg xs:mx-auto xxs:mx-auto sm:mx-auto">
                     <span className="text-salmon lg:text-2xl">0 Taka</span>
                     <div className="xs:text-sm xxs:text-sm sm:text-sm">
-                      Raised
+                      {t("raised")}
                     </div>
                   </div>
                   <div className="bg-base-200 lg:p-4 xs:p-2 xxs:p-2 sm:p-2 xs:w-[25%] xxs:w-[25%] sm:w-[25%] flex flex-col lg:w-44 lg:h-20 rounded-lg xs:mx-auto xxs:mx-auto sm:mx-auto">
@@ -335,7 +336,7 @@ const ProjectDetail = () => {
                       {project.fundingAmount} Taka
                     </span>
                     <div className="xs:text-sm xxs:text-sm sm:text-sm">
-                      Goal
+                      {t("goal")}
                     </div>
                   </div>
                   <div className="bg-base-200 lg:p-4 xs:p-2 xxs:p-2 sm:p-2 xs:w-[25%] xxs:w-[25%] sm:w-[25%] flex flex-col lg:w-44 lg:h-20 rounded-lg xs:mx-auto xxs:mx-auto sm:mx-auto">
@@ -343,7 +344,7 @@ const ProjectDetail = () => {
                       {project.investmentDuration}
                     </span>
                     <div className="xs:text-sm xxs:text-sm sm:text-sm">
-                      Duration
+                      {t("duration")}
                     </div>
                   </div>
                 </div>
@@ -356,7 +357,7 @@ const ProjectDetail = () => {
                   ></div>
                 </div>
                 <div className="flex xs:ml-2 xxs:ml-2 sm:ml-2 lg:justify-between xs:justify-between xxs:justify-between sm:justify-between text-sm">
-                  <div>Raised :</div>
+                  <div>{t("raised")}:</div>
                   <div className="xs:mr-2 xxs:mr-2 sm:mr- 2">{0}%</div>
                 </div>
               </div>
@@ -365,7 +366,7 @@ const ProjectDetail = () => {
                   onClick={handleInvestClick}
                   className="btn xs:w-[60%] xxs:w-[60%] sm:w-[60%] login-btn"
                 >
-                  Invest
+                  {t("invest")}
                 </button>
                 <button
                   className="btn btn-outline tooltip tooltip-bottom custom-tooltip hover:bg-salmon"
@@ -385,32 +386,34 @@ const ProjectDetail = () => {
         </div>
         <div className="flex lg:flex-row xs:flex-col xxs:flex-col sm:flex-col lg:w-[50%] lg:mx-auto lg:gap-20 xs:ml-4 xxs:ml-4 sm:ml-4 xs:gap-4 xxs:gap-4 sm:gap-4">
           <div className="flex flex-col lg:w-[50%]">
-            <h2 className="font-bold xs:mb-2 xxs:mb-2 sm:mb-2">Overview</h2>
+            <h2 className="font-bold xs:mb-2 xxs:mb-2 sm:mb-2">
+              {t("overview")}
+            </h2>
             <p className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm">
               {project.description}
             </p>
           </div>
           <div>
             <div>
-              <span className="font-bold">Min Investment :</span>
+              <span className="font-bold">{t("min_investment")} :</span>
               <span className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm">
                 1000tk
               </span>
             </div>
             <div>
-              <span className="font-bold">Projected ROI :</span>
+              <span className="font-bold">{t("projected_roi")} :</span>
               <span className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm">
                 {project.projectedROI}
               </span>
             </div>
             <div>
-              <span className="font-bold">Investment Startdate:</span>
+              <span className="font-bold">{t("investment_startdate")}:</span>
               <span className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm">
                 {new Date(project.startDate).toLocaleDateString()}
               </span>
             </div>
             <div>
-              <span className="font-bold">Risk Grade :</span>
+              <span className="font-bold">{t("risk_grade")} :</span>
               <span className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm">
                 A
               </span>
@@ -422,7 +425,7 @@ const ProjectDetail = () => {
           <div className="collapse collapse-plus border border-base-300 rounded-box">
             <input type="checkbox" className="peer" />
             <div className="collapse-title text-xl font-medium">
-              How Would The Funding Help You
+              {t("funding_help")}
             </div>
             <div className="collapse-content peer-checked:block">
               <p>{project.fundingHelp}</p>
@@ -432,7 +435,7 @@ const ProjectDetail = () => {
           <div className="collapse collapse-plus border border-base-300 rounded-box mt-4">
             <input type="checkbox" className="peer" />
             <div className="collapse-title text-xl font-medium">
-              How Do You Plan To Return The Investment
+              {t("return_investment")}
             </div>
             <div className="collapse-content peer-checked:block">
               <p>{project.returnPlan}</p>
@@ -442,7 +445,7 @@ const ProjectDetail = () => {
           <div className="collapse collapse-plus border border-base-300 rounded-box mt-4">
             <input type="checkbox" className="peer" />
             <div className="collapse-title text-xl font-medium">
-              How Safe Do You Consider Your Business To Be?
+              {t("business_safety")}
             </div>
             <div className="collapse-content peer-checked:block">
               <p>{project.businessSafety}</p>
@@ -452,12 +455,12 @@ const ProjectDetail = () => {
 
         {/* Comment Section */}
         <div className="mt-12 w-[80%] lg:w-[50%] mx-auto">
-          <h2 className="text-xl font-bold mb-4">Comments</h2>
+          <h2 className="text-xl font-bold mb-4">{t("comments")}</h2>
           <div className="mb-4">
             <textarea
               className="w-full p-2 border rounded"
               rows="3"
-              placeholder="Add a comment..."
+              placeholder={t("add_comment")}
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
             ></textarea>
@@ -465,7 +468,7 @@ const ProjectDetail = () => {
               className="btn btn-primary mt-2"
               onClick={handleCommentSubmit}
             >
-              Add Comment
+              {t("add_comment_button")}
             </button>
           </div>
           <div>
@@ -484,7 +487,7 @@ const ProjectDetail = () => {
                       className="float-right btn btn-sm btn-outline  "
                       onClick={() => handleDeleteComment(comment._id)}
                     >
-                      Delete Comment
+                      {t("delete_comment")}
                     </button>
                   )}
                   <button
@@ -492,7 +495,7 @@ const ProjectDetail = () => {
                     onClick={() => {
                       const token = localStorage.getItem("token");
                       if (!token) {
-                        toast.error("You need to log in first.");
+                        toast.error(t("login_required"));
                         return;
                       }
                       setReplyingTo(
@@ -500,7 +503,7 @@ const ProjectDetail = () => {
                       );
                     }}
                   >
-                    Reply
+                    {t("reply")}
                   </button>
 
                   {replyingTo === comment._id && (
@@ -508,7 +511,7 @@ const ProjectDetail = () => {
                       <textarea
                         className="w-full p-2 border rounded"
                         rows="2"
-                        placeholder="Write a reply..."
+                        placeholder={t("write_reply")}
                         value={newReply}
                         onChange={(e) => setNewReply(e.target.value)}
                       ></textarea>
@@ -516,7 +519,7 @@ const ProjectDetail = () => {
                         className="btn btn-sm btn-primary mt-2"
                         onClick={() => handleReplySubmit(comment._id)}
                       >
-                        Submit Reply
+                        {t("submit_reply")}
                       </button>
                     </div>
                   )}
@@ -528,8 +531,8 @@ const ProjectDetail = () => {
                     }}
                   >
                     {showRepliesToggle[comment._id]
-                      ? "Hide Replies"
-                      : "Show Replies"}
+                      ? t("hide_replies")
+                      : t("show_replies")}
                   </button>
 
                   {/* Replies Section */}
@@ -551,7 +554,7 @@ const ProjectDetail = () => {
                                 handleDeleteReply(comment._id, reply._id)
                               }
                             >
-                              Delete Reply
+                              {t("delete_reply")}
                             </button>
                           )}
                         </div>
@@ -561,7 +564,7 @@ const ProjectDetail = () => {
                 </div>
               ))
             ) : (
-              <p className="mb-6">No comments yet.</p>
+              <p className="mb-6">{t("no_comments")}</p>
             )}
           </div>
         </div>
