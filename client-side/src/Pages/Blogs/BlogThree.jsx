@@ -1,106 +1,69 @@
-import React from "react";
 import blog2 from "../../assets/blog2.jpg";
+import { useTranslation } from "react-i18next";
 
 const BlogThree = () => {
+  const { t } = useTranslation();
   return (
     <div className="max-w-4xl mx-auto p-6">
       {/* Header Image */}
       <img src={blog2} className="w-full h-64 object-cover rounded-lg mb-6" />
 
       {/* Blog Content */}
-      <h1 className="text-3xl font-bold mb-4">
-        Top 5 Industries to Invest in 2024: A Guide for Aspiring Entrepreneurs
-        and Investors
-      </h1>
+      <h1 className="text-3xl font-bold mb-4">{t("blog3_title")}</h1>
 
-      <p className="mb-6">
-        The global business landscape is constantly evolving, and 2024 is no
-        exception. For entrepreneurs looking to attract investors and for
-        investors seeking high-growth opportunities, knowing where to focus is
-        key. At Invest Koree, we specialize in connecting ambitious businesses
-        with the right investors. Here’s our guide to the top five industries
-        poised for growth in 2024
-      </p>
+      <p className="mb-6">{t("blog3_intro")}</p>
 
-      <h2 className="text-2xl font-bold mb-4">1. Renewable Energy</h2>
+      <h2 className="text-2xl font-bold mb-4">{t("blog3_renewable_energy")}</h2>
+      <p className="mb-6">{t("blog3_renewable_energy_description")}</p>
       <p className="mb-6">
-        With the push toward sustainability, renewable energy continues to
-        attract significant investment. From solar power startups to companies
-        specializing in energy storage, this industry offers immense potential
-        for long-term growth.
+        <strong>{t("blog3_why_invest")}</strong>
       </p>
-      <p className="mb-6">
-        <strong>Why Invest:</strong>
-      </p>
-      <p className="mb-6">
-        ● Governments worldwide are incentivizing green energy initiatives.
-      </p>
-      <p className="mb-6">
-        ● Increased consumer demand for sustainable energy solutions.
-      </p>
+      <p className="mb-6"> {t("blog3_governments_incentives")}</p>
+      <p className="mb-6"> {t("blog3_increased_demand")}</p>
 
       <h2 className="text-2xl font-bold mb-4">
-        2. Health and Wellness Technology
+        {t("blog3_health_technology")}
       </h2>
+      <p className="mb-6">{t("blog3_health_technology_description")}</p>
       <p className="mb-6">
-        The pandemic reshaped how we approach health, and technology is leading
-        the charge. Startups focusing on wearable tech, telemedicine, and
-        AI-driven health solutions are prime opportunities for investment.
+        <strong>{t("blog3_why_invest")}</strong>
       </p>
-      <p className="mb-6">
-        <strong>Why Invest:</strong>
-      </p>
-      <p className="mb-6">● Expanding market for health-conscious consumers.</p>
-      <p className="mb-6">● Rapid technological advancements in the sector.</p>
+      <p className="mb-6"> {t("blog3_expanding_market")}</p>
+      <p className="mb-6"> {t("blog3_rapid_advancements")}</p>
 
-      <h2 className="text-2xl font-bold mb-4">3. E-Commerce and Logistics</h2>
+      <h2 className="text-2xl font-bold mb-4">
+        {t("blog3_ecommerce_logistics")}
+      </h2>
+      <p className="mb-6">{t("blog3_ecommerce_logistics_description")}</p>
       <p className="mb-6">
-        As online shopping becomes even more mainstream, businesses that
-        innovate in the logistics and e-commerce space are thriving. From
-        last-mile delivery startups to AI-driven inventory management solutions,
-        the possibilities are endless.
+        <strong>{t("blog3_why_invest")}</strong>
       </p>
-      <p className="mb-6">
-        <strong>Why Invest:</strong>
-      </p>
-      <p className="mb-6">● Continued growth in global e-commerce sales.</p>
-      <p className="mb-6">
-        ● Opportunities for tech integration to streamline operations.
-      </p>
+      <p className="mb-6"> {t("blog3_growth_in_sales")}</p>
+      <p className="mb-6"> {t("blog3_tech_integration")}</p>
 
-      <h2 className="text-2xl font-bold mb-4">4. EdTech</h2>
+      <h2 className="text-2xl font-bold mb-4">{t("blog3_edtech")}</h2>
+      <p className="mb-6">{t("blog3_edtech_description")}</p>
       <p className="mb-6">
-        Education technology is revolutionizing how we learn. Startups offering
-        virtual classrooms, AI-driven learning platforms, and upskilling
-        programs are attracting significant interest.
+        <strong>{t("blog3_why_invest")}</strong>
       </p>
-      <p className="mb-6">
-        <strong>Why Invest:</strong>
-      </p>
-      <p className="mb-6">
-        ● Increased demand for remote and accessible education.
-      </p>
-      <p className="mb-6">● Scalability of digital platforms.</p>
+      <p className="mb-6"> {t("blog3_demand_for_remote_education")}</p>
+      <p className="mb-6"> {t("blog3_scalability")}</p>
 
-      <h2 className="text-2xl font-bold mb-4">5. Cybersecurity</h2>
+      <h2 className="text-2xl font-bold mb-4">{t("blog3_cybersecurity")}</h2>
+      <p className="mb-6">{t("blog3_cybersecurity_description")}</p>
       <p className="mb-6">
-        As businesses and individuals rely more on digital tools, cybersecurity
-        is more critical than ever. Companies specializing in securing data and
-        preventing cyberattacks are seeing exponential growth.
+        <strong>{t("blog3_why_invest")}</strong>
       </p>
-      <p className="mb-6">
-        <strong>Why Invest:</strong>
-      </p>
-      <p className="mb-6">● Rising number of cyber threats.</p>
-      <p className="mb-6">● Expanding digital infrastructure worldwide.</p>
+      <p className="mb-6"> {t("blog3_rising_cyber_threats")}</p>
+      <p className="mb-6"> {t("blog3_expanding_infrastructure")}</p>
 
-      <h2 className="text-2xl font-bold mb-4">Conclusion</h2>
+      <h2 className="text-2xl font-bold mb-4">{t("blog3_conclusion")}</h2>
+      <p className="mb-6">{t("blog3_conclusion_description")}</p>
+
       <p className="mb-6">
-        Investing in the right industries can yield substantial returns for both
-        entrepreneurs and investors. At Invest Koree, we’re here to bridge the
-        gap, helping businesses grow and investors find lucrative opportunities.
-        Ready to make your move? Let’s connect and unlock the potential
-        together.
+        {t("blog3_investkoree_commitment")}
+        <strong>InvestKoree</strong>,{" "}
+        {t("blog3_investkoree_commitment_continued")}
       </p>
     </div>
   );
