@@ -26,7 +26,7 @@ const chartData1 = {
   labels: months,
   datasets: [
     {
-      label: t("totalIncome"),
+      label: "Total Income",
       data: months.map(randomData),
       backgroundColor: "rgba(255, 99, 132, 0.5)",
       barThickness: 15,
@@ -39,7 +39,7 @@ const chartData2 = {
   labels: months,
   datasets: [
     {
-      label: t("totalinvest"),
+      label: "Total Investment",
       data: months.map(randomData),
       backgroundColor: "rgba(54, 162, 235, 0.5)",
       barThickness: 15,
