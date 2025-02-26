@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../providers/AuthProvider";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // Import useTranslation
+import axios from "axios";
 
 const InvestorRewards = () => {
+  const { t } = useTranslation(); // Initialize translation
   const { userdata } = useAuth();
   const [loading, setLoading] = useState(true);
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
@@ -13,26 +16,27 @@ const InvestorRewards = () => {
       try {
         const response = await fetch(`${API_URL}/api/allposts`);
         if (!response.ok) {
-          throw new Error("Failed to fetch posts");
+          throw new Error(t("errorFetchingPosts"));
         }
         const data = await response.json();
         setPosts(data);
       } catch (error) {
-        console.error("Error fetching posts:", error);
+        console.error(t("errorFetchingPosts"), error);
       } finally {
         setLoading(false);
       }
     };
 
     fetchAllPosts();
-  }, [API_URL]);
+  }, [API_URL, t]);
 
   if (loading) {
     return <span className="loading-spinner loading-lg"></span>;
   }
   if (!userdata) {
-    return <span className=" loading-spinner loading-lg"></span>;
+    return <span className="loading-spinner loading-lg"></span>;
   }
+
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -48,29 +52,29 @@ const InvestorRewards = () => {
           </div>
 
           <p className="lg:text-3xl font-bold mb-12 mt-16 sm:mx-auto xs:mx-auto xxs:mx-auto sm:text-xl xs:text-xl xxs:text-xl">
-            Rewards
+            {t("rewards")}
           </p>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y sm:w-[40%] xs:w-[40%] xxs:w-[30%] divide-gray-200">
               <thead>
                 <tr className="bg-salmon rounded-xl">
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Serial
+                    {t("serial")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Project Title
+                    {t("projectTitle")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Investment Duration
+                    {t("investmentDuration")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Projected ROI
+                    {t("projectedROI")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Rewards
+                    {t("rewardsText")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Action
+                    {t("action")}
                   </th>
                 </tr>
               </thead>
@@ -82,10 +86,10 @@ const InvestorRewards = () => {
                         {index + 1}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {row.businessName}
+                        {row.businessName || t("noData")}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(row.startDate).toLocaleDateString()} to
+                        {new Date(row.startDate).toLocaleDateString()} to{" "}
                         {row.returndate}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -99,7 +103,7 @@ const InvestorRewards = () => {
                           to={`/projectdetail/${row._id}`}
                           className="btn btn-success text-white mr-2"
                         >
-                          Invest
+                          {t("invest")}
                         </Link>
                       </td>
                     </tr>
@@ -113,39 +117,42 @@ const InvestorRewards = () => {
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu bg-base-200 text-base-content min-h-full lg:w-80 p-4">
             <li className="font-extrabold text-salmon ml-4 xs:mt-6 xxs:mt-6 sm:mt-6 text-lg mb-4 rounded-lg ">
-              Investor
+              {t("investor")}
             </li>
             {userdata && (
               <li className="font-extrabold text-salmon ml-4 text-lg mb-2 rounded-lg">
-                {userdata.name || "Investor"}!
+                {t("investorwelcome")}
+                {userdata.name || t("investor")}!
               </li>
             )}
             <Link to="/investordashboard">
-              <li className="font-bold hover:bg-salmon hover:text-white text-lg  rounded-lg">
-                <a>Dashboard</a>
+              <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
+                <a>{t("dashboard")}</a>
               </li>
             </Link>
             <Link to="/investorpayment">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>Payments</a>
+                <a>{t("payments")}</a>
               </li>
             </Link>
             <Link to="/investorcard">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>Cards</a>
+                <a>{t("cards")}</a>
               </li>
             </Link>
             <Link to="/investorwatchlist">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>WatchList</a>
+                <a>{t("watchlist")}</a>
               </li>
             </Link>
-            <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-              <a>Rewards</a>
-            </li>
+            <Link to="/investorrewards">
+              <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
+                <a>{t("rewards")}</a>
+              </li>
+            </Link>
             <Link to="/investorterms">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg mb-2 rounded-lg">
-                <a>Terms and Conditions</a>
+                <a>{t("termsAndConditions")}</a>
               </li>
             </Link>
           </ul>
@@ -154,4 +161,5 @@ const InvestorRewards = () => {
     </div>
   );
 };
+
 export default InvestorRewards;

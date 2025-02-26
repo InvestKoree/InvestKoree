@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../providers/AuthProvider";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const InvestorWatchlist = () => {
+  const { t } = useTranslation(); // Initialize translation
   const { userdata } = useAuth();
   const [watchlist, setWatchlist] = useState([]);
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
@@ -18,15 +20,15 @@ const InvestorWatchlist = () => {
           },
         });
         setWatchlist(response.data.watchlist.posts);
-
         console.log("Watchlist Posts:", response.data.watchlist.posts);
       } catch (error) {
-        console.error("Error fetching watchlist:", error);
+        console.error(t("errorFetchingWatchlist"), error);
       }
     };
 
     fetchWatchlist();
   }, []);
+
   const handleRemoveFromWatchlist = async (post) => {
     const token = localStorage.getItem("token");
     const postId = post._id; // Extract the _id from the post object
@@ -40,9 +42,9 @@ const InvestorWatchlist = () => {
       });
 
       // Update the local state to remove the post
-      setWatchlist(
-        (prevWatchlist) => prevWatchlist.filter((item) => item._id !== postId) // Filter out the post by _id
-      );
+      setWatchlist((prevWatchlist) =>
+        prevWatchlist.filter((item) => item._id !== postId)
+      ); // Filter out the post by _id
 
       toast.success("Post removed from watchlist!");
     } catch (error) {
@@ -50,6 +52,7 @@ const InvestorWatchlist = () => {
       toast.error("Failed to remove post from watchlist.");
     }
   };
+
   if (!userdata && !watchlist) {
     return <span className="loading loading-spinner loading-lg"></span>;
   }
@@ -69,29 +72,29 @@ const InvestorWatchlist = () => {
           </div>
 
           <p className="lg:text-3xl font-bold mb-12 mt-16 sm:mx-auto xs:mx-auto xxs:mx-auto sm:text-xl xs:text-xl xxs:text-xl">
-            Watchlist
+            {t("watchlist")}
           </p>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y sm:w-[40%] xs:w-[40%] xxs:w-[30%] divide-gray-200">
               <thead>
                 <tr className="bg-salmon rounded-xl">
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Serial
+                    {t("serial")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Project Title
+                    {t("projectTitle")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Investment Duration
+                    {t("investmentDuration")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Projected ROI
+                    {t("projectedROI")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Invested Amount
+                    {t("investedAmount")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Action
+                    {t("action")}
                   </th>
                 </tr>
               </thead>
@@ -106,15 +109,13 @@ const InvestorWatchlist = () => {
                         {index + 1}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {row.businessName}
+                        {row.businessName || t("noData")}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(row.startDate).toLocaleDateString()}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {new Date(row.startDate).toLocaleDateString()} to{" "}
                         {row.returndate}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {investedAmount}%
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500">
@@ -122,13 +123,13 @@ const InvestorWatchlist = () => {
                           to={`/projectdetail/${row._id}`}
                           className="btn btn-success text-white mr-2"
                         >
-                          Invest
+                          {t("invest")}
                         </Link>
                         <button
                           onClick={() => handleRemoveFromWatchlist(row)}
                           className="btn btn-outline text-red-500"
                         >
-                          Remove
+                          {t("remove")}
                         </button>
                       </td>
                     </tr>
@@ -142,41 +143,42 @@ const InvestorWatchlist = () => {
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu bg-base-200 text-base-content min-h-full lg:w-80 p-4">
             <li className="font-extrabold text-salmon ml-4 xs:mt-6 xxs:mt-6 sm:mt-6 text-lg mb-4 rounded-lg ">
-              Investor
+              {t("investor")}
             </li>
             {userdata && (
               <li className="font-extrabold text-salmon ml-4 text-lg mb-2 rounded-lg">
-                {userdata.name || "Investor"}!
+                {t("welcome")}
+                {userdata.name || t("investor")}!
               </li>
             )}
             <Link to="/investordashboard">
-              <li className="font-bold hover:bg-salmon hover:text-white text-lg  rounded-lg">
-                <a>Dashboard</a>
+              <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
+                <a>{t("dashboard")}</a>
               </li>
             </Link>
             <Link to="/investorpayment">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>Payments</a>
+                <a>{t("payments")}</a>
               </li>
             </Link>
             <Link to="/investorcard">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>Cards</a>
+                <a>{t("cards")}</a>
               </li>
             </Link>
             <Link to="/investorwatchlist">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>WatchList</a>
+                <a>{t("watchlist")}</a>
               </li>
             </Link>
             <Link to="/investorrewards">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>Rewards</a>
+                <a>{t("rewards")}</a>
               </li>
             </Link>
             <Link to="/investorterms">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg mb-2 rounded-lg">
-                <a>Terms and Conditions</a>
+                <a>{t("termsAndConditions")}</a>
               </li>
             </Link>
           </ul>
@@ -185,4 +187,5 @@ const InvestorWatchlist = () => {
     </div>
   );
 };
+
 export default InvestorWatchlist;

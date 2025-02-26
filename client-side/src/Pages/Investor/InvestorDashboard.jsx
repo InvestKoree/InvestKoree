@@ -3,6 +3,7 @@ import { Bar } from "react-chartjs-2";
 import { useAuth } from "../../providers/AuthProvider";
 import Chart from "chart.js/auto";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const randomData = () => Math.floor(Math.random() * 100);
 
@@ -25,7 +26,7 @@ const chartData1 = {
   labels: months,
   datasets: [
     {
-      label: "Total Income",
+      label: t("totalIncome"),
       data: months.map(randomData),
       backgroundColor: "rgba(255, 99, 132, 0.5)",
       barThickness: 15,
@@ -38,7 +39,7 @@ const chartData2 = {
   labels: months,
   datasets: [
     {
-      label: "Total Investment",
+      label: t("totalinvest"),
       data: months.map(randomData),
       backgroundColor: "rgba(54, 162, 235, 0.5)",
       barThickness: 15,
@@ -48,6 +49,7 @@ const chartData2 = {
 };
 
 const InvestorDashboard = () => {
+  const { t } = useTranslation(); // Initialize translation
   const [data1] = useState(chartData1);
   const [data2] = useState(chartData2);
   const { userdata } = useAuth();
@@ -62,16 +64,19 @@ const InvestorDashboard = () => {
         setInvestments(data);
         console.log(data);
       } catch (error) {
-        console.error("Error fetching investments:", error);
+        console.error(t("errorFetchingInvestments"), error);
       }
     };
 
     fetchInvestments();
-  }, []);
+  }, [API_URL, t]);
 
   if (!userdata && !investments) {
-    return <span className="loading loading-spinner loading-lg"></span>;
+    return (
+      <span className="loading loading-spinner loading-lg">{t("loading")}</span>
+    );
   }
+
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -110,26 +115,26 @@ const InvestorDashboard = () => {
             </div>
           </div>
           <p className="lg:text-3xl font-bold mb-12 mt-16 sm:mx-auto xs:mx-auto xxs:mx-auto sm:text-xl xs:text-xl xxs:text-xl">
-            Invested Project List
+            {t("investedProjectList")}
           </p>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y sm:w-[40%] xs:w-[40%] xxs:w-[30%] divide-gray-200">
               <thead>
                 <tr className="bg-salmon rounded-xl">
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Serial
+                    {t("serial")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Project Title
+                    {t("projectTitle")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Investment Date
+                    {t("investmentDate")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Return Date
+                    {t("returnDate")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Invested Amount
+                    {t("investedAmount")}
                   </th>
                 </tr>
               </thead>
@@ -163,43 +168,44 @@ const InvestorDashboard = () => {
         </div>
         <div className="drawer-side z-40">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-          <ul className="menu bg-base-200 text-base-content min-h-full  lg:w-80 p-4">
-            <li className="font-extrabold text-salmon ml-4   xs:mt-6 xxs:mt-6 sm:mt-6   text-lg mb-4 rounded-lg ">
-              Investor
+          <ul className="menu bg-base-200 text-base-content min-h-full lg:w-80 p-4">
+            <li className="font-extrabold text-salmon ml-4 xs:mt-6 xxs:mt-6 sm:mt-6 text-lg mb-4 rounded-lg">
+              {t("investor")}
             </li>
             {userdata && (
               <li className="font-extrabold text-salmon ml-4 text-lg mb-2 rounded-lg">
-                {userdata.name || "Investor"}!
+                {t("investorwelcome")}
+                {userdata.name || t("investor")}!
               </li>
             )}
             <Link to="/investordashboard">
-              <li className="font-bold hover:bg-salmon hover:text-white text-lg  rounded-lg">
-                <a>Dashboard</a>
+              <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
+                <a>{t("dashboard")}</a>
               </li>
             </Link>
             <Link to="/investorpayment">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>Payments</a>
+                <a>{t("payments")}</a>
               </li>
             </Link>
             <Link to="/investorcard">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>Cards</a>
+                <a>{t("cards")}</a>
               </li>
             </Link>
             <Link to="/investorwatchlist">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>WatchList</a>
+                <a>{t("watchlist")}</a>
               </li>
             </Link>
             <Link to="/investorrewards">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>Rewards</a>
+                <a>{t("rewards")}</a>
               </li>
             </Link>
             <Link to="/investorterms">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg mb-2 rounded-lg">
-                <a>Terms and Conditions</a>
+                <a>{t("termsAndConditions")}</a>
               </li>
             </Link>
           </ul>

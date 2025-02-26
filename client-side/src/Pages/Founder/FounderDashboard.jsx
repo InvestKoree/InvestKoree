@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
-// import OTPModal from "../../shared/OTPModal";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const FounderDashboard = () => {
+  const { t } = useTranslation(); // Initialize translation
   const { userdata } = useAuth();
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
-  // const [showOTPModal, setShowOTPModal] = useState(false); // State to hold any error messages
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
   useEffect(() => {
@@ -23,17 +23,14 @@ const FounderDashboard = () => {
           setError(null); // Reset error state on successful fetch
         } catch (error) {
           console.error("Error fetching user posts:", error);
-          setError("Failed to load posts. Please try again later.");
+          setError(t("errorFetchingPosts"));
         }
       }
     };
 
     fetchUserPosts();
-  }, [userdata]);
-  // const handleOTPSuccess = () => {
-  //   toast.success("Phone number verified successfully!");
-  //   // Additional logic after successful OTP verification can be added here
-  // };
+  }, [userdata, t]);
+
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -51,7 +48,7 @@ const FounderDashboard = () => {
             <div className="flex lg:flex-row sm:flex-col xs:flex-col xxs:flex-col gap-16 my-10">
               <div className="flex lg:flex-col lg:justify-center lg:items-center sm:flex-col xs:flex-col xxs:flex-col">
                 <p className="lg:text-3xl font-bold sm:mx-auto sm:text-lg xs:text-lg xxs:text-lg ">
-                  Total Invested Amount
+                  {t("totalInvestedAmount")}
                 </p>
                 <div
                   className="radial-progress text-primary mt-4"
@@ -63,7 +60,7 @@ const FounderDashboard = () => {
               </div>
               <div className="flex lg:flex-col lg:justify-center lg:items-center sm:flex-col xs:flex-col xxs:flex-col">
                 <p className="lg:text-3xl font-bold sm:mx-auto sm:text-lg xs:text-lg xxs:text-lg ">
-                  Left for Investment
+                  {t("leftForInvestment")}
                 </p>
                 <div
                   className="radial-progress text-secondary mt-4"
@@ -75,7 +72,7 @@ const FounderDashboard = () => {
               </div>
               <div className="flex lg:flex-col lg:justify-center lg:items-center sm:flex-col xs:flex-col xxs:flex-col">
                 <p className="lg:text-3xl font-bold sm:mx-auto sm:text-lg xs:text-lg xxs:text-lg ">
-                  Asking Investment Amount
+                  {t("askingInvestmentAmount")}
                 </p>
                 <div
                   className="radial-progress text-accent mt-4"
@@ -86,14 +83,6 @@ const FounderDashboard = () => {
                 </div>
               </div>
             </div>
-
-            {/* <button
-              type="button"
-              onClick={() => setShowOTPModal(true)}
-              className="post-btn lg:h-[25%] lg:w-[100px] mt-4 sm:h-[60%] xs:h-[60%] xxs:h-[60%] sm:w-[30%] xs:w-[30%] xxs:w-[30%]"
-            >
-              Verify
-            </button> */}
           </div>
           <div>
             <Link to="/founderpost">
@@ -101,40 +90,40 @@ const FounderDashboard = () => {
                 type="submit"
                 className="post-btn lg:h-[50%] lg:w-[100px] sm:h-[60%] xs:h-[60%] xxs:h-[60%] sm:w-[30%] xs:w-[30%] xxs:w-[30%]"
                 name="founder-post"
-                value="Post"
+                value={t("post")}
               />
             </Link>
           </div>
           <p className="lg:text-3xl font-bold sm:mx-auto xs:mx-auto xxs:mx-auto sm:text-lg xs:text-lg xxs:text-lg mb-12 mt-16">
-            Invested Project List
+            {t("investedProjectList")}
           </p>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr className="bg-salmon rounded-xl">
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Serial
+                    {t("serial")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Project Title
+                    {t("projectTitle")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Investment Start Date
+                    {t("investmentStartDate")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Investment Deadline
+                    {t("investmentDeadline")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Invested Amount
+                    {t("investedAmount")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Asking Amount
+                    {t("askingAmount")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Left For Investment
+                    {t("leftForInvestment")}
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                    Investment Status
+                    {t("investmentStatus")}
                   </th>
                 </tr>
               </thead>
@@ -168,7 +157,7 @@ const FounderDashboard = () => {
                         {leftForInvestment}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500">
-                        Pending
+                        {t("pending")}
                       </td>
                     </tr>
                   );
@@ -185,31 +174,33 @@ const FounderDashboard = () => {
           ></label>
           <ul className="menu bg-base-200 text-base-content min-h-full lg:w-80 p-4">
             <li className="font-extrabold text-salmon ml-4 xs:mt-6 xxs:mt-6 sm:mt-6 text-lg mb-4 rounded-lg">
-              Founder
+              {t("founder")}
             </li>
             {userdata && (
               <li className="font-extrabold text-salmon ml-4 text-lg mb-2 rounded-lg">
-                {userdata.name || "Founder"}!
+                {t("founderwelcome")}
+                {userdata.name || t("founder")}!
               </li>
             )}
             <Link to="#">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg mb-2 rounded-lg">
-                <a>Dashboard</a>
+                <a>{t("dashboard")}</a>
               </li>
             </Link>
             <Link to="/founderpending">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg mb-2 rounded-lg">
-                <a>Pending Posts</a>
+                <a>{t("pendingPosts")}</a>
               </li>
             </Link>
             <Link to="/founderterms">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg mb-2 rounded-lg">
-                <a>Terms and Conditions</a>
+                <a>{t("termsAndConditions")}</a>
               </li>
             </Link>
           </ul>
         </div>
       </div>
+      {/* Uncomment if OTPModal is needed */}
       {/* <OTPModal
         isOpen={showOTPModal}
         onClose={() => setShowOTPModal(false)}

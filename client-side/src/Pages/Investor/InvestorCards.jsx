@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useAuth } from "../../providers/AuthProvider";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const InvestorCards = () => {
+  const { t } = useTranslation(); // Initialize translation
   const { userdata } = useAuth();
   const [activeCards, setActiveCards] = useState([true, true]); // State to track active/inactive status of cards
 
@@ -28,13 +30,17 @@ const InvestorCards = () => {
             </label>
           </div>
 
-          <div className="min-h-screen rounded-xl  p-6 ">
+          <div className="min-h-screen rounded-xl p-6">
             <div className="max-w-md mx-auto">
               {/* Header */}
               <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold">My Cards (2)</h1>
+                <h1 className="text-2xl font-bold">
+                  {t("myCards")} {t("cardCount")}
+                </h1>
                 <button className="w-8 h-8 bg-gray-700 flex items-center justify-center rounded-full hover:bg-gray-600">
-                  <span className="text-xl font-bold text-white">+</span>
+                  <span className="text-xl font-bold text-white">
+                    {t("addCard")}
+                  </span>
                 </button>
               </div>
 
@@ -45,16 +51,16 @@ const InvestorCards = () => {
                 }`}
               >
                 <div className="mb-3 text-white">
-                  <p className="text-sm text-gray-400">NAME</p>
+                  <p className="text-sm text-gray-400">{t("name")}</p>
                   <p className="font-semibold">Sandro Tavartkiladze</p>
                 </div>
                 <div className="mb-3 text-white">
-                  <p className="text-sm text-gray-400">CARD NUMBER</p>
+                  <p className="text-sm text-gray-400">{t("cardNumber")}</p>
                   <p className="font-semibold">**** 7412</p>
                 </div>
                 <div className="flex justify-between items-center text-white">
                   <div>
-                    <p className="text-sm text-gray-400">BALANCE</p>
+                    <p className="text-sm text-gray-400">{t("balance")}</p>
                     <p className="text-2xl font-bold">$6,200.00</p>
                   </div>
                   <div>
@@ -77,16 +83,16 @@ const InvestorCards = () => {
                 }`}
               >
                 <div className="mb-3 text-white">
-                  <p className="text-sm text-gray-400">NAME</p>
+                  <p className="text-sm text-gray-400">{t("name")}</p>
                   <p className="font-semibold">Sandro Tavartkiladze</p>
                 </div>
                 <div className="mb-3 text-white">
-                  <p className="text-sm text-gray-400">CARD NUMBER</p>
+                  <p className="text-sm text-gray-400">{t("cardNumber")}</p>
                   <p className="font-semibold">**** 2444</p>
                 </div>
                 <div className="flex justify-between items-center text-white">
                   <div>
-                    <p className="text-sm text-gray-400">BALANCE</p>
+                    <p className="text-sm text-gray-400">{t("balance")}</p>
                     <p className="text-2xl font-bold">$1,500.00</p>
                   </div>
                   <div>
@@ -111,41 +117,42 @@ const InvestorCards = () => {
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu bg-base-200 text-base-content min-h-full lg:w-80 p-4">
             <li className="font-extrabold text-salmon ml-4 xs:mt-6 xxs:mt-6 sm:mt-6 text-lg mb-4 rounded-lg ">
-              Investor
+              {t("investor")}
             </li>
             {userdata && (
               <li className="font-extrabold text-salmon ml-4 text-lg mb-2 rounded-lg">
-                {userdata.name || "Investor"}!
+                {t("investorwelcome")}
+                {userdata.name || t("investor")}!
               </li>
             )}
             <Link to="/investordashboard">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>Dashboard</a>
+                <a>{t("dashboard")}</a>
               </li>
             </Link>
             <Link to="/investorpayment">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>Payments</a>
+                <a>{t("payments")}</a>
               </li>
             </Link>
             <Link to="/investorcard">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>Cards</a>
+                <a>{t("cards")}</a>
               </li>
             </Link>
             <Link to="/investorwatchlist">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>WatchList</a>
+                <a>{t("watchlist")}</a>
               </li>
             </Link>
             <Link to="/investorrewards">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-                <a>Rewards</a>
+                <a>{t("rewards")}</a>
               </li>
             </Link>
             <Link to="/investorterms">
               <li className="font-bold hover:bg-salmon hover:text-white text-lg mb-2 rounded-lg">
-                <a>Terms and Conditions</a>
+                <a>{t("termsAndConditions")}</a>
               </li>
             </Link>
           </ul>

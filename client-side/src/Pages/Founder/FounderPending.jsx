@@ -3,8 +3,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useAuth } from "../../providers/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const FounderPending = () => {
+  const { t } = useTranslation(); // Initialize translation
   const [posts, setPosts] = useState([]);
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const { userdata } = useAuth();
@@ -16,16 +18,17 @@ const FounderPending = () => {
         const response = await axios.get(`${API_URL}/adminpost/founderpending`);
         setPosts(response.data);
       } catch (error) {
-        toast.error("Error fetching pending posts: " + error.message);
+        toast.error(t("errorFetchingPosts") + error.message);
       }
     };
 
     fetchPendingPosts();
-  }, [API_URL]);
+  }, [API_URL, t]);
+
   const handleViewPost = (post) => {
-    // setSelectedPost(post); // Set the selected post (if needed)
-    navigate(`/founderpostreview/${post._id}`, { state: { post } }); // Navigate with ID and post data
+    navigate(`/founderpostreview/${post._id}`, { state: { post } });
   };
+
   const handleRemovePost = async (postId) => {
     try {
       const token = localStorage.getItem("token");
@@ -34,12 +37,13 @@ const FounderPending = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setPosts(posts.filter((post) => post._id !== postId)); // Remove the deleted post from the state
-      toast.success("Post removed successfully");
+      setPosts(posts.filter((post) => post._id !== postId));
+      toast.success(t("postRemovedSuccessfully"));
     } catch (error) {
-      toast.error("Error removing post: " + error.message);
+      toast.error(t("errorFetchingPosts") + error.message);
     }
   };
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -52,25 +56,25 @@ const FounderPending = () => {
             <i className="fas fa-bars text-lg"></i>
           </label>
         </div>
-        <h2 className="font-bold lg:text-3xl mb-12">Pending Posts</h2>
+        <h2 className="font-bold lg:text-3xl mb-12">{t("pendingPosts")}</h2>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead>
               <tr className="bg-salmon rounded-xl">
                 <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                  Serial
+                  {t("serial")}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                  Business Name
+                  {t("businessName")}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                  Status
+                  {t("status")}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                  Reason
+                  {t("reason")}
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                  Review
+                  {t("review")}
                 </th>
               </tr>
             </thead>
@@ -85,18 +89,24 @@ const FounderPending = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     {post.status === "denied" ? (
-                      <span className="text-red-500 font-bold">Denied</span>
+                      <span className="text-red-500 font-bold">
+                        {t("denied")}
+                      </span>
                     ) : (
-                      <span className="text-yellow-500 font-bold">Pending</span>
+                      <span className="text-yellow-500 font-bold">
+                        {t("pending")}
+                      </span>
                     )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     {post.status === "denied" && post.reason ? (
-                      <div className="mt-2 bg-gray-100 p-4  rounded-lg shadow-md">
+                      <div className="mt-2 bg-gray-100 p-4 rounded-lg shadow-md">
                         <p className="text-sm text-gray-700">{post.reason}</p>
                       </div>
                     ) : (
-                      <span className="text-gray-500">No reason provided</span>
+                      <span className="text-gray-500">
+                        {t("noReasonProvided")}
+                      </span>
                     )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm flex gap-2 mt-2 ">
@@ -104,13 +114,13 @@ const FounderPending = () => {
                       onClick={() => handleViewPost(post)}
                       className="btn btn-success text-white"
                     >
-                      View Post
+                      {t("viewPost")}
                     </button>
                     <button
                       onClick={() => handleRemovePost(post._id)}
                       className="btn btn-error text-white"
                     >
-                      Remove
+                      {t("remove")}
                     </button>
                   </td>
                 </tr>
@@ -127,26 +137,27 @@ const FounderPending = () => {
         ></label>
         <ul className="menu bg-base-200 text-base-content min-h-full lg:w-80 p-4">
           <li className="font-extrabold text-salmon ml-4 text-lg mb-4 rounded-lg">
-            Founder
+            {t("founder")}
           </li>
           {userdata && (
             <li className="font-extrabold text-salmon ml-4 text-lg mb-2 rounded-lg">
+              {t("founderwelcome")}
               {userdata.name || "founder"}!
             </li>
           )}
           <Link to="/founderdashboard">
             <li className="font-bold hover:bg-salmon hover:text-white text-lg mb-2 rounded-lg">
-              <a>Dashboard</a>
+              <a>{t("dashboard")}</a>
             </li>
           </Link>
           <Link to="/founderpending">
             <li className="font-bold hover:bg-salmon hover:text-white text-lg rounded-lg">
-              <a>Pending Posts</a>
+              <a>{t("pendingPosts")}</a>
             </li>
           </Link>
           <Link to="/founderterms">
             <li className="font-bold hover:bg-salmon hover:text-white text-lg mb-2 rounded-lg">
-              <a>Terms and Conditions</a>
+              <a>{t("termsAndConditions")}</a>
             </li>
           </Link>
         </ul>
