@@ -640,6 +640,8 @@
   "projectedROI": "Projected ROI",
   "rewardsText": "Rewards",
   "action": "Action",
-  "invest": "Invest"
-  
+  "invest": "Invest",
+  "termsPrompt": "Please kindly read the terms and policies of founders before posting.",
+  "readTerms": "Read Terms and Policies",
+  "cancel": "Cancel"
   }

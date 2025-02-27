@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next"; // Import useTranslation
+import { useTranslation } from "react-i18next";
+import TermsModal from "./TermsModal"; // Import useTranslation
 
 const FounderDashboard = () => {
   const { t } = useTranslation(); // Initialize translation
   const { userdata } = useAuth();
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [canPost, setCanPost] = useState(false);
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
   useEffect(() => {
@@ -30,9 +33,29 @@ const FounderDashboard = () => {
 
     fetchUserPosts();
   }, [userdata, t]);
+  const handlePostClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOpenTerms = () => {
+    window.open("/founderterms", "_blank"); // Open the FounderTerms page in a new window
+    setCanPost(true); // Enable the post button
+  };
+
+  const handleContinueToPost = () => {
+    if (canPost) {
+      // Redirect to the FounderPost page
+      window.location.href = "/founderpost";
+    }
+  };
 
   return (
     <div>
+      <TermsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onOpenTerms={handleOpenTerms}
+      />
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col p-10">
@@ -85,14 +108,13 @@ const FounderDashboard = () => {
             </div>
           </div>
           <div>
-            <Link to="/founderpost">
-              <input
-                type="submit"
-                className="post-btn lg:h-[50%] lg:w-[100px] sm:h-[60%] xs:h-[60%] xxs:h-[60%] sm:w-[30%] xs:w-[30%] xxs:w-[30%]"
-                name="founder-post"
-                value={t("post")}
-              />
-            </Link>
+            <input
+              onClick={handlePostClick}
+              type="submit"
+              className="post-btn lg:h-[50%] lg:w-[100px] sm:h-[60%] xs:h-[60%] xxs:h-[60%] sm:w-[30%] xs:w-[30%] xxs:w-[30%]"
+              name="founder-post"
+              value={t("post")}
+            />
           </div>
           <p className="lg:text-3xl font-bold sm:mx-auto xs:mx-auto xxs:mx-auto sm:text-lg xs:text-lg xxs:text-lg mb-12 mt-16">
             {t("investedProjectList")}
