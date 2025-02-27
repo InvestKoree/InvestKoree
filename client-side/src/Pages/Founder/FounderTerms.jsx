@@ -24,7 +24,7 @@ const FounderTerms = () => {
         <Link to="/founderpost">
           <input
             type="submit"
-            className="post-btn lg:h-[120%] lg:w-[100px] sm:h-[60%] xs:h-[60%] xxs:h-[60%] sm:w-[30%] xs:w-[30%] xxs:w-[30%]"
+            className="post-btn lg:h-[120%] lg:w-[100px] sm:h-[60%] xs:h-[60%] xxs:h-[60%] "
             name="founder-post"
             value={t("post")}
           />
