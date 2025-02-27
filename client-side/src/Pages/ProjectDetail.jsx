@@ -5,8 +5,11 @@ import { toast } from "react-toastify";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { useAuth } from "../providers/AuthProvider";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const ProjectDetail = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const { t } = useTranslation();
   const { id } = useParams();
   const { userdata } = useAuth(); // Get the project ID from the URL
@@ -363,11 +366,73 @@ const ProjectDetail = () => {
               </div>
               <div className="flex flex-row items-center gap-4">
                 <button
-                  onClick={handleInvestClick}
+                  onClick={() => setIsModalOpen(true)}
                   className="btn xs:w-[60%] xxs:w-[60%] sm:w-[60%] login-btn"
                 >
                   {t("invest")}
                 </button>
+                {isModalOpen && (
+                  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-96 relative">
+                      {/* Close Button */}
+                      <button
+                        className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+                        onClick={() => setIsModalOpen(false)}
+                      >
+                        ✖
+                      </button>
+
+                      <h2 className="text-xl font-semibold mb-4">
+                        Please Read Before Investing
+                      </h2>
+                      <p className="text-gray-700">
+                        Kindly read the
+                        <Link
+                          to="/investorterms"
+                          className="text-blue-500 underline ml-1"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          terms and policies of investors
+                        </Link>
+                        <br />
+                        before investing.
+                      </p>
+
+                      {/* Checkbox */}
+                      <div className="mt-4 flex items-center">
+                        <input
+                          type="checkbox"
+                          id="termsCheckbox"
+                          className="mr-2"
+                          checked={isChecked}
+                          onChange={() => setIsChecked(!isChecked)}
+                        />
+                        <label
+                          htmlFor="termsCheckbox"
+                          className="text-gray-700"
+                        >
+                          I have read the terms
+                        </label>
+                      </div>
+
+                      {/* Invest Button */}
+                      <button
+                        className={`mt-4 px-4 py-2 rounded-md text-white w-full 
+                ${
+                  isChecked
+                    ? "bg-green-600 hover:bg-green-700"
+                    : "bg-gray-400 cursor-not-allowed"
+                }
+              `}
+                        disabled={!isChecked}
+                        onClick={handleInvestClick}
+                      >
+                        Invest
+                      </button>
+                    </div>
+                  </div>
+                )}
                 <button
                   className="btn btn-outline tooltip tooltip-bottom custom-tooltip hover:bg-salmon"
                   data-tip="Add to Watchlist"
