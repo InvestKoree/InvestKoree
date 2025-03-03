@@ -1,84 +1,70 @@
 import React from "react";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 const WhatWeDo = () => {
+  const { t } = useTranslation(); // Initialize translation
+
   return (
     <div className="min-h-screen bg-gray-100 py-12 px-6 sm:px-12 lg:px-24">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
         <h1 className="text-4xl font-bold text-center text-gray-800 mb-6">
-          ABOUT US
+          {t("aboutUs")}
         </h1>
-        <h2 className="text-3xl font-bold text-gray-700 mb-6">What We Do</h2>
+        <h2 className="text-3xl font-bold text-gray-700 mb-6">
+          {t("whatWeDo")}
+        </h2>
         <p className="text-gray-600 leading-relaxed mb-6">
-          InvestKoree offers a comprehensive suite of services tailored to meet
-          the diverse needs of Bangladeshi businesses and investors.
+          {t("investKoreeDescription")}
         </p>
         <h3 className="text-2xl font-semibold text-gray-700 mb-4">
-          For Entrepreneurs:
+          {t("forEntrepreneurs")}
         </h3>
         <p className="text-gray-600 leading-relaxed mb-6">
-          We provide a platform to present your business ideas to a network of
-          qualified investors. From creating compelling business profiles to
-          crafting investment-ready pitches, we help startups and SMEs showcase
-          their potential effectively.
+          {t("entrepreneursDescription")}
         </p>
         <h3 className="text-2xl font-semibold text-gray-700 mb-4">
-          For Investors:
+          {t("forInvestors")}
         </h3>
         <p className="text-gray-600 leading-relaxed mb-6">
-          Discover investment opportunities with businesses that align with your
-          goals. Whether you’re looking for high-growth startups or established
-          companies, we curate options that match your investment strategy.
+          {t("investorsDescription")}
         </p>
         <h3 className="text-2xl font-semibold text-gray-700 mb-4">
-          Strategic Consulting:
+          {t("strategicConsulting")}
         </h3>
         <p className="text-gray-600 leading-relaxed mb-6">
-          Our team offers expert guidance on refining business strategies,
-          identifying growth opportunities, and securing investments. We also
-          provide actionable insights to help businesses thrive in competitive
-          markets.
+          {t("consultingDescription")}
         </p>
         <h2 className="text-3xl font-bold text-gray-700 mb-6">
-          Why Choose InvestKoree?
+          {t("whyChooseInvestKoree")}
         </h2>
         <ul className="list-disc list-inside text-gray-600 leading-relaxed mb-6">
           <li className="mb-2">
-            <strong className="text-gray-700">Tailored Connections:</strong> We
-            leverage data-driven insights and industry expertise to match
-            Bangladeshi businesses with the right investors.
+            <strong className="text-gray-700">
+              {t("tailoredConnections")}
+            </strong>
           </li>
           <li className="mb-2">
-            <strong className="text-gray-700">Local Network:</strong> Our
-            extensive network of entrepreneurs and investors within Bangladesh
-            ensures a wealth of opportunities for both parties.
+            <strong className="text-gray-700">{t("localNetwork")}</strong>
           </li>
           <li className="mb-2">
-            <strong className="text-gray-700">Expert Support:</strong> From the
-            initial connection to closing the deal, we provide ongoing support
-            to ensure successful outcomes.
+            <strong className="text-gray-700">{t("expertSupport")}</strong>
           </li>
           <li>
-            <strong className="text-gray-700">Commitment to Growth:</strong> We
-            are dedicated to helping Bangladeshi businesses and investors
-            achieve mutual success while fostering long-term relationships.
+            <strong className="text-gray-700">{t("commitmentToGrowth")}</strong>
           </li>
         </ul>
         <h2 className="text-3xl font-bold text-gray-700 mb-6">
-          Let’s Build the Future Together
+          {t("letsBuildTheFuture")}
         </h2>
         <p className="text-gray-600 leading-relaxed mb-6">
-          Whether you’re an entrepreneur seeking investment or an investor
-          exploring new opportunities, InvestKoree is here to guide you every
-          step of the way. Join us in driving innovation, creating partnerships,
-          and shaping the future of business in Bangladesh.
+          {t("futureDescription")}
         </p>
         <a
           href="mailto:investkoree@gmail.com"
           className="text-blue-500 underline"
         >
           <p className="text-center text-gray-800 font-semibold mt-8">
-            Contact Us Today to explore how InvestKoree can help you achieve
-            your goals.
+            {t("contactUs")}
           </p>
         </a>
       </div>
