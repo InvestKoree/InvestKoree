@@ -46,6 +46,7 @@ import BlogNine from "../Pages/Blogs/BlogNine";
 import AdminPendingPostDetail from "../Pages/AdminPanel/AdminPendingPostDetails";
 import BlogTen from "../Pages/Blogs/BlogTen";
 import Blog11 from "../Pages/Blogs/Blog11";
+import Blog12 from "../Pages/Blogs/Blog12";
 
 export const router = createBrowserRouter([
   {
@@ -160,6 +161,10 @@ export const router = createBrowserRouter([
       {
         path: "/blogseven",
         element: <BlogSeven></BlogSeven>,
+      },
+      {
+        path: "/blog12",
+        element: <Blog12></Blog12>,
       },
       {
         path: "/blogthree",

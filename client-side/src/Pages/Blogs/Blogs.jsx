@@ -50,6 +50,9 @@ const Blogs = () => {
   const handleShowMore11 = () => {
     navigate("/blog11");
   };
+  const handleShowMore12 = () => {
+    navigate("/blog12");
+  };
   return (
     <div>
       <h1 className="text-center lg:text-4xl sm:text-2xl xxs:text-2xl xs:text-2xl mt-20">
@@ -368,6 +371,34 @@ const Blogs = () => {
 
                   <button
                     onClick={handleShowMore11}
+                    className="mt-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
+                  >
+                    {t("show_more")}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[400px] ">
+            <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
+              <div className="flex flex-col md:flex-row h-full p-4 bg-white">
+                <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[full] xxs:w-[full] xs:w-[full]  sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[30%] xxs:h-[30%] xs:h-[30%]">
+                  <img src={blog11} className=" w-full h-full rounded-md" />
+                </div>
+
+                <div className="lg:p-4 flex flex-col justify-between w-full md:w-1/2 ">
+                  <h2 className=" font-bold mb-2">
+                    বিনিয়োগকারীদের সাথে সফল সংযোগের জন্য ৫টি টিপস
+                  </h2>
+                  <p className="text-sm text-gray-700 mb-4 line-clamp-3">
+                    আপনার ব্যবসার জন্য সঠিক বিনিয়োগকারী খুঁজে পেতে সঠিক
+                    পদক্ষেপগুলি গ্রহণ করা খুবই গুরুত্বপূর্ণ। InvestKoree আপনাকে
+                    সঠিক দিকনির্দেশনা দেবে, যাতে আপনি সফলভাবে বিনিযোগকারীদের
+                    সাথে সংযোগ করতে পারেন।
+                  </p>
+
+                  <button
+                    onClick={handleShowMore12}
                     className="mt-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     {t("show_more")}
