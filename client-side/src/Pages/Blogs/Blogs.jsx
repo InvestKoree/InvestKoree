@@ -10,6 +10,7 @@ import blog8 from "../../assets/blog8.jpeg";
 import blog9 from "../../assets/blognine.jpeg";
 import blog10 from "../../assets/blogten.png";
 import blog11 from "../../assets/blog11.png";
+import blog12 from "../../assets/blog12.jpg";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 const Blogs = () => {
@@ -383,7 +384,7 @@ const Blogs = () => {
             <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
               <div className="flex flex-col md:flex-row h-full p-4 bg-white">
                 <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[full] xxs:w-[full] xs:w-[full]  sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[30%] xxs:h-[30%] xs:h-[30%]">
-                  <img src={blog11} className=" w-full h-full rounded-md" />
+                  <img src={blog12} className=" w-full h-full rounded-md" />
                 </div>
 
                 <div className="lg:p-4 flex flex-col justify-between w-full md:w-1/2 ">
