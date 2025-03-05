@@ -149,12 +149,11 @@ const FounderLogin = () => {
     try {
       await createUser(name, email, password, "founder", phone);
       setRegistrationSuccessful(true);
-      console.log("Registration Successful:", true);
       setPhoneNumber(phone);
-      console.log("Phone Number Set:", phone);
       setShowOTPModal(true);
-      console.log("Show OTP Modal:", true);
-      navigate("/founderlogin"); // Notify user
+      toast.success(
+        "Registration successful. Please verify your phone number."
+      );
     } catch (err) {
       if (
         err.message.includes("duplicate key error") &&
@@ -173,10 +172,10 @@ const FounderLogin = () => {
   };
 
   const handleOTPSuccess = () => {
-    toast.success("Phone number verified successfully!");
-    // Proceed with registration
+    toast.success("Phone number verified successfully! You can login Now");
+    setShowOTPModal(false);
+    navigate("/founderlogin");
   };
-
   return (
     <div className={`signcontainer ${isSignUpMode ? "sign-up-mode" : ""}`}>
       <div className="forms-container">
