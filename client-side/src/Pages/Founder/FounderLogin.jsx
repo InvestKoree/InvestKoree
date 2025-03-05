@@ -148,9 +148,12 @@ const FounderLogin = () => {
 
     try {
       await createUser(name, email, password, "founder", phone);
-      setRegistrationSuccessful(true); // Set registration success state
-      setPhoneNumber(phone); // Store the phone number to be used in OTP verification
-      setShowOTPModal(true); // Show OTP modal
+      setRegistrationSuccessful(true);
+      console.log("Registration Successful:", true);
+      setPhoneNumber(phone);
+      console.log("Phone Number Set:", phone);
+      setShowOTPModal(true);
+      console.log("Show OTP Modal:", true);
       navigate("/founderlogin"); // Notify user
     } catch (err) {
       if (
@@ -372,9 +375,9 @@ const FounderLogin = () => {
       </div>
       {showOTPModal && (
         <OTPModal
-          phonenumber={phone} // Pass phone number for OTP verification
-          onSuccess={handleOTPSuccess} // OTP success callback
-          onClose={() => setShowOTPModal(false)} // Close modal
+          phonenumber={phonenumber} // Use the phonenumber state
+          onSuccess={handleOTPSuccess}
+          onClose={() => setShowOTPModal(false)}
         />
       )}
     </div>
