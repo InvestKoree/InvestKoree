@@ -237,6 +237,7 @@
   "return_investment": "How Do You Plan To Return The Investment",
   "business_safety": "How Safe Do You Consider Your Business To Be?",
   "comments": "Comments",
+  "select_sector":"select sector",
   "add_comment": "Add a comment...",
   "add_comment_button": "Add Comment",
   "reply": "Reply",

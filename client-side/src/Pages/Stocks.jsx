@@ -7,11 +7,36 @@ const Stocks = () => {
   const { t } = useTranslation();
   const [Stockspost, setStocksPost] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
-  const [selectedSector, setSelectedSector] = useState(""); // State for selected sector
+  const [selectedSector, setSelectedSector] = useState("");
   const [selectedDuration, setSelectedDuration] = useState("");
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000"; // State for selected duration
-  const [showRightCol, setShowRightCol] = useState(false);
-  const [animateRightCol, setAnimateRightCol] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+
+  // Comprehensive list of sectors
+  const allSectors = [
+    "Retail",
+    "Financial",
+    "Farming",
+    "Clothing",
+    "Health",
+    "Arts",
+    "Comics",
+    "Crafts",
+    "Photography",
+    "Publishing",
+    "Dance",
+    "Design",
+    "Fashion",
+    "Film",
+    "Food",
+    "Games",
+    "Journalism",
+    "Music",
+    "Technology",
+    "Theater",
+  ];
+
+  // Durations list
+  const allDurations = ["short-term", "mid-term", "long-term"];
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -25,7 +50,7 @@ const Stocks = () => {
         );
 
         setStocksPost(filteredPosts);
-        setFilteredPosts(filteredPosts); // Initialize filtered posts
+        setFilteredPosts(filteredPosts);
       } catch (error) {
         console.error("Error fetching latest posts:", error);
       }
@@ -34,31 +59,41 @@ const Stocks = () => {
     fetchPosts();
   }, []);
 
-  // Function to handle sector selection
-  const handleSectorClick = (sector) => {
-    setSelectedSector(sector); // Set the selected sector
+  // Function to count ideas per sector
+  const getSectorCounts = () => {
+    const sectorCounts = {};
+    allSectors.forEach((sector) => {
+      sectorCounts[sector] = Stockspost.filter(
+        (post) => post.businessSector === sector
+      ).length;
+    });
+    return sectorCounts;
   };
 
-  const toggleRightCol = () => {
-    if (showRightCol) {
-      // Add the fade-out animation before hiding the column
-      setAnimateRightCol(true);
-      setTimeout(() => {
-        setShowRightCol(false); // Hide after animation
-        setAnimateRightCol(false); // Reset animation state
-      }, 1000); // Match the animation duration in milliseconds
-    } else {
-      setShowRightCol(true);
-    }
+  // Function to count ideas per duration
+  const getDurationCounts = () => {
+    const durationCounts = {};
+    allDurations.forEach((duration) => {
+      durationCounts[duration] = Stockspost.filter(
+        (post) => post.investmentDuration === duration
+      ).length;
+    });
+    return durationCounts;
   };
-  // Function to handle duration selection
+
+  const sectorCounts = getSectorCounts();
+  const durationCounts = getDurationCounts();
+
+  const handleSectorChange = (e) => {
+    setSelectedSector(e.target.value);
+  };
+
   const handleDurationClick = (duration) => {
-    setSelectedDuration(duration); // Set the selected duration
+    setSelectedDuration(duration);
   };
 
-  // Function to filter posts based on sector and duration
   const filterPosts = () => {
-    let filtered = [...Stockspost]; // Start with all Stockspost
+    let filtered = [...Stockspost];
 
     if (selectedSector) {
       filtered = filtered.filter(
@@ -72,19 +107,17 @@ const Stocks = () => {
       );
     }
 
-    setFilteredPosts(filtered); // Update filtered posts
+    setFilteredPosts(filtered);
   };
 
-  // Watch for changes in sector or duration to filter posts
   useEffect(() => {
-    filterPosts(); // Apply filter when sector or duration changes
+    filterPosts();
   }, [selectedSector, selectedDuration]);
 
-  // Function to clear filters
   const clearFilters = () => {
-    setSelectedSector(""); // Reset sector selection
-    setSelectedDuration(""); // Reset duration selection
-    setFilteredPosts(Stockspost); // Show all posts again
+    setSelectedSector("");
+    setSelectedDuration("");
+    setFilteredPosts(Stockspost);
   };
 
   return (
@@ -100,7 +133,7 @@ const Stocks = () => {
               <i className="fas fa-bars text-lg"></i>
             </label>
           </div>
-          <p className="lg:text-3xl md:text-2xl sm:text-xl xs:text-xl xxs:text-xl md:mb-2 xs:mb-2 xxs:mb-2 sm:mb-2 font-bold lg:mt-12 md:mt-12 text-center">
+          <p className="lg:text-3xl md:text-2xl sm:text-xl xs:text-xl xxs:text-xl md:mb-2 xs:mb-2 xxs :mb-2 sm:mb-2 font-bold lg:mt-12 md:mt-12 text-center">
             {t("stock_business")}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:w-[1200px] lg:mx-auto sm:mx-auto lg:gap-6 xs:gap-8 xxs:gap-8 sm:gap-8 px-6 lg:px-20 cursor-pointer">
@@ -117,87 +150,41 @@ const Stocks = () => {
             className="drawer-overlay"
           ></label>
           <ul className="menu bg-base-200 text-base-content min-h-full lg:w-80 p-4">
-            <li className="font-extrabold  text-salmon xs:mt-6 xxs:mt-6 sm:mt-6 hover:text-white text-lg mb-2">
+            <li className="font-extrabold text-salmon xs:mt-6 xxs:mt-6 sm:mt-6 hover:text-white text-lg mb-2">
               <a>{t("sector")}</a>
             </li>
-            <div className="flex flex-row gap-2 mb-2">
-              <div>
-                {/* Add onClick handlers to filter posts by sector */}
-                {[
-                  "Retail",
-                  "Financial",
-                  "Farming",
-                  "Clothing",
-                  "Health",
-                  "Arts",
-                  "Comics",
-                  "Crafts",
-                  "Photography",
-                  "Publishing",
-                ].map((sector) => (
-                  <li
-                    key={sector}
-                    className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                      selectedSector === sector ? "bg-salmon text-white" : ""
-                    }`}
-                    onClick={() => handleSectorClick(sector)}
-                  >
-                    <a>{t(sector.toLowerCase())}</a>
-                  </li>
+
+            {/* Sector Dropdown */}
+            <div className="form-control w-full mb-4">
+              <select
+                className="select select-bordered w-full max-w-xs"
+                value={selectedSector}
+                onChange={handleSectorChange}
+              >
+                <option value="">{t("select_sector")}</option>
+                {allSectors.map((sector) => (
+                  <option key={sector} value={sector}>
+                    {t(sector.toLowerCase())} ({sectorCounts[sector]})
+                  </option>
                 ))}
-              </div>
-              {showRightCol && (
-                <div
-                  className={`${
-                    animateRightCol
-                      ? "animate__animated animate__fadeOut"
-                      : "animate__animated animate__fadeInTopRight"
-                  }`}
-                >
-                  {[
-                    "Dance",
-                    "Design",
-                    "Fashion",
-                    "Film",
-                    "Food",
-                    "Games",
-                    "Journalism",
-                    "Music",
-                    "Technology",
-                    "Theater",
-                  ].map((sector) => (
-                    <li
-                      key={sector}
-                      className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
-                        selectedSector === sector ? "bg-salmon text-white" : ""
-                      }`}
-                      onClick={() => handleSectorClick(sector)}
-                    >
-                      <a>{t(sector.toLowerCase())}</a>
-                    </li>
-                  ))}
-                </div>
-              )}
+              </select>
             </div>
-            <button
-              onClick={toggleRightCol}
-              className="toggle-btn btn bg-gray-500 text-white w-full font-bold text-lg rounded-lg hover:text-black"
-            >
-              {showRightCol ? t("view_less") : t("view_more")}
-            </button>
+
             <li className="font-extrabold text-salmon hover:text-white text-lg mb-2 mt-6">
               <a>{t("duration")}</a>
             </li>
-            {/* Add onClick handlers to filter posts by duration */}
-            {["short-term", "mid-term", "long-term"].map((duration) => (
+            {allDurations.map((duration) => (
               <li
                 key={duration}
-                className={`font-bold hover:bg-salmon hover:text-white text-lg rounded-lg ${
+                className={`font-bold hover:bg-salmon hover:text-white mt-2 text-lg rounded-lg flex flex-row ${
                   selectedDuration === duration ? "bg-salmon text-white" : ""
                 }`}
                 onClick={() => handleDurationClick(duration)}
               >
-                <a>{t(duration)}</a>
+                <a className="px-0 pl-2">{t(duration)}</a>
+                <span className="text-xs mt-2 px-1">
+                  ({durationCounts[duration]})
+                </span>
               </li>
             ))}
 
@@ -211,9 +198,8 @@ const Stocks = () => {
               </button>
             </li>
             <div className="mt-6">
-              {/* <p className="font-bold  text-xl">Selected Filters:</p> */}
               {selectedSector && (
-                <li className="text-lg font-bold rounded-lg text-white bg-salmon  my-2">
+                <li className="text-lg font-bold rounded-lg text-white bg-salmon my-2">
                   <a>{t(selectedSector.toLowerCase())}</a>
                 </li>
               )}
