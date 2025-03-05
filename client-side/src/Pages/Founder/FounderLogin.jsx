@@ -151,9 +151,6 @@ const FounderLogin = () => {
       setRegistrationSuccessful(true);
       setPhoneNumber(phone);
       setShowOTPModal(true);
-      toast.success(
-        "Registration successful. Please verify your phone number."
-      );
     } catch (err) {
       if (
         err.message.includes("duplicate key error") &&
