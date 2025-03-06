@@ -83,7 +83,7 @@ const Blogs = () => {
                   {/* Button */}
                   <button
                     onClick={handleShowMore1}
-                    className="mt-auto bg-salmon h-12 w-28 text-white py-2 px-2  rounded hover:bg-blue-600"
+                    className="mt-auto sm:mx-auto xxs:mx-auto  xs:mx-auto bg-salmon h-12 w-28 text-white py-2 px-2  rounded hover:bg-blue-600"
                   >
                     {t("show_more")}
                   </button>
@@ -113,7 +113,7 @@ const Blogs = () => {
                   {/* Button */}
                   <button
                     onClick={handleShowMore3}
-                    className=" mt-auto bg-salmon  text-white h-12 w-28 px-2 py-2 rounded hover:bg-blue-600"
+                    className=" mt-auto sm:mx-auto xxs:mx-auto bg-salmon  text-white h-12 w-28 px-2 py-2 rounded hover:bg-blue-600"
                   >
                     {t("show_more")}
                   </button>
@@ -143,7 +143,7 @@ const Blogs = () => {
                   {/* Button */}
                   <button
                     onClick={handleShowMore2}
-                    className="mt-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
+                    className="mt-auto sm:mx-auto xxs:mx-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     {t("show_more")}
                   </button>
@@ -175,7 +175,7 @@ const Blogs = () => {
                   {/* Button */}
                   <button
                     onClick={handleShowMore4}
-                    className="mt-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
+                    className="mt-auto sm:mx-auto xxs:mx-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     {t("show_more")}
                   </button>
@@ -205,7 +205,7 @@ const Blogs = () => {
                   {/* Button */}
                   <button
                     onClick={handleShowMore5}
-                    className="mt-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
+                    className="mt-auto sm:mx-auto xxs:mx-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     {t("show_more")}
                   </button>
@@ -235,7 +235,7 @@ const Blogs = () => {
                   {/* Button */}
                   <button
                     onClick={handleShowMore6}
-                    className="mt-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
+                    className="mt-auto sm:mx-auto xxs:mx-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     {t("show_more")}
                   </button>
@@ -267,7 +267,7 @@ const Blogs = () => {
                   {/* Button */}
                   <button
                     onClick={handleShowMore7}
-                    className="mt-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
+                    className="mt-auto sm:mx-auto xxs:mx-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     {t("show_more")}
                   </button>
@@ -293,7 +293,7 @@ const Blogs = () => {
 
                   <button
                     onClick={handleShowMore8}
-                    className="mt-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
+                    className="mt-auto sm:mx-auto xxs:mx-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     {t("show_more")}
                   </button>
@@ -316,7 +316,7 @@ const Blogs = () => {
 
                   <button
                     onClick={handleShowMore9}
-                    className="mt-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
+                    className="mt-auto sm:mx-auto xxs:mx-auto  bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     {t("show_more")}
                   </button>
@@ -341,7 +341,7 @@ const Blogs = () => {
 
                   <button
                     onClick={handleShowMore10}
-                    className="mt-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
+                    className="mt-auto sm:mx-auto xxs:mx-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     {t("show_more")}
                   </button>
@@ -372,7 +372,7 @@ const Blogs = () => {
 
                   <button
                     onClick={handleShowMore11}
-                    className="mt-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
+                    className="mt-auto sm:mx-auto xxs:mx-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     {t("show_more")}
                   </button>
@@ -400,7 +400,7 @@ const Blogs = () => {
 
                   <button
                     onClick={handleShowMore12}
-                    className="mt-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
+                    className="mt-auto sm:mx-auto xxs:mx-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     {t("show_more")}
                   </button>
