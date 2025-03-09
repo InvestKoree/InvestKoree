@@ -666,5 +666,6 @@
   "contactUs": "Contact Us Today to explore how InvestKoree can help you achieve your goals.",
   "overview": "Overview",
   "investKoreeoverDescription": "At <span className='font-semibold text-gray-800'>InvestKoree</span>, we specialize in bridging the gap between visionary entrepreneurs and forward-thinking investors in Bangladesh. Our platform serves as a dynamic hub for fostering partnerships that drive innovation, economic growth, and transformative success within the local economy.",
-  "startupDescription": "Whether you are an ambitious startup seeking capital or an investor looking for high-potential opportunities, <span className='font-semibold text-gray-800'>InvestKoree</span> connects the dots, empowering businesses in Bangladesh to unlock their full potential."
+  "startupDescription": "Whether you are an ambitious startup seeking capital or an investor looking for high-potential opportunities, <span className='font-semibold text-gray-800'>InvestKoree</span> connects the dots, empowering businesses in Bangladesh to unlock their full potential.",
+  "loginvideo":"How to login and post"
   }
