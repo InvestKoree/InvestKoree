@@ -230,13 +230,13 @@ const Home = () => {
         </h2>
 
         {/* Video Section */}
-        <div className="flex  xs:flex-col xxs:flex-col sm:flex-col justify-center space-x-10">
+        <div className="flex lg:flex-row xs:flex-col xxs:flex-col sm:flex-col justify-center space-x-10">
           {/* For Investors Video */}
           <div className="flex flex-col  items-center">
             <h3 className="text-lg font-bold mb-6">{t("for_founders")}</h3>
             <iframe
-              width="480"
-              height="280"
+              width="430"
+              height="270"
               src="https://www.youtube.com/embed/A8S-aUYqz34"
               title="YouTube video player"
               frameBorder="0"
@@ -247,12 +247,12 @@ const Home = () => {
 
           {/* For Founders Video */}
           <div className="flex flex-col items-center">
-            <h3 className="text-lg font-bold xs:mt-8 xxs:mt-8 sm:mt-8 mb-6">
+            <h3 className="text-lg font-bold lg:mt-0 xs:mt-8 xxs:mt-8 sm:mt-8 mb-6">
               {t("for_investors")}
             </h3>
             <iframe
-              width="480"
-              height="280"
+              width="430"
+              height="270"
               src="https://www.youtube.com/embed/m_iQ4nc7oGg"
               title="YouTube video player"
               frameBorder="0"
