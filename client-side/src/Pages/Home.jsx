@@ -230,7 +230,7 @@ const Home = () => {
         </h2>
 
         {/* Video Section */}
-        <div className="flex lg:flex-row xs:flex-col xxs:flex-col sm:flex-col justify-center space-x-10">
+        <div className="flex lg:flex-row xs:flex-col xxs:flex-col sm:flex-col justify-center lg:space-x-10">
           {/* For Investors Video */}
           <div className="flex flex-col  items-center">
             <h3 className="text-lg font-bold mb-6">{t("for_founders")}</h3>
