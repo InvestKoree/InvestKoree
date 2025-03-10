@@ -230,9 +230,9 @@ const Home = () => {
         </h2>
 
         {/* Video Section */}
-        <div className="flex justify-center space-x-10">
+        <div className="flex  xs:flex-col xxs:flex-col sm:flex-col justify-center space-x-10">
           {/* For Investors Video */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col  items-center">
             <h3 className="text-lg font-bold mb-6">{t("for_founders")}</h3>
             <iframe
               width="480"
@@ -247,7 +247,9 @@ const Home = () => {
 
           {/* For Founders Video */}
           <div className="flex flex-col items-center">
-            <h3 className="text-lg font-bold mb-6">{t("for_investors")}</h3>
+            <h3 className="text-lg font-bold xs:mt-8 xxs:mt-8 sm:mt-8 mb-6">
+              {t("for_investors")}
+            </h3>
             <iframe
               width="480"
               height="280"
