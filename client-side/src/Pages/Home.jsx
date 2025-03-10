@@ -235,8 +235,8 @@ const Home = () => {
           <div className="flex flex-col  items-center">
             <h3 className="text-lg font-bold mb-6">{t("for_founders")}</h3>
             <iframe
-              width="430"
-              height="270"
+              width="380"
+              height="250"
               src="https://www.youtube.com/embed/A8S-aUYqz34"
               title="YouTube video player"
               frameBorder="0"
@@ -251,8 +251,8 @@ const Home = () => {
               {t("for_investors")}
             </h3>
             <iframe
-              width="430"
-              height="270"
+              width="380"
+              height="250"
               src="https://www.youtube.com/embed/m_iQ4nc7oGg"
               title="YouTube video player"
               frameBorder="0"
