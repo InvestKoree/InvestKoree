@@ -228,17 +228,39 @@ const Home = () => {
         <h2 className="mx-auto lg:text-3xl sm:text-xl lg:mb-16 xs:text-xl xxs:text-xl xs:mb-6 xxs:mb-6 sm:mb-6 xs:mt-16 xxs:mt-16 sm:mt-16 font-bold">
           {t("loginvideo")}{" "}
         </h2>
-        <iframe
-          width="700"
-          height="315"
-          className="mx-auto"
-          src="https://www.youtube.com/embed/A8S-aUYqz34"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
+
+        {/* Video Section */}
+        <div className="flex justify-center space-x-10">
+          {/* For Investors Video */}
+          <div className="flex flex-col items-center">
+            <h3 className="text-lg font-bold mb-6">{t("for_founders")}</h3>
+            <iframe
+              width="480"
+              height="280"
+              src="https://www.youtube.com/embed/A8S-aUYqz34"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+
+          {/* For Founders Video */}
+          <div className="flex flex-col items-center">
+            <h3 className="text-lg font-bold mb-6">{t("for_investors")}</h3>
+            <iframe
+              width="480"
+              height="280"
+              src="https://www.youtube.com/embed/m_iQ4nc7oGg"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
       </div>
+
       {/* Mission Section */}
       <div className="mission-section my-20 flex flex-col lg:flex-col gap-10 justify-center lg:h-full items-center">
         <div className="flex flex-col lg:flex-row gap-8 animate__bounceInLeft animate__animated">
