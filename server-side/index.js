@@ -27,7 +27,6 @@ import multer from 'multer';
 import PendingPost from './models/pendingPost.js';
 import FounderPending from './models/founderpending.js';
 import commentRoutes from "./routes/commentRoutes.js";
-import prerender from 'prerender-node';
 
 dotenv.config();
 
@@ -71,8 +70,7 @@ const cspOptions = {
 };
 
 app.use(helmet.contentSecurityPolicy(cspOptions));
-prerender.set("prerenderToken", "hwkEpn7E13UeEr6ozwrN");
-app.use(prerender);
+
 
 // // Multer Setup
 // const upload = multer({ storage });
