@@ -32,14 +32,6 @@ const Home = () => {
   }, [controls, inView]);
 
   useEffect(() => {
-    if (inView2) {
-      controls.start("visible");
-    } else {
-      controls.start("hidden");
-    }
-  }, [controls, inView2]);
-
-  useEffect(() => {
     const checkScreenSize = () => {
       setIsSmallScreen(window.innerWidth <= 768); // Adjust breakpoint as needed
     };
