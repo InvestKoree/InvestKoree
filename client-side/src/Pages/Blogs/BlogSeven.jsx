@@ -6,7 +6,10 @@ const BlogSeven = () => {
   return (
     <div className="max-w-4xl mx-auto p-6">
       {/* Header Image */}
-      <img src={blog1} className="w-full h-64 object-cover rounded-lg mb-6" />
+      <img
+        src={blog1}
+        className="w-full h-64 lg:object-cover rounded-lg mb-6"
+      />
 
       {/* Blog Content */}
       <h1 className="text-3xl font-bold mb-4">{t("blog7_title")}</h1>
