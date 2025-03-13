@@ -54,7 +54,7 @@ const __dirname = path.dirname(__filename);
 // Serve the robots.txt file
 app.get('/robots.txt', (req, res) => {
     res.type('text/plain');
-    res.sendFile(path.join(__dirname, 'src', 'public', 'robots.txt'));
+    res.sendFile(path.join(__dirname, 'robots.txt'));
 });
 
 
