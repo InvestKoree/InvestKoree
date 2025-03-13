@@ -1,6 +1,9 @@
 User-agent: *
 Disallow: /private/
 Disallow: /temp/
+Disallow: /cgi-bin/
+Disallow: /images/
+Disallow: /pages/thankyou.html
 Allow: /
 
 Sitemap: https://www.investkoree.com/sitemap.xml
