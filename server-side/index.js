@@ -23,6 +23,8 @@ import CheckDuplicate from './routes/checkDuplicate.js';
 import search from './routes/search.js';
 import watchlist from './routes/watchlistRoute.js';
 import multer from 'multer';
+import path from 'path';
+import { fileURLToPath } from 'url';
 // import cloudinary from './cloudinaryConfig.js'; 
 import PendingPost from './models/pendingPost.js';
 import FounderPending from './models/founderpending.js';
@@ -33,6 +35,7 @@ dotenv.config();
 
 // Initialize App
 const app = express();
+
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
@@ -45,6 +48,15 @@ const io = new Server(server, {
 
 // Connect to Database
 connectDB();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve the robots.txt file
+app.get('/robots.txt', (req, res) => {
+    res.type('text/plain');
+    res.sendFile(path.join(__dirname, 'src', 'public', 'robots.txt'));
+});
+
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
