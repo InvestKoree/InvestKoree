@@ -21,8 +21,6 @@ const Home = () => {
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.2 });
-  const [ref2, inView2] = useInView({ threshold: 0.2 });
-  const [refWhy, inViewWhy] = useInView({ threshold: 0.2 });
 
   useEffect(() => {
     console.log(import.meta.env.VITE_API_URL);
@@ -91,38 +89,6 @@ const Home = () => {
       transition: { type: "spring", stiffness: 100, damping: 20, delay: 0.25 },
     },
   };
-  const textVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
-        delay: 0.05,
-      },
-    },
-  };
-  const textVariants2 = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
-        delay: 0.25,
-      },
-    },
-  };
-  const whySectionVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { type: "spring", stiffness: 100, damping: 20, delay: 0.25 },
-    },
-  };
 
   return (
     <div>
@@ -146,20 +112,7 @@ const Home = () => {
           </button>
         </form>
       </div>
-      {/* <div className="flex justify-center my-4">
-        <button
-          onClick={() => i18n.changeLanguage("en")}
-          className="btn btn-primary mx-2"
-        >
-          EN
-        </button>
-        <button
-          onClick={() => i18n.changeLanguage("bn")}
-          className="btn btn-primary mx-2"
-        >
-          BN
-        </button>
-      </div> */}
+
       {/* Hero Section */}
       <div>
         <Parallax
@@ -269,7 +222,7 @@ const Home = () => {
           <img
             className="rounded-xl sm:w-[200px] xs:w-[200px] xxs:w-[200px] lg:h-[550px] lg:w-[350px]"
             src={mission2}
-            alt=""
+            alt="mission pic"
           />
           <img
             className="rounded-xl sm:w-[200px] xs:w-[200px] xxs:w-[200px] lg:w-[350px] lg:h-[550px] lg:mt-8"
