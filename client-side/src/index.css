@@ -655,3 +655,12 @@ iframe.goog-te-banner-frame,
   font-size: 1.2em; /* Adjust the size of the dot */
   line-height: 1.5; /* Adjust line height to center the dot vertically */
 }
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .bg-img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  
+  }
+}
