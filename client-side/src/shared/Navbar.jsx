@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import logo from "../assets/ll.png";
-import { useNavigate, NavLink, Link } from "react-router-dom";
+import { useNavigate, NavLink, Link, useLocation } from "react-router-dom"; // Import useLocation
 import { toast } from "react-toastify";
 import {
   AiOutlineMenu,
@@ -19,11 +19,11 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const navigate = useNavigate();
+  const location = useLocation(); // Get the current location
   const { userdata, logOut } = useAuth();
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
-  const searchBarRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [showSearchBar, setShowSearchBar] = useState(false);
 
@@ -80,6 +80,14 @@ const Navbar = () => {
     };
   }, []);
 
+  // Close all dropdowns when navigating to a new page
+  useEffect(() => {
+    setActiveDropdown(null);
+    setShowLanguageDropdown(false);
+    setShowSearchBar(false);
+    setIsOpen(false); // Close mobile menu if open
+  }, [location]); // Run this effect when the location changes
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
@@ -118,7 +126,7 @@ const Navbar = () => {
                 placeholder={t("search_placeholder")}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="border border-salmon rounded-l-md p-2 lg:h-[50px] lg:max-w-[300px] md:w-[400px] sm:w-48 xs:w-32 xxs:w-24"
+                className="border border-salmon rounded-l-md p-2 lg:h-[50px] lg:max-w-[340px] md:w-[400px] sm:w-48 xs:w-32 xxs:w-24"
               />
               <button
                 type="submit"
