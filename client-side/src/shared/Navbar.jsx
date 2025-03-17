@@ -79,7 +79,6 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleDropdownOutsideClick);
     };
   }, []);
-
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
