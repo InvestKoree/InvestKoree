@@ -60,13 +60,20 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
+      // Close category & login dropdowns
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setActiveDropdown(null);
+      }
+
+      // Close language dropdown
+      if (
+        !event.target.closest(".language-dropdown-btn") &&
+        !event.target.closest(".language-dropdown-menu")
+      ) {
         setShowLanguageDropdown(false);
       }
-    };
 
-    const handleOutsideSearchClick = (event) => {
+      // Close search bar if clicked outside
       if (
         searchBarRef.current &&
         !searchBarRef.current.contains(event.target)
@@ -76,10 +83,8 @@ const Navbar = () => {
     };
 
     document.addEventListener("mousedown", handleOutsideClick);
-    document.addEventListener("mousedown", handleOutsideSearchClick);
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
-      document.removeEventListener("mousedown", handleOutsideSearchClick);
     };
   }, []);
 
