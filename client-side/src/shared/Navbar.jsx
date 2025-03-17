@@ -80,22 +80,6 @@ const Navbar = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const handleSearchBarOutsideClick = (event) => {
-      if (
-        searchBarRef.current &&
-        !searchBarRef.current.contains(event.target)
-      ) {
-        setShowSearchBar(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleSearchBarOutsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleSearchBarOutsideClick);
-    };
-  }, []);
-
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
