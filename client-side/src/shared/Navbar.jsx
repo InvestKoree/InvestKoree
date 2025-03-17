@@ -20,12 +20,12 @@ const Navbar = () => {
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const navigate = useNavigate();
   const { userdata, logOut } = useAuth();
-  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false); // State for language dropdown
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
-  const searchBarRef = useRef(null); // Reference for the search bar
+  const searchBarRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showSearchBar, setShowSearchBar] = useState(false); // State to toggle search bar visibility
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
   const handleSignOut = () => {
     logOut();
@@ -36,14 +36,16 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
   const toggleLanguageDropdown = () => {
     setShowLanguageDropdown(!showLanguageDropdown);
   };
 
   const handleLanguageChange = (lang) => {
     i18n.changeLanguage(lang);
-    setShowLanguageDropdown(false); // Close the dropdown after selection
+    setShowLanguageDropdown(false);
   };
+
   const toggleMobileDropdown = (dropdownName) => {
     setActiveDropdown((prev) => (prev === dropdownName ? null : dropdownName));
   };
@@ -53,33 +55,39 @@ const Navbar = () => {
       setActiveDropdown((prev) =>
         prev === dropdownName ? null : dropdownName
       );
-    }, 250); // Adjust the delay time as needed (in milliseconds)
+    }, 250);
   };
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setActiveDropdown(null);
+        setShowLanguageDropdown(false);
+      }
+    };
+
+    const handleOutsideSearchClick = (event) => {
       if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target) &&
         searchBarRef.current &&
-        !searchBarRef.current.contains(event.target) // Check if click is outside search bar
+        !searchBarRef.current.contains(event.target)
       ) {
-        setActiveDropdown(null); // Close dropdowns when clicking outside
         setShowSearchBar(false);
-        setShowLanguageDropdown(false); // Close search bar when clicking outside
       }
     };
 
     document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
+    document.addEventListener("mousedown", handleOutsideSearchClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("mousedown", handleOutsideSearchClick);
+    };
   }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
-      // Redirect to the search results page with the search term
       navigate(`/search?businessName=${encodeURIComponent(searchTerm)}`);
-      setShowSearchBar(false); // Hide the search bar after submitting
+      setShowSearchBar(false);
     } else {
       toast.error("Please enter a search term.");
     }
@@ -90,7 +98,7 @@ const Navbar = () => {
       <div className="navbar px-6 py-3 flex justify-between items-center">
         <div className="flex items-center navbar-start">
           <Link to="/">
-            <img className="h-16  logo-css" src={logo} alt="logo" />
+            <img className="h-16 logo-css" src={logo} alt="logo" />
           </Link>
         </div>
 
@@ -140,7 +148,7 @@ const Navbar = () => {
         <div className="hidden whitespace-nowrap lg:flex lg:flex-row flex-1 justify-center items-center navbar-end">
           <ul
             ref={dropdownRef}
-            className="lg:font-bold whitespace-nowrap lg:text-lg sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium menu menu-horizontal gap-6 px-1 flex-nowrap  lg:w-[800px] lg:h-20 lg:justify-end"
+            className="lg:font-bold whitespace-nowrap lg:text-lg sm:text-sm xs:text-sm xxs:text-sm sm:font-medium xs:font-medium xxs:font-medium menu menu-horizontal gap-6 px-1 flex-nowrap lg:w-[800px] lg:h-20 lg:justify-end"
           >
             <li>
               <NavLink
