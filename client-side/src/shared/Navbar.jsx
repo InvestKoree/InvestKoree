@@ -79,6 +79,7 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleDropdownOutsideClick);
     };
   }, []);
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
@@ -121,9 +122,16 @@ const Navbar = () => {
               />
               <button
                 type="submit"
-                className="bg-salmon text-white rounded-r-md p-2 absolute right-6"
+                className="bg-salmon text-white rounded-r-md p-2 absolute right-16"
               >
                 <AiOutlineSearch />
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowSearchBar(false)} // Close the search bar
+                className="bg-red-500 text-white rounded-md p-2 absolute right-6"
+              >
+                <AiOutlineClose />
               </button>
             </form>
           ) : (
