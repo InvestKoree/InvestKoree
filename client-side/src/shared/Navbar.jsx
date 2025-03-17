@@ -112,11 +112,7 @@ const Navbar = () => {
         {/* Search Bar for Large Screens */}
         <div className="lg:flex hidden lg:mr-60 relative gap-2 rounded-md">
           {showSearchBar ? (
-            <form
-              onSubmit={handleSearch}
-              className="flex items-center mx-4"
-              ref={searchBarRef}
-            >
+            <form onSubmit={handleSearch} className="flex items-center mx-4">
               <input
                 type="text"
                 placeholder={t("search_placeholder")}
