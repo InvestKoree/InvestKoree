@@ -74,7 +74,7 @@ const LatestPost = ({ item }) => {
   return (
     <div className="mx-auto">
       <Link to={`/projectdetail/${_id}`}>
-        <div className="bg-white h-[450px] lg:mt-24 lg:w-[320px] sm:w-[290px] rounded-2xl shadow-md overflow-hidden">
+        <div className="bg-white h-[450px] lg:mt-24 lg:w-[340px] sm:w-[290px] xxs:w-[320px] xs:w-[320px] rounded-2xl shadow-md overflow-hidden">
           <img
             src={firstImage}
             alt="Fundraiser"
