@@ -170,7 +170,7 @@ const FounderDashboard = () => {
                         {row.returndate}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500">
-                        {investedAmount}
+                        0
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500">
                         {fundingAmount}
