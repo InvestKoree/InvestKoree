@@ -230,7 +230,7 @@
   "goal": "Goal",
   "duration": "Duration",
   "min_investment": "Min Investment",
-  "projected_roi": "Projected ROI",
+  "projected_roi": "Projected ROI(Return On Investments)%",
   "investment_startdate": "Investment Startdate",
   "risk_grade": "Risk Grade",
   "funding_help": "How Would The Funding Help You",
