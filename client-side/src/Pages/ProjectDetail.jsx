@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -24,8 +24,29 @@ const ProjectDetail = () => {
   const [newComment, setNewComment] = useState("");
   const [replies, setReplies] = useState({});
   const [newReply, setNewReply] = useState("");
-  const [showRepliesToggle, setShowRepliesToggle] = useState({}); // State to track show/hide for replies
+  const videoRef = useRef(null);
+  const [showRepliesToggle, setShowRepliesToggle] = useState({});
+  // State to track show/hide for replies
+  const handleVideoPlay = () => {
+    if (videoRef.current) {
+      // Request fullscreen
+      if (videoRef.current.requestFullscreen) {
+        videoRef.current.requestFullscreen();
+      } else if (videoRef.current.mozRequestFullScreen) {
+        // Firefox
+        videoRef.current.mozRequestFullScreen();
+      } else if (videoRef.current.webkitRequestFullscreen) {
+        // Chrome, Safari and Opera
+        videoRef.current.webkitRequestFullscreen();
+      } else if (videoRef.current.msRequestFullscreen) {
+        // IE/Edge
+        videoRef.current.msRequestFullscreen();
+      }
 
+      // Play the video
+      videoRef.current.play();
+    }
+  };
   // Fetch comments for the specific project
   const fetchComments = async (projectId) => {
     try {
@@ -258,7 +279,7 @@ const ProjectDetail = () => {
                           key={index}
                           className={`carousel-item h-full lg:mb-10 ${
                             currentSlide === index ? "block" : "hidden"
-                          }`} // Add conditional class
+                          }`}
                         >
                           <img
                             src={src}
@@ -275,9 +296,11 @@ const ProjectDetail = () => {
                   <div className="video-container rounded-md h-96">
                     {project.video ? (
                       <video
+                        ref={videoRef} // Attach the ref to the video element
                         src={project.video}
                         controls
-                        className="object-cover w-[2000px] h-full rounded-md"
+                        className="object-cover w-[2000px] h-[350px] rounded-md"
+                        onClick={handleVideoPlay} // Play video on click
                       />
                     ) : (
                       <div>{t("no_video")}</div>
