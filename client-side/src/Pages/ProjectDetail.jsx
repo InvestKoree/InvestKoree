@@ -277,7 +277,7 @@ const ProjectDetail = () => {
                       <video
                         src={project.video}
                         controls
-                        className="object-cover w-full h-full rounded-md"
+                        className=" w-full h-full rounded-md"
                       />
                     ) : (
                       <div>{t("no_video")}</div>
