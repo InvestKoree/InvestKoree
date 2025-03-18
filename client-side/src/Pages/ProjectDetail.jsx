@@ -489,7 +489,7 @@ const ProjectDetail = () => {
               </span>
             </div>
             <div>
-              <span className="font-bold">{t("projected_roi")} :</span>
+              <span className="font-bold">{t("projectprojected_roi")} :</span>
               <span className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm">
                 {project.projectedROI}
               </span>
