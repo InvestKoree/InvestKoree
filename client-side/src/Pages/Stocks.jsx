@@ -9,6 +9,7 @@ const Stocks = () => {
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [selectedSector, setSelectedSector] = useState("");
   const [selectedDuration, setSelectedDuration] = useState("");
+  const [activeTab, setActiveTab] = useState("ongoing"); // State for active tab
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
   // Comprehensive list of sectors
@@ -57,7 +58,27 @@ const Stocks = () => {
     };
 
     fetchPosts();
-  }, []);
+  }, [API_URL]);
+
+  // Function to filter posts based on the active tab
+  const getPostsByTab = () => {
+    const today = new Date();
+    return filteredPosts.filter((post) => {
+      const returnDate = new Date(post.returndate);
+      if (activeTab === "ongoing") {
+        return returnDate > today; // Ongoing if return date is in the future
+      } else if (activeTab === "soldOut") {
+        return returnDate.toDateString() === today.toDateString(); // Sold out if return date is today
+      } else if (activeTab === "upcoming") {
+        return returnDate < today; // Upcoming if return date is in the past
+      }
+      return true; // Default case
+    });
+  };
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
 
   // Function to count ideas per sector
   const getSectorCounts = () => {
@@ -133,11 +154,50 @@ const Stocks = () => {
               <i className="fas fa-bars text-lg"></i>
             </label>
           </div>
-          <p className="lg:text-3xl md:text-2xl sm:text-xl xs:text-xl xxs:text-xl md:mb-2 xs:mb-2 xxs :mb-2 sm:mb-2 font-bold lg:mt-12 md:mt-12 text-center">
+          <p className="lg:text-3xl md:text-2xl lg:mb-12 sm:text-xl xs:text-xl xxs:text-xl md:mb-2 xs:mb-2 xxs:mb-2 sm:mb-2 font-bold lg:mt-12 md:mt-12 text-center">
             {t("stock_business")}
           </p>
+          <div
+            role="tablist"
+            className="tabs tabs-box mb-4 p-2 border border-gray-300 rounded-lg"
+          >
+            <a
+              role="tab"
+              className={`tab ${
+                activeTab === "ongoing"
+                  ? "tab-active bg-salmon rounded-lg text-white"
+                  : ""
+              }`}
+              onClick={() => handleTabChange("ongoing")}
+            >
+              Ongoing
+            </a>
+            <a
+              role="tab"
+              className={`tab ${
+                activeTab === "soldOut"
+                  ? "tab-active bg-salmon rounded-lg text-white"
+                  : ""
+              }`}
+              onClick={() => handleTabChange("soldOut")}
+            >
+              Sold Out
+            </a>
+            <a
+              role="tab"
+              className={`tab ${
+                activeTab === "upcoming"
+                  ? "tab-active bg-salmon rounded-lg text-white"
+                  : ""
+              }`}
+              onClick={() => handleTabChange("upcoming")}
+            >
+              Upcoming
+            </a>
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:w-[1200px] lg:mx-auto sm:mx-auto lg:gap-6 xs:gap-8 xxs:gap-8 sm:gap-8 px-6 lg:px-20 cursor-pointer">
-            {filteredPosts.map((item) => (
+            {getPostsByTab().map((item) => (
               <StocksPost key={item._id} item={item} />
             ))}
           </div>
