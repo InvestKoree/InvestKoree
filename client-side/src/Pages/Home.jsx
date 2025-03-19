@@ -138,7 +138,7 @@ const Home = () => {
             <h5 className="text-center lg:mt-20 lg:text-3xl sm:text-xl xs:text-xl xxs:text-xl xs:mb-6 xxs:mb-6 sm:mb-6 xs:mt-16 xxs:mt-16 sm:mt-16 font-bold">
               {t("currently_running_investments")} {/* Use translation */}
             </h5>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:w-[1200px] lg:mx-auto sm:mx-auto lg:gap-6 xxs:gap-8 xs:gap-8 px-6 lg:px-20 cursor-pointer">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:w-[1300px] lg:mx-auto sm:mx-auto lg:gap-6 xxs:gap-8 xs:gap-8 px-6 lg:px-20 cursor-pointer">
               {Array.isArray(latestPosts) &&
                 latestPosts.map((item) => (
                   <LatestPost key={item._id} item={item} />
