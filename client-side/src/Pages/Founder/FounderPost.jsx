@@ -674,7 +674,7 @@ const FounderPost = () => {
             <span className="label-text">{t("return_date")}</span>
           </div>
           <input
-            type="text"
+            type="date"
             name="returndate"
             value={formData.returndate}
             onChange={handleInputChange}
