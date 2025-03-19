@@ -42,6 +42,7 @@ const Navbar = () => {
   };
 
   const handleLanguageChange = (lang) => {
+    console.log("Changing language to:", lang);
     i18n.changeLanguage(lang);
     setShowLanguageDropdown(false);
   };
@@ -66,12 +67,6 @@ const Navbar = () => {
       }
 
       // Close language dropdown
-      if (
-        !event.target.closest(".language-dropdown-btn") &&
-        !event.target.closest(".language-dropdown-menu")
-      ) {
-        setShowLanguageDropdown(false);
-      }
     };
 
     document.addEventListener("mousedown", handleDropdownOutsideClick);
