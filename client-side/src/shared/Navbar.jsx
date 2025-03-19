@@ -96,9 +96,9 @@ const Navbar = () => {
   return (
     <div className="sticky top-0 z-50 bg-white shadow-lg">
       <div className="navbar px-6 py-3 flex justify-between items-center">
-        <div className="flex items-center navbar-start">
+        <div className="flex  navbar-start">
           <Link to="/">
-            <img className="h-24 logo-css" src={logo} alt="logo" />
+            <img className="h-28 w-40 logo-css" src={logo} alt="logo" />
           </Link>
         </div>
 
