@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import logo from "../assets/ll.png";
+import logo from "../assets/logo2.jpeg";
 import { useNavigate, NavLink, Link, useLocation } from "react-router-dom"; // Import useLocation
 import { toast } from "react-toastify";
 import {
@@ -98,7 +98,7 @@ const Navbar = () => {
       <div className="navbar px-6 py-3 flex justify-between items-center">
         <div className="flex items-center navbar-start">
           <Link to="/">
-            <img className="h-16 logo-css" src={logo} alt="logo" />
+            <img className="h-24 logo-css" src={logo} alt="logo" />
           </Link>
         </div>
 
