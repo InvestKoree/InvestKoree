@@ -481,32 +481,42 @@ const ProjectDetail = () => {
               {project.description}
             </p>
           </div>
-          <div>
-            <div>
-              <span className="font-bold">{t("min_investment")} :</span>
-              <span className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm">
-                1000tk
-              </span>
-            </div>
-            <div>
-              <span className="font-bold">{t("projectprojected_roi")} :</span>
-              <span className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm">
-                {project.projectedROI}
-              </span>
-            </div>
-            <div>
-              <span className="font-bold">{t("investment_startdate")}:</span>
-              <span className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm">
-                {new Date(project.startDate).toLocaleDateString()}
-              </span>
-            </div>
-            <div>
-              <span className="font-bold">{t("risk_grade")} :</span>
-              <span className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm">
-                A
-              </span>
-            </div>
-          </div>
+          <table className=" border-collapse border border-gray-300 text-left">
+            <tbody>
+              <tr className="border-b  border-gray-300">
+                <td className="font-bold border-r  border-gray-300 p-2">
+                  {t("min_investment")} :
+                </td>
+                <td className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm p-2">
+                  1000tk
+                </td>
+              </tr>
+              <tr className="border-b border-gray-300">
+                <td className="font-bold p-2 border-r  border-gray-300">
+                  {t("projectprojected_roi")} :
+                </td>
+                <td className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm p-2">
+                  {project.projectedROI}
+                </td>
+              </tr>
+              <tr className="border-b border-gray-300">
+                <td className="font-bold p-2 border-r  border-gray-300">
+                  {t("investment_startdate")} :
+                </td>
+                <td className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm p-2">
+                  {new Date(project.startDate).toLocaleDateString()}
+                </td>
+              </tr>
+              <tr>
+                <td className="font-bold p-2 border-r  border-gray-300">
+                  {t("risk_grade")} :
+                </td>
+                <td className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm p-2">
+                  A
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         {/* Accordion Section */}
         <div className="mt-12 w-[80%] lg:w-[50%] xs:mb-4 xxs:mb-4 sm:mb-4 mx-auto">
