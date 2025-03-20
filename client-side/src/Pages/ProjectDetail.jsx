@@ -496,7 +496,7 @@ const ProjectDetail = () => {
                   {t("projectprojected_roi")} :
                 </td>
                 <td className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm p-2">
-                  {project.projectedROI}
+                  {project.projectedROI}%
                 </td>
               </tr>
               <tr className="border-b border-gray-300">
