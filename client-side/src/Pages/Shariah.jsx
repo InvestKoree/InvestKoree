@@ -159,7 +159,7 @@ const Shariah = () => {
           </p>
           <div
             role="tablist"
-            className="tabs tabs-box mb-4 p-2 border lg:w-[1200px] mx-auto border-gray-300 rounded-lg"
+            className="tabs tabs-box mb-4 p-2 border lg:w-[1000px] mx-auto border-gray-300 rounded-lg"
           >
             <a
               role="tab"
