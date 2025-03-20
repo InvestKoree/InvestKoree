@@ -159,7 +159,7 @@ const Shariah = () => {
           </p>
           <div
             role="tablist"
-            className="tabs tabs-box mb-4 p-2 border lg:w-[1000px] mx-auto border-gray-300 rounded-lg"
+            className="tabs tabs-box mb-4 p-2 border lg:w-[900px] mx-auto border-gray-300 rounded-lg"
           >
             <a
               role="tab"
@@ -197,7 +197,7 @@ const Shariah = () => {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:w-[1200px] lg:mx-auto sm:mx-auto lg:gap-6 xs:gap-8 xxs:gap-8 sm:gap-8 px-6 lg:px-20 cursor-pointer">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:w-[1000px] lg:mx-auto sm:mx-auto lg:gap-6 xs:gap-8 xxs:gap-8 sm:gap-8 px-6 lg:px-20 cursor-pointer">
             {getPostsByTab().map((item) => (
               <ShariahPost key={item._id} item={item} />
             ))}
