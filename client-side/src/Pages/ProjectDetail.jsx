@@ -481,10 +481,10 @@ const ProjectDetail = () => {
               {project.description}
             </p>
           </div>
-          <table className=" border-collapse border border-gray-300 text-left">
+          <table className="sm:w-96 xxs:w-96 xs:w-96  sm:mx-auto xxs:mx-auto xs:mx-auto border-collapse border border-gray-300 text-left">
             <tbody>
               <tr className="border-b  border-gray-300">
-                <td className="font-bold border-r  border-gray-300 p-2">
+                <td className="font-bold sm:text-sm xxs:text-sm xs:text-sm  border-r  border-gray-300 p-2">
                   {t("min_investment")} :
                 </td>
                 <td className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm p-2">
@@ -492,7 +492,7 @@ const ProjectDetail = () => {
                 </td>
               </tr>
               <tr className="border-b border-gray-300">
-                <td className="font-bold p-2 border-r  border-gray-300">
+                <td className="font-bold sm:text-sm xxs:text-sm xs:text-sm  p-2 border-r  border-gray-300">
                   {t("projectprojected_roi")} :
                 </td>
                 <td className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm p-2">
@@ -500,7 +500,7 @@ const ProjectDetail = () => {
                 </td>
               </tr>
               <tr className="border-b border-gray-300">
-                <td className="font-bold p-2 border-r  border-gray-300">
+                <td className="font-bold sm:text-sm xxs:text-sm xs:text-sm  p-2 border-r  border-gray-300">
                   {t("investment_startdate")} :
                 </td>
                 <td className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm p-2">
@@ -508,7 +508,7 @@ const ProjectDetail = () => {
                 </td>
               </tr>
               <tr>
-                <td className="font-bold p-2 border-r  border-gray-300">
+                <td className="font-bold sm:text-sm xxs:text-sm xs:text-sm  p-2 border-r  border-gray-300">
                   {t("risk_grade")} :
                 </td>
                 <td className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm p-2">
