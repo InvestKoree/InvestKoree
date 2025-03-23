@@ -149,7 +149,7 @@ const Stocks = () => {
           <div className="fixed top-[100px] left-[5px] z-40">
             <label
               htmlFor="my-drawer-2"
-              className="btn bg-salmon text-white sticky drawer-button transform transition-transform duration-300 ease-in-out delay-150 hover:scale-105"
+              className="btn bg-salmon text-white sticky drawer-button sm:mt-96 xs:mt-96 xxs:mt-96 sm:z-99 xs:z-99 xxs:z-99  transform transition-transform duration-300 ease-in-out delay-150 hover:scale-105"
             >
               <i className="fas fa-bars text-lg"></i>
             </label>
