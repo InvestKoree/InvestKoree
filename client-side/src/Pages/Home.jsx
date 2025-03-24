@@ -230,7 +230,7 @@ const Home = () => {
         </div>
         <div className="lg:flex lg:items-center lg:flex-col">
           <img src={time} alt="shariah-img" className="h-32 w-32 mb-6" />
-          <h3 className="font-bold text-lg"> Hassle-free</h3>
+          <h3 className="font-bold text-lg mb-2"> Hassle-free</h3>
           <p className="lg:text-center">
             We take care of business assessment, legal contracts and repayments.
             You just choose which business you want to invest in.
@@ -238,7 +238,7 @@ const Home = () => {
         </div>
         <div className="lg:flex lg:items-center lg:flex-col">
           <img src={inflation} alt="shariah-img" className="h-32 w-32 mb-6" />
-          <h3 className="font-bold text-lg"> Beating Inflation</h3>
+          <h3 className="font-bold text-lg mb-2"> Beating Inflation</h3>
           <p className="lg:text-center">
             Higher profits offered from traditional investment options. Preserve
             the value of your hard-earned money.
