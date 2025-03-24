@@ -38,9 +38,7 @@ const InvestorCards = () => {
                   {t("myCards")} {t("cardCount")}
                 </h1>
                 <button className="w-8 h-8 bg-gray-700 flex items-center justify-center rounded-full hover:bg-gray-600">
-                  <span className="text-xl font-bold text-white">
-                    {t("addCard")}
-                  </span>
+                  <span className="text-xl font-bold text-white">+</span>
                 </button>
               </div>
 
@@ -113,7 +111,7 @@ const InvestorCards = () => {
           </div>
         </div>
 
-        <div className="drawer-side sm:mt-32 xs:mt-32 xxs:mt-32 z-40">
+        <div className="drawer-side lg:mt-0  sm:mt-32 xs:mt-32 xxs:mt-32 z-40">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu bg-base-200 text-base-content min-h-full lg:w-80 p-4">
             <li className="font-extrabold text-salmon ml-4 xs:mt-6 xxs:mt-6 sm:mt-6 text-lg mb-4 rounded-lg ">

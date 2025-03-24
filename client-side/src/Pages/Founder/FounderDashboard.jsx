@@ -57,7 +57,7 @@ const FounderDashboard = () => {
         onOpenTerms={handleOpenTerms}
       />
       <div className="drawer lg:drawer-open">
-        <input id="my-drawer-2 " type="checkbox" className="drawer-toggle" />
+        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col p-10">
           <div className="fixed top-[100px] left-[5px] ">
             <label
@@ -188,7 +188,7 @@ const FounderDashboard = () => {
             </table>
           </div>
         </div>
-        <div className="drawer-side mt-4 sm:mt-32 xs:mt-32 xxs:mt-32 z-40">
+        <div className="drawer-side z-40 sm:mt-32 xs:mt-32 xxs:mt-32 ">
           <label
             htmlFor="my-drawer-2"
             aria-label="close sidebar"
