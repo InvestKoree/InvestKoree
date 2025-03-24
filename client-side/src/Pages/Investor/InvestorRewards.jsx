@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../providers/AuthProvider";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next"; // Import useTranslation
-import axios from "axios";
+import { toast } from "react-toastify"; // Import toast for notifications
 
 const InvestorRewards = () => {
   const { t } = useTranslation(); // Initialize translation
-  const { userdata } = useAuth();
+  const { userdata, logOut } = useAuth();
   const [loading, setLoading] = useState(true);
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
   const [posts, setPosts] = useState([]);
@@ -22,6 +22,7 @@ const InvestorRewards = () => {
         setPosts(data);
       } catch (error) {
         console.error(t("errorFetchingPosts"), error);
+        toast.error(t("errorFetchingPosts")); // Notify user of the error
       } finally {
         setLoading(false);
       }
@@ -33,9 +34,17 @@ const InvestorRewards = () => {
   if (loading) {
     return <span className="loading-spinner loading-lg"></span>;
   }
-  if (!userdata) {
-    return <span className="loading-spinner loading-lg"></span>;
-  }
+
+  // if (!userdata) {
+  //   return (
+  //     <div className="text-center">
+  //       <p>{t("pleaseLogin")}</p>
+  //       <Link to="/investorlogin" className="btn btn-primary">
+  //         {t("login")}
+  //       </Link>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div>
@@ -45,12 +54,11 @@ const InvestorRewards = () => {
           <div className="fixed top-[100px] left-[5px] z-40">
             <label
               htmlFor="my-drawer-2"
-              className="btn bg-salmon sm:mt-96 xs:mt-96 xxs:mt-96 text-white sticky drawer-button transform transition-transform duration-300 ease-in-out delay-150 hover:scale-105"
+              className="btn bg-salmon text-white sticky drawer-button transform transition-transform duration-300 ease-in-out delay-150 hover:scale-105"
             >
               <i className="fas fa-bars text-lg"></i>
             </label>
           </div>
-
           <p className="lg:text-3xl font-bold mb-12 mt-16 sm:mx-auto xs:mx-auto xxs:mx-auto sm:text-xl xs:text-xl xxs:text-xl">
             {t("rewards")}
           </p>
@@ -79,36 +87,34 @@ const InvestorRewards = () => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {posts.map((row, index) => {
-                  return (
-                    <tr key={row._id}>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {index + 1}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {row.businessName || t("noData")}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(row.startDate).toLocaleDateString()} to{" "}
-                        {row.returndate}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        10%
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500">
-                        50tk CashBack on every 1000tk investment
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500">
-                        <Link
-                          to={`/projectdetail/${row._id}`}
-                          className="btn btn-success text-white mr-2"
-                        >
-                          {t("invest")}
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
+                {posts.map((row, index) => (
+                  <tr key={row._id}>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {index + 1}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {row.businessName || t("noData")}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {new Date(row.startDate).toLocaleDateString()} to{" "}
+                      {new Date(row.returndate).toLocaleDateString()}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      10%
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500">
+                      50tk CashBack on every 1000tk investment
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-green-500">
+                      <Link
+                        to={`/projectdetail/${row._id}`}
+                        className="btn btn-success text-white mr-2"
+                      >
+                        {t("invest")}
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
