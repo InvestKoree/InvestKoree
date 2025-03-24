@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import bannerpic from "../assets/bannernew.png";
 import halal from "../assets/halal.png";
 import bannerpic2 from "../assets/bannernew2.jpg";
+import inflation from "../assets/inflation.jpg";
 import LatestPost from "./LatestPost";
 import { Link } from "react-router-dom";
 import "animate.css";
@@ -226,17 +227,18 @@ const Home = () => {
             make sure that your profits are always halal.
           </p>
         </div>
-        <div>
+        <div className="lg:flex lg:items-center lg:flex-col">
+          {/* <img src={inflation} alt="shariah-img" className="h-32 w-32 mb-6" /> */}
           <h3 className="font-bold text-lg"> Hassle-free</h3>
-          <p>
-            {" "}
+          <p className="lg:text-center">
             We take care of business assessment, legal contracts and repayments.
             You just choose which business you want to invest in.
           </p>
         </div>
-        <div>
-          <h3 className="font-bold text-lg">Beats Inflation</h3>
-          <p>
+        <div className="lg:flex lg:items-center lg:flex-col">
+          <img src={inflation} alt="shariah-img" className="h-32 w-32 mb-6" />
+          <h3 className="font-bold text-lg"> Beating Inflation</h3>
+          <p className="lg:text-center">
             Higher profits offered from traditional investment options. Preserve
             the value of your hard-earned money.
           </p>
