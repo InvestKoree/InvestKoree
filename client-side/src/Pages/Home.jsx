@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import bannerpic from "../assets/bannernew.png";
 import halal from "../assets/halal.png";
+import time from "../assets/time.png";
 import bannerpic2 from "../assets/bannernew2.jpg";
 import inflation from "../assets/inflation.jpg";
 import LatestPost from "./LatestPost";
@@ -228,7 +229,7 @@ const Home = () => {
           </p>
         </div>
         <div className="lg:flex lg:items-center lg:flex-col">
-          {/* <img src={inflation} alt="shariah-img" className="h-32 w-32 mb-6" /> */}
+          <img src={time} alt="shariah-img" className="h-32 w-32 mb-6" />
           <h3 className="font-bold text-lg"> Hassle-free</h3>
           <p className="lg:text-center">
             We take care of business assessment, legal contracts and repayments.
