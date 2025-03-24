@@ -166,7 +166,7 @@ const InvestorDashboard = () => {
             </table>
           </div>
         </div>
-        <div className="drawer-side z-40">
+        <div className="drawer-side z-40 sm:mt-32 xs:mt-32 xxs:mt-32 ">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu bg-base-200 text-base-content min-h-full lg:w-80 p-4">
             <li className="font-extrabold text-salmon ml-4 xs:mt-6 xxs:mt-6 sm:mt-6 text-lg mb-4 rounded-lg">

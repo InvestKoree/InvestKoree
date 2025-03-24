@@ -129,7 +129,7 @@ const FounderPending = () => {
           </table>
         </div>
       </div>
-      <div className="drawer-side z-40">
+      <div className="drawer-side z-40 sm:mt-32 xs:mt-32 xxs:mt-32 ">
         <label
           htmlFor="my-drawer-2"
           aria-label="close sidebar"

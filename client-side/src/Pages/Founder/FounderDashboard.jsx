@@ -188,7 +188,7 @@ const FounderDashboard = () => {
             </table>
           </div>
         </div>
-        <div className="drawer-side mt-4">
+        <div className="drawer-side mt-4 sm:mt-32 xs:mt-32 xxs:mt-32 z-40">
           <label
             htmlFor="my-drawer-2"
             aria-label="close sidebar"

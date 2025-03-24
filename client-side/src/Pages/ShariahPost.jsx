@@ -44,7 +44,7 @@ const ShariahPost = ({ item }) => {
               </span>
             </div>
             <h3 className="text-lg font-semibold mb-2">{businessName}</h3>
-            <div className="flex flex-row my-4 justify-between">
+            <div className="flex sm:text-sm xs:text-sm xxs:text-sm  flex-row my-4 justify-between">
               <p className="">Funded: 0 tk</p>
               <p className="">Left for fund: {fundingAmount}</p>
             </div>
