@@ -164,17 +164,6 @@ const Stocks = () => {
             <a
               role="tab"
               className={`tab ${
-                activeTab === "ongoing"
-                  ? "tab-active bg-salmon rounded-lg text-white"
-                  : ""
-              }`}
-              onClick={() => handleTabChange("ongoing")}
-            >
-              Ongoing
-            </a>
-            <a
-              role="tab"
-              className={`tab ${
                 activeTab === "soldOut"
                   ? "tab-active bg-salmon rounded-lg text-white"
                   : ""
@@ -183,6 +172,18 @@ const Stocks = () => {
             >
               Sold Out
             </a>
+            <a
+              role="tab"
+              className={`tab ${
+                activeTab === "ongoing"
+                  ? "tab-active bg-salmon rounded-lg text-white"
+                  : ""
+              }`}
+              onClick={() => handleTabChange("ongoing")}
+            >
+              Ongoing
+            </a>
+
             <a
               role="tab"
               className={`tab ${
