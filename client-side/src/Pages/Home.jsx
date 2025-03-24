@@ -219,7 +219,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="flex lg:flex-row sm:flex-col xs:flex-col xxs:flex-col lg:mx-auto lg:w-[1600px] lg:gap-5 lg:my-24 xs:p-4 xxs:p-4 sm:p-6 ">
+      <div className="flex lg:flex-row sm:flex-col xs:flex-col xxs:flex-col lg:mx-auto lg:w-[1600px] lg:gap-5 lg:my-24 xs:p-6 xxs:p-6 sm:p-6 xs:gap-10 xxs:gap-10 sm:gap-10 ">
         <div className="lg:flex lg:items-center lg:flex-col">
           <img src={halal} alt="shariah-img" className="h-32 w-32 mb-6" />
           <h3 className="font-bold text-lg mb-2">Shariah First</h3>
@@ -236,7 +236,7 @@ const Home = () => {
             You just choose which business you want to invest in.
           </p>
         </div>
-        <div className="lg:flex lg:items-center lg:flex-col">
+        <div className="lg:flex lg:items-center lg:flex-col ">
           <img src={inflation} alt="shariah-img" className="h-32 w-32 mb-6" />
           <h3 className="font-bold text-lg mb-2"> Beating Inflation</h3>
           <p className="lg:text-center">
@@ -342,7 +342,7 @@ const Home = () => {
             </p>
             <ul className="max-w-4xl mx-auto space-y-8">
               {/* Service Item 1 */}
-              <li className="p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <li className=" rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <p className="text-2xl font-bold text-gray-900 mb-2">
                   {t("business_investor_matchmaking")} {/* Use translation */}
                 </p>
