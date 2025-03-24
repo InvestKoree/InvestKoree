@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import bannerpic from "../assets/bannernew.png";
+import halal from "../assets/halal.png";
 import bannerpic2 from "../assets/bannernew2.jpg";
 import LatestPost from "./LatestPost";
 import { Link } from "react-router-dom";
@@ -214,6 +215,31 @@ const Home = () => {
               allowFullScreen
             ></iframe>
           </div>
+        </div>
+      </div>
+      <div className="flex lg:flex-row sm:flex-col xs:flex-col xxs:flex-col lg:mx-auto lg:w-[1600px] lg:gap-5 lg:my-24 xs:p-4 xxs:p-4 sm:p-6 ">
+        <div className="lg:flex lg:items-center lg:flex-col">
+          <img src={halal} alt="shariah-img" className="h-32 w-32 mb-6" />
+          <h3 className="font-bold text-lg mb-2">Shariah First</h3>
+          <p className="lg:text-center">
+            Halal options only. Our internationally recognized Shariah advisors
+            make sure that your profits are always halal.
+          </p>
+        </div>
+        <div>
+          <h3 className="font-bold text-lg"> Hassle-free</h3>
+          <p>
+            {" "}
+            We take care of business assessment, legal contracts and repayments.
+            You just choose which business you want to invest in.
+          </p>
+        </div>
+        <div>
+          <h3 className="font-bold text-lg">Beats Inflation</h3>
+          <p>
+            Higher profits offered from traditional investment options. Preserve
+            the value of your hard-earned money.
+          </p>
         </div>
       </div>
 
