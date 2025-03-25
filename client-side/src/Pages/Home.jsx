@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import bannerpic from "../assets/bannernew.png";
-import halal from "../assets/halal.png";
-import time from "../assets/time.png";
+import halal from "../assets/halal.jpg";
+import time from "../assets/time.jpg";
 import bannerpic2 from "../assets/bannernew2.jpg";
 import inflation from "../assets/inflation.jpg";
 import LatestPost from "./LatestPost";
