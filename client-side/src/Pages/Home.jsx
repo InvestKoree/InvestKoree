@@ -219,27 +219,39 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="flex lg:flex-row sm:flex-col xs:flex-col xxs:flex-col lg:mx-auto lg:w-[1600px] lg:gap-5 lg:my-24 xs:p-6 xxs:p-6 sm:p-6 xs:gap-10 xxs:gap-10 sm:gap-10 ">
-        <div className="lg:flex lg:items-center lg:flex-col">
-          <img src={halal} alt="shariah-img" className="h-32 w-32 mb-6" />
-          <h3 className="font-bold text-lg mb-2">Shariah First</h3>
+      <div className="flex lg:flex-row flex-col lg:mx-auto lg:w-[1600px] lg:gap-5 lg:my-24 p-6  lg:p-0 gap-10  ">
+        <div className="lg:flex lg:items-center lg:flex-col flex justify-center flex-col text-center   ">
+          <img
+            src={halal}
+            alt="shariah-img"
+            className="h-32 w-32 mb-6 mx-auto "
+          />
+          <h3 className="font-bold text-lg mb-2 ">Shariah First</h3>
           <p className="lg:text-center">
             Halal options only. Our internationally recognized Shariah advisors
             make sure that your profits are always halal.
           </p>
         </div>
-        <div className="lg:flex lg:items-center lg:flex-col">
-          <img src={time} alt="shariah-img" className="h-32 w-32 mb-6" />
-          <h3 className="font-bold text-lg mb-2"> Hassle-free</h3>
-          <p className="lg:text-center">
+        <div className="lg:flex lg:items-center lg:flex-col flex justify-center flex-col  text-center">
+          <img
+            src={time}
+            alt="shariah-img"
+            className="h-32 w-32 mb-6  mx-auto"
+          />
+          <h3 className="font-bold text-lg mb-2 "> Hassle-free</h3>
+          <p className="lg:text-center ">
             We take care of business assessment, legal contracts and repayments.
             You just choose which business you want to invest in.
           </p>
         </div>
-        <div className="lg:flex lg:items-center lg:flex-col ">
-          <img src={inflation} alt="shariah-img" className="h-32 w-32 mb-6" />
-          <h3 className="font-bold text-lg mb-2"> Beating Inflation</h3>
-          <p className="lg:text-center">
+        <div className="lg:flex lg:items-center lg:flex-col flex justify-center flex-col  text-center  ">
+          <img
+            src={inflation}
+            alt="shariah-img"
+            className="h-32 w-32 mb-6 mx-auto"
+          />
+          <h3 className="font-bold text-lg mb-2 "> Beating Inflation</h3>
+          <p className="lg:text-center ">
             Higher profits offered from traditional investment options. Preserve
             the value of your hard-earned money.
           </p>
