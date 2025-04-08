@@ -52,14 +52,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Serve the robots.txt file
-app.get('/robots.txt', (req, res) => {
-    res.type('text/plain');
-    res.sendFile(path.join(__dirname, 'robots.txt'));
-});
+// app.get('/robots.txt', (req, res) => {
+//     res.type('text/plain');
+//     res.sendFile(path.join(__dirname, 'robots.txt'));
+// });
 
-app.get('/sitemap.xml', (req, res) => {
-  res.sendFile(path.join(__dirname, 'sitemap.xml'));
-});
+// app.get('/sitemap.xml', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'sitemap.xml'));
+// });
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
