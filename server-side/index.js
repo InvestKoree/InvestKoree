@@ -23,8 +23,8 @@ import CheckDuplicate from './routes/checkDuplicate.js';
 import search from './routes/search.js';
 import watchlist from './routes/watchlistRoute.js';
 import multer from 'multer';
-// import path from 'path';
-// import { fileURLToPath } from 'url';
+import path from 'path';
+import { fileURLToPath } from 'url';
 // import cloudinary from './cloudinaryConfig.js'; 
 import PendingPost from './models/pendingPost.js';
 import FounderPending from './models/founderpending.js';
@@ -48,18 +48,18 @@ const io = new Server(server, {
 
 // Connect to Database
 connectDB();
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Serve the robots.txt file
-// app.get('/robots.txt', (req, res) => {
-//     res.type('text/plain');
-//     res.sendFile(path.join(__dirname, 'robots.txt'));
-// });
+app.get('/robots.txt', (req, res) => {
+    res.type('text/plain');
+    res.sendFile(path.join(__dirname, 'robots.txt'));
+});
 
-// app.get('/sitemap.xml', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'sitemap.xml'));
-// });
+app.get('/sitemap.xml', (req, res) => {
+  res.sendFile(path.join(__dirname, 'sitemap.xml'));
+});
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
