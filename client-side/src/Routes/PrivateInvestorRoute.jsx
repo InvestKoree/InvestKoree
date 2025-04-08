@@ -8,7 +8,7 @@ const PrivateInvestorRoute = ({ children }) => {
   }
 
   if (!userdata || userdata.role !== "investor") {
-    return <Navigate to="/investorlogin" />; // Redirect to login if not authenticated as investor
+    return <Navigate to="/investorlogin" />;
   }
 
   return children; // Render the protected route for investors
