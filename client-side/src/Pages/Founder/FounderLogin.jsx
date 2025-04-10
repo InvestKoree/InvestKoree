@@ -83,7 +83,7 @@ const FounderLogin = () => {
     const phone = form.get("u_signup_number");
     const password = form.get("u_signup_password");
     const confirmPassword = form.get("u_signup_cpassword");
-    const profilePicimg = form.get("u_signup_profile");
+    const profilePicimg = form.get("u_signup_profile"); // profile picture file here
 
     if (!isTermsAccepted) {
       setError("You must accept the terms and conditions to register.");
@@ -190,10 +190,11 @@ const FounderLogin = () => {
       setIsLoading((prev) => ({ ...prev, register: false }));
     }
   };
+
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setProfilePic(URL.createObjectURL(file));
+      setProfilePic(URL.createObjectURL(file)); // Preview image
     }
   };
 
@@ -269,14 +270,14 @@ const FounderLogin = () => {
                 id="profile-pic-upload"
                 name="u_signup_profile"
                 className="hidden"
-                onChange={handleProfilePicChange}
+                onChange={handleProfilePicChange} // Handle image preview
               />
               <label htmlFor="profile-pic-upload" className="cursor-pointer">
                 <img
                   src={
                     profilePic ||
                     "https://cdn-icons-png.flaticon.com/512/847/847969.png"
-                  }
+                  } // Display profilePic state for preview
                   alt="Profile"
                   className="w-20 h-20 rounded-full border-2 border-gray-300 object-cover"
                 />
