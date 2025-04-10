@@ -199,6 +199,17 @@ const FounderDashboard = () => {
               {t("founder")}
             </li>
             {userdata && (
+              <li className="flex items-center gap-2 font-extrabold text-salmon ml-4 text-lg mb-2 rounded-lg">
+                {userdata.profilePic && (
+                  <img
+                    src={userdata.profilePic}
+                    alt="Profile"
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
+                )}
+              </li>
+            )}
+            {userdata && (
               <li className="font-extrabold text-salmon ml-4 text-lg mb-2 rounded-lg">
                 {t("founderwelcome")}
                 {userdata.name || t("founder")}!

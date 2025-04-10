@@ -10,7 +10,8 @@ async function  createUser(userData) {
         name,
         email,
         password :hashedPassword,
-        role ,phone
+        role ,phone,
+        profilePic
     });
 
     const savedUser = await createUser.save();

@@ -19,6 +19,7 @@ const FounderLogin = () => {
     confirm: false,
   });
   const { createUser, foundersignIn } = useAuth();
+  const [profilePic, setProfilePic] = useState(null);
   const [isSignUpMode, setIsSignUpMode] = useState(false);
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
   const [error, setError] = useState(null);
@@ -82,6 +83,7 @@ const FounderLogin = () => {
     const phone = form.get("u_signup_number");
     const password = form.get("u_signup_password");
     const confirmPassword = form.get("u_signup_cpassword");
+    const profilePic = form.get("u_signup_profile");
 
     if (!isTermsAccepted) {
       setError("You must accept the terms and conditions to register.");
@@ -89,7 +91,14 @@ const FounderLogin = () => {
       return;
     }
 
-    if (!name || !email || !password || !confirmPassword || !phone) {
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !phone ||
+      !profilePic
+    ) {
       setError("All fields are required");
       setIsLoading((prev) => ({ ...prev, register: false }));
       return;
@@ -147,7 +156,7 @@ const FounderLogin = () => {
     }
 
     try {
-      await createUser(name, email, password, "founder", phone);
+      await createUser(name, email, password, "founder", phone, profilePic);
       setRegistrationSuccessful(true);
       setPhoneNumber(phone);
       setShowOTPModal(true);
@@ -165,6 +174,12 @@ const FounderLogin = () => {
       }
     } finally {
       setIsLoading((prev) => ({ ...prev, register: false }));
+    }
+  };
+  const handleProfilePicChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePic(URL.createObjectURL(file));
     }
   };
 
@@ -233,6 +248,30 @@ const FounderLogin = () => {
               {t("sign_up")}
             </h2>
             {error && <p className="error-message">{error}</p>}
+            <div className="flex flex-col items-center justify-center">
+              <input
+                type="file"
+                accept="image/*"
+                id="profile-pic-upload"
+                name="u_signup_profile"
+                className="hidden"
+                onChange={handleProfilePicChange}
+              />
+              <label htmlFor="profile-pic-upload" className="cursor-pointer">
+                <img
+                  src={
+                    profilePic ||
+                    "https://cdn-icons-png.flaticon.com/512/847/847969.png"
+                  }
+                  alt="Profile"
+                  className="w-20 h-20 rounded-full border-2 border-gray-300 object-cover"
+                />
+                <p className="text-sm text-gray-500 mt-2 text-center">
+                  {t("choose_file") /* প্রোফাইল ছবি আপলোড করুন */}
+                </p>
+              </label>
+            </div>
+
             <div className="input-field">
               <i className="fas fa-user"></i>
               <input

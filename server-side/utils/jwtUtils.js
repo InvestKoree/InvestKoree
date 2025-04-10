@@ -7,7 +7,8 @@ function generateToken(user) {
         email: user.email,
         role: user.role,
         name: user.name,
-        phone :user.phone
+        phone :user.phone,
+        profilePic:user.profilePic
     };
     return jwt.sign(payload, secretKey, { expiresIn: '1h' });
 };

@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     setUserData(null);
   };
 
-  const createUser = async (name, email, password, role, phone) => {
+  const createUser = async (name, email, password, role, phone, profilePic) => {
     setLoading(true); // Set loading to true when registration starts
     try {
       const response = await fetch(`${API_URL}/users/register`, {
@@ -63,12 +63,19 @@ export const AuthProvider = ({ children }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, name, password, role, phone }),
+        body: JSON.stringify({
+          email,
+          name,
+          password,
+          role,
+          phone,
+          profilePic,
+        }),
       });
 
       const result = await response.json();
       if (response.ok) {
-        const userData = { email, phone, role };
+        const userData = { email, phone, role, profilePic };
         setUser(userData);
         localStorage.setItem("token", result.token);
         setToken(result.token);
@@ -114,7 +121,7 @@ export const AuthProvider = ({ children }) => {
           throw new Error(errorMessage); // Throw an error to stop further execution
         }
 
-        const userData = { email, userId, phone, role };
+        const userData = { email, userId, phone, role, profilePic };
         setUser(userData);
         localStorage.setItem("token", result.token);
         setToken(result.token);
