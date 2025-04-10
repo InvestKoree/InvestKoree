@@ -64,8 +64,8 @@ export const AuthProvider = ({ children }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
           name,
+          email,
           password,
           role,
           phone,
@@ -80,23 +80,20 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("token", result.token);
         setToken(result.token);
       } else {
-        throw new Error(
-          "Registration failed :Email or phone number already in used"
-        );
+        throw new Error(result.message || "Registration failed");
       }
     } catch (error) {
       if (
         error.message.includes("duplicate key error") &&
         (error.message.includes("email") || error.message.includes("phone"))
       ) {
-        // Check if the error message contains 'duplicate key error' and either 'email' or 'phone'
         toast.error("Email or phone number already used");
       } else {
         console.error("Error creating user:", error);
         toast.error(error.message || "Something went wrong");
       }
     } finally {
-      setLoading(false); // Set loading to false when registration completes
+      setLoading(false);
     }
   };
 
@@ -121,7 +118,7 @@ export const AuthProvider = ({ children }) => {
           throw new Error(errorMessage); // Throw an error to stop further execution
         }
 
-        const userData = { email, userId, phone, role, profilePic };
+        const userData = { email, userId, phone, role };
         setUser(userData);
         localStorage.setItem("token", result.token);
         setToken(result.token);

@@ -267,7 +267,7 @@ const FounderLogin = () => {
                   className="w-20 h-20 rounded-full border-2 border-gray-300 object-cover"
                 />
                 <p className="text-sm text-gray-500 mt-2 text-center">
-                  {t("choose_file") /* প্রোফাইল ছবি আপলোড করুন */}
+                  {t("choose_file")}
                 </p>
               </label>
             </div>
