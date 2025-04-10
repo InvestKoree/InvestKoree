@@ -74,14 +74,16 @@ export const AuthProvider = ({ children }) => {
       });
 
       const result = await response.json();
-      if (response.ok) {
-        const userData = { email, phone, role };
-        setUser(userData);
-        localStorage.setItem("token", result.token);
-        setToken(result.token);
-      } else {
-        throw new Error(result.message || "Registration failed");
+
+      if (!response.ok) {
+        const errorMessage = result?.message || "Registration failed"; // Check for result.message
+        throw new Error(errorMessage); // Throw the error if response is not OK
       }
+
+      const userData = { email, phone, role };
+      setUser(userData);
+      localStorage.setItem("token", result.token); // Store the token in localStorage
+      setToken(result.token); // Set the token in state
     } catch (error) {
       if (
         error.message.includes("duplicate key error") &&
@@ -93,7 +95,7 @@ export const AuthProvider = ({ children }) => {
         toast.error(error.message || "Something went wrong");
       }
     } finally {
-      setLoading(false);
+      setLoading(false); // Ensure loading is turned off
     }
   };
 
