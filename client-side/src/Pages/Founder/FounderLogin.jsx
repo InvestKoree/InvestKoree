@@ -156,7 +156,19 @@ const FounderLogin = () => {
     }
 
     try {
-      // 1. Upload profile picture to Cloudinary
+      // 1. Upload profile picture to Cloudinary inside handleRegister
+      let profilePic = "";
+      if (profilePicimg && typeof profilePicimg === "object") {
+        const imageFormData = new FormData();
+        imageFormData.append("file", profilePicimg);
+        imageFormData.append("upload_preset", "uploadpreset");
+
+        const uploadResponse = await axios.post(
+          "https://api.cloudinary.com/v1_1/dhqmilgfz/upload", // Cloudinary API URL
+          imageFormData
+        );
+        profilePic = uploadResponse.data.secure_url; // Get the image URL after successful upload
+      }
 
       await createUser(name, email, password, "founder", phone, profilePic);
       setRegistrationSuccessful(true);
@@ -179,25 +191,12 @@ const FounderLogin = () => {
     }
   };
   const handleProfilePicChange = (e) => {
-    const file = e.target.files[0]; // Get the uploaded file
-
-    // Upload to Cloudinary
+    const file = e.target.files[0];
     if (file) {
-      const imageFormData = new FormData();
-      imageFormData.append("file", file);
-      imageFormData.append("upload_preset", "uploadpreset");
-
-      axios
-        .post("https://api.cloudinary.com/v1_1/dhqmilgfz/upload", imageFormData)
-        .then((response) => {
-          setProfilePic(response.data.secure_url); // Set the uploaded image URL in state
-        })
-        .catch((error) => {
-          console.error("Failed to upload image:", error);
-          toast.error("Failed to upload profile picture.");
-        });
+      setProfilePic(URL.createObjectURL(file));
     }
   };
+
   const handleOTPSuccess = () => {
     toast.success("Phone number verified successfully! You can login Now");
     setShowOTPModal(false);
