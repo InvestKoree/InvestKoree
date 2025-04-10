@@ -157,7 +157,7 @@ const FounderLogin = () => {
 
     try {
       // 1. Upload profile picture to Cloudinary inside handleRegister
-      let profilePic = "";
+
       if (profilePicimg && typeof profilePicimg === "object") {
         const imageFormData = new FormData();
         imageFormData.append("file", profilePicimg);
