@@ -83,7 +83,7 @@ const FounderLogin = () => {
     const phone = form.get("u_signup_number");
     const password = form.get("u_signup_password");
     const confirmPassword = form.get("u_signup_cpassword");
-    const profilePic = form.get("u_signup_profile");
+    const profilePicimg = form.get("u_signup_profile");
 
     if (!isTermsAccepted) {
       setError("You must accept the terms and conditions to register.");
@@ -97,7 +97,7 @@ const FounderLogin = () => {
       !password ||
       !confirmPassword ||
       !phone ||
-      !profilePic
+      !profilePicimg
     ) {
       setError("All fields are required");
       setIsLoading((prev) => ({ ...prev, register: false }));
@@ -156,6 +156,8 @@ const FounderLogin = () => {
     }
 
     try {
+      // 1. Upload profile picture to Cloudinary
+
       await createUser(name, email, password, "founder", phone, profilePic);
       setRegistrationSuccessful(true);
       setPhoneNumber(phone);
@@ -177,12 +179,25 @@ const FounderLogin = () => {
     }
   };
   const handleProfilePicChange = (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files[0]; // Get the uploaded file
+
+    // Upload to Cloudinary
     if (file) {
-      setProfilePic(URL.createObjectURL(file));
+      const imageFormData = new FormData();
+      imageFormData.append("file", file);
+      imageFormData.append("upload_preset", "uploadpreset");
+
+      axios
+        .post("https://api.cloudinary.com/v1_1/dhqmilgfz/upload", imageFormData)
+        .then((response) => {
+          setProfilePic(response.data.secure_url); // Set the uploaded image URL in state
+        })
+        .catch((error) => {
+          console.error("Failed to upload image:", error);
+          toast.error("Failed to upload profile picture.");
+        });
     }
   };
-
   const handleOTPSuccess = () => {
     toast.success("Phone number verified successfully! You can login Now");
     setShowOTPModal(false);
