@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
 
       const result = await response.json();
       if (response.ok) {
-        const userData = { email, phone, role, profilePic };
+        const userData = { email, phone, role };
         setUser(userData);
         localStorage.setItem("token", result.token);
         setToken(result.token);
