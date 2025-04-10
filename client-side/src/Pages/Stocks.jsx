@@ -149,7 +149,7 @@ const Stocks = () => {
           <div className="fixed top-[100px] left-[5px] z-40">
             <label
               htmlFor="my-drawer-2"
-              className="btn bg-salmon text-white sticky drawer-button sm:mt-96 xs:mt-96 xxs:mt-96   transform transition-transform duration-300 ease-in-out delay-150 hover:scale-105"
+              className="btn bg-salmon text-white sticky drawer-button sm:mt-96 xs:mt-96 xxs:mt-96 lg:mt-0    transform transition-transform duration-300 ease-in-out delay-150 hover:scale-105"
             >
               <i className="fas fa-bars text-lg"></i>
             </label>
@@ -204,7 +204,7 @@ const Stocks = () => {
           </div>
         </div>
 
-        <div className="drawer-side z-40 sm:mt-32 xs:mt-32 xxs:mt-32">
+        <div className="drawer-side z-40 sm:mt-32 xs:mt-32 xxs:mt-32 lg:mt-0 ">
           <label
             htmlFor="my-drawer-2"
             aria-label="close sidebar"
