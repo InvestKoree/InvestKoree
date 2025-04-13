@@ -22,6 +22,8 @@ const FounderDashboard = () => {
             throw new Error(`Network response was not ok: ${response.status}`);
           }
           const data = await response.json();
+          console.log("Userdata:", userdata);
+
           setPosts(data);
           setError(null); // Reset error state on successful fetch
         } catch (error) {
