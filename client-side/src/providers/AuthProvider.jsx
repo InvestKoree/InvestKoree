@@ -121,7 +121,7 @@ export const AuthProvider = ({ children }) => {
           throw new Error(errorMessage); // Throw an error to stop further execution
         }
 
-        const userData = { email, userId, phone, role };
+        const userData = { email, userId, phone, role, profilePic };
         setUser(userData);
         localStorage.setItem("token", result.token);
         setToken(result.token);
@@ -159,7 +159,7 @@ export const AuthProvider = ({ children }) => {
           throw new Error(errorMessage); // Throw an error to stop further execution
         }
 
-        const userData = { email, userId, phone, role };
+        const userData = { email, userId, phone, role, profilePic };
         setUser(userData);
         localStorage.setItem("token", result.token);
         setToken(result.token);
