@@ -157,37 +157,24 @@ const FounderLogin = () => {
 
     try {
       // 1. Upload profile picture to Cloudinary inside handleRegister
-      let uploadedUrl = profilePic;
+
       if (profilePicimg && typeof profilePicimg === "object") {
         const imageFormData = new FormData();
         imageFormData.append("file", profilePicimg);
         imageFormData.append("upload_preset", "uploadpreset");
 
         const uploadResponse = await axios.post(
-          "https://api.cloudinary.com/v1_1/dhqmilgfz/upload",
+          "https://api.cloudinary.com/v1_1/dhqmilgfz/upload", // Cloudinary API URL
           imageFormData
         );
-        uploadedUrl = uploadResponse.data.secure_url;
+        profilePic = uploadResponse.data.secure_url;
+        // Get the image URL after successful upload
       }
 
-      // ✅ Call `createUser` only once here
-      await createUser(name, email, password, "founder", phone, uploadedUrl);
-
+      await createUser(name, email, password, "founder", phone, profilePic);
       setRegistrationSuccessful(true);
       setPhoneNumber(phone);
       setShowOTPModal(true);
-    } catch (err) {
-      if (
-        err.message.includes("duplicate key error") &&
-        (err.message.includes("email") || err.message.includes("phone"))
-      ) {
-        toast.error("Email or phone number already used");
-      } else {
-        toast.error(
-          "Registration failed: Email or phone number already in use"
-        );
-        setError("Registration failed: Email or phone number already in use");
-      }
     } finally {
       setIsLoading((prev) => ({ ...prev, register: false }));
     }
