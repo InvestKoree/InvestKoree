@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
+import axios from "axios";
 import OTPModal from "../../shared/OTPModal";
 import { toast } from "react-toastify";
 import Loader from "../../shared/Loader";
