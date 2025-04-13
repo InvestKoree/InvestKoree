@@ -9,6 +9,7 @@ const FounderDashboard = () => {
   const { userdata } = useAuth();
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [canPost, setCanPost] = useState(false);
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
@@ -35,6 +36,7 @@ const FounderDashboard = () => {
 
     fetchUserPosts();
   }, [userdata, t]);
+  const dp = userdata?.profilePic;
   console.log("Profile pic URL:", userdata?.profilePic);
   console.log("Userdata:", userdata); // Add here
   const handlePostClick = () => {
@@ -205,7 +207,7 @@ const FounderDashboard = () => {
             {userdata && (
               <li className="flex items-center gap-2 font-extrabold text-salmon ml-4 text-lg mb-2 rounded-lg">
                 <img
-                  src={userdata?.profilePic}
+                  src={dp}
                   alt="Profile"
                   className="w-8 h-8 rounded-full object-cover"
                 />
