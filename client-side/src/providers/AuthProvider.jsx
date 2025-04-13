@@ -79,6 +79,7 @@ export const AuthProvider = ({ children }) => {
         const errorMessage = result?.message || "Registration failed"; // Check for result.message
         throw new Error(errorMessage); // Throw the error if response is not OK
       }
+      console.log({ name, email, password, role, phone, profilePic });
 
       const userData = { email, phone, role };
       setUser(userData);
