@@ -164,13 +164,21 @@ const FounderLogin = () => {
       imageFormData.append("upload_preset", "uploadpreset");
 
       const uploadResponse = await axios.post(
-        "https://api.cloudinary.com/v1_1/dhqmilgfz/upload", // Cloudinary API URL
+        "https://api.cloudinary.com/v1_1/dhqmilgfz/upload",
         imageFormData
       );
-      profilePic = uploadResponse.data.secure_url;
-      // Get the image URL after successful upload
+      const uploadedImageUrl = uploadResponse.data.secure_url;
+      setProfilePic(uploadedImageUrl);
 
-      await createUser(name, email, password, "founder", phone, profilePic);
+      await createUser(
+        name,
+        email,
+        password,
+        "founder",
+        phone,
+        uploadedImageUrl
+      );
+
       setRegistrationSuccessful(true);
       setPhoneNumber(phone);
       setShowOTPModal(true);
