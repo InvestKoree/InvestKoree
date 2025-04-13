@@ -159,18 +159,16 @@ const FounderLogin = () => {
     try {
       // 1. Upload profile picture to Cloudinary inside handleRegister
 
-      if (profilePicimg && typeof profilePicimg === "object") {
-        const imageFormData = new FormData();
-        imageFormData.append("file", profilePicimg);
-        imageFormData.append("upload_preset", "uploadpreset");
+      const imageFormData = new FormData();
+      imageFormData.append("file", profilePicimg);
+      imageFormData.append("upload_preset", "uploadpreset");
 
-        const uploadResponse = await axios.post(
-          "https://api.cloudinary.com/v1_1/dhqmilgfz/upload", // Cloudinary API URL
-          imageFormData
-        );
-        profilePic = uploadResponse.data.secure_url;
-        // Get the image URL after successful upload
-      }
+      const uploadResponse = await axios.post(
+        "https://api.cloudinary.com/v1_1/dhqmilgfz/upload", // Cloudinary API URL
+        imageFormData
+      );
+      profilePic = uploadResponse.data.secure_url;
+      // Get the image URL after successful upload
 
       await createUser(name, email, password, "founder", phone, profilePic);
       setRegistrationSuccessful(true);
