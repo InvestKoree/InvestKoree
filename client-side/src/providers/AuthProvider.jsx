@@ -100,7 +100,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const foundersignIn = async (email, password, phone) => {
+  const foundersignIn = async (email, password, phone, profilePic) => {
     setLoading(true); // Set loading to true when sign-in starts
     try {
       const response = await fetch(`${API_URL}/users/auth/login`, {
@@ -138,7 +138,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const investorsignIn = async (email, password, phone) => {
+  const investorsignIn = async (email, password, phone, profilePic) => {
     setLoading(true); // Set loading to true when sign-in starts
     try {
       const response = await fetch(`${API_URL}/users/auth/login`, {
