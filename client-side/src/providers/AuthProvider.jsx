@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
       }
       console.log({ name, email, password, role, phone, profilePic });
 
-      const userData = { email, phone, role };
+      const userData = { email, phone, role, profilePic };
       setUser(userData);
       localStorage.setItem("token", result.token); // Store the token in localStorage
       setToken(result.token); // Set the token in state
