@@ -205,7 +205,7 @@ const FounderDashboard = () => {
             {userdata && (
               <li className="flex items-center gap-2 font-extrabold text-salmon ml-4 text-lg mb-2 rounded-lg">
                 <img
-                  src={userdata.profilePic}
+                  src={userdata?.profilePic}
                   alt="Profile"
                   className="w-8 h-8 rounded-full object-cover"
                 />
