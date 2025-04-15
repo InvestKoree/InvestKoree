@@ -205,13 +205,11 @@ const FounderDashboard = () => {
               {t("founder")}
             </li>
             {userdata && (
-              <li className="flex items-center gap-2 font-extrabold text-salmon ml-4 text-lg mb-2 rounded-lg">
-                <img
-                  src={dp}
-                  alt="Profile"
-                  className="w-8 h-8 rounded-full object-cover"
-                />
-              </li>
+              <img
+                src={dp}
+                alt="Profile"
+                className="w-8 h-8 rounded-full object-cover"
+              />
             )}
             {userdata && (
               <li className="font-extrabold text-salmon ml-4 text-lg mb-2 rounded-lg">
