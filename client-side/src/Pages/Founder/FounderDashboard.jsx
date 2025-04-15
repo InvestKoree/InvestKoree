@@ -208,7 +208,7 @@ const FounderDashboard = () => {
               <img
                 src={dp}
                 alt="Profile"
-                className="w-24 h-24 rounded-full lg:pl-4 flex justify-center items-center align-middle object-cover"
+                className="w-16 h-16 rounded-full lg:pl-4 flex justify-center  object-cover"
               />
             )}
             {userdata && (
