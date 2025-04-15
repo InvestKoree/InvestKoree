@@ -208,7 +208,7 @@ const FounderDashboard = () => {
               <img
                 src={dp}
                 alt="Profile"
-                className="w-8 h-8 rounded-full object-cover"
+                className="w-12 h-12 rounded-full object-cover"
               />
             )}
             {userdata && (
