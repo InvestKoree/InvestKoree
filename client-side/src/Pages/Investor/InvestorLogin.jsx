@@ -8,11 +8,13 @@ import { useAuth } from "../../providers/AuthProvider";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
 
 const InvestorLogin = () => {
   const { t } = useTranslation();
   const [phonenumber, setPhoneNumber] = useState("");
   const [showOTPModal, setShowOTPModal] = useState(false);
+  const [profilePic, setProfilePic] = useState(null);
   const [showPassword, setShowPassword] = useState({
     login: false,
     register: false,
@@ -24,7 +26,7 @@ const InvestorLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState({ login: false, register: false });
   const [registrationSuccessful, setRegistrationSuccessful] = useState(false); // New state for registration success
-  const navigate = useNavigate();
+  const profilePicimg = form.get("u_signup_profile");
 
   const togglePasswordVisibility = (field) => {
     setShowPassword((prev) => ({ ...prev, [field]: !prev[field] }));
@@ -147,25 +149,40 @@ const InvestorLogin = () => {
     }
 
     try {
-      await createUser(name, email, password, "investor", phone);
-      setRegistrationSuccessful(true); // Set registration success state
-      setPhoneNumber(phone); // Store the phone number to be used in OTP verification
-      setShowOTPModal(true); // Show OTP modal
-      navigate("/Investorlogin"); // Notify user
-    } catch (err) {
-      if (
-        err.message.includes("duplicate key error") &&
-        (err.message.includes("email") || err.message.includes("phone"))
-      ) {
-        toast.error("Email or phone number already used");
-      } else {
-        toast.error(
-          "Registration failed: Email or phone number already in use"
-        );
-        setError("Registration failed: Email or phone number already in use");
-      }
+      // 1. Upload profile picture to Cloudinary inside handleRegister
+
+      const imageFormData = new FormData();
+      imageFormData.append("file", profilePicimg);
+      imageFormData.append("upload_preset", "uploadpreset");
+
+      const uploadResponse = await axios.post(
+        "https://api.cloudinary.com/v1_1/dhqmilgfz/upload",
+        imageFormData
+      );
+      const uploadedImageUrl = uploadResponse.data.secure_url;
+      setProfilePic(uploadedImageUrl);
+
+      await createUser(
+        name,
+        email,
+        password,
+        "investor",
+        phone,
+        uploadedImageUrl
+      );
+
+      setRegistrationSuccessful(true);
+      setPhoneNumber(phone);
+      setShowOTPModal(true);
     } finally {
       setIsLoading((prev) => ({ ...prev, register: false }));
+    }
+  };
+
+  const handleProfilePicChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePic(URL.createObjectURL(file)); // Preview image
     }
   };
 
@@ -234,6 +251,29 @@ const InvestorLogin = () => {
               {t("sign_up")}
             </h2>
             {error && <p className="error-message">{error}</p>}
+            <div className="flex flex-col items-center justify-center">
+              <input
+                type="file"
+                accept="image/*"
+                id="profile-pic-upload"
+                name="u_signup_profile"
+                className="hidden"
+                onChange={handleProfilePicChange} // Handle image preview
+              />
+              <label htmlFor="profile-pic-upload" className="cursor-pointer">
+                <img
+                  src={
+                    profilePic ||
+                    "https://cdn-icons-png.flaticon.com/512/847/847969.png"
+                  } // Display profilePic state for preview
+                  alt="Profile"
+                  className="w-20 h-20 rounded-full border-2 border-gray-300 object-cover"
+                />
+                <p className="text-sm text-gray-500 mt-2 text-center">
+                  {t("choose_file")}
+                </p>
+              </label>
+            </div>
             <div className="input-field">
               <i className="fas fa-user"></i>
               <input

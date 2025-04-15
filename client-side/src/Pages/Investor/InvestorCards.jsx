@@ -15,6 +15,7 @@ const InvestorCards = () => {
       return newActiveCards;
     });
   };
+  const dp = userdata?.profilePic;
 
   return (
     <div>
@@ -117,6 +118,13 @@ const InvestorCards = () => {
             <li className="font-extrabold text-salmon ml-4 xs:mt-6 xxs:mt-6 sm:mt-6 text-lg mb-4 rounded-lg ">
               {t("investor")}
             </li>
+            {userdata && (
+              <img
+                src={dp}
+                alt="Profile"
+                className="w-16 h-16 rounded-full lg:ml-4 flex justify-center  object-cover"
+              />
+            )}
             {userdata && (
               <li className="font-extrabold text-salmon ml-4 text-lg mb-2 rounded-lg">
                 {t("investorwelcome")}

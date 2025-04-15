@@ -56,6 +56,7 @@ const InvestorWatchlist = () => {
   if (!userdata && !watchlist) {
     return <span className="loading loading-spinner loading-lg"></span>;
   }
+  const dp = userdata?.profilePic;
 
   return (
     <div>
@@ -145,6 +146,13 @@ const InvestorWatchlist = () => {
             <li className="font-extrabold text-salmon ml-4 xs:mt-6 xxs:mt-6 sm:mt-6 text-lg mb-4 rounded-lg ">
               {t("investor")}
             </li>
+            {userdata && (
+              <img
+                src={dp}
+                alt="Profile"
+                className="w-16 h-16 rounded-full lg:ml-4 flex justify-center  object-cover"
+              />
+            )}
             {userdata && (
               <li className="font-extrabold text-salmon ml-4 text-lg mb-2 rounded-lg">
                 {t("welcome")}

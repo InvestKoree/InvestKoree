@@ -43,6 +43,7 @@ const FounderPending = () => {
       toast.error(t("errorFetchingPosts") + error.message);
     }
   };
+  const dp = userdata?.profilePic;
 
   return (
     <div className="drawer lg:drawer-open">
@@ -139,6 +140,13 @@ const FounderPending = () => {
           <li className="font-extrabold text-salmon ml-4 text-lg mb-4 rounded-lg">
             {t("founder")}
           </li>
+          {userdata && (
+            <img
+              src={dp}
+              alt="Profile"
+              className="w-16 h-16 rounded-full lg:ml-4 flex justify-center  object-cover"
+            />
+          )}
           {userdata && (
             <li className="font-extrabold text-salmon ml-4 text-lg mb-2 rounded-lg">
               {t("founderwelcome")}
