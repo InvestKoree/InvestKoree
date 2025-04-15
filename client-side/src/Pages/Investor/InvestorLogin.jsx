@@ -26,7 +26,6 @@ const InvestorLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState({ login: false, register: false });
   const [registrationSuccessful, setRegistrationSuccessful] = useState(false); // New state for registration success
-  const profilePicimg = form.get("u_signup_profile");
 
   const togglePasswordVisibility = (field) => {
     setShowPassword((prev) => ({ ...prev, [field]: !prev[field] }));
@@ -79,6 +78,7 @@ const InvestorLogin = () => {
     setIsLoading((prev) => ({ ...prev, register: true }));
 
     const form = new FormData(e.currentTarget);
+    const profilePicimg = form.get("u_signup_profile");
     const name = form.get("u_signup_name");
     const email = form.get("u_signup_email");
     const phone = form.get("u_signup_number");
