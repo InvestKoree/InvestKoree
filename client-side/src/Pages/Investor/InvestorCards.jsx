@@ -122,7 +122,7 @@ const InvestorCards = () => {
               <img
                 src={dp}
                 alt="Profile"
-                className="w-16 h-16 rounded-full ml-4 flex justify-center  object-cover"
+                className="w-16 h-16 rounded-full lg:ml-4 xxs:ml-4 sm:ml-4 xs:ml-4  flex justify-center  object-cover"
               />
             )}
             {userdata && (
