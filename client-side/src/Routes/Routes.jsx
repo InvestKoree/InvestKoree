@@ -49,6 +49,7 @@ import Blog11 from "../Pages/Blogs/Blog11";
 import Blog12 from "../Pages/Blogs/Blog12";
 import Blog13 from "../Pages/Blogs/Blog13";
 import Blog14 from "../Pages/Blogs/Blog14";
+import Blog15 from "../Pages/Blogs/Blog15";
 
 export const router = createBrowserRouter([
   {
@@ -155,6 +156,10 @@ export const router = createBrowserRouter([
       {
         path: "/blogtwo",
         element: <BlogTwo></BlogTwo>,
+      },
+      {
+        path: "/blog15",
+        element: <Blog15></Blog15>,
       },
       {
         path: "/blogeight",

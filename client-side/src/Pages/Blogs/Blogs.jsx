@@ -13,6 +13,7 @@ import blog11 from "../../assets/blog11.png";
 import blog12 from "../../assets/blog12.jpg";
 import blog13 from "../../assets/blog13.png";
 import blog14 from "../../assets/blog14.jpg";
+import blog15 from "../../assets/blog15.jpeg";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 const Blogs = () => {
@@ -61,6 +62,9 @@ const Blogs = () => {
   };
   const handleShowMore14 = () => {
     navigate("/blog14");
+  };
+  const handleShowMore15 = () => {
+    navigate("/blog15");
   };
   return (
     <div>
@@ -460,11 +464,44 @@ const Blogs = () => {
                     কিভাবে বিনিয়োগকারীদের আকৃষ্ট করবেন: উদ্যোক্তাদের জন্য গাইড
                   </h2>
                   <p className="text-sm text-gray-700 mb-4 line-clamp-3">
-                    কিভাবে বিনিয়োগকারীদের আকৃষ্ট করবেন: উদ্যোক্তাদের জন্য গাইড
+                    আপনার ব্যবসা বাড়ানোর জন্য বিনিয়োগ দরকার, কিন্তু কীভাবে
+                    বিনিয়োগকারীদের আকৃষ্ট করবেন? অনেক উদ্যোক্তার জন্য এটি একটি
+                    বড় চ্যালেঞ্জ। সঠিক পরিকল্পনা এবং কৌশল থাকলে বিনিয়োগ পাওয়া
+                    সহজ হতে পারে। এই ব্লগে আমরা বিনিয়োগকারীদের আকৃষ্ট করার
+                    কার্যকর উপায় নিয়ে আলোচনা করবো। কিভাবে বিনিয়োগকারীদের
+                    আকৃষ্ট করবেন: উদ্যোক্তাদের জন্য গাইড
                   </p>
 
                   <button
                     onClick={handleShowMore14}
+                    className="mt-auto sm:mx-auto xxs:mx-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
+                  >
+                    {t("show_more")}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[400px] ">
+            <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
+              <div className="flex flex-col md:flex-row h-full p-4 bg-white">
+                <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[full] xxs:w-[full] xs:w-[full]  sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[30%] xxs:h-[30%] xs:h-[30%]">
+                  <img src={blog15} className=" w-full h-full rounded-md" />
+                </div>
+
+                <div className="lg:p-4 flex flex-col justify-between w-full md:w-1/2 ">
+                  <h2 className=" font-bold mb-2">
+                    কেন হালাল ইনভেস্টমেন্টই ভবিষ্যতের স্মার্ট ইনভেস্টমেন্ট?
+                  </h2>
+                  <p className="text-sm text-gray-700 mb-4 line-clamp-3">
+                    বর্তমান সময়ে ইনভেস্টমেন্ট শুধু লাভ বা লসের খেলার নাম নয়। এখন
+                    মানুষ খুঁজে নিচ্ছে এমন ইনভেস্টমেন্ট যেটা নৈতিক, টেকসই এবং
+                    আখিরাতের জন্য হালালও। ঠিক এখানেই হালাল ইনভেস্টমেন্ট হয়ে উঠছে
+                    ভবিষ্যতের স্মার্ট চয়েস।
+                  </p>
+
+                  <button
+                    onClick={handleShowMore15}
                     className="mt-auto sm:mx-auto xxs:mx-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     {t("show_more")}
