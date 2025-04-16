@@ -354,7 +354,7 @@ const Home = () => {
             </p>
             <ul className="max-w-4xl mx-auto space-y-8">
               {/* Service Item 1 */}
-              <li className=" rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <li className="p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <p className="text-2xl font-bold text-gray-900 mb-2">
                   {t("business_investor_matchmaking")} {/* Use translation */}
                 </p>
