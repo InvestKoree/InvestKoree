@@ -112,7 +112,7 @@ const InvestorPayments = () => {
               <img
                 src={dp}
                 alt="Profile"
-                className="w-24 h-24 rounded-full lg:ml-4 xxs:ml-4 sm:ml-4 xs:ml-4  flex justify-center  object-cover"
+                className="w-32 h-32 rounded-full lg:ml-4 xxs:ml-4 sm:ml-4 xs:ml-4  flex justify-center  object-cover"
               />
             )}
 
