@@ -66,11 +66,11 @@ const Shariah = () => {
     return filteredPosts.filter((post) => {
       const returnDate = new Date(post.returndate);
       if (activeTab === "ongoing") {
-        return returnDate.toDateString() > today.toDateString(); // Ongoing if return date is in the future
+        return returnDate > today; // Ongoing if return date is in the future
       } else if (activeTab === "soldOut") {
-        return returnDate.toDateString() < today.toDateString(); // Sold out if return date is today
+        return returnDate < today; // Sold out if return date is today
       } else if (activeTab === "upcoming") {
-        // Upcoming if return date is in the past
+        return false;
       }
       return true; // Default case
     });
