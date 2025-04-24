@@ -3,7 +3,7 @@ import http from 'http';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { Server } from 'socket.io';
-import emailRoutes from "./routes/email.js";
+// import emailRoutes from "./routes/email.js";
 // import multer from 'multer';
 // import { storage,gfsBucket } from './gridfs.js'; 
 import helmet from 'helmet'; // Import helmet
@@ -96,7 +96,7 @@ app.use(helmet.contentSecurityPolicy(cspOptions));
 const upload = multer({ storage: multer.memoryStorage() }); 
 // Routes
 app.use('/searchpost', search);
-app.use("/api/email", emailRoutes);
+// app.use("/api/email", emailRoutes);
 app.use('/users', signupRoute);
 app.use('/api',CheckDuplicate)
 app.use('/founderpost', founderPostRoute);

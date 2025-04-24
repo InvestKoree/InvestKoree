@@ -26,8 +26,8 @@ const InvestorLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState({ login: false, register: false });
   const [registrationSuccessful, setRegistrationSuccessful] = useState(false);
-  const [showForgotPassword, setShowForgotPassword] = useState(false);
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000"; // New state for registration success
+  // const [showForgotPassword, setShowForgotPassword] = useState(false);
+  // const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000"; // New state for registration success
 
   const togglePasswordVisibility = (field) => {
     setShowPassword((prev) => ({ ...prev, [field]: !prev[field] }));
@@ -173,10 +173,10 @@ const InvestorLogin = () => {
         phone,
         uploadedImageUrl
       );
-      await axios.post(`${API_URL}/api/email/send-registration-email`, {
-        to: email,
-        name: name,
-      });
+      // await axios.post(`${API_URL}/api/email/send-registration-email`, {
+      //   to: email,
+      //   name: name,
+      // });
 
       setRegistrationSuccessful(true);
       setPhoneNumber(phone);
@@ -247,14 +247,14 @@ const InvestorLogin = () => {
               className="login-btn solid lg:w-96 sm:w-36 xxs:w-24 xs:w-32 md:lg:w-80"
               disabled={isLoading.login}
             />
-            {showForgotPassword && (
+            {/* {showForgotPassword && (
               <p
                 className="text-sm text-blue-600 mt-2 cursor-pointer hover:underline"
                 onClick={() => navigate("/forgot-password")}
               >
                 Forgot Password?
               </p>
-            )}
+            )} */}
           </form>
 
           {/* Register Form */}
