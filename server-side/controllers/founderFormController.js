@@ -43,6 +43,7 @@ export const createFounderPost = async (req, res, uploadedUrls) => {
       additionalComments,
       returndate,
       projectedROI,
+      minInvestment,
       description,
       bkash,
       businessPictures: uploadedUrls.businessPictures || [],

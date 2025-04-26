@@ -33,6 +33,7 @@ const FounderPendingSchema = new mongoose.Schema({
   securityFile: { type: String, match: /^https?:\/\/.+\..+/ },
   financialFile: { type: String, match: /^https?:\/\/.+\..+/ },
   projectedROI: { type: String, required: true },
+  minInvestment: { type: String, required: true },
   returndate: { type: String, required: true },
   startDate: { type: Date, default: Date.now },
   video: { type: String, match: /^https?:\/\/.+\..+/ }

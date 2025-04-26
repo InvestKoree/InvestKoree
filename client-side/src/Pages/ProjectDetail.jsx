@@ -488,7 +488,7 @@ const ProjectDetail = () => {
                   {t("min_investment")} :
                 </td>
                 <td className="text-slate-500 xs:text-sm xxs:text-sm sm:text-sm p-2">
-                  5 lac
+                  {project.minInvestment}
                 </td>
               </tr>
               <tr className="border-b border-gray-300">

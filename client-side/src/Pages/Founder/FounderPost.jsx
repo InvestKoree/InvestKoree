@@ -28,6 +28,7 @@ const FounderPost = () => {
     projectedROI: "",
     returndate: "",
     bkash: "",
+    minInvestment: "",
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -707,6 +708,20 @@ const FounderPost = () => {
             value={formData.projectedROI}
             onChange={handleInputChange}
             placeholder={t("projected_roi_placeholder")}
+            className="textarea textarea-warning w-full max-w-xs"
+            required
+          ></textarea>
+        </label>
+        {/* Min Investment Amount */}
+        <label className="form-control my-3 w-full max-w-xs">
+          <div className="label">
+            <span className="label-text">{t("minInvestment")}</span>
+          </div>
+          <textarea
+            name="minInvestment"
+            value={formData.minInvestment}
+            onChange={handleInputChange}
+            placeholder={t("minInvestment")}
             className="textarea textarea-warning w-full max-w-xs"
             required
           ></textarea>

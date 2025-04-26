@@ -149,7 +149,7 @@ app.post('/adminpost/pendingpost',authToken, upload.fields([
       otherDocumentationOption, assets, revenue, fundingAmount, fundingHelp,
       returndate, projectedROI, returnPlan, businessSafety, additionalComments,
       description, businessPicture, nidCopy,  tinCopy, taxCopy, tradeLicense,
-       bankStatement, securityFile, financialFile, video,bkash
+       bankStatement, securityFile, financialFile, video,bkash,minInvestment
     } = req.body;
 
     // Validate that required fields are provided
@@ -179,6 +179,7 @@ app.post('/adminpost/pendingpost',authToken, upload.fields([
       additionalComments,
       returndate,
       projectedROI,
+      minInvestment,
       businessPicture,
       video, // Array of URLs from the frontend
       nidCopy,
@@ -246,7 +247,7 @@ app.put('/adminpost/pendingpost/:postId', authToken, upload.fields([
       investmentDuration, securityOption, otherSecurityOption, documentationOption,
       otherDocumentationOption, assets, revenue, fundingAmount, fundingHelp,
       returndate, projectedROI, returnPlan, businessSafety, additionalComments,
-      description,
+      description,minInvestment
     } = req.body;
 
     // Update the existing post with new data
@@ -271,6 +272,7 @@ app.put('/adminpost/pendingpost/:postId', authToken, upload.fields([
     existingPost.additionalComments = additionalComments;
     existingPost.returndate = returndate;
     existingPost.projectedROI = projectedROI;
+    existingPost.minInvestment = minInvestment;
     existingPost.bkash = bkash;
 
 
@@ -430,6 +432,7 @@ app.post('/adminpost/accept', async (req, res) => {
       securityFile: pendingPost.securityFile,
       financialFile: pendingPost.financialFile,
       projectedROI: pendingPost.projectedROI,
+      minInvestment: pendingPost.minInvestment,
       returndate: pendingPost.returndate,
       startDate: pendingPost.startDate,
       video:pendingPost.video,

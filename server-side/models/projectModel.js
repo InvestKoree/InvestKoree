@@ -39,6 +39,7 @@ const projectSchema = new mongoose.Schema({
   businessSafety: {
     type: String,
   },
+  minInvestment: { type: String, required: true },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
