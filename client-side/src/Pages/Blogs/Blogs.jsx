@@ -14,6 +14,7 @@ import blog12 from "../../assets/blog12.jpg";
 import blog13 from "../../assets/blog13.png";
 import blog14 from "../../assets/blog14.jpg";
 import blog15 from "../../assets/blog15.jpeg";
+import blog16 from "../../assets/blog16.png";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 const Blogs = () => {
@@ -65,6 +66,9 @@ const Blogs = () => {
   };
   const handleShowMore15 = () => {
     navigate("/blog15");
+  };
+  const handleShowMore16 = () => {
+    navigate("/blog16");
   };
   return (
     <div>
@@ -502,6 +506,38 @@ const Blogs = () => {
 
                   <button
                     onClick={handleShowMore15}
+                    className="mt-auto sm:mx-auto xxs:mx-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
+                  >
+                    {t("show_more")}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex lg:flex-row sm:flex-col xxs:flex-col xs:flex-col">
+          <div className="flex flex-col w-full md:w-1/3 p-4 lg:h-[400px] ">
+            <div className="flex flex-col h-full border rounded-lg overflow-hidden shadow-lg">
+              <div className="flex flex-col md:flex-row h-full p-4 bg-white">
+                <div className="lg:w-full md:w-1/2 h-64 md:h-auto sm:w-[full] xxs:w-[full] xs:w-[full]  sm:mb-2 xxs:mb-2 xs:mb-2 sm:h-[30%] xxs:h-[30%] xs:h-[30%]">
+                  <img src={blog16} className=" w-full h-full rounded-md" />
+                </div>
+
+                <div className="lg:p-4 flex flex-col justify-between w-full md:w-1/2 ">
+                  <h2 className=" font-bold mb-2">
+                    বাংলাদেশে বিনিয়োগের আগে সাবধান!
+                  </h2>
+                  <p className="text-sm text-gray-700 mb-4 line-clamp-3">
+                    বাংলাদেশে ব্যবসা করার অনেক সুযোগ থাকলেও, সব খাতে বিনিয়োগ
+                    লাভজনক নাও হতে পারে। পরিবর্তনশীল বাজার, প্রযুক্তিগত উন্নয়ন,
+                    এবং ভোক্তার অভ্যাস বিবেচনা করে কিছু ব্যবসা এখন ঝুঁকিপূর্ণ
+                    হিসেবে বিবেচিত। এখানে আমরা আলোচনা করবো এমন ৫টি ব্যবসা যা
+                    বর্তমানে বাংলাদেশে বিনিয়োগের জন্য বুদ্ধিমানের কাজ নাও হতে
+                    পারে।
+                  </p>
+
+                  <button
+                    onClick={handleShowMore16}
                     className="mt-auto sm:mx-auto xxs:mx-auto bg-salmon h-12 w-28 text-white px-2 py-2 rounded hover:bg-blue-600"
                   >
                     {t("show_more")}
