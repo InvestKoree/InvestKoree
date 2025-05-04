@@ -5,7 +5,7 @@ const Blog16 = () => {
       {/* Header Image */}
       <img
         src={blog1}
-        className="w-full h-[850px]  lg:object-cover rounded-lg mb-6"
+        className="w-full h-[85g0px]  lg:object-cover rounded-lg mb-6"
         alt="Blog Header"
       />
 
