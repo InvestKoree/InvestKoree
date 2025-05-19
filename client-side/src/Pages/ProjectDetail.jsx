@@ -519,7 +519,7 @@ const ProjectDetail = () => {
           </table>
         </div>
         {/* Accordion Section */}
-        <div className="mt-12 w-[80%] lg:w-[50%] xs:mb-4 xxs:mb-4 sm:mb-4 mx-auto z-0 ">
+        <div className="mt-12 w-[80%] lg:w-[50%] xs:mb-4 xxs:mb-4 sm:mb-4 mx-auto z-0 zindex ">
           <div className="collapse collapse-plus border border-base-300 rounded-box z-0">
             <input type="checkbox" className="peer z-0 " />
             <div className="collapse-title text-xl font-medium z-0">
