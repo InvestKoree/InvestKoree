@@ -521,7 +521,7 @@ const ProjectDetail = () => {
         {/* Accordion Section */}
         <div className="mt-12 w-[80%] lg:w-[50%] xs:mb-4 xxs:mb-4 sm:mb-4 mx-auto z-1">
           <div className="collapse collapse-plus border border-base-300 rounded-box z-1">
-            <input type="checkbox" className="peer" />
+            <input type="checkbox" className="peer z-1" />
             <div className="collapse-title text-xl font-medium">
               {t("funding_help")}
             </div>
@@ -531,7 +531,7 @@ const ProjectDetail = () => {
           </div>
 
           <div className="collapse collapse-plus border border-base-300 rounded-box mt-4 z-1">
-            <input type="checkbox" className="peer" />
+            <input type="checkbox" className="peer z-1" />
             <div className="collapse-title text-xl font-medium">
               {t("return_investment")}
             </div>
@@ -541,7 +541,7 @@ const ProjectDetail = () => {
           </div>
 
           <div className="collapse collapse-plus border border-base-300 rounded-box mt-4 z-1">
-            <input type="checkbox" className="peer" />
+            <input type="checkbox" className="peer z-1" />
             <div className="collapse-title text-xl font-medium">
               {t("business_safety")}
             </div>
