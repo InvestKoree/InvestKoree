@@ -457,7 +457,7 @@ const ProjectDetail = () => {
                   </div>
                 )}
                 <button
-                  className="btn btn-outline tooltip tooltip-bottom custom-tooltip hover:bg-salmon"
+                  className="btn btn-outline tooltip tooltip-bottom custom-tooltip z-0 hover:bg-salmon"
                   data-tip="Add to Watchlist"
                   onClick={handleAddToWatchlist}
                   disabled={isAddedToWatchlist}
