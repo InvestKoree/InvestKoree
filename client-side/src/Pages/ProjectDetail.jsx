@@ -395,7 +395,7 @@ const ProjectDetail = () => {
                   {t("invest")}
                 </button>
                 {isModalOpen && (
-                  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-99">
+                  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 sm:z-99 xs:z-99 xxs:z-99">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-96 relative">
                       {/* Close Button */}
                       <button
