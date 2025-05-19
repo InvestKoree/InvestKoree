@@ -1,3 +1,4 @@
+
 import founderPost from '../models/founderPostModel.js';
 import express from 'express';
 const router = express.Router();
