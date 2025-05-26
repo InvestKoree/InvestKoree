@@ -13,14 +13,15 @@ const FixedReturnPost = ({ item }) => {
     fundingAmount,
     businessName,
     businessPicture,
+    raisedAmount,
   } = item;
   const firstImage =
     businessPicture && businessPicture.length > 0
       ? `${businessPicture[0]}`
       : temp;
   // Calculate funding percentage for progress bar
-  const fundingPercentage = (50000 / fundingAmount) * 100;
-  const leftForFund = fundingAmount - 50000;
+  const fundingPercentage = (raisedAmount / fundingAmount) * 100;
+  const leftForFund = fundingAmount - raisedAmount;
 
   return (
     <div className="mx-auto">
@@ -45,20 +46,20 @@ const FixedReturnPost = ({ item }) => {
             </div>
             <h3 className="text-lg font-semibold mb-2">{businessName}</h3>
             <div className="flex flex-row my-4 justify-between">
-              <p className="">Funded: 0 tk</p>
-              <p className="">Left for fund: {fundingAmount}</p>
+              <p className="">Funded: {raisedAmount}tk</p>
+              <p className="">Left for fund: {leftForFund}tk</p>
             </div>
             <div className="mb-4">
               <div className="w-full bg-gray-200 rounded-full h-2.5 mb-2">
                 <div
                   className="bg-salmon h-2.5 rounded-full"
-                  style={{ width: `0%` }}
+                  style={{ width: `${Math.min(fundingPercentage, 100)}%` }}
                 ></div>
               </div>
               <div className="flex justify-between text-sm">
                 <div>
                   <i className="fas fa-box lg:mr-1 xxs:text-xs xs:text-xs sm-text-xs"></i>
-                  Raised: 0taka
+                  Raised: {raisedAmount}taka
                 </div>
                 <div>
                   <i className="fas fa-bullseye lg:mr-1 xxs:text-xs xs:text-xs sm-text-xs"></i>

@@ -144,6 +144,7 @@ const ProjectDetail = () => {
           `${API_URL}/founderpost/projectdetail/${id}`
         );
         const data = await response.json();
+        data.fundingPercentage = (data.raisedAmount / data.fundingAmount) * 100;
         setProject(data);
         checkIfAddedToWatchlist(data._id);
         fetchComments(data._id); // Fetch comments when project details are loaded
@@ -352,7 +353,9 @@ const ProjectDetail = () => {
               <div className="my-6">
                 <div className="flex lg:gap-8 xs:gap-4 xxs:gap-4 sm:gap-4">
                   <div className="bg-base-200 lg:p-4 xs:p-2 xxs:p-2 sm:p-2 xs:w-[25%] xxs:w-[25%] sm:w-[25%] flex flex-col lg:w-44 lg:h-20 rounded-lg xs:mx-auto xxs:mx-auto sm:mx-auto">
-                    <span className="text-salmon lg:text-2xl">0 Taka</span>
+                    <span className="text-salmon lg:text-2xl">
+                      {project.raisedAmount} Taka
+                    </span>
                     <div className="xs:text-sm xxs:text-sm sm:text-sm">
                       {t("raised")}
                     </div>
@@ -378,13 +381,15 @@ const ProjectDetail = () => {
                   <div
                     className="bg-salmon h-2.5 rounded-full"
                     style={{
-                      width: `${0}%`,
+                      width: `${Math.min(project.fundingPercentage, 100)}%`,
                     }}
                   ></div>
                 </div>
                 <div className="flex xs:ml-2 xxs:ml-2 sm:ml-2 lg:justify-between xs:justify-between xxs:justify-between sm:justify-between text-sm">
                   <div>{t("raised")}:</div>
-                  <div className="xs:mr-2 xxs:mr-2 sm:mr- 2">{0}%</div>
+                  <div className="xs:mr-2 xxs:mr-2 sm:mr- 2">
+                    {project.fundingPercentage}%
+                  </div>
                 </div>
               </div>
               <div className="flex flex-row items-center gap-4">

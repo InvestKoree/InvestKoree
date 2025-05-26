@@ -6,6 +6,10 @@ const founderPostSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  raisedAmount: {
+    type: String,
+    required: true
+  },
   
 fundingAmount: {
     type: String,
