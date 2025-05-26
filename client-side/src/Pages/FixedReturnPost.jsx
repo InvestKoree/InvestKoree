@@ -19,9 +19,17 @@ const FixedReturnPost = ({ item }) => {
     businessPicture && businessPicture.length > 0
       ? `${businessPicture[0]}`
       : temp;
-  // Calculate funding percentage for progress bar
-  const fundingPercentage = (raisedAmount / fundingAmount) * 100;
-  const leftForFund = fundingAmount - raisedAmount;
+  const safeNumber = (strOrNum) => {
+    if (typeof strOrNum === "string") {
+      return Number(strOrNum.replace(/,/g, ""));
+    }
+    return strOrNum;
+  };
+  const raisedAmountNum = safeNumber(raisedAmount);
+  const fundingAmountNum = safeNumber(fundingAmount);
+
+  const fundingPercentage = (raisedAmountNum / fundingAmountNum) * 100;
+  const leftForFund = fundingAmountNum - raisedAmountNum;
 
   return (
     <div className="mx-auto">

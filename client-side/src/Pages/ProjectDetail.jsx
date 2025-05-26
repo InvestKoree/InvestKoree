@@ -144,7 +144,18 @@ const ProjectDetail = () => {
           `${API_URL}/founderpost/projectdetail/${id}`
         );
         const data = await response.json();
-        data.fundingPercentage = (data.raisedAmount / data.fundingAmount) * 100;
+        // Helper function to sanitize numbers with commas
+        const sanitizeNumber = (value) => {
+          if (typeof value === "string") {
+            return Number(value.replace(/,/g, ""));
+          }
+          return value;
+        };
+
+        const raisedAmountNum = sanitizeNumber(data.raisedAmount);
+        const fundingAmountNum = sanitizeNumber(data.fundingAmount);
+
+        data.fundingPercentage = (raisedAmountNum / fundingAmountNum) * 100;
         setProject(data);
         checkIfAddedToWatchlist(data._id);
         fetchComments(data._id); // Fetch comments when project details are loaded

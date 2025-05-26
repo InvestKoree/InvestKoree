@@ -19,58 +19,17 @@ const LatestPost = ({ item }) => {
     businessPicture && businessPicture.length > 0
       ? `${businessPicture[0]}`
       : temp;
-  // const [imageUrls, setImageUrls] = useState([]);
-  // const [imageLoaded, setImageLoaded] = useState(false);
+  const safeNumber = (strOrNum) => {
+    if (typeof strOrNum === "string") {
+      return Number(strOrNum.replace(/,/g, ""));
+    }
+    return strOrNum;
+  };
+  const raisedAmountNum = safeNumber(raisedAmount);
+  const fundingAmountNum = safeNumber(fundingAmount);
 
-  // useEffect(() => {
-  //   const fetchImages = async () => {
-  //     console.log("Fetching images for filenames:", businessPictures);
-  //     const urls = await Promise.all(
-  //       businessPictures.map(async (filename) => {
-  //         try {
-  //           const trimmedFilename = filename.trim();
-  //           const response = await fetch(
-  //             `${API_URL}/images/filename/${trimmedFilename}`
-  //           );
-  //           if (response.ok) {
-  //             const blob = await response.blob();
-  //             return URL.createObjectURL(blob);
-  //           } else {
-  //             return null;
-  //           }
-  //         } catch (error) {
-  //           console.error(
-  //             `Error fetching image with filename ${filename}:`,
-  //             error
-  //           );
-  //           return null;
-  //         }
-  //       })
-  //     );
-  //     setImageUrls(urls.filter((url) => url));
-  //   };
-
-  //   if (businessPictures.length > 0) {
-  //     fetchImages();
-  //   }
-
-  //   return () => {
-  //     imageUrls.forEach((url) => URL.revokeObjectURL(url));
-  //   };
-  // }, [businessPictures]);
-
-  // useEffect(() => {
-  //   if (imageUrls.length > 0) {
-  //     const link = document.createElement("link");
-  //     link.rel = "preload";
-  //     link.href = imageUrls[0]; // Preload the first image
-  //     link.as = "image";
-  //     document.head.appendChild(link);
-  //   }
-  // }, [imageUrls]);
-
-  const fundingPercentage = (raisedAmount / fundingAmount) * 100;
-  const leftForFund = fundingAmount - raisedAmount;
+  const fundingPercentage = (raisedAmountNum / fundingAmountNum) * 100;
+  const leftForFund = fundingAmountNum - raisedAmountNum;
 
   return (
     <div className="mx-auto">
