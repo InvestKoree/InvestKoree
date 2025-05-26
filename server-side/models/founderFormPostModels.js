@@ -34,6 +34,10 @@ const founderPostSchema = new mongoose.Schema({
   minInvestment: { type: String, required: true },
   returndate: { type: String, required: true },
   startDate: { type: Date, default: Date.now },
+  raisedAmount: {
+    type: String,
+    required: true
+  },
   video: { type: String, match: /^https?:\/\/.+\..+/ }
 }, { timestamps: true });
 
