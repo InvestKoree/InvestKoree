@@ -52,6 +52,18 @@ function Footer() {
               </li>
             </ul>
           </nav>
+          <nav className="lg:mb-0">
+            <h6 className="footer-title opacity-100">
+              {t("business_information")}
+            </h6>
+            <ul className="list-none">
+              <li className="hover:text-white transition-colors duration-200">
+                <a className="link link-hover opacity-90" href="/overview">
+                  {t("trade")} : TRAD/DSCC/035991/2024
+                </a>
+              </li>
+            </ul>
+          </nav>
           <nav className="xxs:mx-auto xs:mx-auto sm-mx-auto lg:mx-0">
             <h6 className="footer-title opacity-100">{t("social")}</h6>
             <div className="flex flex-row gap-2">
